@@ -1,0 +1,106 @@
+@import url(https://fonts.googleapis.com/css2?family=Sacramento&display=swap);
+
+/* body {
+  font-family: 'Sacramento', handwriting;
+} */
+
+@import url(https://fonts.googleapis.com/css2?family=Passion+One:wght@100;200;300;400;500;600;800;900&display=swap);
+
+body {
+  font-family: "Passion One", display;
+}
+.hero-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 400px;
+  background-color: #fff8ee;
+  /* margin: 0; */
+  margin-top: 55px;
+
+  .text-anuncio {
+    margin-right: 10px;
+    /* width: 30%; */
+    p.nombre {
+      font-size: 60px;
+      font-family: "Passion One", display;
+      color: rgb(56, 58, 46);
+    }
+    p.info {
+      font-size: 50px;
+      cursor: pointer;
+      font-family: "Sacramento", handwriting;
+
+      &:hover {
+        color: dodgerblue;
+      }
+    }
+  }
+
+  .text-info {
+    font-size: 28px;
+    color: rgb(56, 58, 46);
+  }
+  p {
+    color: rgb(91, 95, 61);
+  }
+}
+.hero-img1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://scontent.cdninstagram.com/v/t39.30808-6/418498301_17857844400094225_2469692548030275635_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDEwODAuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=scontent.cdninstagram.com&_nc_cat=101&_nc_ohc=pts8JbAwF28Q7kNvgFKNa7f&_nc_gid=f93ea70d320349f6b849567c12d5bd36&edm=APs17CUAAAAA&ccb=7-5&ig_cache_key=MzI3ODgxMDIyMTExMTA1NTQ3NA%3D%3D.3-ccb7-5&oh=00_AYBb6UYtocIossiwPBlbw6IlcSls1HNt0_CByq6Tb15qtA&oe=66EE60A1&_nc_sid=10d13b");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 500px;
+  background-color: #fff8ee;
+  margin: 0;
+}
+.text {
+  margin-left: 20px;
+  margin-right: 300px;
+}
+
+.productos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7rem;
+  margin-top: 20px;
+}
+
+.producto-card {
+  border: dashed;
+  border: 1px solid #e4e4e4;
+  padding: 16px;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 220px;
+  margin-bottom: 20px;
+  background-color: rgb(255, 252, 247);
+}
+
+.p-card {
+  border: dashed;
+  width: 220px; /* Ajusta el tamaño de la tarjeta según sea necesario */
+}
+
+.header-content {
+  text-align: center;
+}
+
+.product-content {
+  text-align: center;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}

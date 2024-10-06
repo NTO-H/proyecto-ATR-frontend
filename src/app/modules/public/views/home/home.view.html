@@ -1,0 +1,120 @@
+<div class="hero-img">
+  <div class="text">
+    <h1 class="text-info">Welcome to Our Website!</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </div>
+
+  <div class="text-anuncio">
+    <p class="nombre">ATELIER</p>
+    <p class="info">Ven y visitanos</p>
+  </div>
+</div>
+
+<h1 style="text-align: center">Categorias</h1>
+<p style="text-align: center">Encuentra los mejores productos para tus eventos</p>
+<div class="cards">
+  <div class="card">
+    <h2 style="text-align: center">Vestidos</h2>
+    aperiam veniam repellat quasi iure quibusdam, autem temporibus amet
+  </div>
+  <div class="card">
+    <h2 style="text-align: center">Accesorios</h2>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores doloribus
+  </div>
+ 
+  <div class="card">
+    <h2 style="text-align: center">Combinaciones</h2>
+    aperiam veniam repellat quasi iure quibusdam, autem temporibus amet
+  </div>
+ 
+</div>
+
+<h1 style="text-align: center">Encuentra tu estilo</h1>
+
+<div class="productos-container">
+  <div *ngFor="let producto of productos" class="producto-card p-mb-4">
+    <!-- <div class="header-content">
+      <h3>{{ producto.nombre }}</h3>
+    </div> -->
+    <div class="product-image">
+      <img [src]="producto.imagen" alt="{{ producto.nombre }}" />
+    </div>
+    <div class="product-content">
+      <p>{{ producto.descripcion }}</p>
+      <p><strong>Precio:</strong> {{ producto.precio | currency }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="cards-info">
+  <div class="card">
+    <img src="https://via.placeholder.com/100" alt="Vestidos" class="card-image">
+    <h2 style="text-align: center">Vestidos</h2>
+    En ATELIER nos aseguramos de que recibas esa prenda que durará un largo tiempo.
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/100" alt="Accesorios" class="card-image">
+    <h2 style="text-align: center">Accesorios</h2>
+    Nuestro sistema está protegido para que realices tu compra sin preocupaciones, Elige tu método de pago más cómodo.
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/100" alt="Combinaciones" class="card-image">
+    <h2 style="text-align: center">Combinaciones</h2>
+    Nuestros catálogos siempre están actualizados a la temporada.
+  </div>
+</div>
+
+
+<style>
+  .cards {
+    display: flex;
+    flex-direction: row;
+    border: dashed;
+    /* gap: 50px; */
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    /* padding: 20px; */
+    /* margin-inline: 0vw; */
+    /* padding-inline: 5vw; */
+    .card {
+      max-width: 350px;
+      height: 180px;
+      background-color: #fff8ee;
+      border: dashed;
+      /* width: 400px; */
+      /* height: 150px; */
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+  }
+  .cards-info {
+    display: flex;
+    flex-direction: row;
+    /* border: dashed; */
+    /* gap: 50px; */
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    /* padding: 20px; */
+    /* margin-inline: 0vw; */
+    /* padding-inline: 5vw; */
+    .card {
+      img{
+        align-items: center;
+        border-radius: 50px;
+        width: 50px;
+      }
+      max-width: 350px;
+      /* height: 180px; */
+      background-color: transparent;
+      /* border: dashed; */
+      /* width: 400px; */
+      /* height: 150px; */
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+
