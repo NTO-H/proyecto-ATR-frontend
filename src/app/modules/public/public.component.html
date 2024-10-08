@@ -1,4 +1,15 @@
-<header class="app-header" [ngClass]="{ scrolled: isScrolled }">
+<pre>
+  {{sidebarVisible|json}}
+</pre>
+<p-sidebar [(visible)]="sidebarVisible" position="right">
+  <h3>Sidebar</h3>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</p-sidebar>
+<header class="app-header" [ngClass]="{ scrolled: isScrolled }" *ngIf="!isMobile">
   <div class="social-header">
     <div class="contacto">
        
@@ -47,6 +58,10 @@
     </ul>
   </nav>
 </header>
+
+<button (click)="sidebarVisible = true" type="button" class="menu-button">
+  <i class="fas fa-bars"></i>
+</button>
 
 <main class="content-all">
   <router-outlet></router-outlet>

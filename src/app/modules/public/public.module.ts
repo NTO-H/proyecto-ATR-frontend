@@ -6,18 +6,17 @@ import { PublicRoutingModule } from './public-routing.module';
 import { PublicComponent } from './public.component';
 import { HomeView } from './views/home/home.view';
 import { DialogModule } from 'primeng/dialog';
+import { SidebarModule } from 'primeng/sidebar';
+// import {  } from '@angular/platform-browser/animations';
 
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-const UTILS =[CardModule,ButtonModule,DialogModule]
+const COMPONENTS =[CardModule,ButtonModule,DialogModule,SidebarModule]
 const VIEWS=[HomeView]
 @NgModule({
   declarations: [VIEWS,PublicComponent],
-  imports: [UTILS,
+  imports: [
     CommonModule,
-    PublicRoutingModule
+    PublicRoutingModule, ...COMPONENTS
   ]
 })
 export class PublicModule {

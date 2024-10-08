@@ -292,3 +292,41 @@ justify-content: space-between;
     }
   }
 }
+
+
+/* Estilo general para el botón */
+.menu-button {
+  background-color: #007bff;       /* Color de fondo azul */
+  color: white;                    /* Color del texto blanco */
+  border: none;                    /* Sin borde */
+  padding: 10px 16px;              /* Espaciado interno */
+  font-size: 18px;                 /* Tamaño de fuente */
+  cursor: pointer;                 /* Cursor de mano al pasar por encima */
+  display: inline-flex;            /* Para centrar el ícono */
+  align-items: center;             /* Alinear verticalmente ícono y texto */
+  border-radius: 4px;              /* Bordes redondeados */
+  transition: background-color 0.3s ease;  /* Transición suave al cambiar el color */
+}
+
+/* Estilo para el ícono de Font Awesome */
+.menu-button i {
+  margin-right: 8px;               /* Espaciado entre el ícono y el texto */
+  font-size: 24px;                 /* Tamaño del ícono */
+}
+
+/* Estilo al pasar el mouse sobre el botón */
+.menu-button:hover {
+  background-color: #0056b3;       /* Color de fondo más oscuro en hover */
+}
+
+/* Estilo al hacer clic */
+.menu-button:active {
+  background-color: #003d80;       /* Aún más oscuro cuando se hace clic */
+  transform: scale(0.98);          /* Ligeramente más pequeño al hacer clic */
+}
+
+/* Estilo para enfoque (accesibilidad) */
+.menu-button:focus {
+  outline: none;                   /* Quitar borde de enfoque por defecto */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);  /* Añadir sombra para indicar el enfoque */
+}
