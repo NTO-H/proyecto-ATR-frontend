@@ -1,8 +1,8 @@
 {
-  "name": "frontend",
+  "name": "Atelier",
   "short_name": "frontend",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#EDE4DB",
+  "background_color": "#EDE4DB",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
