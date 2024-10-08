@@ -11,6 +11,8 @@ body {
 }
 .hero-img {
   display: flex;
+  border: dashed green;
+
   align-items: center;
   justify-content: center;
   background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png");
@@ -23,7 +25,10 @@ body {
   /* margin: 0; */
   margin-top: 55px;
 
+  /* !hacer responsive */
   .text-anuncio {
+    border: dashed yellow;
+
     margin-right: 10px;
     /* width: 30%; */
     p.nombre {
@@ -62,7 +67,10 @@ body {
   background-color: #fff8ee;
   margin: 0;
 }
+
+/* !hacer responsive */
 .text {
+  border: dashed rebeccapurple;
   margin-left: 20px;
   margin-right: 300px;
 }
@@ -103,4 +111,98 @@ body {
   height: auto;
   border-radius: 2px;
   margin-bottom: 16px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  border: dashed;
+  /* gap: 50px; */
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  /* padding: 20px; */
+  /* margin-inline: 0vw; */
+  /* padding-inline: 5vw; */
+  .card {
+    max-width: 350px;
+    height: 180px;
+    background-color: #fff8ee;
+    border: dashed;
+    /* width: 400px; */
+    /* height: 150px; */
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+}
+.cards-info {
+  display: flex;
+  flex-direction: row;
+  /* border: dashed; */
+  /* gap: 50px; */
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  /* padding: 20px; */
+  /* margin-inline: 0vw; */
+  /* padding-inline: 5vw; */
+  .card {
+    img{
+      align-items: center;
+      border-radius: 50px;
+      width: 50px;
+    }
+    max-width: 350px;
+    /* height: 180px; */
+    background-color: transparent;
+    /* border: dashed; */
+    /* width: 400px; */
+    /* height: 150px; */
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+}
+
+
+/* ajustes responsives */
+@media (max-width: 600px) {
+  .hero-img {
+    backdrop-filter: brightness(40%);
+
+    align-items: center;
+    display: flex;
+    /* width: ; */
+    /* margin: 0; */
+    .text-anuncio {
+      background-color: #e4e4e43d;
+      /* filter: blur(3px); */
+
+      /* filter: ; */
+      backdrop-filter: blur(1px);
+      border: none;
+      border-radius: 10px;
+      padding: 5px;
+      /* border: dashed red; */
+
+      /* display: none; */
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .text {
+      border: dashed rgb(0, 234, 255);
+      display: none;
+    }
+  }
+
+  .cards {
+    display: none;
+    /* flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+     */
+  }
+
+  .cards-info {
+    display: none;
+  }
 }

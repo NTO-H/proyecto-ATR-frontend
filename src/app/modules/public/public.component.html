@@ -1,7 +1,5 @@
-<pre>
-  {{sidebarVisible|json}}
-</pre>
-<p-sidebar [(visible)]="sidebarVisible" position="right">
+
+<p-sidebar [(visible)]="sidebarVisible" position="left">
   <h3>Sidebar</h3>
   <ul>
     <li><a href="#">Home</a></li>
@@ -9,7 +7,7 @@
     <li><a href="#">Contact</a></li>
   </ul>
 </p-sidebar>
-<header class="app-header" [ngClass]="{ scrolled: isScrolled }" *ngIf="!isMobile">
+<header class="app-header" [ngClass]="{ scrolled: isScrolled }">
   <div class="social-header">
     <div class="contacto">
        
@@ -31,8 +29,7 @@
       <a
         href="https://instagram.com"
         target="_blank"
-        class="social-icon instagram"
-      >
+        class="social-icon instagram">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
@@ -59,9 +56,9 @@
   </nav>
 </header>
 
-<button (click)="sidebarVisible = true" type="button" class="menu-button">
+<!-- <button *ngIf="isMobile" (click)="sidebarVisible = true" type="button" class="menu-button">
   <i class="fas fa-bars"></i>
-</button>
+</button> -->
 
 <main class="content-all">
   <router-outlet></router-outlet>

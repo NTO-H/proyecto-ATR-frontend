@@ -33,9 +33,6 @@
 
 <div class="productos-container">
   <div *ngFor="let producto of productos" class="producto-card p-mb-4">
-    <!-- <div class="header-content">
-      <h3>{{ producto.nombre }}</h3>
-    </div> -->
     <div class="product-image">
       <img [src]="producto.imagen" alt="{{ producto.nombre }}" />
     </div>
@@ -64,57 +61,5 @@
   </div>
 </div>
 
-
-<style>
-  .cards {
-    display: flex;
-    flex-direction: row;
-    border: dashed;
-    /* gap: 50px; */
-    align-items: center;
-    justify-content: center;
-    justify-content: space-between;
-    /* padding: 20px; */
-    /* margin-inline: 0vw; */
-    /* padding-inline: 5vw; */
-    .card {
-      max-width: 350px;
-      height: 180px;
-      background-color: #fff8ee;
-      border: dashed;
-      /* width: 400px; */
-      /* height: 150px; */
-      padding: 20px;
-      flex-wrap: wrap;
-    }
-  }
-  .cards-info {
-    display: flex;
-    flex-direction: row;
-    /* border: dashed; */
-    /* gap: 50px; */
-    align-items: center;
-    justify-content: center;
-    justify-content: space-between;
-    /* padding: 20px; */
-    /* margin-inline: 0vw; */
-    /* padding-inline: 5vw; */
-    .card {
-      img{
-        align-items: center;
-        border-radius: 50px;
-        width: 50px;
-      }
-      max-width: 350px;
-      /* height: 180px; */
-      background-color: transparent;
-      /* border: dashed; */
-      /* width: 400px; */
-      /* height: 150px; */
-      padding: 20px;
-      flex-wrap: wrap;
-    }
-  }
-</style>
 
 
