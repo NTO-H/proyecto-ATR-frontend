@@ -53,10 +53,6 @@
   </header>
 
   <body>
-   
-    <main class="content-all">
-      <router-outlet></router-outlet>
-    </main>
     <p-sidebar
     [(visible)]="sidebarVisible"
     position="right"
@@ -69,6 +65,10 @@
     </ul>
   </p-sidebar>
 
+    <main class="content-all">
+      <router-outlet></router-outlet>
+    </main>
+    
   </body>
   
   <footer class="app-footer">
