@@ -349,7 +349,11 @@ main{
 
 /* Para pantallas pequeñas, como móviles */
 @media only screen and (max-width: 768px) {
-
+  .scrolled {
+    /* background-color: #ffffffaf; */
+    /* backdrop-filter: blur(1px); */
+    box-shadow: none;
+  }
 .app-header {
     background-color: #EDE4DB;
     /* color: $text-color; */
