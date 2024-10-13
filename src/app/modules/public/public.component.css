@@ -156,7 +156,7 @@ main{
 /* // Header styles */
 .app-header {
   z-index: 1 !important;
-  background-color: #EDE4DB;
+  background-color: transparent;
   /* color: $text-color; */
 
   position: fixed;
@@ -351,11 +351,13 @@ main{
 @media only screen and (max-width: 768px) {
 
 .app-header {
+    background-color: #EDE4DB;
+    /* color: $text-color; */
   /* margin-bottom:50%; */
   .nav-bar {
     
     /* border: dashed red; */
-margin: 5px;
+/* margin: 5px; */
     .logo {
     
     }
