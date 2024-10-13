@@ -12,7 +12,6 @@ body {
 .hero-img {
   display: flex;
   border: dashed green;
-
   align-items: center;
   justify-content: center;
   background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png");
@@ -83,14 +82,18 @@ body {
 }
 
 .producto-card {
-  border: dashed;
+  /* border: dashed; */
   border: 1px solid #e4e4e4;
   padding: 16px;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 220px;
+  box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
+  max-width: 250px;
   margin-bottom: 20px;
   background-color: rgb(255, 252, 247);
+  &:hover {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .p-card {
@@ -147,7 +150,7 @@ body {
   /* margin-inline: 0vw; */
   /* padding-inline: 5vw; */
   .card {
-    img{
+    img {
       align-items: center;
       border-radius: 50px;
       width: 50px;
@@ -163,12 +166,11 @@ body {
   }
 }
 
-
 /* ajustes responsives */
 @media (max-width: 600px) {
   .hero-img {
     backdrop-filter: brightness(40%);
-
+    border: dashed red;
     align-items: center;
     display: flex;
     /* width: ; */

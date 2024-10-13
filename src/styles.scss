@@ -3,7 +3,26 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
-
-body{
+body {
+    user-select: none; /* Evita la selección de texto */
     margin: 0;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+::selection {
+    pointer-events: none;
+    background: transparent; /* Sin fondo en la selección */
+    color: inherit; /* Mantiene el color original del texto */
+}
+
+
+.p-component-overlay {
+    position: fixed;
+    // top: 0;
+    // left: 0;
+    // width: 100%;
+    // height: 100%;
+
 }

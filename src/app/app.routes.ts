@@ -8,6 +8,10 @@ export const routes: Routes = [
   },
   {
     path: 'public',
-    loadChildren: () => import('../app/modules/public/public.module').then(m => m.PublicModule)      
+    loadChildren: () => import('../app/modules/public/public.module').then(m => m.PublicModule)
   },
+
+
+
+  
 ];

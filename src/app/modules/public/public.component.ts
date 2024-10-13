@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,11 @@ export class PublicComponent implements OnInit {
   visible: boolean = false;
   sidebarVisible: boolean = false;
   isMobile: boolean = false;
+
+constructor(private router:Router){
+
+}
+
   ngOnInit(): void {
     this.showDialog();
     const ua = navigator.userAgent;
@@ -54,8 +59,23 @@ export class PublicComponent implements OnInit {
     }
   }
 
+
+
+
+  redirectTo(route: string): void {
+
+    // this.sidebarVisible2 = !this.sidebarVisible2
+    console.log(route)
+    if (route === 'login') {
+      this.router.navigate(['/auth/login']) // Navegación hacia la página de inicio de sesión
+    } else {
+      this.router.navigate(['/public', route]) // Navegación hacia otras páginas públicas
+    }
+  }
+
+
   showDialog() {
-    this.visible = true;
+    this.sidebarVisible =true;
   }
   // Detecta el scroll del usuario
   @HostListener('window:scroll', [])
