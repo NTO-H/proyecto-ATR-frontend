@@ -38,7 +38,7 @@ main{
   /* border: dashed blue; */
   padding-top: 5px;
   margin-bottom: -20px;
-
+  margin-right: 20px;
   .contacto {
     margin-left: 15px;
     gap: 15px;

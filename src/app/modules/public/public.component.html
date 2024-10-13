@@ -34,7 +34,7 @@
       <div class="logo zoom"></div>
       <ul *ngIf="!isMobile" class="nav-menu">
         <li><a href="#">Home</a></li>
-        <li><a (click)="showDialog()">Login</a></li>
+        
         <li><a (click)="redirectTo('Sign-in')">Login</a></li>
         <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li>
       </ul>
@@ -43,10 +43,10 @@
           <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
         </li>
         <li>
-          <a href="#" class="nav-icon"><i class="fas fa-user"></i></a>
+          <a href="#" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
         </li>
         <li>
-          <a href="#" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+          <a tabindex="0" (click)="showDialog()" class="nav-icon"><i class="fa-solid fa-bars-staggered"></i></a>
         </li>
       </ul>
     </nav>
