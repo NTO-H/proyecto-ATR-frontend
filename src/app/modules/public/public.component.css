@@ -382,7 +382,7 @@ main{
 
     .nav-menu {
       
-      border: dashed rgb(81, 255, 0);
+      /* border: dashed rgb(81, 255, 0); */
 margin-right: 10px;
 gap: 5px;
 

@@ -32,11 +32,11 @@
     </div>
     <nav class="nav-bar">
       <div class="logo zoom"></div>
-      <ul class="nav-menu">
-        <!-- <li><a href="#">Home</a></li> -->
+      <ul *ngIf="!isMobile" class="nav-menu">
+        <li><a href="#">Home</a></li>
         <li><a (click)="showDialog()">Login</a></li>
-        <!-- <li><a (click)="redirectTo('Sign-in')">Login</a></li> -->
-        <!-- <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li> -->
+        <li><a (click)="redirectTo('Sign-in')">Login</a></li>
+        <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li>
       </ul>
       <ul class="nav-accion">
         <li>
