@@ -18,7 +18,7 @@ div.container-form {
 
     a.go-back {
       text-decoration: none;
-      color: fuchsia;
+      color: #e91e63;
       font-size: 14px;
       font-weight: bold;
       display: flex;
@@ -62,9 +62,9 @@ div.container-form {
 
       &:focus {
         outline: none;
-        border-color: fuchsia;
+        border-color: #e91e63;
         background-color: #f5f5f5;
-        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Fucsia para el enfoque */
+        box-shadow: 0 0 10px #ff83ad; /* Fucsia para el enfoque */
       }
     }
 
@@ -73,7 +73,7 @@ div.container-form {
       padding: 10px;
       width: 100%; /* Ocupa el 100% del contenedor */
       height: 40px;
-      background-color: fuchsia;
+      background-color: #e91e63;
       color: white;
       border: none;
       border-radius: 5px;
@@ -82,7 +82,7 @@ div.container-form {
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: darkmagenta;
+        background-color: #a40037;
       }
     }
 
@@ -93,7 +93,7 @@ div.container-form {
       width: 100%; /* Se adapta al ancho del formulario */
 
       a {
-        color: fuchsia;
+        color: #e91e63;
         text-decoration: none;
         font-size: 16px;
 
