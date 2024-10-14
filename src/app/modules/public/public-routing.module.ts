@@ -5,6 +5,7 @@ import path from 'path';
 import { PublicComponent } from './public.component';
 import { SignInView } from './views/sign-in/sign-in.view';
 import { SignUpView } from './views/sign-up/sign-up.view';
+import { AcercaDeView } from './views/acerca-de/acerca-de.view';
 
 const routes: Routes = [
   {
@@ -39,7 +40,22 @@ const routes: Routes = [
         //     },
         //   ],
         },
-      }]
+      
+      },
+      {
+        path: 'AcercaDe',
+        component: AcercaDeView,
+        data: {
+          title: 'AcercaDe',
+          breadcrumb: [
+            {
+              label: 'AcercaDe',
+              path: '/public/AcercaDe',
+            },
+          ],
+        },
+      },
+    ]
   },
   { path: 'Sign-in', component: SignInView },
   { path: 'Sign-up', component: SignUpView }
