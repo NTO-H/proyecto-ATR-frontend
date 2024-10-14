@@ -1,134 +1,150 @@
 <!-- <body> -->
- 
-  <header class="app-header" [ngClass]="{ scrolled: isScrolled }">
-    <div class="social-header">
-      <div class="contacto">
-        <p><i class="fa-brands fa-whatsapp"></i> TEL(52):7713491211</p>
-        <p><i class="fa-regular fa-envelope-open"></i> EMAIL:nican</p>
-      </div>
-      <div class="redes">
-        <a
-          href="https://facebook.com"
-          target="_blank"
-          class="social-icon facebook"
-        >
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a
-          href="https://twitter.com"
-          target="_blank"
-          class="social-icon twitter"
-        >
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a
-          href="https://instagram.com"
-          target="_blank"
-          class="social-icon instagram"
-        >
-          <i class="fab fa-instagram"></i>
-        </a>
-      </div>
-    </div>
-    <nav class="nav-bar">
-      <div class="logo zoom"></div>
-      <ul *ngIf="!isMobile" class="nav-menu">
-        <li><a href="#">Home</a></li>
-        
-        <li><a (click)="redirectTo('Sign-in')">Login</a></li>
-        <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li>
-      </ul>
-      <ul class="nav-accion">
-        <li>
-          <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
-        </li>
-        <li>
-          <a href="#" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
-        </li>
-        <li>
-          <a tabindex="0" (click)="showDialog()" class="nav-icon"><i class="fa-solid fa-bars-staggered"></i></a>
-        </li>
-      </ul>
-    </nav>
-  </header>
 
-  <body>
-    <p-sidebar
-    [(visible)]="sidebarVisible"
-    position="left"
-  >
-    <h3>Sidebar</h3>
-    <ul>
-      <li><a >Home</a></li>
-      <li><a tabindex="0" (click)="redirectTo('Sign-in')">iniciar sesión </a></li>
-      <li><a tabindex="0" (click)="redirectTo('Sign-up')">Registrarme</a></li>
-      <li><a tabindex="0" (click)="redirectTo('AcercaDe')">Acerca de Atelier</a></li>
+<header class="app-header" [ngClass]="{ scrolled: isScrolled }">
+  <div class="social-header">
+    <div class="contacto">
+      <p><i class="fa-brands fa-whatsapp"></i> TEL(52):7713491211</p>
+      <p><i class="fa-regular fa-envelope-open"></i> EMAIL:nican</p>
+    </div>
+    <div class="redes">
+      <a
+        href="https://facebook.com"
+        target="_blank"
+        class="social-icon facebook"
+      >
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="social-icon twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a
+        href="https://instagram.com"
+        target="_blank"
+        class="social-icon instagram"
+      >
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </div>
+  <nav class="nav-bar">
+    <div class="logo zoom"></div>
+    <ul *ngIf="!isMobile" class="nav-menu">
+      <li><a href="#">Home</a></li>
+
+      <li><a (click)="redirectTo('Sign-in')">Login</a></li>
+      <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li>
     </ul>
-  </p-sidebar>
+    <ul class="nav-accion">
+      <li>
+        <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
+      </li>
+      <li>
+        <a href="#" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+      </li>
+      <li>
+        <a tabindex="0" (click)="showDialog()" class="nav-icon"
+          ><i class="fa-solid fa-bars-staggered"></i
+        ></a>
+      </li>
+    </ul>
+  </nav>
+</header>
 
-    <main class="content-all">
-      <router-outlet></router-outlet>
-    </main>
-    
-  </body>
-  
-  <footer class="app-footer">
-    <div *ngIf="!isMobile"  class="footer-section">
-      <div class="footer-column">
-        <h3>Contacto</h3>
-        <p>(55) 4757 5597</p>
-        <p><a href="mailto:ventas@yourcompany.com">ventasourcompany.com</a></p>
-        <div class="social-icons">
-          <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
-        </div>
-        <p>&copy; 2024 Your Company</p>
-      </div>
+<body>
+  <p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="w-30rem">
+    <ng-template pTemplate="header">
+        <span class="font-semibold text-xl">Atelier</span>
+    </ng-template>
 
-      <div class="footer-column">
-        <h3>Categorías</h3>
+    <div class="menu-content">
         <ul>
-          <li><a href="#">Básico</a></li>
-          <li><a href="#">Cocktail / Fiesta</a></li>
-          <li><a href="#">Gala</a></li>
-          <li><a href="#">Graduación</a></li>
-          <li><a href="#">Novias & Damas de honor</a></li>
-          <li><a href="#">Mamás & Madrinas</a></li>
-          <li><a href="#">Curvy</a></li>
-          <li><a href="#">Exclusivo Online</a></li>
+            <li>
+                <a tabindex="0" (click)="redirectTo('Home')">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                <a tabindex="0" (click)="redirectTo('Sign-in')">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                </a>
+            </li>
+            <li>
+                <a tabindex="0" (click)="redirectTo('Sign-up')">
+                    <i class="fas fa-user-plus"></i> Registrarme
+                </a>
+            </li>
+            <li>
+                <a tabindex="0" (click)="redirectTo('AcercaDe')">
+                    <i class="fas fa-info-circle"></i> Acerca de Atelier
+                </a>
+            </li>
         </ul>
-      </div>
+    </div>
+</p-sidebar>
 
-      <div class="footer-column">
-        <h3>Información</h3>
-        <ul>
-          <li><a href="#">Agenda tu cita</a></li>
-          <li><a href="#">Acerca de nosotros</a></li>
-          <li><a href="#">Guía de tallas</a></li>
-          <li><a href="#">Boutiques</a></li>
-          <li><a href="#">Preguntas frecuentes</a></li>
-          <li><a href="#">Bolsa de trabajo</a></li>
-          <li><a href="#">Términos y condiciones</a></li>
-          <li><a href="#">Aviso de privacidad</a></li>
-        </ul>
-      </div>
 
-      <div class="footer-column">
-        <h3>Mi Cuenta</h3>
-        <ul>
-          <li><a href="#">Mis órdenes</a></li>
-          <li><a href="#">Mis direcciones</a></li>
-          <li><a href="#">Detalles de cuenta</a></li>
-        </ul>
+  <main class="content-all">
+    <router-outlet></router-outlet>
+  </main>
+</body>
+
+<footer class="app-footer">
+  <div *ngIf="!isMobile" class="footer-section">
+    <div class="footer-column">
+      <h3>Contacto</h3>
+      <p>(55) 4757 5597</p>
+      <p><a href="mailto:ventas@yourcompany.com">ventasourcompany.com</a></p>
+      <div class="social-icons">
+        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
       </div>
+      <p>&copy; 2024 Your Company</p>
     </div>
 
-    <div class="payment-icons">
-      <!-- <img src="path-to-visa-icon" alt="Visa"> -->
-      <!-- <img src="path-to-mastercard-icon" alt="MasterCard"> -->
-      <!-- <img src="path-to-amex-icon" alt="American Express"> -->
+    <div class="footer-column">
+      <h3>Categorías</h3>
+      <ul>
+        <li><a href="#">Básico</a></li>
+        <li><a href="#">Cocktail / Fiesta</a></li>
+        <li><a href="#">Gala</a></li>
+        <li><a href="#">Graduación</a></li>
+        <li><a href="#">Novias & Damas de honor</a></li>
+        <li><a href="#">Mamás & Madrinas</a></li>
+        <li><a href="#">Curvy</a></li>
+        <li><a href="#">Exclusivo Online</a></li>
+      </ul>
     </div>
-  </footer>
+
+    <div class="footer-column">
+      <h3>Información</h3>
+      <ul>
+        <li><a href="#">Agenda tu cita</a></li>
+        <li><a href="#">Acerca de nosotros</a></li>
+        <li><a href="#">Guía de tallas</a></li>
+        <li><a href="#">Boutiques</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Bolsa de trabajo</a></li>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Aviso de privacidad</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Mi Cuenta</h3>
+      <ul>
+        <li><a href="#">Mis órdenes</a></li>
+        <li><a href="#">Mis direcciones</a></li>
+        <li><a href="#">Detalles de cuenta</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="payment-icons">
+    <!-- <img src="path-to-visa-icon" alt="Visa"> -->
+    <!-- <img src="path-to-mastercard-icon" alt="MasterCard"> -->
+    <!-- <img src="path-to-amex-icon" alt="American Express"> -->
+  </div>
+</footer>
 <!-- </body> -->

@@ -153,6 +153,44 @@ main{
   }
 }
 
+@layer primeng {
+  .p-sidebar .p-sidebar-header {
+    padding: 1.25rem;
+    background: antiquewhite;
+  }
+}
+p-sidebar {
+  .menu-content {
+      padding: 20px;
+
+      ul {
+          list-style: none; /* Elimina los puntos de la lista */
+          padding: 0;
+
+          li {
+              margin-bottom: 20px;
+
+              a {
+                  text-decoration: none;
+                  font-size: 18px;
+                  color: #333;
+                  display: flex;
+                  align-items: center;
+
+                  i {
+                      margin-right: 10px; /* Espacio entre el ícono y el texto */
+                      color: #e91e63; /* Color del ícono */
+                  }
+
+                  &:hover {
+                      color: #e91e63; /* Cambia el color del texto al pasar el mouse */
+                  }
+              }
+          }
+      }
+  }
+}
+
 /* // Header styles */
 .app-header {
   z-index: 1 !important;
