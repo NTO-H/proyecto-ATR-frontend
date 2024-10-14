@@ -18,12 +18,11 @@ body {
 }
 /* @import url(https://fonts.googleapis.com/css2?family=Italiana&display=swap); */
 /* @import url(https://fonts.googleapis.com/css2?family=PT+Serif:wght@100;200;300;400;500;600;700&display=swap); */
-main{
+main {
   /* user-select: none; */
   margin-top: 2%;
   /* border: dashed; */
   /* z-index: 999; */
-
 }
 .content-all {
   padding: 20px;
@@ -153,41 +152,37 @@ main{
   }
 }
 
-@layer primeng {
-  .p-sidebar .p-sidebar-header {
-    padding: 1.25rem;
-    background: antiquewhite;
-  }
+/* @layer primeng { */
+.p-sidebar .p-sidebar-header {
+  padding: 1.25rem;
+  background: antiquewhite;
 }
+/* } */
 p-sidebar {
   .menu-content {
-      padding: 20px;
+    padding: 20px;
 
-      ul {
-          list-style: none; /* Elimina los puntos de la lista */
-          padding: 0;
+    ul {
+      list-style: none; /* Elimina los puntos de la lista */
+      padding: 0;
 
-          li {
-              margin-bottom: 20px;
+      li {
+        margin-bottom: 20px;
 
-              a {
-                  text-decoration: none;
-                  font-size: 18px;
-                  color: #333;
-                  display: flex;
-                  align-items: center;
+        a {
+          text-decoration: none;
+          font-size: 18px;
+          color: #333;
+          display: flex;
+          align-items: center;
 
-                  i {
-                      margin-right: 10px; /* Espacio entre el ícono y el texto */
-                      color: #e91e63; /* Color del ícono */
-                  }
-
-                  &:hover {
-                      color: #e91e63; /* Cambia el color del texto al pasar el mouse */
-                  }
-              }
+          i {
+            margin-right: 10px; /* Espacio entre el ícono y el texto */
+            color: #333; /* Color del ícono */
           }
+        }
       }
+    }
   }
 }
 
@@ -291,7 +286,6 @@ p-sidebar {
   }
 }
 
-
 .scrolled {
   .social-header {
     opacity: 1;
@@ -392,56 +386,44 @@ p-sidebar {
     /* backdrop-filter: blur(1px); */
     box-shadow: none;
   }
-.app-header {
-    background-color: #EDE4DB;
+  .app-header {
+    background-color: #ede4db;
     /* color: $text-color; */
-  /* margin-bottom:50%; */
-  .nav-bar {
-    
-    /* border: dashed red; */
-/* margin: 5px; */
-    .logo {
-    
-    }
-
-    .nav-accion {
-
-      li {
-        
+    /* margin-bottom:50%; */
+    .nav-bar {
+      /* border: dashed red; */
+      /* margin: 5px; */
+      .logo {
       }
-      
-      a {
-      }
-      
-      .nav-icon {
-        i {
+
+      .nav-accion {
+        li {
         }
 
-        &:hover i {
-        }
-      }
-    }
-
-    .nav-menu {
-      
-      /* border: dashed rgb(81, 255, 0); */
-margin-right: 10px;
-gap: 5px;
-
-      li {
         a {
-          
-         
+        }
+
+        .nav-icon {
+          i {
+          }
+
+          &:hover i {
+          }
+        }
+      }
+
+      .nav-menu {
+        /* border: dashed rgb(81, 255, 0); */
+        margin-right: 10px;
+        gap: 5px;
+
+        li {
+          a {
+          }
         }
       }
     }
   }
-}
-
-
-
-
-
 
   /* Estilos para pantallas más pequeñas van aquí */
 }
