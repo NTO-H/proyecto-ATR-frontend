@@ -170,7 +170,8 @@ body {
 @media (max-width: 600px) {
   .hero-img {
     backdrop-filter: brightness(40%);
-    border: dashed red;
+    /* border: dashed red; */
+    border: none;
     align-items: center;
     display: flex;
     /* width: ; */
