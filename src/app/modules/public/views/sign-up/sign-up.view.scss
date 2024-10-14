@@ -1,6 +1,7 @@
 div.container-form {
   margin: 0 auto; /* Centramos el contenedor */
-  margin-top: 20px;
+  margin-top: 5%;
+
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -13,8 +14,13 @@ div.container-form {
   user-select: none; /* Estándar */
 
   .back-button {
+    position: fixed; /* Fijo para que siempre esté visible en la pantalla */
+    top: 20px; /* Distancia desde el borde superior */
+    left: 20px; /* Distancia desde el borde izquierdo */
+    z-index: 1000; /* Asegura que esté encima de otros componentes */
+    
     align-self: flex-start;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
 
     a.go-back {
       text-decoration: none;
@@ -104,7 +110,8 @@ div.container-form {
     }
   }
   .logo-container {
-    margin-bottom: 20px;
+    border: dashed;
+    // margin-bottom: 20px;
   }
 
   .logo {

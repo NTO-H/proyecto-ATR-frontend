@@ -10,7 +10,10 @@ export const routes: Routes = [
     path: 'public',
     loadChildren: () => import('../app/modules/public/public.module').then(m => m.PublicModule)
   },
-
+  {
+    path: '**', // Ruta wildcard para capturar cualquier otra ruta no definida
+    redirectTo: 'public', // Redirige a la ruta 'public'
+  },
 
 
   
