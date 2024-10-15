@@ -19,7 +19,6 @@ constructor(private router:Router){
 }
 
   ngOnInit(): void {
-    this.showDialog();
     const ua = navigator.userAgent;
     console.log(ua);
 

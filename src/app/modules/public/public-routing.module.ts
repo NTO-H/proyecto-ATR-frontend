@@ -6,6 +6,7 @@ import { PublicComponent } from './public.component';
 import { SignInView } from './views/sign-in/sign-in.view';
 import { SignUpView } from './views/sign-up/sign-up.view';
 import { AcercaDeView } from './views/acerca-de/acerca-de.view';
+import { RecuperarPasswordView } from './views/recuperar-password/recuperar-password.view';
 
 const routes: Routes = [
   {
@@ -55,10 +56,11 @@ const routes: Routes = [
           ],
         },
       },
+      { path: 'forgot-password', component: RecuperarPasswordView }
     ]
   },
   { path: 'Sign-in', component: SignInView },
-  { path: 'Sign-up', component: SignUpView }
+  { path: 'Sign-up', component: SignUpView },
 ];
 
 @NgModule({
