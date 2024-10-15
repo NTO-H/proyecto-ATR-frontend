@@ -39,7 +39,7 @@
   margin-bottom: -20px;
   margin-right: 20px;
   .contacto {
-    margin-left: 15px;
+    margin-left: 20px;
     gap: 15px;
     display: flex;
     flex-direction: row;
@@ -49,6 +49,12 @@
     p {
       cursor: pointer;
 
+      i.fa-whatsapp{
+        color: green;
+      }
+      i.fa-envelope-open{
+        color: red;
+      }
       font-size: small;
       &:hover {
         color: #1da1f2;
