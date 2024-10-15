@@ -1,10 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
-
+import { AuthComponent } from './auth.component';
+// import { IniciarSesionView } from './view/iniciar-sesion/iniciar-sesion.view';
+import { SignInView } from './view/sign-in/sign-in.view';
+import { SignUpView } from './view/sign-up/sign-up.view';
+import { RecuperarPasswordView } from './view/recuperar-password/recuperar-password.view';
+const routes: Routes = [
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: 'Sign-in', component: SignInView },
+      { path: 'Sign-up', component: SignUpView },
+      { path: 'forgot-password', component: RecuperarPasswordView },
+    ],
+  },
+];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {}

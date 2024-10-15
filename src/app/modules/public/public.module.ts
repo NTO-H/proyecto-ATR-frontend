@@ -5,20 +5,22 @@ import { ButtonModule } from 'primeng/button';
 import { PublicRoutingModule } from './public-routing.module';
 import { PublicComponent } from './public.component';
 import { HomeView } from './views/home/home.view';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 // import {  } from './views/acerca-de/acerca-de.view';
 import { AcercaDeView } from './views/acerca-de/acerca-de.view';
-// import {  } from '@angular/platform-browser/animations';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 
-
-const COMPONENTS =[CardModule,ButtonModule,DialogModule,SidebarModule]
+const MATERIALS =[CardModule,ButtonModule,DialogModule,SidebarModule]
+const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent, AcercaDeView]
 @NgModule({
-  declarations: [VIEWS],
+  declarations: [VIEWS,COMPONENTS],
   imports: [
-    CommonModule,
-    PublicRoutingModule, ...COMPONENTS
+    CommonModule,ReactiveFormsModule,FormsModule,
+    PublicRoutingModule, ...MATERIALS,
   ]
 })
 export class PublicModule {

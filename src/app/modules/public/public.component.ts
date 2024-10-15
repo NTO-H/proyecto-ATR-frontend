@@ -73,17 +73,14 @@ constructor(private router:Router){
   }
 
 
-  showDialog() {
-    this.sidebarVisible =true;
-  }
-  // Detecta el scroll del usuario
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollPosition =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-    this.isScrolled = scrollPosition > 10;
-  }
+  // // Detecta el scroll del usuario
+  // @HostListener('window:scroll', [])
+  // onWindowScroll() {
+  //   const scrollPosition =
+  //     window.pageYOffset ||
+  //     document.documentElement.scrollTop ||
+  //     document.body.scrollTop ||
+  //     0;
+  //   this.isScrolled = scrollPosition > 10;
+  // }
 }

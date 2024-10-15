@@ -1,0 +1,21 @@
+ .header {
+     position: fixed;
+     top: 0;
+     width: 100%;
+     background: transparent;
+     color: #fff;
+     text-align: center;
+     padding: 10px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+     z-index: 1000;
+ }
+
+ .header a {
+     color: #414e62;
+     text-decoration: none;
+ }
+
+ .header a:hover {
+     text-decoration: underline;
+ }

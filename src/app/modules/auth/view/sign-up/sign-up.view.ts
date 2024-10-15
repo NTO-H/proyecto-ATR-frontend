@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sign-up',
-  standalone: true,
-  imports: [],
+  standalone: false,
   templateUrl: './sign-up.view.html',
   styleUrl: './sign-up.view.scss'
 })

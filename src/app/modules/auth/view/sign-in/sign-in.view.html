@@ -1,0 +1,27 @@
+<div class="container-form">
+    <!-- Botón para ir atrás con icono de FontAwesome -->
+    <div class="back-button">
+        <a routerLink="/public/home" class="go-back">
+            <i class="fas fa-arrow-left"></i> Ir atrás
+        </a>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
+        <div>
+        </div>
+
+        <label for="usuario" class="">Nombre de usuario</label>
+        <input type="text" placeholder="Introduce tu nombre de usuario" formControlName="email" id="usuario" required />
+        
+        <label for="pass" class="">Contraseña</label>
+        <input type="password" placeholder="Introduce tu contraseña" formControlName="password1" id="pass" required />
+        
+        <button type="submit" [disabled]="loading">Iniciar Sesión</button>
+
+        <!-- Opciones adicionales -->
+        <div class="options">
+            <a (click)="redirectTo('forgot-password')" class="forgot-password">Olvidé mi contraseña</a>
+            <a href="#" class="create-account">Crear una cuenta nueva</a>
+        </div>
+    </form>
+</div>
