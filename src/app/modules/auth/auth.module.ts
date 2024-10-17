@@ -17,12 +17,19 @@ import { RouterModule } from '@angular/router';
 import { SignUpService } from './commons/services/sign-up.service';
 // import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { RecuperarPasswordView } from './view/recuperar-password/recuperar-password.view';
+import { mensageservice } from '../../shared/services/mensage.service';
+import { UsuarioService } from '../../shared/services/usuario.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AuthComponent,
     SignInView,
     // IniciarSesionView,
     SignUpView,
+    RecuperarPasswordView,
     // SignUpComponent
     // SignUpComponent,
   ],
@@ -32,10 +39,12 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     FormsModule,
     ReactiveFormsModule,
     AuthRoutingModule,
-  
+    // BrowserAnimationsModule, // Asegúrate de incluir esto
+
+    ToastrModule.forRoot() // Importa ToastrModule aquí
     // NgxUiLoaderModule.forRoot({}),
 
   ],
-  providers: [SignInService, provideHttpClient(withInterceptorsFromDi())],
+  providers: [SignInService,mensageservice,UsuarioService,ToastrService,MessageService,ConfirmationService, provideHttpClient(withInterceptorsFromDi())],
 })
 export class AuthModule {}

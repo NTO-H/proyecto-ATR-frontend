@@ -12,10 +12,18 @@
 
         <label for="usuario" class="">Nombre de usuario</label>
         <input type="text" placeholder="Introduce tu nombre de usuario" formControlName="email" id="usuario" required />
-        
+
         <label for="pass" class="">Contraseña</label>
         <input type="password" placeholder="Introduce tu contraseña" formControlName="password1" id="pass" required />
-        
+    
+        <div
+  class="g-recaptcha"
+  data-sitekey="your_site_key"
+  [data-size]="'normal'"
+  (resolved)="onCaptchaResolved($event)"
+></div>
+
+
         <button type="submit" [disabled]="loading">Iniciar Sesión</button>
 
         <!-- Opciones adicionales -->

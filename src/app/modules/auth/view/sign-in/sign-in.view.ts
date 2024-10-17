@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { SignInService } from '../../commons/services/sign-in.service';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { SessionService } from '../../../../shared/services/session.service';
+import { ReCaptchaV2Service } from 'ng-recaptcha';
 import { ERol } from "../../../../shared/constants/rol.enum";
 
 @Component({
@@ -22,6 +23,7 @@ export class SignInView {
   constructor(
     private signInService: SignInService,
     private storageService: StorageService,
+    private recaptchaV2Service: ReCaptchaV2Service,
     private sessionService: SessionService,
     private fb: FormBuilder,
     private router: Router
@@ -31,6 +33,16 @@ export class SignInView {
       password1: ["", Validators.required],
     });
   }
+
+
+  // Inject the service in the constructor
+  
+  // Implement a callback for reCAPTCHA v2 resolution
+  onCaptchaResolved(response: string): void {
+    // Use the response token as needed
+    console.log('reCAPTCHA v2 Response:', response);
+  }
+
 
   redirectTo(route: string): void {
     if (route === 'login') {
