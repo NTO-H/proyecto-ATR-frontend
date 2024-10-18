@@ -8,7 +8,7 @@ import { SessionService } from '../../../../shared/services/session.service';
 // import { ReCaptchaV2Service } from 'ng-recaptcha';
 import { ERol } from '../../../../shared/constants/rol.enum';
 // import { ReCaptchaV3Service } from 'ng-recaptcha';
-import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
+// import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -43,7 +43,7 @@ export class SignInView implements OnInit {
     private fb: FormBuilder,
     private router: Router,
 private messageService: MessageService,
-    private httpService: RecaptchaService,
+    // private httpService: RecaptchaService,
     // private recaptchaV3Service: ReCaptchaV3Service
   ) {
     this.loginForm = this.fb.group({

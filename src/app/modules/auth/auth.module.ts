@@ -29,7 +29,7 @@ import { DividerModule } from 'primeng/divider';
 
 // import {CaptchaModule} from 'primeng/captcha';
 // import { RECAPTCHA_V3_SITE_KEY, RecaptchaLoaderService, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
-import { RecaptchaService } from '../../shared/services/recaptcha.service';
+// import { RecaptchaService } from '../../shared/services/recaptcha.service';
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
@@ -40,18 +40,18 @@ import { InputTextModule } from 'primeng/inputtext';
     SignUpView,
     RecuperarPasswordView,
     SignInView,
-    // SignUpComponent
+    
     // SignUpComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,DividerModule,
-    ReactiveFormsModule
-    
+    ReactiveFormsModule,
+    AuthRoutingModule
     ,PasswordModule,InputMaskModule,InputTextModule,
     // BrowserAnimationsModule, // Asegúrate de incluir esto
-    HttpClientModule ,
+    // HttpClientModule ,
     ToastrModule.forRoot(),  // Importa ToastrModule aquí
     // NgxUiLoaderModule.forRoot({}),
   ],

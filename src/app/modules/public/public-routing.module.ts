@@ -6,6 +6,8 @@ import { PublicComponent } from './public.component';
 // import { SignInView } from './views/sign-in/sign-in.view';
 // import { SignUpView } from './views/sign-up/sign-up.view';
 import { AcercaDeView } from './views/acerca-de/acerca-de.view';
+import { SignInView } from '../auth/view/sign-in/sign-in.view';
+import { SignUpView } from '../auth/view/sign-up/sign-up.view';
 // import { RecuperarPasswordView } from './views/recuperar-password/recuperar-password.view';
 
 const routes: Routes = [
