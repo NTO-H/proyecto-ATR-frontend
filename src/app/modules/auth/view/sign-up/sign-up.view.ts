@@ -98,22 +98,8 @@ coincidenPasswords: boolean = true;
     //   Swal.fire('Error', 'Por favor ingresa tu email', 'error');
     //   return;
     // }
-    // if (!purificadora) {
-    //   Swal.fire('Error', 'Por favor ingresa el nombre de la purifiadora', 'error');
-    //   return;
-    // }
-    // if (!calle) {
-    //   Swal.fire('Error', 'Por favor ingresa tu calle', 'error');
-    //   return;
-    // }
-    // if (!longitud) {
-    //   Swal.fire('Error', 'Por favor ingresa tu longitud', 'error');
-    //   return;
-    // }
-    // if (!latitud) {
-    //   Swal.fire('Error', 'Por favor ingresa tu latitud', 'error');
-    //   return;
-    // }
+ 
+    
     // if (!telefono) {
     //   Swal.fire('Error', 'Por favor ingresa tu telefono', 'error');
     //   return;

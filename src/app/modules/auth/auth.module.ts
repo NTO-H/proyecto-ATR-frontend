@@ -28,7 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DividerModule } from 'primeng/divider';
 
 // import {CaptchaModule} from 'primeng/captcha';
-import { RECAPTCHA_V3_SITE_KEY, RecaptchaLoaderService, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
+// import { RECAPTCHA_V3_SITE_KEY, RecaptchaLoaderService, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { RecaptchaService } from '../../shared/services/recaptcha.service';
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -36,10 +36,10 @@ import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
   declarations: [
     AuthComponent,
-    SignInView,
     // IniciarSesionView,
     SignUpView,
     RecuperarPasswordView,
+    SignInView,
     // SignUpComponent
     // SignUpComponent,
   ],
@@ -47,23 +47,22 @@ import { InputTextModule } from 'primeng/inputtext';
     CommonModule,
     RouterModule,
     FormsModule,DividerModule,
-    ReactiveFormsModule,
-    AuthRoutingModule,PasswordModule,InputMaskModule,InputTextModule,
+    ReactiveFormsModule
+    
+    ,PasswordModule,InputMaskModule,InputTextModule,
     // BrowserAnimationsModule, // Asegúrate de incluir esto
     HttpClientModule ,
     ToastrModule.forRoot(),  // Importa ToastrModule aquí
     // NgxUiLoaderModule.forRoot({}),
   ],
   providers: [
-    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LdBsWMqAAAAAAkHOGSNK6S81AGtqac1Y_w8Pnm1' },
+    // { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LdBsWMqAAAAAAkHOGSNK6S81AGtqac1Y_w8Pnm1' },
     SignInService,
     mensageservice,
     UsuarioService,
-    ReCaptchaV3Service,
-    RecaptchaLoaderService,
     ToastrService,
     MessageService,
-    ConfirmationService,RecaptchaService,
+    ConfirmationService,
     provideHttpClient(withInterceptorsFromDi()),
   ],
 })

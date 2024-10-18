@@ -7,7 +7,7 @@ import { StorageService } from '../../../../shared/services/storage.service';
 import { SessionService } from '../../../../shared/services/session.service';
 // import { ReCaptchaV2Service } from 'ng-recaptcha';
 import { ERol } from '../../../../shared/constants/rol.enum';
-import { ReCaptchaV3Service } from 'ng-recaptcha';
+// import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
 import { MessageService } from 'primeng/api';
 
@@ -44,7 +44,7 @@ export class SignInView implements OnInit {
     private router: Router,
 private messageService: MessageService,
     private httpService: RecaptchaService,
-    private recaptchaV3Service: ReCaptchaV3Service
+    // private recaptchaV3Service: ReCaptchaV3Service
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
@@ -57,35 +57,35 @@ private messageService: MessageService,
       this.messageService.add({severity:'info', summary:'Succees', detail: 'User Responded', sticky: true});
   }
   // Inject the service in the constructor
-  getInfoRecaptcha() {
-    this.robot = true;
-    this.presionado = true;
-    this.recaptchaV3Service.execute('').subscribe((token) => {
-      const auxiliar = this.httpService.getTokenClientModule(token);
-      auxiliar.subscribe({
-        complete: () => {
-          this.presionado = false;
-        },
-        error: () => {
-          this.presionado = false;
-          this.robot = true;
-          alert(
-            'Tenemos un problema, recarga la página página para solucionarlo o contacta con 1938web@gmail.com'
-          );
-        },
-        next: (resultado: Boolean) => {
-          if (resultado === true) {
-            this.presionado = false;
-            this.robot = false;
-          } else {
-            alert('Error en el captcha. Eres un robot');
-            this.presionado = false;
-            this.robot = true;
-          }
-        },
-      });
-    });
-  }
+  // getInfoRecaptcha() {
+  //   this.robot = true;
+  //   this.presionado = true;
+  //   this.recaptchaV3Service.execute('').subscribe((token) => {
+  //     const auxiliar = this.httpService.getTokenClientModule(token);
+  //     auxiliar.subscribe({
+  //       complete: () => {
+  //         this.presionado = false;
+  //       },
+  //       error: () => {
+  //         this.presionado = false;
+  //         this.robot = true;
+  //         alert(
+  //           'Tenemos un problema, recarga la página página para solucionarlo o contacta con 1938web@gmail.com'
+  //         );
+  //       },
+  //       next: (resultado: Boolean) => {
+  //         if (resultado === true) {
+  //           this.presionado = false;
+  //           this.robot = false;
+  //         } else {
+  //           alert('Error en el captcha. Eres un robot');
+  //           this.presionado = false;
+  //           this.robot = true;
+  //         }
+  //       },
+  //     });
+  //   });
+  // }
   // Implement a callback for reCAPTCHA v2 resolution
   // onCaptchaResolved(response: string): void {
   //   // Use the response token as needed
