@@ -11,7 +11,7 @@ body {
 }
 .hero-img {
   display: flex;
-  border: dashed green;
+  /* border: dashed green; */
   align-items: center;
   justify-content: center;
   background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png");
@@ -26,7 +26,7 @@ body {
 
   /* !hacer responsive */
   .text-anuncio {
-    border: dashed yellow;
+    /* border: dashed yellow; */
 
     margin-right: 10px;
     /* width: 30%; */
@@ -69,7 +69,7 @@ body {
 
 /* !hacer responsive */
 .text {
-  border: dashed rebeccapurple;
+  /* border: dashed rebeccapurple; */
   margin-left: 20px;
   margin-right: 300px;
 }
@@ -119,7 +119,7 @@ body {
 .cards {
   display: flex;
   flex-direction: row;
-  border: dashed;
+  /* border: dashed; */
   /* gap: 50px; */
   align-items: center;
   justify-content: center;
@@ -131,7 +131,7 @@ body {
     max-width: 350px;
     height: 180px;
     background-color: #fff8ee;
-    border: dashed;
+    /* border: dashed; */
     /* width: 400px; */
     /* height: 150px; */
     padding: 20px;
@@ -192,7 +192,7 @@ body {
       margin-right: 0;
     }
     .text {
-      border: dashed rgb(0, 234, 255);
+      /* border: dashed rgb(0, 234, 255); */
       display: none;
     }
   }

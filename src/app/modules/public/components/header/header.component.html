@@ -1,89 +1,96 @@
 <!-- <body> -->
 
-    <header class="app-header" [ngClass]="{ scrolled: isScrolled }">
-        <div class="social-header">
-          <div class="contacto">
-            <p><i class="fa-brands fa-whatsapp"></i></p>
-            <p><i href="ateliervestidos.hgo@gmail.com" class="fa-regular fa-envelope-open"></i> </p>
-          </div>
-          <div class="redes">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              class="social-icon facebook"
-            >
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://twitter.com" target="_blank" class="social-icon twitter">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              class="social-icon instagram"
-            >
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
-        </div>
-        <nav class="nav-bar">
-          <div class="logo zoom"></div>
-          <ul *ngIf="!isMobile" class="nav-menu">
-            <li><a href="#">Home</a></li>
-      
-            <li><a (click)="redirectTo('Sign-in')">Login</a></li>
-            <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li>
-          </ul>
-          <ul class="nav-accion">
-            <li>
-              <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
-            </li>
-            <li>
-              <a href="#" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
-            </li>
-            <li>
-              <a tabindex="0" (click)="showDialog()" class="nav-icon"
-                ><i class="fa-solid fa-bars-staggered"></i
-              ></a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      
-      <!-- <body> -->
-        <p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="w-30rem">
-          <ng-template pTemplate="header">
-              <span class="font-semibold text-xl">Atelier</span>
-          </ng-template>
-      
-          <div class="menu-content">
-              <ul>
-                  <li>
-                      <a tabindex="0" (click)="redirectTo('Home')">
-                          <i class="fas fa-home"></i> Home
-                      </a>
-                  </li>
-                  <li>
-                      <a tabindex="0" (click)="redirectTo('Sign-in')">
-                          <i class="fas fa-sign-in-alt"></i> Iniciar sesión
-                      </a>
-                  </li>
-                  <li>
-                      <a tabindex="0" (click)="redirectTo('Sign-up')">
-                          <i class="fas fa-user-plus"></i> Registrarme
-                      </a>
-                  </li>
-                  <li>
-                      <a tabindex="0" (click)="redirectTo('Sign-up')">
-                          <i class="fas fa-user-plus"></i> configuración
-                      </a>
-                  </li>
-                  <li>
-                      <a tabindex="0" (click)="redirectTo('AcercaDe')">
-                          <i class="fas fa-info-circle"></i> Acerca de Atelier
-                      </a>
-                  </li>
-              </ul>
-          </div>
-      </p-sidebar>
-      
+<header class="app-header" [ngClass]="{ scrolled: isScrolled }">
+  <div class="social-header">
+    <div class="contacto">
+      <p><i class="fa-brands fa-whatsapp"></i></p>
+      <p>
+        <i
+          href="ateliervestidos.hgo@gmail.com"
+          class="fa-regular fa-envelope-open"
+        ></i>
+      </p>
+    </div>
+    <div class="redes">
+      <a
+        href="https://facebook.com"
+        target="_blank"
+        class="social-icon facebook"
+      >
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="social-icon twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a
+        href="https://instagram.com"
+        target="_blank"
+        class="social-icon instagram"
+      >
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </div>
+  <nav class="nav-bar">
+    <div class="logo zoom"></div>
+    <ul *ngIf="!isMobile" class="nav-menu">
+      <li><a href="#">Home</a></li>
+
+      <li><a (click)="redirectTo('Sign-in')">Login</a></li>
+      <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li>
+      <li>
+        <a (click)="redirectTo('AcercaDe')"> Acerca de Atelier </a>
+      </li>
+    </ul>
+    <ul class="nav-accion">
+      <li>
+        <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
+      </li>
+      <li>
+        <a href="#" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+      </li>
+      <li *ngIf="isMobile">
+        <a tabindex="0" (click)="showDialog()" class="nav-icon"
+          ><i class="fa-solid fa-bars-staggered"></i
+        ></a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<!-- <body> -->
+<p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="w-30rem">
+  <ng-template pTemplate="header">
+    <span class="font-semibold text-xl">Atelier</span>
+  </ng-template>
+
+  <div class="menu-content">
+    <ul>
+      <li>
+        <a tabindex="0" (click)="redirectTo('Home')">
+          <i class="fas fa-home"></i> Home
+        </a>
+      </li>
+      <li>
+        <a tabindex="0" (click)="redirectTo('Sign-in')">
+          <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+        </a>
+      </li>
+      <li>
+        <a tabindex="0" (click)="redirectTo('Sign-up')">
+          <i class="fas fa-user-plus"></i> Registrarme
+        </a>
+      </li>
+      <li>
+        <a tabindex="0" (click)="redirectTo('Sign-up')">
+          <i class="fas fa-user-plus"></i> configuración
+        </a>
+      </li>
+      <li>
+        <a tabindex="0" (click)="redirectTo('AcercaDe')">
+          <i class="fas fa-info-circle"></i> Acerca de Atelier
+        </a>
+      </li>
+    </ul>
+  </div>
+</p-sidebar>

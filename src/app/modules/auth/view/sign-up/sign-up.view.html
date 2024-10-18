@@ -1,30 +1,119 @@
 <div class="container-form">
-    <div class="back-button">
-        <a routerLink="/public/home"class="go-back">
-            <i class="fas fa-arrow-left"></i> Ir atrás
-        </a>
+  <div class="back-button">
+    <a routerLink="/public/home" class="go-back">
+      <i class="fas fa-arrow-left"></i> Ir atrás
+    </a>
+  </div>
+
+  <div class="logo-container">
+    <img
+      src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1726496561/images-AR/n7cjxwmizj0ath7oegjq.png"
+      alt="Atelier logo"
+      class="logo"
+    />
+  </div>
+
+  <form [formGroup]="formulario" (ngSubmit)="registroCliente()" class="form">
+    <!-- Nombre de usuario -->
+    <label for="username">Nombre de usuario</label>
+    <input
+      type="text"
+      pInputText
+      formControlName="username"
+      name="username"
+      placeholder="Introduce tu nombre de usuario"
+      required
+      [maxlength]="10"
+    />
+    <span
+      style="color: red"
+      *ngIf="formulario.get('username')?.invalid && formulario.get('username')?.touched"
+      class="text-danger"
+    >
+      El campo de nombre de usuario es requerido.
+    </span>
+
+    <!-- Correo Electrónico -->
+    <label for="email">Correo Electrónico</label>
+    <input
+      type="email"
+      pInputText
+      formControlName="email"
+      name="email"
+      placeholder="Introduce tu correo electrónico"
+      required
+    />
+    <!-- Número telefónico -->
+    <label for="tel">Número telefónico</label>
+    <p-inputMask
+      id="tel"
+      mask="+52 999 999 9999"
+      formControlName="tel"
+      placeholder="Introduce tu número telefónico"
+    ></p-inputMask>
+    <!-- [ngClass]="{'is-invalid': !formulario.get('tel')?.valid && formulario.get('tel')?.touched, 'is-valid': formulario.get('tel')?.valid}" -->
+    <!-- [styleClass]="isInvalid('tel') ? 'ng-invalid' : 'ng-valid'" -->
+    <label for="password">Contraseña</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      placeholder="Introduce tu contraseña"
+      (input)="verificarPassword()"
+      style="width: 100%; margin-bottom: 20px"
+      required
+    />
+    <div *ngIf="passwordStrength != 'Muy fuerte'" class="password-strength">
+      <div [ngClass]="strengthColor">{{ passwordStrength }}</div>
     </div>
-    
-    <div class="logo-container">
-        <img src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1726496561/images-AR/n7cjxwmizj0ath7oegjq.png" alt="Atelier logo" class="logo">
+
+    <!-- Requisitos de contraseña -->
+    <span
+      *ngIf="passwordStrength != 'Muy fuerte'"
+      class="password-requirements"
+    >
+      <p>Requisitos</p>
+      <ul style="line-height: 1.5; list-style-type: none">
+        <li [ngClass]="{'text-success': validacionesPassword.tieneMinuscula}">
+          <span *ngIf="validacionesPassword.tieneMinuscula">✅</span>
+          <span *ngIf="!validacionesPassword.tieneMinuscula">🔘</span>
+          Al menos una letra minúscula
+        </li>
+        <li [ngClass]="{'text-success': validacionesPassword.tieneMayuscula}">
+          <span *ngIf="validacionesPassword.tieneMayuscula">✅</span>
+          <span *ngIf="!validacionesPassword.tieneMayuscula">🔘</span>
+          Al menos una letra mayúscula
+        </li>
+        <li [ngClass]="{'text-success': validacionesPassword.tieneNumero}">
+          <span *ngIf="validacionesPassword.tieneNumero">✅</span>
+          <span *ngIf="!validacionesPassword.tieneNumero">🔘</span>
+          Al menos un número
+        </li>
+        <li [ngClass]="{'text-success': validacionesPassword.longitudMinima}">
+          <span *ngIf="validacionesPassword.longitudMinima">✅</span>
+          <span *ngIf="!validacionesPassword.longitudMinima">🔘</span>
+          Mínimo 8 caracteres
+        </li>
+      </ul>
+    </span>
+    <!-- Campo de confirmación de contraseña -->
+    <div *ngIf="passwordStrength === 'Muy fuerte'">
+      <label for="confirmPassword">Confirma tu contraseña</label>
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        id="confirmPassword"
+        placeholder="Confirma tu contraseña"
+      />
+      <!-- Mensaje de error si las contraseñas no coinciden -->
+      <div
+        *ngIf="!coincidenPasswords && formulario.get('confirmPassword')?.touched"
+        class="text-danger"
+      >
+        Las contraseñas no coinciden.
+      </div>
     </div>
-    <!-- Campos del formulario -->
-    <form class="form">
-        <!-- Imagen del logo redondeado -->
-        <label for="username">Nombre de usuario</label>
-        <input type="text" placeholder="Introduce tu nombre de usuario" name="username" id="username">
-
-        <label for="email">Correo Electrónico</label>
-        <input type="email" placeholder="Introduce tu correo electrónico" name="email" id="email">
-        <label for="tel">Numero teléfonico</label>
-        <input type="tel" placeholder="Introduce tu numero teléfonico" name="tel" id="tel">
-
-        <label for="password">Contraseña</label>
-        <input type="password" placeholder="Introduce tu contraseña" name="password" id="password">
-
-        <label for="confirm-password">Confirmar Contraseña</label>
-        <input type="password" placeholder="Confirma tu contraseña" name="confirm-password" id="confirm-password">
-        
-        <button type="submit">Registrar</button>
-    </form>
+    <!-- Botón de registro -->
+    <button type="submit" [disabled]="formulario.invalid">Registrar</button>
+  </form>
 </div>

@@ -25,9 +25,14 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DividerModule } from 'primeng/divider';
+
+// import {CaptchaModule} from 'primeng/captcha';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaLoaderService, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { RecaptchaService } from '../../shared/services/recaptcha.service';
-
+import { PasswordModule } from 'primeng/password';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
   declarations: [
     AuthComponent,
@@ -41,12 +46,12 @@ import { RecaptchaService } from '../../shared/services/recaptcha.service';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule,
+    FormsModule,DividerModule,
     ReactiveFormsModule,
-    AuthRoutingModule,
+    AuthRoutingModule,PasswordModule,InputMaskModule,InputTextModule,
     // BrowserAnimationsModule, // Asegúrate de incluir esto
-    HttpClientModule,
-    ToastrModule.forRoot(), // Importa ToastrModule aquí
+    HttpClientModule ,
+    ToastrModule.forRoot(),  // Importa ToastrModule aquí
     // NgxUiLoaderModule.forRoot({}),
   ],
   providers: [

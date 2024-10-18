@@ -36,7 +36,7 @@ export class UsuarioService {
         return this.http.get(this.url +'getUsuarios');
     }
 
-    guardarUsuario(usuario: Usuario): Observable<any> {
+    register(usuario: Usuario): Observable<any> {
         return this.http.post<any>(this.url + 'singUp', usuario, { withCredentials: true });
     }
 

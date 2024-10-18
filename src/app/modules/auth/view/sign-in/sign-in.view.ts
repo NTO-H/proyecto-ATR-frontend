@@ -9,6 +9,7 @@ import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sign-in',
@@ -41,7 +42,7 @@ export class SignInView implements OnInit {
     private sessionService: SessionService,
     private fb: FormBuilder,
     private router: Router,
-
+private messageService: MessageService,
     private httpService: RecaptchaService,
     private recaptchaV3Service: ReCaptchaV3Service
   ) {
@@ -50,7 +51,11 @@ export class SignInView implements OnInit {
       password: ['', Validators.required],
     });
   }
+  // constructor() {}
 
+  showResponse(event:any) {
+      this.messageService.add({severity:'info', summary:'Succees', detail: 'User Responded', sticky: true});
+  }
   // Inject the service in the constructor
   getInfoRecaptcha() {
     this.robot = true;
@@ -137,9 +142,7 @@ export class SignInView implements OnInit {
 
             if (this.userROL === ERol.ADMIN) {
               navigateTo = 'admin/inicio';
-            } else if (this.userROL === ERol.ADMPRF) {
-              navigateTo = 'purificadoraAdm/Home';
-            } else if (this.userROL === ERol.REPARTIDOR) {
+            } else if (this.userROL === ERol.CLIENTE) {
               navigateTo = 'repartidor/Home';
             }
 

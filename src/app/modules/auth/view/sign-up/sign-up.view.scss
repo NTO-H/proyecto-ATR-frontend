@@ -18,7 +18,7 @@ div.container-form {
     top: 20px; /* Distancia desde el borde superior */
     left: 20px; /* Distancia desde el borde izquierdo */
     z-index: 1000; /* Asegura que esté encima de otros componentes */
-    
+
     align-self: flex-start;
     // margin-bottom: 20px;
 
@@ -55,23 +55,28 @@ div.container-form {
       font-size: 24px;
       color: rgb(41, 45, 52);
       font-weight: bold;
+      &::after {
+        content: "*";
+        color: red;
+      }
     }
 
+    .extended-input,
     input {
       padding: 22px;
       width: 100%; /* Ajuste a 100% del ancho del contenedor */
       margin-bottom: 20px; /* Espacio entre los inputs */
       height: 48px;
-      border: solid 2px #ededed;
-      border-radius: 3px;
+      border: solid 1px #b9b9b9;
+      border-radius: 5px;
       transition: all 0.3s ease;
 
-      &:focus {
-        outline: none;
-        border-color: #e91e63;
-        background-color: #f5f5f5;
-        box-shadow: 0 0 10px #ff83ad; /* Fucsia para el enfoque */
-      }
+      // &:focus {
+      //   outline: none;
+      //   border-color: #e91e63;
+      //   background-color: #f5f5f5;
+      //   box-shadow: 0 0 10px #ff83ad; /* Fucsia para el enfoque */
+      // }
     }
 
     button {
@@ -109,6 +114,9 @@ div.container-form {
       }
     }
   }
+
+
+
   .logo-container {
     // border: dashed;
     // margin-bottom: 20px;
@@ -136,6 +144,7 @@ div.container-form {
         font-size: 18px;
       }
 
+      .p-password,
       input {
         padding: 15px;
         font-size: 14px;
@@ -156,3 +165,41 @@ div.container-form {
     }
   }
 }
+
+.text-success {
+  color: green;
+}
+.password-requirements{
+  padding: 10px;
+  border-radius: 10PX;
+  border: solid 1px rgb(195, 229, 229);
+}
+.password-content{
+  display: flex;
+  flex-direction: column;
+  
+  // align-items: center;
+}
+.pi-check-circle {
+  margin-right: 8px;
+}
+// @layer primeng {
+.p-password {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+// }
+.p-password-panel {
+  width: 100%;
+}
+
+
+.is-invalid {
+  border: 1px solid red;
+}
+
+.is-valid {
+  border: 1px solid green; /* O el color que prefieras */
+}
+
