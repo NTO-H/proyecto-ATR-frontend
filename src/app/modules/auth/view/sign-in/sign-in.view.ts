@@ -5,11 +5,9 @@ import Swal from 'sweetalert2';
 import { SignInService } from '../../commons/services/sign-in.service';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { SessionService } from '../../../../shared/services/session.service';
-// import { ReCaptchaV2Service } from 'ng-recaptcha';
-import { ERol } from '../../../../shared/constants/rol.enum';
-// import { ReCaptchaV3Service } from 'ng-recaptcha';
-// import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
 import { MessageService } from 'primeng/api';
+import { Subscription, interval } from 'rxjs';
+import { ERol } from '../../../../shared/constants/rol.enum';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,6 +16,13 @@ import { MessageService } from 'primeng/api';
   encapsulation: ViewEncapsulation.None,
 })
 export class SignInView implements OnInit {
+  maxAttempts = 3; // Número máximo de intentos permitidos
+  attempts = 0; // Contador de intentos actuales
+  isLocked = false; // Estado para saber si está bloqueado
+  lockTime = 30; // Tiempo de bloqueo en segundos
+  remainingTime = 0; // Tiempo restante para volver a intentar
+  timerSubscription!: Subscription;
+
   loginForm: FormGroup;
   errorMessage!: string;
   userROL!: string;
@@ -27,70 +32,58 @@ export class SignInView implements OnInit {
   public robot!: boolean;
   public presionado!: boolean;
 
-  //
-
-  ngOnInit(): void {
-    this.robot = true;
-    this.presionado = false;
-  }
-
-  // private recaptchaV2Service: ReCaptchaV2Service,
-
   constructor(
     private signInService: SignInService,
     private storageService: StorageService,
     private sessionService: SessionService,
     private fb: FormBuilder,
     private router: Router,
-private messageService: MessageService,
-    // private httpService: RecaptchaService,
-    // private recaptchaV3Service: ReCaptchaV3Service
+    private messageService: MessageService
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
-  // constructor() {}
 
-  showResponse(event:any) {
-      this.messageService.add({severity:'info', summary:'Succees', detail: 'User Responded', sticky: true});
+  ngOnInit(): void {
+    this.robot = true;
+    this.presionado = false;
+    this.checkLockState(); // Verificar si la cuenta está bloqueada al cargar
   }
-  // Inject the service in the constructor
-  // getInfoRecaptcha() {
-  //   this.robot = true;
-  //   this.presionado = true;
-  //   this.recaptchaV3Service.execute('').subscribe((token) => {
-  //     const auxiliar = this.httpService.getTokenClientModule(token);
-  //     auxiliar.subscribe({
-  //       complete: () => {
-  //         this.presionado = false;
-  //       },
-  //       error: () => {
-  //         this.presionado = false;
-  //         this.robot = true;
-  //         alert(
-  //           'Tenemos un problema, recarga la página página para solucionarlo o contacta con 1938web@gmail.com'
-  //         );
-  //       },
-  //       next: (resultado: Boolean) => {
-  //         if (resultado === true) {
-  //           this.presionado = false;
-  //           this.robot = false;
-  //         } else {
-  //           alert('Error en el captcha. Eres un robot');
-  //           this.presionado = false;
-  //           this.robot = true;
-  //         }
-  //       },
-  //     });
-  //   });
-  // }
-  // Implement a callback for reCAPTCHA v2 resolution
-  // onCaptchaResolved(response: string): void {
-  //   // Use the response token as needed
-  //   console.log('reCAPTCHA v2 Response:', response);
-  // }
+
+  // Verifica el estado de bloqueo en localStorage o sessionStorage
+  checkLockState() {
+    const lockInfo = localStorage.getItem('lockInfo'); // O sessionStorage.getItem('lockInfo') si prefieres sessionStorage
+    if (lockInfo) {
+      const { attempts, lockTime, isLocked, remainingTime } =
+        JSON.parse(lockInfo);
+      this.attempts = attempts;
+      this.lockTime = lockTime;
+      this.isLocked = isLocked;
+      this.remainingTime = remainingTime;
+
+      if (this.isLocked) {
+        this.startCountdown(); // Iniciar el temporizador si ya está bloqueado
+      }
+    }
+  }
+
+  // Método para guardar el estado del bloqueo en localStorage o sessionStorage
+  saveLockState() {
+    const lockInfo = {
+      attempts: this.attempts,
+      lockTime: this.lockTime,
+      isLocked: this.isLocked,
+      remainingTime: this.remainingTime,
+    };
+    localStorage.setItem('lockInfo', JSON.stringify(lockInfo)); // O sessionStorage.setItem si prefieres sessionStorage
+  }
+
+  // Método para restablecer el estado del bloqueo
+  clearLockState() {
+    localStorage.removeItem('lockInfo'); // O sessionStorage.removeItem si prefieres sessionStorage
+  }
 
   redirectTo(route: string): void {
     if (route === 'login') {
@@ -101,7 +94,16 @@ private messageService: MessageService,
   }
 
   login(): void {
-    this.loading = true;
+    if (this.isLocked) {
+      Swal.fire({
+        title: 'Cuenta bloqueada',
+        text: `Has alcanzado el límite de intentos. Intenta de nuevo en ${this.remainingTime} segundos.`,
+        icon: 'warning',
+        confirmButtonText: 'Entendido',
+      });
+      return;
+    }
+
     if (this.loginForm.invalid) {
       Swal.fire({
         title: 'Campos incompletos',
@@ -109,8 +111,6 @@ private messageService: MessageService,
         icon: 'warning',
         confirmButtonText: 'Entendido',
       });
-      this.loading = true;
-
       return;
     }
 
@@ -121,18 +121,14 @@ private messageService: MessageService,
         icon: 'error',
         confirmButtonText: 'Ok',
       });
-      this.loading = false;
-
       return;
     }
 
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    this.loading = true;
 
     this.signInService.signIn({ email, password }).subscribe(
       (response) => {
-        console.log('aqui');
         if (response) {
           this.storageService.setToken(response.token);
           const userData = this.sessionService.getUserData();
@@ -162,13 +158,67 @@ private messageService: MessageService,
         }
       },
       (err) => {
-        Swal.fire({
-          title: 'Error!',
-          text: 'Ocurrió un error al iniciar sesión.',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-        });
+        this.attempts++; // Incrementar el contador de intentos fallidos
+
+        let errorMessage = 'Credenciales incorrectas. Intento fallido.'; // Mensaje por defecto
+
+        // Si el backend devuelve un mensaje específico, úsalo
+        if (err.error && err.error.message) {
+          errorMessage = err.error.message;
+        }
+
+        if (this.attempts >= this.maxAttempts) {
+          this.lockAccount(); // Bloquear si se superan los intentos
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: errorMessage, // Mostrar mensaje del backend
+            icon: 'error',
+            confirmButtonText: 'Ok',
+          });
+        }
       }
     );
+  }
+
+  // Método para bloquear la cuenta y activar el temporizador
+  lockAccount(): void {
+    this.isLocked = true;
+    this.remainingTime = this.lockTime;
+
+    Swal.fire({
+      title: 'Límite de intentos alcanzado',
+      text: `Cuenta bloqueada por ${this.lockTime} segundos. Por favor, intenta nuevamente más tarde.`,
+      icon: 'warning',
+      confirmButtonText: 'Entendido',
+    });
+
+    this.saveLockState(); // Guardar el estado del bloqueo
+
+    // Iniciar un temporizador que decremente cada segundo
+    this.startCountdown();
+  }
+
+  // Método para iniciar el temporizador
+  startCountdown() {
+    this.timerSubscription = interval(1000).subscribe(() => {
+      this.remainingTime--;
+      this.saveLockState(); // Actualizar el tiempo restante en el almacenamiento
+
+      if (this.remainingTime <= 0) {
+        this.resetLock(); // Desbloquear al finalizar el temporizador
+      }
+    });
+  }
+
+  // Método para restablecer el bloqueo
+  resetLock(): void {
+    this.isLocked = false;
+    this.attempts = 0;
+    this.clearLockState(); // Eliminar el estado del bloqueo
+
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe(); // Detener el temporizador
+    }
   }
 }

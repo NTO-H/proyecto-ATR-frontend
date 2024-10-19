@@ -11,7 +11,7 @@ div.container-form {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Estándar */
-  
+
   .back-button {
     align-self: flex-start;
     margin-bottom: 20px;
@@ -49,6 +49,10 @@ div.container-form {
       font-size: 24px;
       color: rgb(41, 45, 52);
       font-weight: bold;
+      &::after {
+        content: "*";
+        color: red;
+      }
     }
 
     input {
@@ -117,7 +121,9 @@ div.container-form {
       padding: 30px;
       label {
         font-size: 18px;
+       
       }
+     
 
       input {
         padding: 15px;
@@ -138,4 +144,16 @@ div.container-form {
       }
     }
   }
+}
+
+.lock-message {
+  margin-top: 1rem;
+  color: #ff818d;
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: rgb(255, 234, 234);
+  border: solid 1px rgb(255, 193, 193);
 }

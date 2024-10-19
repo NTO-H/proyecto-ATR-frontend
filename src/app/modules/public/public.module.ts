@@ -12,8 +12,10 @@ import { SidebarModule } from 'primeng/sidebar';
 import { AcercaDeView } from './views/acerca-de/acerca-de.view';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-
-const MATERIALS =[CardModule,ButtonModule,DialogModule,SidebarModule]
+// DialogModule 
+// import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+const MATERIALS =[CardModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent, AcercaDeView]
 @NgModule({

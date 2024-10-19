@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
+import { environment } from '../../../environments/environment';
 
 
 // src/app/services/:
@@ -19,6 +20,7 @@ import { Usuario } from '../models/usuario.model';
 export class UsuarioService {
 
     url = 'https://servidortropicalworld-1.onrender.com/usuarios/';
+    
 
     constructor(private http: HttpClient) { }
     
@@ -30,16 +32,15 @@ export class UsuarioService {
     
 
 
-
+    // http://localhost:4000/api/v1/usuarios/
     
     getUsuarios(): Observable<any> {
-        return this.http.get(this.url +'getUsuarios');
+        return this.http.get(environment.api +'/usuarios');
     }
 
     register(usuario: Usuario): Observable<any> {
-        return this.http.post<any>(this.url + 'singUp', usuario, { withCredentials: true });
+        return this.http.post<any>(environment.api + '/usuarios', usuario, { withCredentials: true });
     }
-
 
    
     enviarToken(correo :string,token:string):Observable<any> {

@@ -223,7 +223,19 @@ p-sidebar {
           color: fuchsia;
           cursor: pointer;
           &:hover {
-            background-color: #e7e7e7;
+            
+
+            backdrop-filter: blur(10px);
+
+            background: radial-gradient(at 81.40795099451961% 34.43501327367089%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 47%, 0) 100%), radial-gradient(at 48.06381750927091% 45.947074059817304%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 30.03899313537397% 99.74021690752477%, rgb(255, 211, 211) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 61.85805230913361% 55.10418152840191%, rgb(255, 217, 217) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 18.811715763739034% 89.72699178507717%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 78.86525725709876% 13.707684429118716%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 36.922690557764916% 93.08166539373516%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 84.71330269348695% 69.77151099736993%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 62.848134612084564% 51.478511322612206%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 55.2733875615943% 32.28522284199571%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 37.91161707274171% 59.913039873834826%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 4.566024511890432% 32.96314755742178%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%);            
+
+// dr: ;
+// filter: drop-shadow(1px});
+// backdrop-filter: ;
+
+
+
+            // background-color: #e7e7e7;
             /* background-color: $hover-color; */
           }
         }

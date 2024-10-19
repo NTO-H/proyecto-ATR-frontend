@@ -25,6 +25,9 @@
       required
       [maxlength]="10"
     />
+    <span style="color: red" *ngIf="errorMessages.username" class="text-danger">
+      {{ errorMessages.username }}
+    </span>
     <span
       style="color: red"
       *ngIf="formulario.get('username')?.invalid && formulario.get('username')?.touched"
@@ -43,6 +46,17 @@
       placeholder="Introduce tu correo electrónico"
       required
     />
+    <span style="color: red" *ngIf="errorMessages.email" class="text-danger">
+      {{ errorMessages.email }}
+    </span>
+    <span
+      style="color: red"
+      *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched"
+      class="text-danger"
+    >
+      El correo electrónico debe ser válido.
+    </span>
+
     <!-- Número telefónico -->
     <label for="tel">Número telefónico</label>
     <p-inputMask
@@ -51,18 +65,42 @@
       formControlName="tel"
       placeholder="Introduce tu número telefónico"
     ></p-inputMask>
+    <span style="color: red" *ngIf="errorMessages.tel" class="text-danger">
+      {{ errorMessages.tel }}
+    </span>
+    <span
+      style="color: red"
+      *ngIf="formulario.get('tel')?.invalid && formulario.get('tel')?.touched"
+      class="text-danger"
+    >
+      El número telefónico es requerido y debe ser válido.
+    </span>
     <!-- [ngClass]="{'is-invalid': !formulario.get('tel')?.valid && formulario.get('tel')?.touched, 'is-valid': formulario.get('tel')?.valid}" -->
     <!-- [styleClass]="isInvalid('tel') ? 'ng-invalid' : 'ng-valid'" -->
-    <label for="password">Contraseña</label>
-    <input
-      type="password"
-      id="password"
-      formControlName="password"
-      placeholder="Introduce tu contraseña"
-      (input)="verificarPassword()"
-      style="width: 100%; margin-bottom: 20px"
-      required
-    />
+    <div class="password-container">
+      <label for="password">Contraseña</label>
+      <input
+        [type]="mostrarPassword ? 'text' : 'password'"
+        id="password"
+        formControlName="password"
+        placeholder="Introduce tu contraseña"
+        (input)="verificarPassword()"
+        style="width: 100%; margin-bottom: 20px"
+        required
+        [ngClass]="{'is-valid': coincidenPasswords, 'is-invalid': !coincidenPasswords && formulario.get('confirmPassword')?.touched}"
+      />
+      <button
+        type="button"
+        (click)="togglePasswordVisibility()"
+        class="toggle-password"
+      >
+        <i 
+          class="fas"
+          [ngClass]="mostrarPassword ? 'fa-eye-slash' : 'fa-eye'"
+        ></i>
+        <!-- Icono para el botón -->
+      </button>
+    </div>
     <div *ngIf="passwordStrength != 'Muy fuerte'" class="password-strength">
       <div [ngClass]="strengthColor">{{ passwordStrength }}</div>
     </div>
@@ -100,10 +138,11 @@
     <div *ngIf="passwordStrength === 'Muy fuerte'">
       <label for="confirmPassword">Confirma tu contraseña</label>
       <input
-        type="password"
+        [type]="mostrarPassword ? 'text' : 'password'"
         formControlName="confirmPassword"
         id="confirmPassword"
         placeholder="Confirma tu contraseña"
+        [ngClass]="{'is-valid': coincidenPasswords, 'is-invalid': !coincidenPasswords && formulario.get('confirmPassword')?.touched}"
       />
       <!-- Mensaje de error si las contraseñas no coinciden -->
       <div
@@ -113,6 +152,17 @@
         Las contraseñas no coinciden.
       </div>
     </div>
+    <div class="purchase-terms-container">
+      <p>Tus datos personales se utilizarán para procesar tu compra, mejorar tu experiencia en esta web y otros propósitos descritos en nuestra <a href="#" target="_blank">política de privacidad</a>.</p>
+    
+      <div class="checkbox-terms">
+        <input type="checkbox" id="accept-terms" name="accept-terms">
+        <label for="accept-terms">
+          Al marcar esta casilla acepto la <a href="#" target="_blank">política de privacidad</a>, los <a href="#" target="_blank">términos y condiciones de la compra</a> y confirmo que soy mayor de 18 años de edad.
+        </label>
+      </div>
+    </div>
+    
     <!-- Botón de registro -->
     <button type="submit" [disabled]="formulario.invalid">Registrar</button>
   </form>

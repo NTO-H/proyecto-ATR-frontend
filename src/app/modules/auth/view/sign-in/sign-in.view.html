@@ -16,6 +16,7 @@
       formControlName="email"
       id="usuario"
       required
+      [disabled]="isLocked"
     />
 
     <label for="pass" class="">Contraseña</label>
@@ -25,40 +26,21 @@
       formControlName="password"
       id="pass"
       required
+      [disabled]="isLocked"
     />
-    <!-- <p-captcha siteKey="6LdBsWMqAAAAAAkHOGSNK6S81AGtqac1Y_w8Pnm1" (onResponse)="showResponse($event)"></p-captcha> -->
-<!-- 
-    <div class="container">
-      <div class="row">
-        <div *ngIf="robot == true">
-          <p>Ejemplo de ejecución HttpClient(asincrona) de google recaptcha</p>
-          <button (click)="getInfoRecaptcha()" class="btn btn-primary">
-            Comprobación
-          </button>
-        </div>
-      </div>
-    </div> -->
+    <button type="submit" [disabled]="loading || isLocked">Iniciar Sesión</button>
 
-    <!-- <div *ngIf="presionado == true">
-      <p>Cargando ...</p>
+    <!-- Mostrar mensaje de bloqueo si está bloqueado -->
+    <div *ngIf="isLocked" class="lock-message">
+      Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en {{ remainingTime }} segundos.
     </div>
-
-    <div *ngIf="robot == true">
-      <p>De momento eres un robot, presiona el botón</p>
-    </div>
-
-    <div *ngIf="robot == false">
-      <p>No eres un robot, Enhorabuena</p>
-    </div> -->
-
-    <button type="submit" [disabled]="loading">Iniciar Sesión</button>
 
     <!-- Opciones adicionales -->
-    <div class="options">
+    <div class="options" [class.disabled]="isLocked">
       <a (click)="redirectTo('forgot-password')" class="forgot-password"
         >Olvidé mi contraseña</a
       >
-      <a href="#" class="create-account">Crear una cuenta nueva</a>
+      <a routerLink="/auth/Sign-up" class="create-account">Crear una cuenta nueva</a>
     </div>
   </form>
 </div>
