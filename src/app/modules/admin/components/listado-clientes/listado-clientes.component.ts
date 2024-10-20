@@ -7,11 +7,14 @@ import { UsuarioService } from '../../../../shared/services/usuario.service';
   styleUrl: './listado-clientes.component.scss',
 })
 export class ListadoClientesComponent implements OnInit {
-  
-  data!:any
-  
-  
-  
+  data: any[] = []; // Cambia el tipo según tu modelo de cliente
+  newClient = {
+    nombre: '',
+    email: '',
+    telefono: '',
+    rol: 'CLIENTE', // Valor por defecto
+  };
+
   ngOnInit(): void {
     this.getUsuario();
   }
@@ -21,7 +24,18 @@ export class ListadoClientesComponent implements OnInit {
   getUsuario() {
     this.us.getUsuarios().subscribe((res) => {
       console.log(res);
-      this.data=res
+      this.data = res;
     });
+  }
+
+  addClient(): void {
+  
+  }
+  editClient(cliente: any): void {
+   
+  }
+
+  deleteClient(id: string): void {
+    
   }
 }

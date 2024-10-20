@@ -16,7 +16,6 @@
       formControlName="email"
       id="usuario"
       required
-      [disabled]="isLocked"
     />
 
     <label for="pass" class="">Contraseña</label>
@@ -26,21 +25,20 @@
       formControlName="password"
       id="pass"
       required
-      [disabled]="isLocked"
     />
-    <button type="submit" [disabled]="loading || isLocked">Iniciar Sesión</button>
-
-    <!-- Mostrar mensaje de bloqueo si está bloqueado -->
-    <div *ngIf="isLocked" class="lock-message">
-      Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en {{ remainingTime }} segundos.
-    </div>
+    <button type="submit" [disabled]="loading">Iniciar Sesión</button>
 
     <!-- Opciones adicionales -->
-    <div class="options" [class.disabled]="isLocked">
+    <div class="options">
       <a (click)="redirectTo('forgot-password')" class="forgot-password"
         >Olvidé mi contraseña</a
       >
-      <a routerLink="/auth/Sign-up" class="create-account">Crear una cuenta nueva</a>
+      <a routerLink="/auth/Sign-up" class="create-account"
+        >Crear una cuenta nueva</a
+      >
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
   </form>
 </div>

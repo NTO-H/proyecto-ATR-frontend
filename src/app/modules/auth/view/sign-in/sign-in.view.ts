@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  OnDestroy,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -8,6 +15,7 @@ import { SessionService } from '../../../../shared/services/session.service';
 import { MessageService } from 'primeng/api';
 import { Subscription, interval } from 'rxjs';
 import { ERol } from '../../../../shared/constants/rol.enum';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,17 +24,13 @@ import { ERol } from '../../../../shared/constants/rol.enum';
   encapsulation: ViewEncapsulation.None,
 })
 export class SignInView implements OnInit {
-  maxAttempts = 3; // Número máximo de intentos permitidos
-  attempts = 0; // Contador de intentos actuales
-  isLocked = false; // Estado para saber si está bloqueado
-  lockTime = 30; // Tiempo de bloqueo en segundos
-  remainingTime = 0; // Tiempo restante para volver a intentar
-  timerSubscription!: Subscription;
-
   loginForm: FormGroup;
-  errorMessage!: string;
   userROL!: string;
   loading: boolean = false;
+  errorMessage: string | null = null;
+  remainingTime: number | null = null; // Para almacenar el tiempo restante
+  countdownInterval: any;
+  isTimerVisible: boolean = false; 
 
   //
   public robot!: boolean;
@@ -38,7 +42,7 @@ export class SignInView implements OnInit {
     private sessionService: SessionService,
     private fb: FormBuilder,
     private router: Router,
-    private messageService: MessageService
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
@@ -47,42 +51,29 @@ export class SignInView implements OnInit {
   }
 
   ngOnInit(): void {
-    this.robot = true;
-    this.presionado = false;
-    this.checkLockState(); // Verificar si la cuenta está bloqueada al cargar
-  }
-
-  // Verifica el estado de bloqueo en localStorage o sessionStorage
-  checkLockState() {
-    const lockInfo = localStorage.getItem('lockInfo'); // O sessionStorage.getItem('lockInfo') si prefieres sessionStorage
-    if (lockInfo) {
-      const { attempts, lockTime, isLocked, remainingTime } =
-        JSON.parse(lockInfo);
-      this.attempts = attempts;
-      this.lockTime = lockTime;
-      this.isLocked = isLocked;
-      this.remainingTime = remainingTime;
-
-      if (this.isLocked) {
-        this.startCountdown(); // Iniciar el temporizador si ya está bloqueado
+    // Recuperar el tiempo restante del localStorage
+    if (isPlatformBrowser(this.platformId)) {
+      const savedTime = localStorage.getItem('remainingTime');
+      if (savedTime) {
+        this.remainingTime = Number(savedTime);
+        this.isTimerVisible = true;
+        this.startCountdown();
       }
     }
   }
 
-  // Método para guardar el estado del bloqueo en localStorage o sessionStorage
-  saveLockState() {
-    const lockInfo = {
-      attempts: this.attempts,
-      lockTime: this.lockTime,
-      isLocked: this.isLocked,
-      remainingTime: this.remainingTime,
-    };
-    localStorage.setItem('lockInfo', JSON.stringify(lockInfo)); // O sessionStorage.setItem si prefieres sessionStorage
-  }
-
-  // Método para restablecer el estado del bloqueo
-  clearLockState() {
-    localStorage.removeItem('lockInfo'); // O sessionStorage.removeItem si prefieres sessionStorage
+  ngOnDestroy(): void {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+    }
+    // Guardar el tiempo restante en el localStorage solo si estamos en el navegador
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.remainingTime !== null) {
+        localStorage.setItem('remainingTime', this.remainingTime.toString());
+      } else {
+        localStorage.removeItem('remainingTime'); // Eliminar si es null
+      }
+    }
   }
 
   redirectTo(route: string): void {
@@ -94,15 +85,7 @@ export class SignInView implements OnInit {
   }
 
   login(): void {
-    if (this.isLocked) {
-      Swal.fire({
-        title: 'Cuenta bloqueada',
-        text: `Has alcanzado el límite de intentos. Intenta de nuevo en ${this.remainingTime} segundos.`,
-        icon: 'warning',
-        confirmButtonText: 'Entendido',
-      });
-      return;
-    }
+    this.errorMessage = null;
 
     if (this.loginForm.invalid) {
       Swal.fire({
@@ -130,6 +113,8 @@ export class SignInView implements OnInit {
     this.signInService.signIn({ email, password }).subscribe(
       (response) => {
         if (response) {
+          this.errorMessage = null;
+
           this.storageService.setToken(response.token);
           const userData = this.sessionService.getUserData();
           if (userData) {
@@ -158,67 +143,53 @@ export class SignInView implements OnInit {
         }
       },
       (err) => {
-        this.attempts++; // Incrementar el contador de intentos fallidos
+        console.log(err.error);
 
-        let errorMessage = 'Credenciales incorrectas. Intento fallido.'; // Mensaje por defecto
-
-        // Si el backend devuelve un mensaje específico, úsalo
-        if (err.error && err.error.message) {
-          errorMessage = err.error.message;
-        }
-
-        if (this.attempts >= this.maxAttempts) {
-          this.lockAccount(); // Bloquear si se superan los intentos
+        if (
+          err.error.minutos !== undefined &&
+          err.error.segundos !== undefined
+        ) {
+          this.remainingTime = err.error.minutos * 60 + err.error.segundos; // Convertir a segundos
+          this.isTimerVisible = true;
+          this.startCountdown();
+          this.errorMessage = `Tiempo restante: ${err.error.minutos} minutos y ${err.error.segundos} segundos.`;
         } else {
-          Swal.fire({
-            title: 'Error!',
-            text: errorMessage, // Mostrar mensaje del backend
-            icon: 'error',
-            confirmButtonText: 'Ok',
-          });
+          this.errorMessage = null; // Resetea el mensaje si no hay tiempo restante
         }
+
+        Swal.fire({
+          title: `${err.error.title}`,
+          text: `${err.error.message}`,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
       }
     );
   }
+  startCountdown(): void {
+    this.countdownInterval = setInterval(() => {
+      if (this.remainingTime !== null && this.remainingTime > 0) {
+        this.remainingTime--;
 
-  // Método para bloquear la cuenta y activar el temporizador
-  lockAccount(): void {
-    this.isLocked = true;
-    this.remainingTime = this.lockTime;
+        // Mostrar el tiempo restante en un formato legible
+        const minutes = Math.floor(this.remainingTime / 60);
+        const seconds = this.remainingTime % 60;
+        this.errorMessage = `Tiempo restante: ${minutes} minutos y ${seconds} segundos.`;
 
-    Swal.fire({
-      title: 'Límite de intentos alcanzado',
-      text: `Cuenta bloqueada por ${this.lockTime} segundos. Por favor, intenta nuevamente más tarde.`,
-      icon: 'warning',
-      confirmButtonText: 'Entendido',
-    });
+        // Guardar el tiempo restante en el localStorage solo si estamos en el navegador
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('remainingTime', this.remainingTime.toString());
+        }
 
-    this.saveLockState(); // Guardar el estado del bloqueo
-
-    // Iniciar un temporizador que decremente cada segundo
-    this.startCountdown();
-  }
-
-  // Método para iniciar el temporizador
-  startCountdown() {
-    this.timerSubscription = interval(1000).subscribe(() => {
-      this.remainingTime--;
-      this.saveLockState(); // Actualizar el tiempo restante en el almacenamiento
-
-      if (this.remainingTime <= 0) {
-        this.resetLock(); // Desbloquear al finalizar el temporizador
+        if (this.remainingTime === 0) {
+          clearInterval(this.countdownInterval);
+          this.isTimerVisible = false;
+          if (isPlatformBrowser(this.platformId)) {
+            localStorage.removeItem('remainingTime'); // Limpiar el localStorage si se acaba el tiempo
+          }
+          // Aquí puedes manejar lo que sucede cuando el tiempo se acaba
+        }
       }
-    });
-  }
-
-  // Método para restablecer el bloqueo
-  resetLock(): void {
-    this.isLocked = false;
-    this.attempts = 0;
-    this.clearLockState(); // Eliminar el estado del bloqueo
-
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe(); // Detener el temporizador
-    }
+    }, 1000); // Actualiza cada segundo
   }
 }

@@ -1,2 +1,48 @@
 <p>listado-clientes works!</p>
-<pre>{{ data | json }}</pre>
+<!-- <pre>{{ data | json }}</pre> -->
+
+<!-- Formulario para agregar un nuevo cliente -->
+<div>
+  <h3>Agregar Cliente</h3>
+  <form (ngSubmit)="addClient()">
+    <input type="text" placeholder="Nombre" [(ngModel)]="newClient.nombre" name="nombre" required />
+    <input type="email" placeholder="Correo electrónico" [(ngModel)]="newClient.email" name="email" required />
+    <input type="text" placeholder="Teléfono" [(ngModel)]="newClient.telefono" name="telefono" required />
+    <select [(ngModel)]="newClient.rol" name="rol" required>
+      <option value="ADMIN">Admin</option>
+      <option value="cliente">Cliente</option>
+    </select>
+    <button type="submit">Agregar Cliente</button>
+  </form>
+</div>
+
+<!-- Tabla de clientes -->
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha de registro</th>
+      <th>Nombre</th>
+      <th>Correo electrónico</th>
+      <th>Teléfono</th>
+      <th>Rol</th>
+      <th>Cuenta</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of data">
+      <td>{{ cliente._id }}</td>
+      <td>{{ cliente.fechaDeRegistro }}</td>
+      <td>{{ cliente.nombre }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>{{ cliente.telefono }}</td>
+      <td>{{ cliente.rol }}</td>
+      <td>{{ cliente.estadoCuenta }}</td>
+      <td>
+        <button (click)="editClient(cliente)">Editar</button>
+        <button (click)="deleteClient(cliente._id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
