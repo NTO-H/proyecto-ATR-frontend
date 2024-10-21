@@ -1,48 +1,49 @@
-<p>listado-clientes works!</p>
-<!-- <pre>{{ data | json }}</pre> -->
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <!-- Id Column -->
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
 
-<!-- Formulario para agregar un nuevo cliente -->
-<div>
-  <h3>Agregar Cliente</h3>
-  <form (ngSubmit)="addClient()">
-    <input type="text" placeholder="Nombre" [(ngModel)]="newClient.nombre" name="nombre" required />
-    <input type="email" placeholder="Correo electrónico" [(ngModel)]="newClient.email" name="email" required />
-    <input type="text" placeholder="Teléfono" [(ngModel)]="newClient.telefono" name="telefono" required />
-    <select [(ngModel)]="newClient.rol" name="rol" required>
-      <option value="ADMIN">Admin</option>
-      <option value="cliente">Cliente</option>
-    </select>
-    <button type="submit">Agregar Cliente</button>
-  </form>
+    <!-- Name Column -->
+    <ng-container matColumnDef="Nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="Correo">
+      <th mat-header-cell *matHeaderCellDef>Correo</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <!-- Telefono Column -->
+    <ng-container matColumnDef="Telefono">
+      <th mat-header-cell *matHeaderCellDef>Telefono</th>
+      <td mat-cell *matCellDef="let element">{{ element.telefono }}</td>
+    </ng-container>
+
+    <!-- Rol Column -->
+    <ng-container matColumnDef="Rol">
+      <th mat-header-cell *matHeaderCellDef>Rol</th>
+      <td mat-cell *matCellDef="let element">{{ element.rol }}</td>
+    </ng-container>
+
+    <!-- FechaDeRegistro Column -->
+    <ng-container matColumnDef="FechaDeRegistro">
+      <th mat-header-cell *matHeaderCellDef>Fecha de Registro</th>
+      <td mat-cell *matCellDef="let element">{{ element.fechaDeRegistro | date:'short' }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of clients"
+  >
+  </mat-paginator>
 </div>
-
-<!-- Tabla de clientes -->
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Fecha de registro</th>
-      <th>Nombre</th>
-      <th>Correo electrónico</th>
-      <th>Teléfono</th>
-      <th>Rol</th>
-      <th>Cuenta</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cliente of data">
-      <td>{{ cliente._id }}</td>
-      <td>{{ cliente.fechaDeRegistro }}</td>
-      <td>{{ cliente.nombre }}</td>
-      <td>{{ cliente.email }}</td>
-      <td>{{ cliente.telefono }}</td>
-      <td>{{ cliente.rol }}</td>
-      <td>{{ cliente.estadoCuenta }}</td>
-      <td>
-        <button (click)="editClient(cliente)">Editar</button>
-        <button (click)="deleteClient(cliente._id)">Eliminar</button>
-      </td>
-    </tr>
-  </tbody>
-</table>

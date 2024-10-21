@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import { CommonModule } from '@angular/common'; // Asegúrate de usar CommonModule aquí
 import { AdminRoutingModule } from './admin-routing.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeView } from './views/home/home.view';
-// import { HeaderComponent } from '../public/components/header/header.component';
 import { AdminComponent } from './admin.component';
 import { RouterModule } from '@angular/router';
 import { ClientesService } from '../../shared/services/clientes.service';
 import { SessionService } from '../../shared/services/session.service';
 import { StorageService } from '../../shared/services/storage.service';
 import { HttpClientModule } from '@angular/common/http';
-// import { CrudTerminosCondicionesView } from './views/crud-terminos-condiciones/crud-terminos-condiciones.view';
 import { ClienteListadoComponent } from './components/cliente-listado/cliente-listado.component';
 import { ControlClientesView } from './views/control-clientes/control-clientes.view';
 import { ControlProductosView } from './views/control-productos/control-productos.view';
@@ -38,6 +35,9 @@ import { AjustesGeneralesComponent } from './components/ajustes-generales/ajuste
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { FormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+
 const VIEWS = [HomeView, FooterComponent];
 const UTILS = [];
 
@@ -69,7 +69,14 @@ const UTILS = [];
     AjustesGeneralesComponent,
     NotificacionesComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    CommonModule, // Asegúrate de que este sea el módulo importado y no BrowserModule
+    AdminRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    MatPaginatorModule,
+    MatTableModule,
+  ],
   providers: [
     UsuarioService,
     ControlAdministrativaService,
