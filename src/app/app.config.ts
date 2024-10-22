@@ -9,7 +9,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
-import { RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
+// import { RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,6 +25,6 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    {provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfdbGcqAAAAAEtcCSBTxBMZmBIFO5gIIH_iDzMc'},
+    // {provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfdbGcqAAAAAEtcCSBTxBMZmBIFO5gIIH_iDzMc'},
   ],
 };

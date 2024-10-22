@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
 import { Subscription, interval } from 'rxjs';
 import { ERol } from '../../../../shared/constants/rol.enum';
 // import { ReCaptchaV2Service } from 'ng-recaptcha';
-import { ReCaptchaV3Service } from 'ng-recaptcha';
+// import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from '../../../../../environments/environment';
 import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
 @Component({
@@ -43,14 +43,14 @@ export class SignInView implements OnInit {
     // Use the response token as needed
     console.log('reCAPTCHA v2 Response:', response);
   }
-  recaptchaV3Service = inject(ReCaptchaV3Service);
-  executeRecaptcha() {
-    // La acción 'login' es un ejemplo, puedes usar otra acción personalizada.
-    this.recaptchaV3Service.execute('').subscribe((token) => {
-      // Puedes usar el token aquí para la verificación
-      console.log('Captcha token:', token);
-    });
-  }
+  // recaptchaV3Service = inject(ReCaptchaV3Service);
+  // executeRecaptcha() {
+  //   // La acción 'login' es un ejemplo, puedes usar otra acción personalizada.
+  //   this.recaptchaV3Service.execute('').subscribe((token) => {
+  //     // Puedes usar el token aquí para la verificación
+  //     console.log('Captcha token:', token);
+  //   });
+  // }
 
   executeRecaptchaVisible(token:any){
     console.log('token visible', token);
