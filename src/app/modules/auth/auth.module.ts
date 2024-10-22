@@ -31,13 +31,13 @@ import { DividerModule } from 'primeng/divider';
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
-import {
-  RECAPTCHA_V3_SITE_KEY,
-  RecaptchaLoaderService,
-  RecaptchaModule,
-  RecaptchaV3Module,
-  ReCaptchaV3Service,
-} from 'ng-recaptcha';
+// import {
+//   RECAPTCHA_V3_SITE_KEY,
+//   RecaptchaLoaderService,
+//   RecaptchaModule,
+//   RecaptchaV3Module,
+//   ReCaptchaV3Service,
+// } from 'ng-recaptcha';
 import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.view';
 
 import { InputOtpModule } from 'primeng/inputotp';
@@ -62,20 +62,21 @@ import { InputOtpModule } from 'primeng/inputotp';
     PasswordModule,
     InputMaskModule,
     InputTextModule,
-    RecaptchaModule,
-    RecaptchaV3Module,
+    // RecaptchaModule,
+    // RecaptchaV3Module,
+
     ToastrModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    importProvidersFrom(RecaptchaV3Module),
-    {
-      provide: RECAPTCHA_V3_SITE_KEY,
-      useValue: '6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype',
-    },
+    // importProvidersFrom(RecaptchaV3Module),
+    // {
+    //   provide: RECAPTCHA_V3_SITE_KEY,
+    //   useValue: '6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype',
+    // },
     SignInService,
-    ReCaptchaV3Service,
-    RecaptchaLoaderService,
+    // ReCaptchaV3Service,
+    // RecaptchaLoaderService,
     mensageservice,
     UsuarioService,
     ToastrService,
