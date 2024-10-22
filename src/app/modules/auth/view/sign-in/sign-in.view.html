@@ -2,7 +2,7 @@
   <!-- Botón para ir atrás con icono de FontAwesome -->
   <div class="back-button">
     <a routerLink="/public/home" class="go-back">
-      <i class="fas fa-arrow-left"></i> Ir atrás
+      <i class="fas fa-chevron-left"></i> Ir atrás
     </a>
   </div>
 
@@ -11,6 +11,7 @@
 
     <label for="usuario" class="">Nombre de usuario</label>
     <input
+      pInputText
       type="text"
       placeholder="Introduce tu nombre de usuario"
       formControlName="email"
@@ -21,6 +22,7 @@
 
     <label for="pass" class="">Contraseña</label>
     <input
+      pInputText
       type="password"
       placeholder="Introduce tu contraseña"
       formControlName="password"
@@ -28,19 +30,36 @@
       required
       [disabled]="isLocked"
     />
-    <button type="submit" [disabled]="loading || isLocked">Iniciar Sesión</button>
+    <p-button iconPos="right"  label="Iniciar Sesión" type="submit" [disabled]="loading || isLocked">
+    </p-button>
 
     <!-- Mostrar mensaje de bloqueo si está bloqueado -->
     <div *ngIf="isLocked" class="lock-message">
-      Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en {{ remainingTime }} segundos.
+      Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en {{
+      remainingTime }} segundos.
     </div>
+
+    <!-- <button type="button" (click)="executeRecaptcha()">hoa</button> -->
+    <re-captcha
+      (resolved)="executeRecaptchaVisible($event)"
+      siteKey="6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype"
+    ></re-captcha>
+    <!-- <div
+      class="g-recaptcha"
+      data-sitekey="6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype"
+      (resolved)="executeRecaptchaVisible($event)"
+    ></div> -->
+
+    <!-- [data-size]="'normal'"  -->
 
     <!-- Opciones adicionales -->
     <div class="options" [class.disabled]="isLocked">
       <a (click)="redirectTo('forgot-password')" class="forgot-password"
         >Olvidé mi contraseña</a
       >
-      <a routerLink="/auth/Sign-up" class="create-account">Crear una cuenta nueva</a>
+      <a routerLink="/auth/Sign-up" class="create-account"
+        >Crear una cuenta nueva</a
+      >
     </div>
   </form>
 </div>

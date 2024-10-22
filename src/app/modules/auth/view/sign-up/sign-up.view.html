@@ -1,169 +1,307 @@
 <div class="container-form">
   <div class="back-button">
     <a routerLink="/public/home" class="go-back">
-      <i class="fas fa-arrow-left"></i> Ir atrás
+      <i class="fas fa-chevron-left"></i> Ir atrás
     </a>
   </div>
-
-  <div class="logo-container">
-    <img
-      src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1726496561/images-AR/n7cjxwmizj0ath7oegjq.png"
-      alt="Atelier logo"
-      class="logo"
-    />
+  <div class="card">
+    <div class="logo-container">
+      <img
+        src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1726496561/images-AR/n7cjxwmizj0ath7oegjq.png"
+        alt="Atelier logo"
+        class="logo"
+      />
+    </div>
+    <h1>Crea una cuenta</h1>
+    <ul class="features-list">
+      <li><i class="fas fa-shield-alt icon"></i> Pagos seguros y confiables</li>
+      <li><i class="fas fa-exchange-alt icon"></i> Transferencias rápidas</li>
+      <li><i class="fas fa-percent icon"></i> Comisiones justas</li>
+      <li>
+        <i class="fas fa-chart-line icon"></i> Mejores tarifas disponibles
+      </li>
+      <li><i class="fas fa-thumbs-up icon"></i> Conveniencia</li>
+    </ul>
   </div>
 
-  <form [formGroup]="formulario" (ngSubmit)="registroCliente()" class="form">
-    <!-- Nombre de usuario -->
-    <label for="username">Nombre de usuario</label>
-    <input
-      type="text"
-      pInputText
-      formControlName="username"
-      name="username"
-      placeholder="Introduce tu nombre de usuario"
-      required
-      [maxlength]="10"
-    />
-    <span style="color: red" *ngIf="errorMessages.username" class="text-danger">
-      {{ errorMessages.username }}
-    </span>
-    <span
-      style="color: red"
-      *ngIf="formulario.get('username')?.invalid && formulario.get('username')?.touched"
-      class="text-danger"
-    >
-      El campo de nombre de usuario es requerido.
-    </span>
-
-    <!-- Correo Electrónico -->
-    <label for="email">Correo Electrónico</label>
-    <input
-      type="email"
-      pInputText
-      formControlName="email"
-      name="email"
-      placeholder="Introduce tu correo electrónico"
-      required
-    />
-    <span style="color: red" *ngIf="errorMessages.email" class="text-danger">
-      {{ errorMessages.email }}
-    </span>
-    <span
-      style="color: red"
-      *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched"
-      class="text-danger"
-    >
-      El correo electrónico debe ser válido.
-    </span>
-
-    <!-- Número telefónico -->
-    <label for="tel">Número telefónico</label>
-    <p-inputMask
-      id="tel"
-      mask="+52 999 999 9999"
-      formControlName="tel"
-      placeholder="Introduce tu número telefónico"
-    ></p-inputMask>
-    <span style="color: red" *ngIf="errorMessages.tel" class="text-danger">
-      {{ errorMessages.tel }}
-    </span>
-    <span
-      style="color: red"
-      *ngIf="formulario.get('tel')?.invalid && formulario.get('tel')?.touched"
-      class="text-danger"
-    >
-      El número telefónico es requerido y debe ser válido.
-    </span>
-    <!-- [ngClass]="{'is-invalid': !formulario.get('tel')?.valid && formulario.get('tel')?.touched, 'is-valid': formulario.get('tel')?.valid}" -->
-    <!-- [styleClass]="isInvalid('tel') ? 'ng-invalid' : 'ng-valid'" -->
-    <div class="password-container">
-      <label for="password">Contraseña</label>
-      <input
-        [type]="mostrarPassword ? 'text' : 'password'"
-        id="password"
-        formControlName="password"
-        placeholder="Introduce tu contraseña"
-        (input)="verificarPassword()"
-        style="width: 100%; margin-bottom: 20px"
-        required
-        [ngClass]="{'is-valid': coincidenPasswords, 'is-invalid': !coincidenPasswords && formulario.get('confirmPassword')?.touched}"
-      />
-      <button
-        type="button"
-        (click)="togglePasswordVisibility()"
-        class="toggle-password"
+  <p-stepper [linear]="true">
+    <p-stepperPanel header="Información basica">
+      <ng-template
+        pTemplate="content"
+        let-nextCallback="nextCallback"
+        let-index="index"
       >
-        <i 
-          class="fas"
-          [ngClass]="mostrarPassword ? 'fa-eye-slash' : 'fa-eye'"
-        ></i>
-        <!-- Icono para el botón -->
-      </button>
-    </div>
-    <div *ngIf="passwordStrength != 'Muy fuerte'" class="password-strength">
-      <div [ngClass]="strengthColor">{{ passwordStrength }}</div>
-    </div>
+        <div class="flex flex-column h-12rem">
+          <div
+            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
+          >
+            <form
+              [formGroup]="formulario"
+              (ngSubmit)="registroCliente()"
+              class="form"
+            >
+              <!-- Nombre de usuario -->
+              <label for="username">Nombre de usuario</label>
+              <input
+                type="text"
+                formControlName="username"
+                name="username"
+                placeholder="Introduce tu nombre de usuario"
+                required
+                [maxlength]="10"
+              />
+              <span
+                style="color: red"
+                *ngIf="errorMessages.username"
+                class="text-danger"
+              >
+                {{ errorMessages.username }}
+              </span>
+              <span
+                style="color: red"
+                *ngIf="formulario.get('username')?.invalid && formulario.get('username')?.touched"
+                class="text-danger"
+              >
+                El campo de nombre de usuario es requerido.
+              </span>
 
-    <!-- Requisitos de contraseña -->
-    <span
-      *ngIf="passwordStrength != 'Muy fuerte'"
-      class="password-requirements"
-    >
-      <p>Requisitos</p>
-      <ul style="line-height: 1.5; list-style-type: none">
-        <li [ngClass]="{'text-success': validacionesPassword.tieneMinuscula}">
-          <span *ngIf="validacionesPassword.tieneMinuscula">✅</span>
-          <span *ngIf="!validacionesPassword.tieneMinuscula">🔘</span>
-          Al menos una letra minúscula
-        </li>
-        <li [ngClass]="{'text-success': validacionesPassword.tieneMayuscula}">
-          <span *ngIf="validacionesPassword.tieneMayuscula">✅</span>
-          <span *ngIf="!validacionesPassword.tieneMayuscula">🔘</span>
-          Al menos una letra mayúscula
-        </li>
-        <li [ngClass]="{'text-success': validacionesPassword.tieneNumero}">
-          <span *ngIf="validacionesPassword.tieneNumero">✅</span>
-          <span *ngIf="!validacionesPassword.tieneNumero">🔘</span>
-          Al menos un número
-        </li>
-        <li [ngClass]="{'text-success': validacionesPassword.longitudMinima}">
-          <span *ngIf="validacionesPassword.longitudMinima">✅</span>
-          <span *ngIf="!validacionesPassword.longitudMinima">🔘</span>
-          Mínimo 8 caracteres
-        </li>
-      </ul>
-    </span>
-    <!-- Campo de confirmación de contraseña -->
-    <div *ngIf="passwordStrength === 'Muy fuerte'">
-      <label for="confirmPassword">Confirma tu contraseña</label>
-      <input
-        [type]="mostrarPassword ? 'text' : 'password'"
-        formControlName="confirmPassword"
-        id="confirmPassword"
-        placeholder="Confirma tu contraseña"
-        [ngClass]="{'is-valid': coincidenPasswords, 'is-invalid': !coincidenPasswords && formulario.get('confirmPassword')?.touched}"
-      />
-      <!-- Mensaje de error si las contraseñas no coinciden -->
-      <div
-        *ngIf="!coincidenPasswords && formulario.get('confirmPassword')?.touched"
-        class="text-danger"
+              <!-- Correo Electrónico -->
+              <label for="email">Correo Electrónico</label>
+              <input
+                type="email"
+                pInputText
+                formControlName="email"
+                name="email"
+                placeholder="Introduce tu correo electrónico"
+                required
+              />
+              <span
+                style="color: red"
+                *ngIf="errorMessages.email"
+                class="text-danger"
+              >
+                {{ errorMessages.email }}
+              </span>
+              <span
+                style="color: red"
+                *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched"
+                class="text-danger"
+              >
+                El correo electrónico debe ser válido.
+              </span>
+
+              <!-- Número telefónico -->
+              <label for="tel">Número telefónico</label>
+              <p-inputMask
+                id="tel"
+                mask="+52 999 999 9999"
+                formControlName="tel"
+                placeholder="Introduce tu número telefónico"
+              ></p-inputMask>
+              <span
+                style="color: red"
+                *ngIf="errorMessages.tel"
+                class="text-danger"
+              >
+                {{ errorMessages.tel }}
+              </span>
+              <span
+                style="color: red"
+                *ngIf="formulario.get('tel')?.invalid && formulario.get('tel')?.touched"
+                class="text-danger"
+              >
+                El número telefónico es requerido y debe ser válido.
+              </span>
+            </form>
+          </div>
+        </div>
+
+        <div class="flex pt-4 justify-content-end">
+          <p-button
+            label="Next"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            (onClick)="nextCallback.emit()"
+          />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Información confidencial">
+      <ng-template
+        pTemplate="content"
+        let-prevCallback="prevCallback"
+        let-nextCallback="nextCallback"
+        let-index="index"
       >
-        Las contraseñas no coinciden.
-      </div>
-    </div>
-    <div class="purchase-terms-container">
-      <p>Tus datos personales se utilizarán para procesar tu compra, mejorar tu experiencia en esta web y otros propósitos descritos en nuestra <a href="#" target="_blank">política de privacidad</a>.</p>
-    
-      <div class="checkbox-terms">
-        <input type="checkbox" id="accept-terms" name="accept-terms">
-        <label for="accept-terms">
-          Al marcar esta casilla acepto la <a href="#" target="_blank">política de privacidad</a>, los <a href="#" target="_blank">términos y condiciones de la compra</a> y confirmo que soy mayor de 18 años de edad.
-        </label>
-      </div>
-    </div>
-    
-    <!-- Botón de registro -->
-    <button type="submit" [disabled]="formulario.invalid">Registrar</button>
-  </form>
+        <div class="flex flex-column h-12rem">
+          <div
+            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
+          >
+            <form
+              [formGroup]="formulario"
+              (ngSubmit)="registroCliente()"
+              class="form"
+            >
+              <!-- <div class="password-container"> -->
+              <label for="password">Contraseña</label>
+              <!-- [ngClass]="{'is-valid': coincidenPasswords, 'is-invalid': !coincidenPasswords && formulario.get('confirmPassword')?.touched}" -->
+              <p-password
+                formControlName="password"
+                (input)="verificarPassword()"
+                [styleClass]="'my-custom-class'"
+                placeholder="Introduce tu contraseña"
+                [toggleMask]="true"
+              >
+                <ng-template pTemplate="footer">
+                  <p-divider />
+                  <p class="mt-2">Requisitos</p>
+                  <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                    <!-- <ul
+
+                  class="passwordStrength"
+                  style="line-height: 1.5; list-style-type: none"
+                > -->
+                    <li
+                      [ngClass]="{'text-success': validacionesPassword.tieneMinuscula}"
+                    >
+                      <span *ngIf="validacionesPassword.tieneMinuscula"
+                        >✅</span
+                      >
+                      <span *ngIf="!validacionesPassword.tieneMinuscula"
+                        >🔘</span
+                      >
+                      Al menos una letra minúscula
+                    </li>
+                    <li
+                      [ngClass]="{'text-success': validacionesPassword.tieneMayuscula}"
+                    >
+                      <span *ngIf="validacionesPassword.tieneMayuscula"
+                        >✅</span
+                      >
+                      <span *ngIf="!validacionesPassword.tieneMayuscula"
+                        >🔘</span
+                      >
+                      Al menos una letra mayúscula
+                    </li>
+                    <li
+                      [ngClass]="{'text-success': validacionesPassword.tieneNumero}"
+                    >
+                      <span *ngIf="validacionesPassword.tieneNumero">✅</span>
+                      <span *ngIf="!validacionesPassword.tieneNumero">🔘</span>
+                      Al menos un número
+                    </li>
+                    <li
+                      [ngClass]="{'text-success': validacionesPassword.longitudMinima}"
+                    >
+                      <span *ngIf="validacionesPassword.longitudMinima"
+                        >✅</span
+                      >
+                      <span *ngIf="!validacionesPassword.longitudMinima"
+                        >🔘</span
+                      >
+                      Mínimo 8 caracteres
+                    </li>
+                  </ul>
+                </ng-template>
+              </p-password>
+
+              <div class="confr" *ngIf="passwordStrength === 'Muy fuerte'">
+                <label for="confirmPassword">Confirma tu contraseña</label>
+                <br />
+                <p-password
+                  formControlName="confirmPassword"
+                  id="confirmPassword"
+                  placeholder="Confirma tu contraseña"
+                  [ngClass]="{'is-valid': coincidenPasswords, 'is-invalid': !coincidenPasswords && formulario.get('confirmPassword')?.touched}"
+                  [toggleMask]="true"
+                  [feedback]="false"
+                  [styleClass]="'my-custom-class'"
+                >
+                </p-password>
+
+                <!-- Mensaje de error si las contraseñas no coinciden -->
+                <div
+                  *ngIf="!coincidenPasswords && formulario.get('confirmPassword')?.touched"
+                  class="text-danger"
+                >
+                  Las contraseñas no coinciden.
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="flex pt-4 justify-content-between">
+          <p-button
+            label="Back"
+            icon="pi pi-arrow-left"
+            (onClick)="prevCallback.emit()"
+          />
+          <p-button
+            label="Next"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            (onClick)="nextCallback.emit()"
+          />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Politicas y privacidad">
+      <ng-template
+        pTemplate="content"
+        let-prevCallback="prevCallback"
+        let-index="index"
+      >
+        <div class="flex flex-column h-12rem">
+          <div
+            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
+          >
+            <form
+              [formGroup]="formulario"
+              (ngSubmit)="registroCliente()"
+              class="form"
+            >
+              <div class="purchase-terms-container">
+                <p>
+                  Tus datos personales se utilizarán para procesar tu compra,
+                  mejorar tu experiencia en esta web y otros propósitos
+                  descritos en nuestra
+                  <a href="#" target="_blank">política de privacidad</a>.
+                </p>
+
+                <div class="checkbox-terms">
+                  <input
+                    required
+                    type="checkbox"
+                    id="accept-terms"
+                    name="accept-terms"
+                  />
+                  <label for="accept-terms">
+                    Al marcar esta casilla acepto la
+                    <a href="#" target="_blank">política de privacidad</a>, los
+                    <a href="#" target="_blank"
+                      >términos y condiciones de la compra</a
+                    >
+                    y confirmo que soy mayor de 18 años de edad.
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="flex pt-4 justify-content-start">
+          <p-button
+            label="Back"
+            icon="pi pi-arrow-left"
+            (onClick)="prevCallback.emit()"
+          />
+          <p-button
+            type="submit"
+            label="Registrarme"
+            icon="pi pi-arrow-rigth"
+          />
+          <!-- (onClick)="prevCallback.emit()" -->
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+  </p-stepper>
 </div>

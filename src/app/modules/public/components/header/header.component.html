@@ -34,20 +34,26 @@
   <nav class="nav-bar">
     <div class="logo zoom"></div>
     <ul *ngIf="!isMobile" class="nav-menu">
-      <li><a href="#">Home</a></li>
+      <li><a (click)="redirectTo('home')">Home</a></li>
 
-      <li><a (click)="redirectTo('Sign-in')">Login</a></li>
-      <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li>
+      <!-- <li><a (click)="redirectTo('Sign-in')">Login</a></li> -->
+      <!-- <li><a (click)="redirectTo('Sign-up')">Registrarme</a></li> -->
       <li>
-        <a (click)="redirectTo('AcercaDe')"> Acerca de Atelier </a>
+        <a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a>
       </li>
     </ul>
     <ul class="nav-accion">
       <li>
-        <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
+        <a href="#" class="nav-icon"><i class="pi pi-search"></i></a>
       </li>
       <li>
-        <a href="#" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+        <a href="#" class="nav-icon">    <i class="pi pi-shopping-cart"></i></a>
+      </li>
+      <li *ngIf="!isMobile">
+        <a tabindex="0" class="nav-icon" (click)="menu.toggle($event)">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
       </li>
       <li *ngIf="isMobile">
         <a tabindex="0" (click)="showDialog()" class="nav-icon"
@@ -82,8 +88,8 @@
         </a>
       </li>
       <li>
-        <a tabindex="0" (click)="redirectTo('Sign-up')">
-          <i class="fas fa-user-plus"></i> configuración
+        <a tabindex="0" (click)="redirectTo('Config')">
+          <i class="fas fa-gear"></i> configuración
         </a>
       </li>
       <li>

@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Usuario } from '../../../../shared/models/usuario.model';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
-// import Inputmask from 'inputmask';
 import { UsuarioService } from '../../../../shared/services/usuario.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sign-up-view',
   templateUrl: './sign-up.view.html',
-  styleUrls: ['./sign-up.view.scss'],
+  styleUrls: ['./sign-up.view.scss','./listacard.scss'],
 })
 export class SignUpView implements OnInit {
   formulario!: FormGroup;
@@ -17,13 +16,25 @@ export class SignUpView implements OnInit {
   strengthColor: string = '';
   coincidenPasswords: boolean = true;
   mostrarPassword: boolean = false; 
-
   validacionesPassword = {
     tieneMinuscula: false,
     tieneMayuscula: false,
     tieneNumero: false,
     longitudMinima: false,
   };
+  activeIndex: number = 0;
+
+  nextStep() {
+    if (this.activeIndex < 2) {
+      this.activeIndex++;
+    }
+  }
+
+  prevStep() {
+    if (this.activeIndex > 0) {
+      this.activeIndex--;
+    }
+  }
 
   errorMessages = {
     username: '',
@@ -33,17 +44,16 @@ export class SignUpView implements OnInit {
     confirmPassword: '',
   };
 
-  constructor(private uservice: UsuarioService) {}
+  constructor(private fb: FormBuilder,private uservice: UsuarioService) {}
 
   ngOnInit() {
-    this.formulario = new FormGroup({
-      username: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      tel: new FormControl('', [
-        Validators.required,
-      ]),
-      password: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required),
+    this.formulario = this.fb.group({
+      username: ['', [Validators.required, Validators.maxLength(10)]],
+      email: ['', [Validators.required, Validators.email]],
+      tel: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: [''],
+      acceptTerms: [false, Validators.requiredTrue]
     });
 
     // Validar coincidencia de contraseñas
@@ -62,7 +72,6 @@ export class SignUpView implements OnInit {
     this.formulario.get('tel')?.valueChanges.subscribe(() => {
       const numeroTelefono = this.formulario.get('tel')?.value;
       this.errorMessages.tel = ''; // Limpiar mensaje de error inicialmente
-
       if (numeroTelefono && !isValidPhoneNumber(numeroTelefono, 'MX')) {
         this.errorMessages.tel = 'Número telefónico inválido.';
       }

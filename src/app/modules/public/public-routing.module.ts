@@ -8,6 +8,8 @@ import { PublicComponent } from './public.component';
 import { AcercaDeView } from './views/acerca-de/acerca-de.view';
 import { SignInView } from '../auth/view/sign-in/sign-in.view';
 import { SignUpView } from '../auth/view/sign-up/sign-up.view';
+import { ConfigView } from './views/config/config.view';
+import { DetailsProductView } from './views/details-product/details-product.view';
 // import { RecuperarPasswordView } from './views/recuperar-password/recuperar-password.view';
 
 const routes: Routes = [
@@ -55,9 +57,8 @@ const routes: Routes = [
           ],
         },
       },
-   
-      // { path: 'Sign-in', component: SignInView },
-      // { path: 'Sign-up', component: SignUpView },
+      { path: 'Config', component: ConfigView },
+      { path: 'Detail', component: DetailsProductView },
     ],
   },
 ];

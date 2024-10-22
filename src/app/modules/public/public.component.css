@@ -20,12 +20,14 @@ body {
 /* @import url(https://fonts.googleapis.com/css2?family=PT+Serif:wght@100;200;300;400;500;600;700&display=swap); */
 main {
   /* user-select: none; */
-  margin-top: 2%;
+  margin-top:5%;
   /* border: dashed; */
   /* z-index: 999; */
 }
 .content-all {
   padding: 20px;
+  background-color: #f3f5fb; /* Fondo blanco para mejor visibilidad */
+/*  */
   /* height: 100vh; */
 }
 

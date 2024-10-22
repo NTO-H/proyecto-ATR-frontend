@@ -1,7 +1,7 @@
 /* Contenedor principal del formulario */
 div.container-form {
   margin: 0 auto;
-  margin-top: 3%;
+  // margin-top: '%;
   // padding: 20px;
   display: flex;
   flex-direction: row;
@@ -19,7 +19,7 @@ div.container-form {
     top: 20px;
     left: 20px;
     z-index: 1000;
-
+    
     a.go-back {
       text-decoration: none;
       color: #e91e63;
@@ -95,32 +95,24 @@ div.container-form {
     }
   }
 }
-.passwordStrength {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  margin-top: 10px;
-  border-radius: 10px;
-  padding: 10px;
-}
+
 // formularios
 form {
-  // border: dashed;
-  // padding: 40px;
-  // padding-top: 40px;
-  // padding-bottom: 40px;
-  padding-bottom: 40px;
-  // width: 100%;
+  border: dashed;
+  padding: 40px;
+  width: 100%;
   max-width: 600px; /* Ancho máximo para formularios grandes */
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   background-color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 
   /* Estilo de los labels */
   label {
     font-size: 18px;
     color: #292d34;
     font-weight: 600;
-    margin-top: 25px;
     margin-bottom: 8px;
 
     &::after {
@@ -133,8 +125,9 @@ form {
   /* Estilo de los campos de entrada */
   .extended-input,
   input {
-    padding: 15px;
+    padding: 18px;
     width: 100%;
+    margin-top: 20px;
     border: solid 1px #ddd;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -241,34 +234,15 @@ form {
   margin-bottom: 15px;
   line-height: 1.6;
 }
-@layer primeng {
-  .p-password {
-    position: relative;
-    display: inline-flex;
-    width: 100%;
-  }
-}
-  input {
-    width: 100%;
 
-    border-radius: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-
-  .ui-password-toggle-icon {
-    color: #007bff; // Cambia el color del icono de mostrar/ocultar
-  }
-// }
 .checkbox-terms {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 10px 0;
-  align-items: center;
 }
 
-input.accept-terms {
+.checkbox-terms input {
   margin-top: 4px;
   width: 5px;
   height: 18px;
@@ -280,9 +254,7 @@ input.accept-terms {
   line-height: 1.5;
   color: #333;
 }
-.confr{
-  margin-top: 20px;
-}
+
 .checkbox-terms label a {
   color: #007bff;
   text-decoration: none;

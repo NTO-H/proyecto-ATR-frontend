@@ -1,7 +1,10 @@
 <div class="hero-img">
   <div class="text">
     <h1 class="text-info">Welcome to Our Website!</h1>
-    <p>LO MÁS TOP DE VESTIDOS EN RENTA PARA FIESTAS, UN ESPACIO DONDE ENCONTRARÁS LO QUE ESTÁS BUSCANDO ✨.</p>
+    <p>
+      LO MÁS TOP DE VESTIDOS EN RENTA PARA FIESTAS, UN ESPACIO DONDE ENCONTRARÁS
+      LO QUE ESTÁS BUSCANDO ✨.
+    </p>
   </div>
 
   <div class="text-anuncio">
@@ -11,7 +14,9 @@
 </div>
 
 <h1 style="text-align: center">Categorias</h1>
-<p style="text-align: center">Encuentra los mejores productos para tus eventos</p>
+<p style="text-align: center">
+  Encuentra los mejores productos para tus eventos
+</p>
 <div class="cards">
   <div class="card">
     <h2 style="text-align: center">Vestidos</h2>
@@ -21,12 +26,11 @@
     <h2 style="text-align: center">Accesorios</h2>
     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores doloribus
   </div>
- 
+
   <div class="card">
     <h2 style="text-align: center">Combinaciones</h2>
     aperiam veniam repellat quasi iure quibusdam, autem temporibus amet
   </div>
- 
 </div>
 
 <h1 style="text-align: center">Encuentra tu estilo</h1>
@@ -34,7 +38,7 @@
 <div class="productos-container">
   <div *ngFor="let producto of productos" class="producto-card p-mb-4">
     <div class="product-image">
-      <img [src]="producto.imagen" alt="{{ producto.nombre }}" />
+      <img  (click)="verDetalles()" [src]="producto.imagen" alt="{{ producto.nombre }}" />
     </div>
     <div class="product-content">
       <p>{{ producto.descripcion }}</p>
@@ -45,21 +49,32 @@
 
 <div class="cards-info">
   <div class="card">
-    <img src="https://via.placeholder.com/100" alt="Vestidos" class="card-image">
+    <img
+      src="https://via.placeholder.com/100"
+      alt="Vestidos"
+      class="card-image"
+    />
     <h2 style="text-align: center">Vestidos</h2>
-    En ATELIER nos aseguramos de que recibas esa prenda que durará un largo tiempo.
+    En ATELIER nos aseguramos de que recibas esa prenda que durará un largo
+    tiempo.
   </div>
   <div class="card">
-    <img src="https://via.placeholder.com/100" alt="Accesorios" class="card-image">
+    <img
+      src="https://via.placeholder.com/100"
+      alt="Accesorios"
+      class="card-image"
+    />
     <h2 style="text-align: center">Accesorios</h2>
-    Nuestro sistema está protegido para que realices tu compra sin preocupaciones, Elige tu método de pago más cómodo.
+    Nuestro sistema está protegido para que realices tu compra sin
+    preocupaciones, Elige tu método de pago más cómodo.
   </div>
   <div class="card">
-    <img src="https://via.placeholder.com/100" alt="Combinaciones" class="card-image">
+    <img
+      src="https://via.placeholder.com/100"
+      alt="Combinaciones"
+      class="card-image"
+    />
     <h2 style="text-align: center">Combinaciones</h2>
     Nuestros catálogos siempre están actualizados a la temporada.
   </div>
 </div>
-
-
-

@@ -5,6 +5,7 @@ import { AuthComponent } from './auth.component';
 import { SignInView } from './view/sign-in/sign-in.view';
 import { SignUpView } from './view/sign-up/sign-up.view';
 import { RecuperarPasswordView } from './view/recuperar-password/recuperar-password.view';
+import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.view';
 const routes: Routes = [
   {
     path: '',
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: 'Sign-in', component: SignInView },
       { path: 'Sign-up', component: SignUpView },
       { path: 'forgot-password', component: RecuperarPasswordView },
+      { path: 'Activar-cuenta', component: VerificarCodigoView },
     ],
   },
 ];

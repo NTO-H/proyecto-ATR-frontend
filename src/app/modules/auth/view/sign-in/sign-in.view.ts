@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -8,7 +8,10 @@ import { SessionService } from '../../../../shared/services/session.service';
 import { MessageService } from 'primeng/api';
 import { Subscription, interval } from 'rxjs';
 import { ERol } from '../../../../shared/constants/rol.enum';
-
+// import { ReCaptchaV2Service } from 'ng-recaptcha';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { environment } from '../../../../../environments/environment';
+import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.view.html',
@@ -32,6 +35,29 @@ export class SignInView implements OnInit {
   public robot!: boolean;
   public presionado!: boolean;
 
+  // Inject the service in the constructor
+  // constructor() {}
+
+  // Implement a callback for reCAPTCHA v2 resolution
+  onCaptchaResolved(response: string): void {
+    // Use the response token as needed
+    console.log('reCAPTCHA v2 Response:', response);
+  }
+  recaptchaV3Service = inject(ReCaptchaV3Service);
+  executeRecaptcha() {
+    // La acción 'login' es un ejemplo, puedes usar otra acción personalizada.
+    this.recaptchaV3Service.execute('').subscribe((token) => {
+      // Puedes usar el token aquí para la verificación
+      console.log('Captcha token:', token);
+    });
+  }
+
+  executeRecaptchaVisible(token:any){
+    console.log('token visible', token);
+    // this.robot = false;
+    // this.presionado = true;
+    // this.executeVisibleCatcha(token); // Ejecutar la acción que requiera el token visible
+  }
   constructor(
     private signInService: SignInService,
     private storageService: StorageService,

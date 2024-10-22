@@ -13,11 +13,16 @@ import { AcercaDeView } from './views/acerca-de/acerca-de.view';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 // DialogModule 
+import { MenuModule } from 'primeng/menu';
 // import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-const MATERIALS =[CardModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule]
+import { DetailsProductView } from './views/details-product/details-product.view';
+import { SkeletonModule } from 'primeng/skeleton';
+
+// import { VerificarCodigoView } from './views/verificar-codigo/verificar-codigo.view';
+const MATERIALS =[SkeletonModule,CardModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
-const VIEWS=[HomeView,PublicComponent, AcercaDeView]
+const VIEWS=[HomeView,PublicComponent, AcercaDeView,DetailsProductView]
 @NgModule({
   declarations: [VIEWS,COMPONENTS],
   imports: [

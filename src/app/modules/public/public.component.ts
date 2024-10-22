@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { SwPush } from "@angular/service-worker";
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,10 @@ export class PublicComponent implements OnInit {
   sidebarVisible: boolean = false;
   isMobile: boolean = false;
 
-constructor(private router:Router){
-
-}
+  constructor(private router: Router,private swPush: SwPush) {}
 
   ngOnInit(): void {
+    this.subscription() 
     const ua = navigator.userAgent;
     console.log(ua);
 
@@ -58,20 +58,31 @@ constructor(private router:Router){
     }
   }
 
-
-
-
   redirectTo(route: string): void {
     // this.sidebarVisible2 = !this.sidebarVisible2
-    console.log(route)
+    console.log(route);
     if (route === 'login') {
-      this.router.navigate(['/auth/login']) // Navegación hacia la página de inicio de sesión
+      this.router.navigate(['/auth/login']); // Navegación hacia la página de inicio de sesión
     } else {
-      console.log("click",route)
-      this.router.navigate(['/public', route]) // Navegación hacia otras páginas públicas
+      console.log('click', route);
+      this.router.navigate(['/public', route]); // Navegación hacia otras páginas públicas
     }
   }
 
+  // title = 'purificadora';
+  response: any;
+  readonly VAPID_PUBLIC_KEY =
+    'BPqUE0OuQtFwPMDzFFttBK-aM3oJePkk_vsQ0OPmRQVJwWYQY1gq1U7mxFPRuSUR85rwBiU1ynfCsExlCIt40fk';
+  subscription() {
+    this.swPush
+      .requestSubscription({
+        serverPublicKey: this.VAPID_PUBLIC_KEY,
+      })
+      .then((response) => {
+        this.response = response;
+      })
+      .catch((error) => (this.response = error));
+  }
 
   // // Detecta el scroll del usuario
   // @HostListener('window:scroll', [])

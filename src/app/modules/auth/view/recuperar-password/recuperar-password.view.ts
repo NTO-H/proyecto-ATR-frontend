@@ -1,20 +1,9 @@
-
-
-// import { mensageservice
-
 import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
-// import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-// import { MatTabsModule } from '@angular/material/tabs';
-// import { MatDividerModule } from '@angular/material/divider';
-// import { MatButtonModule } from '@angular/material/button';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from '../../../../shared/models/usuario.model';
 import { ActivatedRoute, Route } from '@angular/router';
-
-
-
 import {
   FormControl,
   FormGroupDirective,
@@ -24,9 +13,6 @@ import {
   ReactiveFormsModule,
   FormBuilder,
 } from '@angular/forms';
-// import { ErrorStateMatcher } from '@angular/material/core';
-// import { MatInputModule } from '@angular/material/input';
-// import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormGroup } from '@angular/forms';
 import { response } from 'express';
 // import { Console } from 'console';
@@ -36,16 +22,6 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
 import { UsuarioService } from '../../../../shared/services/usuario.service';
 
 
-// export class MyErrorStateMatcher {
-//   selectedOption: string = 'email';
-//   selectOption(event: any) {
-//     this.selectedOption = event.target.value;
-//   }
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }
 @Component({
   selector: 'app-recuperacion-password',
   templateUrl: './recuperar-password.view.html',
@@ -65,19 +41,10 @@ export class RecuperarPasswordView {
   frmActualizaPassword: FormGroup;
   
   value: string | undefined;
-
-  // value!: string;
   correoIngresado: string = '';
 
-  
-
-
-
-
-
-
-
   esFrmCorreo: boolean = false;
+  esFrmWhatsapp: boolean = false;
   esFrmPregunta: boolean = false;
   esfrmVerficacion: boolean = false;
   esFrmResetPassword: boolean = false;
@@ -129,12 +96,18 @@ export class RecuperarPasswordView {
 
       console.log('actualizarPasswordxCorreo')
       this.toastr.info(`Has seleccionado la opción de recuperación por correo.`, 'Selección');
+    } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == "whatsapp") {
+        console.log('actualizarPasswordPorWhatsapp')
+      this.toastr.info(`Has seleccionado la opción de recuperación por whatsapp.`, 'Selección');
+      this.esFrmWhatsapp = true;
+    
     } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == "pregunta") {
         console.log('actualizarPasswordPorPregunta')
       this.toastr.info(`Has seleccionado la opción de recuperación por pregunta.`, 'Selección');
       this.esFrmPregunta = true;
     
-    } else {
+    }
+     else {
       this.toastr.error(`Debes seleccionar una opción de recuperación.`, 'Error');
     }
     this.formularioEnviado = true;
@@ -398,6 +371,10 @@ export class RecuperarPasswordView {
     if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'pregunta') {
       this.actualizarPasswordPorPregunta();
       console.log('actualizarPasswordPorPregunta')
+    } else if (this.frmSeleccionMetodoRecuperacion.value.opcion =='whatsapp'){
+      console.log('actualizarPasswordxWhatsapp')
+      this.actualizarPasswordxCorreo();
+    
     } else if (this.frmSeleccionMetodoRecuperacion.value.opcion =='correo'){
       console.log('actualizarPasswordxCorreo')
       this.actualizarPasswordxCorreo();

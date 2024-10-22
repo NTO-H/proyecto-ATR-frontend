@@ -1,0 +1,23 @@
+.product-detail-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+  border: dashed;
+  
+  .product-images,
+  .product-info {
+  border: dashed red;
+  width: 45%;
+}
+
+.product-options,
+.actions {
+      border: dashed blue;
+    margin-top: 15px;
+  }
+
+  .add-to-cart {
+    width: 100%;
+  }
+}
