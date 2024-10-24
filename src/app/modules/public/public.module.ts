@@ -13,6 +13,7 @@ import { AcercaDeView } from './views/acerca-de/acerca-de.view';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 // DialogModule 
+import { PerfilView } from './views/perfil/perfil.view';
 import { MenuModule } from 'primeng/menu';
 // import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -21,15 +22,24 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { CarritoView } from './views/carrito/carrito.view';
 
 // import { VerificarCodigoView } from './views/verificar-codigo/verificar-codigo.view';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Toast } from 'ngx-toastr';
+import { MessageService } from 'primeng/api';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { SignUpService } from '../auth/commons/services/sign-up.service';
+import { UsuarioService } from '../../shared/services/usuario.service';
 const MATERIALS =[SkeletonModule,CardModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
-const VIEWS=[HomeView,PublicComponent, AcercaDeView,DetailsProductView]
+const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductView]
 @NgModule({
   declarations: [VIEWS,COMPONENTS, CarritoView],
   imports: [
     CommonModule,ReactiveFormsModule,FormsModule,
     PublicRoutingModule, ...MATERIALS,
-  ]
+  ],
+  providers: [Toast,MessageService,provideClientHydration(), [provideHttpClient(withFetch())],
+  SignUpService,UsuarioService],
 })
 export class PublicModule {
 

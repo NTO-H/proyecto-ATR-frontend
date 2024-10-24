@@ -1,6 +1,6 @@
 <div class="hero-img">
   <div class="text">
-    <h1 class="text-info">Welcome to Our Website!</h1>
+    <h1 data-aos="flip-left" class="text-info">Welcome to Our Website!</h1>
     <p>
       LO MÁS TOP DE VESTIDOS EN RENTA PARA FIESTAS, UN ESPACIO DONDE ENCONTRARÁS
       LO QUE ESTÁS BUSCANDO ✨.
@@ -18,16 +18,16 @@
   Encuentra los mejores productos para tus eventos
 </p>
 <div class="cards">
-  <div class="card">
+  <div data-aos="zoom-out-up" class="card">
     <h2 style="text-align: center">Vestidos</h2>
     aperiam veniam repellat quasi iure quibusdam, autem temporibus amet
   </div>
-  <div class="card">
+  <div data-aos="zoom-out-up" class="card">
     <h2 style="text-align: center">Accesorios</h2>
     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores doloribus
   </div>
 
-  <div class="card">
+  <div data-aos="zoom-out-up" class="card">
     <h2 style="text-align: center">Combinaciones</h2>
     aperiam veniam repellat quasi iure quibusdam, autem temporibus amet
   </div>
@@ -36,7 +36,7 @@
 <h1 style="text-align: center">Encuentra tu estilo</h1>
 
 <div class="productos-container">
-  <div *ngFor="let producto of productos" class="producto-card p-mb-4">
+  <div data-aos="zoom-out-up" *ngFor="let producto of productos" class="producto-card p-mb-4">
     <div class="product-image">
       <img  (click)="verDetalles()" [src]="producto.imagen" alt="{{ producto.nombre }}" />
     </div>

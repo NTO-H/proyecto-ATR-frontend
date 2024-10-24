@@ -43,6 +43,7 @@ div.container-form {
     }
   }
 
+
   /* Estilos del formulario */
 
   /* Estilo de la imagen del logo */
@@ -186,7 +187,9 @@ form {
     }
   }
 }
-
+.text-danger{
+  color: red;
+}
 /* Clases para la validación de campos */
 .is-invalid {
   border: 1px solid #e57373;
