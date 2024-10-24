@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
@@ -19,6 +20,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DetailsProductView } from './views/details-product/details-product.view';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CarritoView } from './views/carrito/carrito.view';
+import { DatosEmpresaService } from '../../shared/services/datos-empresa.service';
 
 // import { VerificarCodigoView } from './views/verificar-codigo/verificar-codigo.view';
 const MATERIALS =[SkeletonModule,CardModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
@@ -28,8 +30,9 @@ const VIEWS=[HomeView,PublicComponent, AcercaDeView,DetailsProductView]
   declarations: [VIEWS,COMPONENTS, CarritoView],
   imports: [
     CommonModule,ReactiveFormsModule,FormsModule,
-    PublicRoutingModule, ...MATERIALS,
-  ]
+    PublicRoutingModule,HttpClientModule, ...MATERIALS,
+  ],
+  providers:[DatosEmpresaService]
 })
 export class PublicModule {
 

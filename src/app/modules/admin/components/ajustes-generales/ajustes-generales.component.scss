@@ -1,0 +1,90 @@
+/* Estilos generales del formulario */
+.ajustes-generales-form {
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  margin: 20px auto; /* Centrar el formulario */
+  max-width: 700px; /* Ancho máximo del formulario */
+}
+
+/* Estilo del título del formulario */
+.form-title {
+  font-size: 1.5rem;
+  color: #e91e63; /* Color del título */
+  margin-bottom: 20px; /* Espacio inferior */
+  text-align: center; /* Centrar el título */
+}
+
+/* Estilos para los grupos de formulario */
+.form-group {
+  margin-bottom: 15px; /* Espacio inferior */
+}
+
+/* Estilo de los controles de formulario */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc; /* Borde gris */
+  border-radius: 4px; /* Bordes redondeados */
+  transition: border-color 0.3s; /* Transición de borde */
+}
+
+/* Cambiar el borde al enfocar */
+.form-control:focus {
+  border-color: #e91e63; /* Cambiar el borde al enfocar */
+  outline: none; /* Sin contorno */
+}
+
+/* Estilos para los botones */
+.btn {
+  padding: 8px 12px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estilo específico para el botón de guardar */
+.btn.guardar {
+  background-color: #e91e63; /* Color de fondo */
+  color: white; /* Color del texto */
+}
+
+.btn.guardar:hover {
+  background-color: #d81b60; /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilos para los botones eliminar y agregar */
+.btn.eliminar {
+  background-color: #f44336; /* Rojo para el botón eliminar */
+  color: white;
+}
+
+.btn.eliminar:hover {
+  background-color: #e53935; /* Oscurecer al pasar el mouse */
+}
+
+.btn.agregar {
+  background-color: #4caf50; /* Verde para el botón agregar */
+  color: white;
+}
+
+.btn.agregar:hover {
+  background-color: #45a049; /* Oscurecer al pasar el mouse */
+}
+
+/* Botón deshabilitado */
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Espaciado para los botones de acción */
+.form-actions {
+  display: flex;
+  justify-content: flex-end; /* Alinear botones a la derecha */
+}

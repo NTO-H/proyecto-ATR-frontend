@@ -7,11 +7,8 @@ import { UsuarioService } from '../../../../shared/services/usuario.service';
   styleUrl: './listado-clientes.component.scss',
 })
 export class ListadoClientesComponent implements OnInit {
-  
-  data!:any
-  
-  
-  
+  data!: any;
+
   ngOnInit(): void {
     this.getUsuario();
   }
@@ -21,7 +18,7 @@ export class ListadoClientesComponent implements OnInit {
   getUsuario() {
     this.us.getUsuarios().subscribe((res) => {
       console.log(res);
-      this.data=res
+      this.data = res;
     });
   }
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeView } from './views/home/home.view';
@@ -37,19 +37,47 @@ import { PerfilAdministradorComponent } from './components/perfil-administrador/
 import { AjustesGeneralesComponent } from './components/ajustes-generales/ajustes-generales.component';
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 import { UsuarioService } from '../../shared/services/usuario.service';
+import { DatosEmpresaService } from '../../shared/services/datos-empresa.service';
 
-const VIEWS=[ HomeView,FooterComponent]
-const UTILS=[ ]
-
+const VIEWS = [HomeView, FooterComponent];
+const UTILS = [];
 
 @NgModule({
-  declarations: [VIEWS, AdminComponent, ClienteListadoComponent, ControlClientesView, ControlProductosView, ControlVentasView, ControlRentasView, HistorialView, RegistroRentaComponent, ListadoRentaComponent, RegistroVentaComponent, RegistoProductoComponent, RegistoPoliticaComponent, RegistroTerminosCondicionesComponent, ListadoPoliticaComponent, ListadoProductosComponent, ListadoVentaComponent, ListadoComentarioComponent, ConfiguracionView, ReportesView, PoliticasView, ListadoClientesComponent, PerfilAdministradorComponent, AjustesGeneralesComponent, NotificacionesComponent],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,HttpClientModule  
+  declarations: [
+    VIEWS,
+    AdminComponent,
+    ClienteListadoComponent,
+    ControlClientesView,
+    ControlProductosView,
+    ControlVentasView,
+    ControlRentasView,
+    HistorialView,
+    RegistroRentaComponent,
+    ListadoRentaComponent,
+    RegistroVentaComponent,
+    RegistoProductoComponent,
+    RegistoPoliticaComponent,
+    RegistroTerminosCondicionesComponent,
+    ListadoPoliticaComponent,
+    ListadoProductosComponent,
+    ListadoVentaComponent,
+    ListadoComentarioComponent,
+    ConfiguracionView,
+    ReportesView,
+    PoliticasView,
+    ListadoClientesComponent,
+    PerfilAdministradorComponent,
+    AjustesGeneralesComponent,
+    NotificacionesComponent,
   ],
-  providers: [UsuarioService, ControlAdministrativaService,
-    ClientesService,StorageService,SessionService,
+  imports: [CommonModule, FormsModule, AdminRoutingModule, HttpClientModule],
+  providers: [
+    UsuarioService,
+    ControlAdministrativaService,
+    ClientesService,
+    StorageService,
+    SessionService,
+    DatosEmpresaService,
   ],
 })
-export class AdminModule { }
+export class AdminModule {}

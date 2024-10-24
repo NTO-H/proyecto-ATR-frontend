@@ -1,6 +1,8 @@
 export interface Politica {
-    titulo: string;
-    contenido: string;
-    // fechaCreacion?: Date; // Este campo es opcional
-  }
-  
+  _id: string;
+  version: string;
+  titulo: string;
+  contenido: string;
+  fechaCreacion: Date;
+  estado: string;
+}

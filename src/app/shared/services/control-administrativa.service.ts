@@ -14,12 +14,24 @@ export class ControlAdministrativaService {
   constructor(private http: HttpClient) {}
 
   registerPolitica(politica: Politica): Observable<any> {
-    return this.http.post(environment.api + '/politica', politica);
+    return this.http.post(environment.api + '/admin/crearPoliticas', politica);
   }
   obtenerPoliticas(): Observable<any> {
-    return this.http.get(environment.api + '/politicas');
+    return this.http.get(environment.api + '/admin/obtenerPoliticas');
   }
-  eliminarPolitica(id: any): Observable<any> {
-    return this.http.delete(environment.api + this.url + '/politica/:id' + id);
+  obtenerHistorialPoliticas(id: any): Observable<any> {
+    return this.http.get(
+      environment.api + '/admin/obtenerHistorialPoliticas/' + id
+    );
+  }
+  actualizarPoliticas(id: any, nuevaPolitica: any): Observable<any> {
+    return this.http.put(
+      environment.api + '/admin/actualizarPoliticas/' + id,
+      nuevaPolitica
+    );
+  }
+  // Eliminar una política específica por ID
+  eliminarPolitica(id: string): Observable<any> {
+    return this.http.delete(`${environment.api}/admin/eliminarPolitica/${id}`);
   }
 }
