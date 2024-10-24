@@ -18,13 +18,14 @@ import { MenuModule } from 'primeng/menu';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DetailsProductView } from './views/details-product/details-product.view';
 import { SkeletonModule } from 'primeng/skeleton';
+import { CarritoView } from './views/carrito/carrito.view';
 
 // import { VerificarCodigoView } from './views/verificar-codigo/verificar-codigo.view';
 const MATERIALS =[SkeletonModule,CardModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent, AcercaDeView,DetailsProductView]
 @NgModule({
-  declarations: [VIEWS,COMPONENTS],
+  declarations: [VIEWS,COMPONENTS, CarritoView],
   imports: [
     CommonModule,ReactiveFormsModule,FormsModule,
     PublicRoutingModule, ...MATERIALS,

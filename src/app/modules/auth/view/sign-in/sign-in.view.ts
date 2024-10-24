@@ -8,10 +8,9 @@ import { SessionService } from '../../../../shared/services/session.service';
 import { MessageService } from 'primeng/api';
 import { Subscription, interval } from 'rxjs';
 import { ERol } from '../../../../shared/constants/rol.enum';
-// import { ReCaptchaV2Service } from 'ng-recaptcha';
-// import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from '../../../../../environments/environment';
 import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
+import { mensageservice } from '../../../../shared/services/mensage.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.view.html',
@@ -59,6 +58,7 @@ export class SignInView implements OnInit {
     // this.executeVisibleCatcha(token); // Ejecutar la acción que requiera el token visible
   }
   constructor(
+    private msgs: mensageservice,
     private signInService: SignInService,
     private storageService: StorageService,
     private sessionService: SessionService,
@@ -71,8 +71,25 @@ export class SignInView implements OnInit {
       password: ['', Validators.required],
     });
   }
+  captchaText: string = '';
 
+  // constructor () { }
+
+  // ngOnInit(): void {
+  // }
+  
+  generateCaptcha(): void {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZadcdefghijklmnopqrstuvwxyz0123456789';
+    const captchaLength = 6;
+    let captcha = '';
+    for (let i = 0; i<captchaLength; i++) {
+      const index = Math.floor(Math.random() * chars.length);
+      captcha +=chars[index];
+    }
+    this.captchaText = captcha;
+  }
   ngOnInit(): void {
+  this.generateCaptcha();
     this.robot = true;
     this.presionado = false;
     this.checkLockState(); // Verificar si la cuenta está bloqueada al cargar

@@ -1,5 +1,5 @@
 <div class="container-form">
-  <!-- Botón para ir atrás con icono de FontAwesome -->
+ 
   <div class="back-button">
     <a routerLink="/public/home" class="go-back">
       <i class="fas fa-chevron-left"></i> Ir atrás
@@ -7,8 +7,6 @@
   </div>
 
   <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
-    <div></div>
-
     <label for="usuario" class="">Nombre de usuario</label>
     <input
       pInputText
@@ -30,7 +28,32 @@
       required
       [disabled]="isLocked"
     />
-    <p-button iconPos="right"  label="Iniciar Sesión" type="submit" [disabled]="loading || isLocked">
+
+    <!-- CAPTCHA: Solo se muestra cuando se ha intentado iniciar sesión -->
+
+
+    <!-- <div *ngIf="showCaptcha" class="captcha-container">
+      <h3>Por favor ingresa el CAPTCHA para continuar</h3>
+      <p class="captcha-text">{{ captchaText }}</p>
+      <input
+        type="text"
+        placeholder="Ingresa el texto del captcha"
+        formControlName="captchaInput"
+        class="captcha-input"
+        required
+      />
+      <button type="button" (click)="generateCaptcha()">
+        Generar nuevo CAPTCHA
+      </button>
+    </div> -->
+
+    <!-- Botón para iniciar sesión -->
+    <p-button
+      iconPos="right"
+      label="Iniciar Sesión"
+      type="submit"
+      [disabled]="loading || isLocked"
+    >
     </p-button>
 
     <!-- Mostrar mensaje de bloqueo si está bloqueado -->
@@ -38,19 +61,6 @@
       Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en {{
       remainingTime }} segundos.
     </div>
-
-    <!-- <button type="button" (click)="executeRecaptcha()">hoa</button> -->
-    <!-- <re-captcha
-      (resolved)="executeRecaptchaVisible($event)"
-      siteKey="6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype"
-    ></re-captcha> -->
-    <!-- <div
-      class="g-recaptcha"
-      data-sitekey="6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype"
-      (resolved)="executeRecaptchaVisible($event)"
-    ></div> -->
-
-    <!-- [data-size]="'normal'"  -->
 
     <!-- Opciones adicionales -->
     <div class="options" [class.disabled]="isLocked">
