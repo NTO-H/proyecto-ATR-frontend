@@ -1,90 +1,118 @@
-/* Estilos generales del formulario */
 .ajustes-generales-form {
-  background-color: #ffffff; /* Fondo blanco */
-  padding: 20px;
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  margin: 20px auto; /* Centrar el formulario */
   max-width: 700px; /* Ancho máximo del formulario */
+  margin: 0 auto; /* Centramos el formulario */
+  padding: 20px; /* Espaciado interno */
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
-/* Estilo del título del formulario */
 .form-title {
-  font-size: 1.5rem;
-  color: #e91e63; /* Color del título */
-  margin-bottom: 20px; /* Espacio inferior */
+  font-size: 2rem; /* Tamaño de fuente del título */
+  color: #333333; /* Color del texto oscuro */
+  margin-bottom: 20px; /* Margen inferior */
   text-align: center; /* Centrar el título */
+  font-weight: bold; /* Texto en negrita */
 }
 
-/* Estilos para los grupos de formulario */
+.table {
+  display: table;
+  width: 100%; /* Ancho completo */
+  border-collapse: collapse; /* Colapsar bordes */
+}
+
+.table-row {
+  display: table-row; /* Estilo de fila de tabla */
+}
+
+.table-cell {
+  display: table-cell; /* Estilo de celda de tabla */
+  padding: 12px; /* Espaciado interno de celdas */
+  border: 1px solid #e0e0e0; /* Borde de las celdas */
+  vertical-align: top; /* Alinear el contenido en la parte superior */
+}
+
 .form-group {
-  margin-bottom: 15px; /* Espacio inferior */
+  margin-bottom: 20px; /* Espaciado inferior entre grupos */
 }
 
-/* Estilo de los controles de formulario */
-.form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc; /* Borde gris */
-  border-radius: 4px; /* Bordes redondeados */
-  transition: border-color 0.3s; /* Transición de borde */
+.redes-sociales-container {
+  display: flex;
+  flex-direction: column; /* Apilar redes sociales */
+  gap: 10px; /* Espacio entre redes sociales */
 }
 
-/* Cambiar el borde al enfocar */
-.form-control:focus {
-  border-color: #e91e63; /* Cambiar el borde al enfocar */
-  outline: none; /* Sin contorno */
+.red-social {
+  display: flex;
+  align-items: center; /* Alinear verticalmente */
+  gap: 10px; /* Espacio entre entradas */
 }
 
-/* Estilos para los botones */
 .btn {
-  padding: 8px 12px;
-  margin: 5px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Estilo específico para el botón de guardar */
-.btn.guardar {
-  background-color: #e91e63; /* Color de fondo */
-  color: white; /* Color del texto */
-}
-
-.btn.guardar:hover {
-  background-color: #d81b60; /* Color más oscuro al pasar el mouse */
-}
-
-/* Estilos para los botones eliminar y agregar */
-.btn.eliminar {
-  background-color: #f44336; /* Rojo para el botón eliminar */
-  color: white;
-}
-
-.btn.eliminar:hover {
-  background-color: #e53935; /* Oscurecer al pasar el mouse */
+  padding: 8px 12px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  font-size: 0.9rem; /* Tamaño de fuente */
+  transition: background-color 0.3s, transform 0.3s; /* Transiciones */
 }
 
 .btn.agregar {
-  background-color: #4caf50; /* Verde para el botón agregar */
-  color: white;
+  background-color: #4caf50; /* Color verde */
+  color: white; /* Texto blanco */
 }
 
 .btn.agregar:hover {
   background-color: #45a049; /* Oscurecer al pasar el mouse */
 }
-
-/* Botón deshabilitado */
-.btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-  opacity: 0.7;
+.btn.guardar {
+  background-color: #4caf50; /* Color verde */
+  color: white; /* Texto blanco */
 }
 
-/* Espaciado para los botones de acción */
+.btn.guardar:hover {
+  background-color: #45a049; /* Oscurecer al pasar el mouse */
+}
+
+.btn.eliminar {
+  background-color: #e53e3e; /* Color rojo */
+  color: white; /* Texto blanco */
+}
+
+.btn.eliminar:hover {
+  background-color: #c53030; /* Oscurecer al pasar el mouse */
+}
+
 .form-actions {
   display: flex;
-  justify-content: flex-end; /* Alinear botones a la derecha */
+  justify-content: flex-end; /* Alinear el botón guardar a la derecha */
+}
+
+.form-control {
+  width: 100%; /* Ancho completo */
+  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 6px; /* Bordes redondeados */
+  font-size: 1rem; /* Tamaño de fuente */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Transiciones */
+}
+
+.form-control:focus {
+  border-color: #5a67d8; /* Cambiar color del borde al enfocar */
+  box-shadow: 0 0 5px rgba(90, 103, 216, 0.5); /* Efecto de sombra al enfocar */
+  outline: none; /* Eliminar el borde predeterminado */
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s;
+  font-weight: bold;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
 }

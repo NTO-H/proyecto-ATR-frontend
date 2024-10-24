@@ -1,113 +1,124 @@
-<form
-  (ngSubmit)="onSubmit()"
-  #empresaForm="ngForm"
-  class="ajustes-generales-form"
->
-  <h2>Ajustes Generales</h2>
+<form (ngSubmit)="onSubmit()" #empresaForm="ngForm" class="ajustes-generales-form">
+  <h2 class="form-title">Ajustes Generales</h2>
 
-  <div class="form-group">
-    <label for="logo">Logo</label>
-    <input
-      type="file"
-      id="logo"
-      (change)="onFileSelected($event)"
-      required
-      class="form-control"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="redesSociales">Redes Sociales</label>
-    <div *ngFor="let red of redesSociales; let i = index" class="red-social">
-      <input
-        type="text"
-        placeholder="Plataforma"
-        [(ngModel)]="red.plataforma"
-        name="plataforma{{ i }}"
-        required
-        class="form-control"
-      />
-      <input
-        type="text"
-        placeholder="Enlace"
-        [(ngModel)]="red.enlace"
-        name="enlace{{ i }}"
-        required
-        class="form-control"
-      />
-      <button type="button" (click)="removeRed(i)" class="btn eliminar">
-        Eliminar
-      </button>
+  <div class="table">
+    <div class="table-row">
+      <div class="table-cell">
+        <label for="logo">Logo</label>
+        <input
+          type="file"
+          id="logo"
+          (change)="onFileSelected($event)"
+          required
+          class="form-control"
+        />
+      </div>
     </div>
-    <button type="button" (click)="addRed()" class="btn agregar">
-      Agregar Red Social
-    </button>
+
+    <div class="table-row">
+      <div class="table-cell">
+        <label for="redesSociales">Redes Sociales</label>
+        <div class="redes-sociales-container">
+          <div *ngFor="let red of redesSociales; let i = index" class="red-social">
+            <input
+              type="text"
+              placeholder="Plataforma"
+              [(ngModel)]="red.plataforma"
+              name="plataforma{{ i }}"
+              required
+              class="form-control"
+            />
+            <input
+              type="text"
+              placeholder="Enlace"
+              [(ngModel)]="red.enlace"
+              name="enlace{{ i }}"
+              required
+              class="form-control"
+            />
+            <button type="button" (click)="removeRed(i)" class="btn eliminar">
+              Eliminar
+            </button>
+          </div>
+        </div>
+        <button type="button" (click)="addRed()" class="btn agregar">
+          Agregar Red Social
+        </button>
+      </div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">
+        <label for="slogan">Slogan</label>
+        <input
+          type="text"
+          id="slogan"
+          [(ngModel)]="empresa.slogan"
+          name="slogan"
+          required
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">
+        <label for="tituloPagina">Título de Página</label>
+        <input
+          type="text"
+          id="tituloPagina"
+          [(ngModel)]="empresa.tituloPagina"
+          name="tituloPagina"
+          required
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">
+        <label for="direccion">Dirección</label>
+        <input
+          type="text"
+          id="direccion"
+          [(ngModel)]="empresa.direccion"
+          name="direccion"
+          required
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">
+        <label for="correoElectronico">Correo Electrónico</label>
+        <input
+          type="email"
+          id="correoElectronico"
+          [(ngModel)]="empresa.correoElectronico"
+          name="correoElectronico"
+          required
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">
+        <label for="telefono">Teléfono</label>
+        <input
+          type="text"
+          id="telefono"
+          [(ngModel)]="empresa.telefono"
+          name="telefono"
+          class="form-control"
+        />
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="slogan">Slogan</label>
-    <input
-      type="text"
-      id="slogan"
-      [(ngModel)]="empresa.slogan"
-      name="slogan"
-      required
-      class="form-control"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="tituloPagina">Título de Página</label>
-    <input
-      type="text"
-      id="tituloPagina"
-      [(ngModel)]="empresa.tituloPagina"
-      name="tituloPagina"
-      required
-      class="form-control"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="direccion">Dirección</label>
-    <input
-      type="text"
-      id="direccion"
-      [(ngModel)]="empresa.direccion"
-      name="direccion"
-      required
-      class="form-control"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="correoElectronico">Correo Electrónico</label>
-    <input
-      type="email"
-      id="correoElectronico"
-      [(ngModel)]="empresa.correoElectronico"
-      name="correoElectronico"
-      required
-      class="form-control"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="telefono">Teléfono</label>
-    <input
-      type="text"
-      id="telefono"
-      [(ngModel)]="empresa.telefono"
-      name="telefono"
-      class="form-control"
-    />
-  </div>
   <div class="form-actions">
-    <button
-      type="submit"
-      [disabled]="!empresaForm.form.valid"
-      class="btn guardar"
-    >
+    <button type="submit" [disabled]="!empresaForm.form.valid" class="btn guardar">
       Guardar
     </button>
   </div>
