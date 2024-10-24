@@ -10,6 +10,7 @@ import { SignInView } from '../auth/view/sign-in/sign-in.view';
 import { SignUpView } from '../auth/view/sign-up/sign-up.view';
 import { ConfigView } from './views/config/config.view';
 import { DetailsProductView } from './views/details-product/details-product.view';
+import { PerfilView } from './views/perfil/perfil.view';
 // import { RecuperarPasswordView } from './views/recuperar-password/recuperar-password.view';
 
 const routes: Routes = [
@@ -53,6 +54,19 @@ const routes: Routes = [
             {
               label: 'AcercaDe',
               path: '/public/AcercaDe',
+            },
+          ],
+        },
+      },
+      {
+        path: 'Mi-perfil',
+        component: PerfilView,
+        data: {
+          title: 'Mi perfil',
+          breadcrumb: [
+            {
+              label: 'Mi-perfil',
+              path: '/public/Mi-perfil',
             },
           ],
         },

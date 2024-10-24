@@ -100,7 +100,7 @@ export class UsuarioService {
 
   detalleUsuarioById(id: string): Observable<any> {
     //return this.http.get(`${this.apiUrl}/${id}`);
-    return this.http.get(this.url + id);
+    return this.http.get(`${environment.api}/usuarios/`+ id);
   }
 
   buscaUsuarioByCorreo(correo: string): Observable<any> {

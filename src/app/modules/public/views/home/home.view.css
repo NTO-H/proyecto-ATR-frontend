@@ -112,9 +112,9 @@ body {
 }
 
 .product-image img {
-  width: 100%;
+  width: 90%;
   /* height: auto; */
-  height: 400px;
+  height: 340px;
 
   margin-bottom: 16px;
   border-bottom: #e4e4e4 solid 1px;
@@ -132,8 +132,8 @@ body {
   /* margin-inline: 0vw; */
   /* padding-inline: 5vw; */
   .card {
-    max-width: 350px;
-    height: 180px;
+    max-width: 310px;
+    height: 140px;
 
     backdrop-filter: blur(1px);
     background-color: #fff8ee85;
@@ -162,7 +162,7 @@ body {
       border-radius: 50px;
       width: 50px;
     }
-    max-width: 350px;
+    max-width: 310px;
     /* height: 180px; */
     background-color: transparent;
     /* border: dashed; */

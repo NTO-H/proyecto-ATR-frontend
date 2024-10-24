@@ -70,9 +70,11 @@ export class ListadoPoliticaComponent implements OnInit {
 
   eliminarPolitica(id: string) {
     if (confirm('¿Estás seguro de que deseas eliminar esta política?')) {
+      console.log(id)
       this.controlAdministrativaService.eliminarPolitica(id).subscribe(
         (response) => {
           console.log('Política eliminada:', response);
+          alert('Política eliminada correctamente.');
           this.obtenerPoliticas(); // Recargar la lista después de eliminar
         },
         (error) => {

@@ -75,9 +75,14 @@ export class HeaderComponent implements OnInit {
     this.sidebarVisible = true;
   }
   updateMenuItems() {
-    if (this.isLoggedIn) {
+    if (this.isUserLoggedIn()) {
       // If the user is logged in
       this.items = [
+        {
+          label: 'Mi perfil',
+          icon: 'pi pi-user',
+          command: () => this.redirectTo('Mi-perfil'),
+        },
         {
           label: 'User Settings',
           icon: 'pi pi-cog',
@@ -125,14 +130,30 @@ export class HeaderComponent implements OnInit {
     // Navigate to user settings page
     console.log('Navigating to settings page');
   }
-
   logout() {
-    // Perform logout logic
-    console.log('Logging out');
+    // Verificar si localStorage está disponible
+    if (typeof localStorage !== 'undefined') {
+      console.log('Logging out');
+      localStorage.removeItem('token'); // Eliminar el token de autenticación
+    } else {
+      console.error('localStorage no está disponible');
+    }
+  
     this.isLoggedIn = false;
-    this.updateMenuItems(); // Update menu after logout
+    this.updateMenuItems(); // Actualizar el menú después de logout
+    this.router.navigate(['/auth/login']); // Redirigir al login
   }
-
+  
+  isUserLoggedIn(): boolean {
+    // Verificar si localStorage está disponible
+    if (typeof localStorage !== 'undefined') {
+      return !!localStorage.getItem('token'); // Comprobar si el token existe
+    } else {
+      console.error('localStorage no está disponible');
+      return false;
+    }
+  }
+  
   redirectTo(route: string): void {
     this.sidebarVisible = false;
     // this.sidebarVisible2 = !this.sidebarVisible2
@@ -141,9 +162,14 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/auth', route]); // Navegación hacia la página de inicio de sesión
     } else if (route === 'Sign-up') {
       this.router.navigate(['/auth', route]); // Navegación hacia la página de inicio de sesión
-    } else if (route === 'Activar-cuenta') {
+    }
+     else if (route === 'Activar-cuenta') {
       this.router.navigate(['/auth', route]); // Navegación hacia la página de inicio de sesión
-    } else {
+    }
+     else if (route === 'Activar-cuenta') {
+      this.router.navigate(['/auth', route]); // Navegación hacia la página de inicio de sesión
+    }
+     else {
       console.log('click', route);
       this.router.navigate(['/public', route]); // Navegación hacia otras páginas públicas
     }
