@@ -1,11 +1,11 @@
 <div class="sidenav">
   <button type="button" (click)="mostrar()" class="">{{isTextVisible}}</button>
-  
+
   <div class="logo">
-    <span  *ngIf="!isTextVisible"  class="logo-text">ATR</span>
+    <span *ngIf="!isTextVisible" class="logo-text">ATR</span>
   </div>
   <div class="logo">
-    <span  *ngIf="isTextVisible"  class="logo-text">Panel de Administrador</span>
+    <span *ngIf="isTextVisible" class="logo-text">Panel de Administrador</span>
   </div>
   <ul class="nav flex-column">
     <!-- Inicio -->
@@ -16,7 +16,7 @@
         class="nav-link"
       >
         <i class="fas fa-home"></i>
-        <span     *ngIf="isTextVisible"  class="link-text">Inicio</span></a
+        <span *ngIf="isTextVisible" class="link-text">Inicio</span></a
       >
     </li>
 
@@ -29,8 +29,9 @@
         (click)="toggleSubmenu('clientes-submenu');setActiveLink($event)"
       >
         <i class="fas fa-user"></i>
-        <span      *ngIf="isTextVisible" class="link-text">Clientes</span>
-        <i     *ngIf="isTextVisible"
+        <span *ngIf="isTextVisible" class="link-text">Clientes</span>
+        <i
+          *ngIf="isTextVisible"
           class="fas fa-chevron-down submenu-toggle"
           [class.open]="openSubmenu === 'clientes-submenu'"
         ></i>
@@ -70,8 +71,9 @@
         (click)="toggleSubmenu('productos-submenu');setActiveLink($event)"
       >
         <i class="fas fa-tags"></i>
-        <span     *ngIf="isTextVisible"  class="link-text">Productos</span>
-        <i     *ngIf="isTextVisible"
+        <span *ngIf="isTextVisible" class="link-text">Productos</span>
+        <i
+          *ngIf="isTextVisible"
           class="fas fa-chevron-down submenu-toggle"
           [class.open]="openSubmenu === 'productos-submenu'"
         ></i>
@@ -111,8 +113,9 @@
         (click)="toggleSubmenu('renta-submenu');setActiveLink($event)"
       >
         <i class="fas fa-handshake"></i>
-        <span      *ngIf="isTextVisible" class="link-text">Renta</span>
-        <i     *ngIf="isTextVisible"
+        <span *ngIf="isTextVisible" class="link-text">Renta</span>
+        <i
+          *ngIf="isTextVisible"
           class="fas fa-chevron-down submenu-toggle"
           [class.open]="openSubmenu === 'renta-submenu'"
         ></i>
@@ -152,8 +155,9 @@
         (click)="toggleSubmenu('Politicas-submenu');setActiveLink($event)"
       >
         <i class="fa-solid fa-file-signature"></i>
-        <span     *ngIf="isTextVisible" class="link-text">Politicas</span>
-        <i     *ngIf="isTextVisible"
+        <span *ngIf="isTextVisible" class="link-text">Politicas</span>
+        <i
+          *ngIf="isTextVisible"
           class="fas fa-chevron-down submenu-toggle"
           [class.open]="openSubmenu === 'Politicas-submenu'"
         ></i>
@@ -192,8 +196,9 @@
         (click)="toggleSubmenu('ventas-submenu');setActiveLink($event)"
       >
         <i class="fas fa-cash-register"></i>
-        <span      *ngIf="isTextVisible" class="link-text">Ventas</span>
-        <i     *ngIf="isTextVisible"
+        <span *ngIf="isTextVisible" class="link-text">Ventas</span>
+        <i
+          *ngIf="isTextVisible"
           class="fas fa-chevron-down submenu-toggle"
           [class.open]="openSubmenu === 'ventas-submenu'"
         ></i>
@@ -245,8 +250,9 @@
         (click)="toggleSubmenu('reportes-submenu');setActiveLink($event)"
       >
         <i class="fas fa-chart-line"></i>
-        <span      *ngIf="isTextVisible" class="link-text">Reportes</span>
-        <i      *ngIf="isTextVisible"
+        <span *ngIf="isTextVisible" class="link-text">Reportes</span>
+        <i
+          *ngIf="isTextVisible"
           class="fas fa-chevron-down submenu-toggle"
           [class.open]="openSubmenu === 'reportes-submenu'"
         ></i>
@@ -288,8 +294,9 @@
         (click)="toggleSubmenu('configuracion-submenu');setActiveLink($event)"
       >
         <i class="fas fa-cog"></i>
-        <span     *ngIf="isTextVisible" class="link-text">Configuración</span>
-        <i     *ngIf="isTextVisible"
+        <span *ngIf="isTextVisible" class="link-text">Configuración</span>
+        <i
+          *ngIf="isTextVisible"
           class="fas fa-chevron-down submenu-toggle"
           [class.open]="openSubmenu === 'configuracion-submenu'"
         ></i>
@@ -331,7 +338,7 @@
 
     <!-- Cerrar Sesión -->
   </ul>
-  <li  *ngIf="isTextVisible" >
+  <li *ngIf="isTextVisible">
     <button class="toggle-btn" (click)="logout()">
       <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión
     </button>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import { Politica } from '../../../../shared/models/politica.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listado-politica',
@@ -15,7 +16,8 @@ export class ListadoPoliticaComponent implements OnInit {
   errorMessage: string | null = null;
 
   constructor(
-    private controlAdministrativaService: ControlAdministrativaService
+    private controlAdministrativaService: ControlAdministrativaService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -81,13 +83,6 @@ export class ListadoPoliticaComponent implements OnInit {
   }
 
   verHistorial(id: string) {
-    this.controlAdministrativaService.obtenerHistorialPoliticas(id).subscribe(
-      (response: any) => {
-        console.table(response);
-      },
-      (error) => {
-        console.error('Error al obtener el historial:', error);
-      }
-    );
+    this.router.navigate(['/admin/politicas/historial-Politicas', id]);
   }
 }

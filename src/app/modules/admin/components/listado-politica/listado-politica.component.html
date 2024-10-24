@@ -29,36 +29,49 @@
 
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">Actualizar Política</button>
-      <button type="button" (click)="cancelarEdicion()" class="btn btn-secondary">Cancelar</button>
+      <button
+        type="button"
+        (click)="cancelarEdicion()"
+        class="btn btn-secondary"
+      >
+        Cancelar
+      </button>
     </div>
   </form>
 </div>
 
-
-<!-- Tabla de Políticas -->
-<table class="politicas-table">
-  <thead>
-    <tr>
-      <th>Versión</th>
-      <th>Título</th>
-      <th>Contenido</th>
-      <th>Fecha de Creación</th>
-      <th>Estado</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let doc of politicas">
-      <td>{{ doc?.version }}</td>
-      <td>{{ doc?.titulo }}</td>
-      <td>{{ doc?.contenido }}</td>
-      <td>{{ doc?.fechaCreacion | date:'short' }}</td>
-      <td>{{ doc?.estado }}</td>
-      <td>
-        <button (click)="editarPolitica(doc)" class="btn btn-edit">Editar</button>
-        <button (click)="eliminarPolitica(doc._id)" class="btn btn-delete">Eliminar</button>
-        <button (click)="verHistorial(doc._id)" class="btn btn-history">Ver Historial</button> <!-- Botón para ver historial -->
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="politicas-table">
+    <thead>
+      <tr>
+        <th>Versión</th>
+        <th>Título</th>
+        <th>Contenido</th>
+        <th>Fecha de Creación</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doc of politicas">
+        <td>{{ doc?.version }}</td>
+        <td>{{ doc?.titulo }}</td>
+        <td>{{ doc?.contenido }}</td>
+        <td>{{ doc?.fechaCreacion | date : "short" }}</td>
+        <td>{{ doc?.estado }}</td>
+        <td>
+          <button (click)="editarPolitica(doc)" class="btn btn-edit">
+            Editar
+          </button>
+          <button (click)="eliminarPolitica(doc._id)" class="btn btn-delete">
+            Eliminar
+          </button>
+          <button (click)="verHistorial(doc._id)" class="btn btn-history">
+            Ver Historial
+          </button>
+          <!-- Botón para ver historial -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,4 +1,3 @@
-/* Estilos generales de la tabla */
 .politicas-table {
   width: 100%;
   border-collapse: collapse;
@@ -7,26 +6,25 @@
   color: #333;
 }
 
-/* Estilos para el encabezado de la tabla */
 .politicas-table thead {
   background-color: #e91e63;
   color: white;
 }
 
-/* Estilos para celdas de la tabla */
 .politicas-table th,
 .politicas-table td {
   padding: 12px 15px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 200px;
 }
 
-/* Efecto hover para las filas */
 .politicas-table tbody tr:hover {
   background-color: #f5f5f5;
 }
 
-/* Estilos para los botones */
 .btn {
   padding: 8px 12px;
   margin: 0 5px;
@@ -37,24 +35,31 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Estilo específico para botones de editar */
 .btn-edit {
-  background-color: #4caf50; /* Verde para el botón de editar */
+  background-color: #4caf50;
   color: white;
 }
 
 .btn-edit:hover {
-  background-color: #45a049; /* Oscurecer al pasar el mouse */
+  background-color: #45a049;
 }
 
-/* Botón deshabilitado */
+button:hover {
+  background-color: #d81b60;
+  color: white;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
   opacity: 0.7;
 }
 
-/* Estilos para el contenedor del formulario */
 .form-container {
   background-color: #f9f9f9;
   padding: 20px;
@@ -63,88 +68,152 @@
   margin: 20px 0;
 }
 
-/* Estilos para el grupo de formularios */
 .form-group {
   margin-bottom: 15px;
 }
 
-/* Estilos para los botones del formulario */
 .form-actions {
   display: flex;
-  justify-content: flex-end; /* Alinear botones a la derecha */
+  justify-content: flex-end;
 }
 
-/* Estilos para el contenedor del formulario */
 .form-container {
-  background-color: #ffffff; /* Fondo blanco */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   margin: 20px 0;
-  max-width: 600px; /* Ancho máximo del formulario */
-  margin: auto; /* Centrar el formulario */
 }
 
-/* Estilo del título del formulario */
 .form-title {
-  font-size: 1.5rem;
-  color: #e91e63; /* Color del título */
-  margin-bottom: 20px; /* Espacio inferior */
-  text-align: center; /* Centrar el título */
+  font-size: 2rem;
+  color: #333333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
 }
 
-/* Estilos para el grupo de formularios */
 .form-group {
-  margin-bottom: 15px; /* Espacio inferior */
+  margin-bottom: 20px;
 }
 
-/* Estilo de los controles de formulario */
 .form-control {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc; /* Borde gris */
-  border-radius: 4px; /* Bordes redondeados */
-  transition: border-color 0.3s;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Cambiar el borde al enfocar */
 .form-control:focus {
-  border-color: #e91e63; /* Cambiar el borde al enfocar */
-  outline: none; /* Sin contorno */
+  border-color: #5a67d8;
+  box-shadow: 0 0 5px rgba(90, 103, 216, 0.5);
+  outline: none;
 }
 
-/* Estilos para los botones del formulario */
 .form-actions {
   display: flex;
-  justify-content: space-between; /* Espacio entre botones */
+  justify-content: space-between;
 }
 
-/* Estilo para el botón de actualizar */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.3s;
+  font-weight: bold;
+}
+
 .btn-primary {
-  background-color: #e91e63; /* Color de fondo */
-  color: white; /* Color del texto */
-  border: none; /* Sin borde */
-  padding: 10px 20px; /* Espaciado interno */
-  border-radius: 4px; /* Bordes redondeados */
-  transition: background-color 0.3s; /* Transición */
+  background-color: #4caf50;
+  color: white;
 }
 
-/* Cambiar el color del botón al pasar el mouse */
 .btn-primary:hover {
-  background-color: #d81b60; /* Color más oscuro al pasar el mouse */
+  background-color: #45a049;
+  transform: translateY(-2px);
 }
 
-/* Estilo para el botón de cancelar */
 .btn-secondary {
-  background-color: #ccc; /* Color de fondo */
-  color: #333; /* Color del texto */
-  border: none; /* Sin borde */
-  padding: 10px 20px; /* Espaciado interno */
-  border-radius: 4px; /* Bordes redondeados */
-  transition: background-color 0.3s; /* Transición */
+  background-color: #e53e3e;
+  color: white;
 }
 
-/* Cambiar el color del botón de cancelar al pasar el mouse */
 .btn-secondary:hover {
-  background-color: #b3b3b3; /* Color más oscuro al pasar el mouse */
+  background-color: #c53030;
+  transform: translateY(-2px);
+}
+
+.form-container {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.form-title {
+  font-size: 2rem;
+  color: #333333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: #5a67d8;
+  box-shadow: 0 0 5px rgba(90, 103, 216, 0.5);
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.3s;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #c53030;
+  transform: translateY(-2px);
 }

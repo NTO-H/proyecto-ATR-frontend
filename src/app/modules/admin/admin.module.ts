@@ -54,6 +54,7 @@ const UTILS = [];
     HistorialView,
     RegistroRentaComponent,
     ListadoRentaComponent,
+    
     RegistroVentaComponent,
     RegistoProductoComponent,
     RegistoPoliticaComponent,

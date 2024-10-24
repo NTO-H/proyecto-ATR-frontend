@@ -22,6 +22,7 @@ import { RegistroVentaComponent } from './components/registro-venta/registro-ven
 import { PerfilAdministradorComponent } from './components/perfil-administrador/perfil-administrador.component';
 import { AjustesGeneralesComponent } from './components/ajustes-generales/ajustes-generales.component';
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
+import {  HistorialPoliticasComponent} from "./components/historial-politicas/historial-politicas.component";
 
 const routes: Routes = [
   {
@@ -63,6 +64,10 @@ const routes: Routes = [
           {
             path: 'registro-politica',
             component: RegistoPoliticaComponent,
+          },
+          {
+            path: 'historial-Politicas/:id',
+            component: HistorialPoliticasComponent,
           },
           {
             path: '',
