@@ -7,12 +7,11 @@ import { ControlAdministrativaService } from '../../../../shared/services/contro
   styleUrl: './registo-politica.component.scss',
 })
 export class RegistoPoliticaComponent {
-
   nuevaPolitica = {
     titulo: '',
     contenido: '',
   };
-  
+
   constructor(
     private controlAdministrativaService: ControlAdministrativaService
   ) {}

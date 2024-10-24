@@ -13,7 +13,7 @@ export class ControlAdministrativaService {
   url = 'admin';
   constructor(private http: HttpClient) {}
 
-  registerPolitica(politica: Politica): Observable<any> {
+  registerPolitica(politica: any): Observable<any> {
     return this.http.post(environment.api + '/admin/crearPoliticas', politica);
   }
   obtenerPoliticas(): Observable<any> {
