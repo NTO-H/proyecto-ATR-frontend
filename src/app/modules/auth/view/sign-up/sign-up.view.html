@@ -16,7 +16,7 @@
         class="logo"
       />
     </div>
-    <div *ngIf="!ViewActivateAcount"> 
+    <div *ngIf="!ViewActivateAcount">
       <h1>Crea una cuenta</h1>
       <ul class="features-list">
         <li>
@@ -185,7 +185,7 @@
           <p-button
             label="Next"
             icon="pi pi-arrow-right"
-            [disabled]="!datosConfidencialesForm.valid"
+            [disabled]="!datosConfidencialesForm.valid || !coincidenPasswords1"
             (onClick)="nextCallback.emit()"
           />
         </div>
@@ -239,8 +239,7 @@
     </p-stepperPanel>
   </p-stepper>
 
-
-<!-- Activacuon de cuenta] -->
+  <!-- Activacuon de cuenta] -->
   <!-- Formulario para ingresar correo electrónico -->
   <!-- <div class="form-container" *ngIf="ViewActivateAcount">
     <form [formGroup]="formulario" (ngSubmit)="sendVerificationCode()" class="centered-form">
@@ -263,24 +262,22 @@
   </div> -->
 
   <!-- Formulario para verificar el código OTP -->
-  <div class="form-container"  *ngIf="ViewActivateAcount">
+  <div class="form-container" *ngIf="ViewActivateAcount">
     <h2>Obtén la verificación en tu correo</h2>
-    <h5>Para fines de seguridad, ingresa el código que hemos enviado a <strong>{{myGlobalVariable }}</strong> a continuación.</h5>
-    <form [formGroup]="frmActivateAcount" (ngSubmit)="verifyOtp()" class="centered-form">
+    <h5>
+      Para fines de seguridad, ingresa el código que hemos enviado a
+      <strong>{{myGlobalVariable }}</strong> a continuación.
+    </h5>
+    <form
+      [formGroup]="frmActivateAcount"
+      (ngSubmit)="verifyOtp()"
+      class="centered-form"
+    >
       <label for="otp">Ingresa el código de verificación</label>
-      <br>
+      <br />
       <p-inputOtp formControlName="otpCode" name="otpCode"></p-inputOtp>
       <br />
       <p-button type="submit" label="Verificar Código"></p-button>
     </form>
   </div>
-
-
-
-
-
-
-
-
-
 </div>

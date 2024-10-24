@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import { Politica } from '../../../../shared/models/politica.model';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listado-politica',

@@ -159,6 +159,11 @@ export class SignUpView implements OnInit {
     this.coincidenPasswords = password === confirmPassword;
   }
 
+  get coincidenPasswords1() {
+    return this.datosConfidencialesForm.get('password')?.value === this.datosConfidencialesForm.get('confirmPassword')?.value;
+  }
+  
+
   registroDatosBasicos(): void {
     if (this.datosBasicosForm.valid) {
       console.log('Datos básicos válidos', this.datosBasicosForm.value);
