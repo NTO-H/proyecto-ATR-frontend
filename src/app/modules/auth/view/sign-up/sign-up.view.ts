@@ -107,9 +107,8 @@ export class SignUpView implements OnInit {
       this.errorMessages.email = '';
     });
 
-    // Validar número de teléfono y limpiar mensajes de error
     this.datosBasicosForm.get('telefono')?.valueChanges.subscribe(() => {
-      const numeroTelefono = this.datosBasicosForm.get('tel')?.value;
+      const numeroTelefono = this.datosBasicosForm.get('telefono')?.value; // Cambié 'tel' a 'telefono'
       this.errorMessages.telefono = ''; // Limpiar mensaje de error inicialmente
       if (numeroTelefono && !isValidPhoneNumber(numeroTelefono, 'MX')) {
         this.errorMessages.telefono = 'Número telefónico inválido.';
@@ -160,9 +159,11 @@ export class SignUpView implements OnInit {
   }
 
   get coincidenPasswords1() {
-    return this.datosConfidencialesForm.get('password')?.value === this.datosConfidencialesForm.get('confirmPassword')?.value;
+    return (
+      this.datosConfidencialesForm.get('password')?.value ===
+      this.datosConfidencialesForm.get('confirmPassword')?.value
+    );
   }
-  
 
   registroDatosBasicos(): void {
     if (this.datosBasicosForm.valid) {
