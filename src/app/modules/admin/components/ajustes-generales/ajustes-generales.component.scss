@@ -26,10 +26,12 @@
 }
 
 .table-cell {
-  display: table-cell; /* Estilo de celda de tabla */
+  display: flex; /* Usar flexbox para alineación */
+  flex-direction: column; /* Apilar elementos verticalmente */
   padding: 12px; /* Espaciado interno de celdas */
   border: 1px solid #e0e0e0; /* Borde de las celdas */
   vertical-align: top; /* Alinear el contenido en la parte superior */
+  align-items: center; /* Centrar el contenido */
 }
 
 .form-group {
@@ -49,11 +51,12 @@
 }
 
 .btn {
-  padding: 8px 12px; /* Espaciado interno */
+  padding: 10px 20px; /* Espaciado interno */
   border: none; /* Sin borde */
-  border-radius: 4px; /* Bordes redondeados */
+  border-radius: 6px; /* Bordes redondeados */
   cursor: pointer; /* Cambia el cursor al pasar el mouse */
   font-size: 0.9rem; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
   transition: background-color 0.3s, transform 0.3s; /* Transiciones */
 }
 
@@ -65,6 +68,7 @@
 .btn.agregar:hover {
   background-color: #45a049; /* Oscurecer al pasar el mouse */
 }
+
 .btn.guardar {
   background-color: #4caf50; /* Color verde */
   color: white; /* Texto blanco */
@@ -103,21 +107,23 @@
   outline: none; /* Eliminar el borde predeterminado */
 }
 
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s, transform 0.3s;
-  font-weight: bold;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  -ms-border-radius: 6px;
-  -o-border-radius: 6px;
-}
 .error-message {
   color: #e53e3e;
   font-size: 0.875rem;
   margin-top: 5px;
+}
+
+.logo-container {
+  margin-top: 10px; /* Espacio arriba del logo */
+  display: flex;
+  justify-content: center; /* Centra el logo */
+  width: 100%; /* Asegura que ocupe todo el ancho */
+}
+
+.logo-preview {
+  max-width: 200px; /* Limita el ancho máximo a 200px */
+  width: 100%; /* Asegura que se ajuste al contenedor */
+  height: auto; /* Mantiene la proporción */
+  border: 1px solid #ccc; /* Bordes suaves */
+  border-radius: 5px; /* Esquinas redondeadas */
 }
