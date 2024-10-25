@@ -1,87 +1,102 @@
-
-
 .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-
 @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+.sidenav {
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3); /* Sombra */
 }
 
 body {
-    font-size: .860rem;
+  font-size: 0.86rem;
 }
 
 footer {
-    display: none;
+  display: none;
 }
 
 .feather {
-    width: 16px;
-    height: 16px;
-    vertical-align: text-bottom;
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
 }
-
-
-
 
 .card1 {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
 @media (max-width: 767.98px) {
-    .sidebar {
-        top: 5rem;
-    }
+  .sidebar {
+    top: 5rem;
+  }
 }
 
 .sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto;
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.admin-panel-btn {
+  width: 60%; /* Ocupa todo el ancho del contenedor */
+  background-color: #e91e63; /* Color de fondo rosado */
+  color: #ffffff; /* Texto en blanco */
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 15px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Manito al pasar el cursor */
+  transition: background-color 0.3s ease; /* Transición suave */
+ 
 }
 
+.admin-panel-btn:hover {
+  background-color: #d81b60; /* Fondo más oscuro en hover */
+}
+
+.sidenav,
+.admin-panel-btn {
+  transition: all 0.3s ease;
+}
 
 .form-control-dark {
-    color: #fff;
-    background-color: rgba(255, 255, 255, .1);
-    border-color: rgba(255, 255, 255, .1);
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .form-control-dark:focus {
-    border-color: transparent;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
 .container-fluid {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-
 .content {
-
-    margin-left: 250px;
-    padding: 20px;
-    margin-top: 20px;
-    /* border: dashed; */
+  margin-left: 250px;
+  padding: 20px;
+  margin-top: 20px;
+  /* border: dashed; */
 }
 
 .content h2 {
-    color: #333;
+  color: #333;
 }
+

@@ -1,7 +1,7 @@
-<p class="header-text">¡Registro de Política!</p>
+<p class="header-text">¡Registro de Deslinde Legal!</p>
 <div class="form-container">
-  <h2 class="form-title">Registrar Nueva Política</h2>
-  <form (ngSubmit)="onSubmit()" #politicaForm="ngForm">
+  <h2 class="form-title">Registrar Nuevo Deslinde Legal</h2>
+  <form (ngSubmit)="onSubmit()" #deslindeForm="ngForm">
     <!-- Campo para el Título -->
     <div class="form-group">
       <label for="titulo">Título</label>
@@ -9,10 +9,10 @@
         type="text"
         id="titulo"
         name="titulo"
-        [(ngModel)]="nuevaPolitica.titulo"
+        [(ngModel)]="nuevoDeslindeLegal.titulo"
         required
         #tituloInput="ngModel"
-        placeholder="Ingresa el título de la política"
+        placeholder="Ingresa el título del deslinde legal"
         class="form-control"
       />
       <div *ngIf="tituloInput.invalid && tituloInput.touched" class="error">
@@ -26,10 +26,10 @@
       <textarea
         id="contenido"
         name="contenido"
-        [(ngModel)]="nuevaPolitica.contenido"
+        [(ngModel)]="nuevoDeslindeLegal.contenido"
         required
         #contenidoInput="ngModel"
-        placeholder="Ingresa el contenido de la política"
+        placeholder="Ingresa el contenido del deslinde legal"
         class="form-control textarea-control"
         rows="5"
       ></textarea>
@@ -45,7 +45,7 @@
         type="date"
         id="fechaVigencia"
         name="fechaVigencia"
-        [(ngModel)]="nuevaPolitica.fechaVigencia"
+        [(ngModel)]="nuevoDeslindeLegal.fechaVigencia"
         required
         #vigenciaInput="ngModel"
         class="form-control"
@@ -56,8 +56,8 @@
     </div>
 
     <!-- Botón de Enviar -->
-    <button type="submit" class="btn btn-primary" [disabled]="politicaForm.invalid">
-      Registrar Política
+    <button type="submit" class="btn-primary" [disabled]="deslindeForm.invalid">
+      Registrar Deslinde Legal
     </button>
   </form>
 </div>

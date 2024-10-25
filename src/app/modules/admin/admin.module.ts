@@ -71,7 +71,7 @@ const UTILS = [];
     AjustesGeneralesComponent,
     NotificacionesComponent,
   ],
-  imports: [CommonModule, FormsModule, AdminRoutingModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, AdminRoutingModule, FormsModule,HttpClientModule,],
   providers: [
     UsuarioService,
     ControlAdministrativaService,

@@ -11,7 +11,12 @@ import Swal from 'sweetalert2';
 })
 export class ListadoPoliticaComponent implements OnInit {
   politicas: Politica[] = []; // Inicializa como un arreglo vacío
-  politicaAEditar: Politica | null = null;
+  politicaAEditar = {
+    _id:'',
+    titulo: '',
+    contenido: '',
+    fechaVigencia: this.getCurrentDate(),
+  };
   isEditing: boolean = false;
   isLoading: boolean = false; // Estado de carga
   errorMessage: string | null = null;
@@ -21,6 +26,13 @@ export class ListadoPoliticaComponent implements OnInit {
     private router: Router
   ) {}
 
+  private getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Meses en JS son 0-indexados
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`; // Formato YYYY-MM-DD
+  }
   ngOnInit(): void {
     this.obtenerPoliticas(); // Cargar políticas al iniciar el componente
   }
@@ -40,13 +52,20 @@ export class ListadoPoliticaComponent implements OnInit {
       }
     );
   }
+
   cancelarEdicion() {
     this.isEditing = false; // Desactivamos la edición
-    this.politicaAEditar = null; // Reiniciamos el objeto de política
+    this.politicaAEditar = {
+      _id:'',
+      titulo: '',
+      contenido: '',
+      fechaVigencia: this.getCurrentDate(),
+    };
   }
 
   actualizarPolitica() {
     if (!this.politicaAEditar) return; // Verificar si hay una política a editar
+
     this.controlAdministrativaService
       .actualizarPoliticas(this.politicaAEditar._id, this.politicaAEditar)
       .subscribe(
@@ -54,12 +73,27 @@ export class ListadoPoliticaComponent implements OnInit {
           console.log('Política actualizada:', response);
           this.obtenerPoliticas(); // Recargar la lista después de actualizar
           this.isEditing = false; // Desactivamos el modo edición
-          this.politicaAEditar = null; // Limpiamos la política que se estaba editando
+          this.politicaAEditar = {
+            _id:'',
+            titulo: '',
+            contenido: '',
+            fechaVigencia: this.getCurrentDate(),
+          };
+          Swal.fire(
+            'Actualización exitosa',
+            'La política ha sido actualizada.',
+            'success'
+          ); // Mensaje de éxito
         },
         (error) => {
           this.errorMessage =
             'Error al actualizar política. Inténtalo más tarde.'; // Mensaje de error
           console.error('Error al actualizar política:', error);
+          Swal.fire(
+            'Error',
+            'No se pudo actualizar la política. Inténtalo más tarde.',
+            'error'
+          ); // Mensaje de error con SweetAlert
         }
       );
   }
@@ -70,22 +104,39 @@ export class ListadoPoliticaComponent implements OnInit {
   }
 
   eliminarPolitica(id: string) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta política?')) {
-      console.log(id)
-      this.controlAdministrativaService.eliminarPolitica(id).subscribe(
-        (response) => {
-          console.log('Política eliminada:', response);
-          alert('Política eliminada correctamente.');
-          this.obtenerPoliticas(); // Recargar la lista después de eliminar
-        },
-        (error) => {
-          console.error('Error al eliminar política:', error);
-        }
-      );
-    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.controlAdministrativaService.eliminarPolitica(id).subscribe(
+          (response) => {
+            console.log('Política eliminada:', response);
+            Swal.fire(
+              'Eliminada',
+              'La política ha sido eliminada correctamente.',
+              'success'
+            );
+            this.obtenerPoliticas(); // Recargar la lista después de eliminar
+          },
+          (error) => {
+            console.error('Error al eliminar política:', error);
+            Swal.fire(
+              'Error',
+              'No se pudo eliminar la política. Inténtalo más tarde.',
+              'error'
+            ); // Mensaje de error con SweetAlert
+          }
+        );
+      }
+    });
   }
 
   verHistorial(id: string) {
-    this.router.navigate(['/admin/politicas/historial-Politicas', id]);
+    this.router.navigate(['/admin/politicas/historial-listado-politica/', id]);
   }
 }

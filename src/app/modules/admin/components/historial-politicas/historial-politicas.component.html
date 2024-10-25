@@ -2,8 +2,8 @@
 <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
 <div *ngIf="historial.length > 0">
-  <h2>Historial de Políticas</h2>
-  <table class="historial-table">
+  <h2 class="form-title">Historial de Políticas</h2>
+  <table class="politicas-table">
     <thead>
       <tr>
         <th>Versión</th>
@@ -18,7 +18,10 @@
         <td>{{ doc.version }}</td>
         <td>{{ doc.titulo }}</td>
         <td>{{ doc.contenido }}</td>
-        <td>{{ doc.fechaCreacion | date: 'short' }}</td> <!-- Usar un pipe de fecha para dar formato -->
+        <td>{{ doc.fechaCreacion | date : "short" }}</td>
+        <!-- Usar un pipe de fecha para dar formato -->
+        <td>{{ doc.fechaVigencia | date : "short" }}</td>
+        <!-- Usar un pipe de fecha para dar formato -->
         <td>{{ doc.estado }}</td>
       </tr>
     </tbody>

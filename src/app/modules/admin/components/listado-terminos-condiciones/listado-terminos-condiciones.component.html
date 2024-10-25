@@ -1,16 +1,15 @@
-<!-- Formulario de Edición -->
-<div class="form-container" *ngIf="politicaAEditar">
-  <h2 class="form-title">Editar Política</h2>
-  <form (ngSubmit)="actualizarPolitica()" class="form-edit">
+<div class="form-container" *ngIf="terminoAEditar">
+  <h2 class="form-title">Editar Término y Condición</h2>
+  <form (ngSubmit)="actualizarTermino()" class="form-edit">
     <div class="form-group">
       <label for="titulo">Título</label>
       <input
         type="text"
         id="titulo"
-        [(ngModel)]="politicaAEditar.titulo"
+        [(ngModel)]="terminoAEditar.titulo"
         name="titulo"
         required
-        placeholder="Ingresa el título de la política"
+        placeholder="Ingresa el título del término"
         class="form-control"
       />
     </div>
@@ -19,20 +18,23 @@
       <label for="contenido">Contenido</label>
       <textarea
         id="contenido"
-        [(ngModel)]="politicaAEditar.contenido"
+        [(ngModel)]="terminoAEditar.contenido"
         name="contenido"
         required
-        placeholder="Ingresa el contenido de la política"
+        placeholder="Ingresa el contenido del término"
         class="form-control"
       ></textarea>
     </div>
+    <!-- Campo para la Vigencia -->
     <div class="form-group">
       <label for="fechaVigencia">Vigencia</label>
+
       <input
         type="date"
         id="fechaVigencia"
         name="fechaVigencia"
-        [(ngModel)]="politicaAEditar.fechaVigencia"
+        [(ngModel)]="terminoAEditar.fechaVigencia"
+        [ngModel]="terminoAEditar.fechaVigencia || getCurrentDate()"
         required
         #vigenciaInput="ngModel"
         class="form-control"
@@ -43,7 +45,7 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Actualizar Política</button>
+      <button type="submit" class="btn btn-primary">Actualizar Término</button>
       <button
         type="button"
         (click)="cancelarEdicion()"
@@ -55,8 +57,9 @@
   </form>
 </div>
 
+<!-- Tabla del Historial de Términos y Condiciones -->
 <div class="table-responsive">
-  <table class="politicas-table">
+  <table class="terminos-table">
     <thead>
       <tr>
         <th>Versión</th>
@@ -69,24 +72,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let doc of politicas">
-        <td>{{ doc?.version }}</td>
-        <td>{{ doc?.titulo }}</td>
-        <td>{{ doc?.contenido }}</td>
-        <td>{{ doc?.fechaCreacion | date : "short" }}</td>
-        <td>{{ doc?.fechaVigencia | date : "short" }}</td>
-        <td>{{ doc?.estado }}</td>
+      <tr *ngFor="let termino of historialTerminos">
+        <td>{{ termino?.version }}</td>
+        <td>{{ termino?.titulo }}</td>
+        <td>{{ termino?.contenido }}</td>
+        <td>{{ termino?.fechaCreacion | date : "short" }}</td>
+        <td>{{ termino?.fechaVigencia | date : "short" }}</td>
+        <td>{{ termino?.estado }}</td>
         <td>
-          <button (click)="editarPolitica(doc)" class="btn btn-edit">
+          <button (click)="editarTermino(termino)" class="btn btn-edit">
             Editar
           </button>
-          <button (click)="eliminarPolitica(doc._id)" class="btn btn-delete">
+          <button
+            (click)="eliminarTermino(termino._id)"
+            class="btn btn-secondary"
+          >
             Eliminar
           </button>
-          <button (click)="verHistorial(doc._id)" class="btn btn-history">
-            Ver Historial
+          <button (click)="verHistorial(termino._id)" class="btn btn-secondary">
+            Ver Versiones
           </button>
-          <!-- Botón para ver historial -->
         </td>
       </tr>
     </tbody>

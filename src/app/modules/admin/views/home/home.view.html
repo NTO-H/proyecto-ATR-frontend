@@ -1,12 +1,12 @@
 <div class="sidenav">
-  <button type="button" (click)="mostrar()" class="">{{isTextVisible}}</button>
+  <button type="button" (click)="mostrar()" class="admin-panel-btn">
+    Panel de Administrador
+  </button>
+  <br />
+  <div class="logo">
+    <span *ngIf="!isTextVisible" class="">ATR</span>
+  </div>
 
-  <div class="logo">
-    <span *ngIf="!isTextVisible" class="logo-text">ATR</span>
-  </div>
-  <div class="logo">
-    <span *ngIf="isTextVisible" class="logo-text">Panel de Administrador</span>
-  </div>
   <ul class="nav flex-column">
     <!-- Inicio -->
     <li>
@@ -146,47 +146,6 @@
       </ul>
     </li>
 
-    <!-- politicas -->
-    <li class="nav-item">
-      <a
-        tabindex="0"
-        class="nav-link"
-        [class.open]="openSubmenu === 'Politicas-submenu'"
-        (click)="toggleSubmenu('Politicas-submenu');setActiveLink($event)"
-      >
-        <i class="fa-solid fa-file-signature"></i>
-        <span *ngIf="isTextVisible" class="link-text">Politicas</span>
-        <i
-          *ngIf="isTextVisible"
-          class="fas fa-chevron-down submenu-toggle"
-          [class.open]="openSubmenu === 'Politicas-submenu'"
-        ></i>
-      </a>
-      <ul
-        *ngIf="openSubmenu === 'Politicas-submenu'"
-        class="submenu"
-        id="Politicas-submenu"
-      >
-        <li>
-          <a
-            tabindex="0"
-            (click)="redirectoPoliticas('lista-Politicas');setActiveLink($event)"
-            class="nav-link"
-          >
-            Listar Politicas</a
-          >
-        </li>
-        <li>
-          <a
-            tabindex="0"
-            (click)="redirectoPoliticas('registro-politica');setActiveLink($event)"
-            class="nav-link"
-          >
-            Registrar nueva Politica</a
-          >
-        </li>
-      </ul>
-    </li>
     <!-- ventass -->
     <li class="nav-item">
       <a
@@ -323,6 +282,15 @@
           >
             Ajustes generales</a
           >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            (click)="redirectToConfiguracion('documentos-legales');setActiveLink($event)"
+            class="nav-link"
+          >
+            Documentos Legales
+          </a>
         </li>
         <li>
           <a

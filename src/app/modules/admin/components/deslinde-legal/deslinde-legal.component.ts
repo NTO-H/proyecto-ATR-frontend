@@ -2,14 +2,17 @@ import { Component } from '@angular/core';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-registo-politica',
-  templateUrl: './registo-politica.component.html',
-  styleUrls: ['./registo-politica.component.scss'],
+  selector: 'app-deslinde-legal',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './deslinde-legal.component.html',
+  styleUrl: './deslinde-legal.component.scss',
 })
-export class RegistoPoliticaComponent {
-  nuevaPolitica = {
+export class DeslindeLegalComponent {
+  nuevoDeslindeLegal = {
     titulo: '',
     contenido: '',
     fechaVigencia: this.getCurrentDate(), // Inicializa con la fecha actual
@@ -30,7 +33,7 @@ export class RegistoPoliticaComponent {
   }
 
   onSubmit() {
-    const selectedDate = new Date(this.nuevaPolitica.fechaVigencia);
+    const selectedDate = new Date(this.nuevoDeslindeLegal.fechaVigencia);
     const today = new Date();
     const minimumDate = new Date();
     minimumDate.setDate(today.getDate() + 3);
@@ -54,32 +57,32 @@ export class RegistoPoliticaComponent {
     }
 
     if (
-      this.nuevaPolitica.titulo &&
-      this.nuevaPolitica.contenido &&
-      this.nuevaPolitica.fechaVigencia
+      this.nuevoDeslindeLegal.titulo &&
+      this.nuevoDeslindeLegal.contenido &&
+      this.nuevoDeslindeLegal.fechaVigencia
     ) {
       this.controlAdministrativaService
-        .registerPolitica(this.nuevaPolitica)
+        .registerDeslindeLegal(this.nuevoDeslindeLegal)
         .subscribe(
           (response) => {
-            console.log(this.nuevaPolitica);
+            console.log(this.nuevoDeslindeLegal);
             Swal.fire(
-              'Política registrada',
-              'La política se ha registrado correctamente.',
+              'Deslinde Legal registrado',
+              'El Deslinde Legal se ha registrado correctamente.',
               'success'
             ); // Muestra una alerta con éxito
 
-            this.nuevaPolitica = {
+            this.nuevoDeslindeLegal = {
               titulo: '',
               contenido: '',
               fechaVigencia: this.getCurrentDate(),
             };
-            this.router.navigate(['admin/configuracion/listado-politica']);
+            this.router.navigate(['/admin/']);
           },
           (error) => {
             Swal.fire(
               'Error',
-              'Error al registrar la política, porfavor intente otra ves',
+              'Error al registrar el Deslinde Legal, porfavor intente otra ves',
               'error'
             );
             console.error(':', error);

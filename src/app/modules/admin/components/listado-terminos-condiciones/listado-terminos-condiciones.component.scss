@@ -1,0 +1,105 @@
+/* Estilos generales de la tabla */
+.terminos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.terminos-table thead {
+  background-color: #e91e63;
+  color: white;
+}
+
+.terminos-table th,
+.terminos-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
+}
+
+.terminos-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+
+.btn {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-edit {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #38853b;
+}
+
+button:hover {
+  background-color: #d81b60;
+  color: white;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+/* Título del formulario */
+.form-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Estilos del grupo de formulario */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: #5a67d8;
+  box-shadow: 0 0 5px rgba(90, 103, 216, 0.5);
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}

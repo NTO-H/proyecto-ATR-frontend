@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>Gestión de Documentos Legales</h2>
+  <div class="row">
+    <!-- Tarjeta para Política de Privacidad -->
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Política de Privacidad</h5>
+          <p class="card-text">Maneja la política de privacidad de la empresa.</p>
+          <a [routerLink]="['/admin/configuracion/registo-politica']" class="btn">registrar </a>
+          <a [routerLink]="['/admin/configuracion/listado-politica']" class="btn">Gestionar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta para Términos y Condiciones -->
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Términos y Condiciones</h5>
+          <p class="card-text">Administra los términos y condiciones de uso.</p>
+          <a [routerLink]="['/admin/configuracion/terminos-condiciones']" class="btn">registrar</a>
+          <a [routerLink]="['/admin/configuracion/listado-terminos-condiciones']" class="btn">Gestionar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta para Deslinde Legal -->
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Deslinde Legal</h5>
+          <p class="card-text">Revisa y actualiza el deslinde legal.</p>
+          <a [routerLink]="['/admin/configuracion/deslinde-legal']" class="btn">registrar</a>
+          <a [routerLink]="['/admin/configuracion/listado-legal']" class="btn">Gestionar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta para Configuración del Perfil Empresarial -->
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Configuración del Perfil Empresarial</h5>
+          <p class="card-text">Configura el Perfil de la Empresa.</p>
+          <a [routerLink]="['/admin/configuracion/perfil-empresa']" class="btn">registrar</a>
+          <a [routerLink]="['/admin/configuracion/perfil-empresa']" class="btn">Gestionar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <router-outlet></router-outlet>
+</div>

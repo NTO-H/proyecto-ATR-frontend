@@ -1,0 +1,77 @@
+
+.form-container {
+    max-width: 600px; /* Limitar el ancho del formulario */
+    margin: 2rem auto; /* Centrar el formulario vertical y horizontalmente */
+    padding: 2rem;
+    border: 1px solid #e0e0e0; /* Añadir borde */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+    background-color: #f9f9f9; /* Fondo claro */
+  }
+
+  .header-text {
+    text-align: center; /* Centrar el encabezado */
+    font-size: 1.5rem; /* Tamaño de fuente */
+    color: #333; /* Color del texto */
+    margin-bottom: 1rem; /* Espacio inferior */
+  }
+  
+  .form-title {
+    text-align: center; /* Centrar el título */
+    margin-bottom: 1.5rem; /* Espacio inferior */
+    color: #e91e63; /* Color de texto del título */
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem; /* Espaciado entre campos */
+  }
+  
+  label {
+    display: block; /* Asegura que la etiqueta esté en su propia línea */
+    margin-bottom: 0.5rem; /* Espacio entre la etiqueta y el campo */
+    color: #555; /* Color de la etiqueta */
+  }
+  
+  input.form-control,
+  textarea.form-control {
+    width: 100%; /* Ancho completo */
+    padding: 0.75rem; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 4px; /* Bordes redondeados */
+    transition: border-color 0.3s; /* Transición suave para el borde */
+  }
+  
+  input.form-control:focus,
+  textarea.form-control:focus {
+    border-color: #e91e63; /* Cambiar color de borde al foco */
+    outline: none; /* Sin contorno */
+  }
+  
+  .error {
+    color: #e91e63; /* Color de error */
+    font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+  }
+  
+  .btn {
+    display: block; /* Botón ocupa todo el ancho */
+    width: 100%; /* Ancho completo */
+    padding: 0.75rem; /* Espaciado interno */
+    background-color: #e91e63; /* Color del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: background-color 0.3s; /* Transición suave para el fondo */
+  }
+  
+  .btn:hover {
+    background-color: #c2185b; /* Color de fondo en hover */
+  }
+  
+  .btn:disabled {
+    background-color: #e0e0e0; /* Color de fondo cuando está deshabilitado */
+    cursor: not-allowed; /* Cambia el cursor */
+  }
+  
+  

@@ -1,0 +1,32 @@
+<div *ngIf="isLoading" class="loading-message">Cargando historial...</div>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<div *ngIf="historialTerminos.length > 0">
+  <h2>Historial de Términos y Condiciones</h2>
+  <table class="politicas-table">
+    <thead>
+      <tr>
+        <th>Versión</th>
+        <th>Título</th>
+        <th>Contenido</th>
+        <th>Fecha de Creación</th>
+        <th>Fecha de vigencia</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let termino of historialTerminos">
+        <td>{{ termino.version }}</td>
+        <td>{{ termino.titulo }}</td>
+        <td>{{ termino.contenido }}</td>
+        <td>{{ termino.fechaCreacion | date : "short" }}</td>
+        <td>{{ termino.fechaVigencia | date : "short" }}</td>
+        <td>{{ termino.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="historialTerminos.length === 0 && !isLoading" class="no-historial">
+  <p>No hay historial disponible para estos términos y condiciones.</p>
+</div>
