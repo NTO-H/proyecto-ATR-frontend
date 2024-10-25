@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ajustes-generales',
@@ -7,6 +8,8 @@ import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.s
   styleUrls: ['./ajustes-generales.component.scss'],
 })
 export class AjustesGeneralesComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef; // Referencia al input de archivo
+
   empresa = {
     slogan: '',
     tituloPagina: '',
@@ -16,46 +19,93 @@ export class AjustesGeneralesComponent {
   };
 
   redesSociales: { plataforma: string; enlace: string }[] = [
-    { plataforma: '', enlace: '' }, // Inicializa con un campo vacío
+    { plataforma: '', enlace: '' },
   ];
 
   selectedFile: File | null = null;
 
   constructor(private datosEmpresaService: DatosEmpresaService) {}
+
   onSubmit() {
     const formData = new FormData();
 
-    // Añadir los datos de la empresa
     formData.append('slogan', this.empresa.slogan);
     formData.append('tituloPagina', this.empresa.tituloPagina);
     formData.append('direccion', this.empresa.direccion);
     formData.append('correoElectronico', this.empresa.correoElectronico);
     formData.append('telefono', this.empresa.telefono);
 
-    // Añadir las redes sociales
-    formData.append('redesSociales', JSON.stringify(this.redesSociales)); // Convertir a JSON si es necesario
-
     if (this.selectedFile) {
-      console.log("checa",this.selectedFile)
+      const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
+      if (this.selectedFile.size > maxSizeInBytes) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'El tamaño del archivo excede el límite de 2 MB.',
+        });
+        return;
+      }
       formData.append('file', this.selectedFile);
     }
 
-    // Llamar al servicio
+    const invalidRedes = this.redesSociales.filter(red => !this.validateRed(red));
+    if (invalidRedes.length > 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hay enlaces de redes sociales inválidos.',
+      });
+      return;
+    }
+
+    formData.append('redesSociales', JSON.stringify(this.redesSociales));
+
     this.datosEmpresaService.updateUsuario(formData).subscribe(
       (response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Éxito',
+          text: 'Usuario actualizado correctamente.',
+        });
         console.log('Usuario actualizado', response);
+        
+        // Limpiar el input de archivo y la selección
+        this.selectedFile = null;
+        this.fileInput.nativeElement.value = ''; // Limpia el input de archivo
       },
       (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al actualizar usuario.',
+        });
         console.error('Error al actualizar usuario', error);
       }
     );
   }
 
+  validateRed(red: { plataforma: string; enlace: string }): boolean {
+    const urlPattern = new RegExp('https?://.+');
+    return red.plataforma.length >= 3 && red.plataforma.length <= 20 && urlPattern.test(red.enlace);
+  }
+
   onFileSelected(event: any) {
-    const file = event.target.files[0]; // Obtiene el archivo seleccionado
+    const file = event.target.files[0];
     if (file) {
-      console.log('Archivo seleccionado:', file); // Muestra el nombre del archivo en consola
-      this.selectedFile = file; // Guarda el archivo en la propiedad
+      const validExtensions = ['image/jpeg', 'image/png'];
+      if (!validExtensions.includes(file.type)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Formato no válido',
+          text: 'Solo se permiten archivos en formato JPEG o PNG.',
+        });
+        this.selectedFile = null;
+        this.fileInput.nativeElement.value = ''; // Limpia el input de archivo
+        return;
+      }
+
+      console.log('Archivo seleccionado:', file);
+      this.selectedFile = file;
     }
   }
 

@@ -77,7 +77,7 @@ export class DeslindeLegalComponent {
               contenido: '',
               fechaVigencia: this.getCurrentDate(),
             };
-            this.router.navigate(['/admin/']);
+            this.router.navigate(['/admin/configuracion/listado-legal']);
           },
           (error) => {
             Swal.fire(

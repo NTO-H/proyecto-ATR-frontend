@@ -8,7 +8,9 @@
         <input
           type="file"
           id="logo"
+          #fileInput ñ
           (change)="onFileSelected($event)"
+          accept="image/jpeg,image/png"
           required
           class="form-control"
         />
@@ -26,24 +28,36 @@
               [(ngModel)]="red.plataforma"
               name="plataforma{{ i }}"
               required
+              minlength="3"
+              maxlength="20"
               class="form-control"
+              #plataforma="ngModel"
             />
+            <div *ngIf="plataforma.invalid && plataforma.touched" class="error-message">
+              <span *ngIf="plataforma.errors?.['required']">La plataforma es obligatoria.</span>
+              <span *ngIf="plataforma.errors?.['minlength']">La plataforma debe tener al menos 3 caracteres.</span>
+              <span *ngIf="plataforma.errors?.['maxlength']">La plataforma no puede tener más de 20 caracteres.</span>
+            </div>
+
             <input
               type="text"
               placeholder="Enlace"
               [(ngModel)]="red.enlace"
               name="enlace{{ i }}"
               required
+              pattern="https?://.+"
               class="form-control"
+              #enlace="ngModel"
             />
-            <button type="button" (click)="removeRed(i)" class="btn eliminar">
-              Eliminar
-            </button>
+            <div *ngIf="enlace.invalid && enlace.touched" class="error-message">
+              <span *ngIf="enlace.errors?.['required']">El enlace es obligatorio.</span>
+              <span *ngIf="enlace.errors?.['pattern']">El enlace debe ser una URL válida.</span>
+            </div>
+
+            <button type="button" (click)="removeRed(i)" class="btn eliminar">Eliminar</button>
           </div>
         </div>
-        <button type="button" (click)="addRed()" class="btn agregar">
-          Agregar Red Social
-        </button>
+        <button type="button" (click)="addRed()" class="btn agregar">Agregar Red Social</button>
       </div>
     </div>
 
@@ -56,8 +70,14 @@
           [(ngModel)]="empresa.slogan"
           name="slogan"
           required
+          minlength="5"
           class="form-control"
+          #slogan="ngModel"
         />
+        <div *ngIf="slogan.invalid && slogan.touched" class="error-message">
+          <span *ngIf="slogan.errors?.['required']">El slogan es obligatorio.</span>
+          <span *ngIf="slogan.errors?.['minlength']">El slogan debe tener al menos 5 caracteres.</span>
+        </div>
       </div>
     </div>
 
@@ -70,8 +90,14 @@
           [(ngModel)]="empresa.tituloPagina"
           name="tituloPagina"
           required
+          minlength="5"
           class="form-control"
+          #tituloPagina="ngModel"
         />
+        <div *ngIf="tituloPagina.invalid && tituloPagina.touched" class="error-message">
+          <span *ngIf="tituloPagina.errors?.['required']">El título de la página es obligatorio.</span>
+          <span *ngIf="tituloPagina.errors?.['minlength']">El título debe tener al menos 5 caracteres.</span>
+        </div>
       </div>
     </div>
 
@@ -85,7 +111,11 @@
           name="direccion"
           required
           class="form-control"
+          #direccion="ngModel"
         />
+        <div *ngIf="direccion.invalid && direccion.touched" class="error-message">
+          <span *ngIf="direccion.errors?.['required']">La dirección es obligatoria.</span>
+        </div>
       </div>
     </div>
 
@@ -99,7 +129,12 @@
           name="correoElectronico"
           required
           class="form-control"
+          #correoElectronico="ngModel"
         />
+        <div *ngIf="correoElectronico.invalid && correoElectronico.touched" class="error-message">
+          <span *ngIf="correoElectronico.errors?.['required']">El correo electrónico es obligatorio.</span>
+          <span *ngIf="correoElectronico.errors?.['email']">El correo electrónico no es válido.</span>
+        </div>
       </div>
     </div>
 
@@ -112,7 +147,11 @@
           [(ngModel)]="empresa.telefono"
           name="telefono"
           class="form-control"
+          #telefono="ngModel"
         />
+        <div *ngIf="telefono.invalid && telefono.touched" class="error-message">
+          <span *ngIf="telefono.errors?.['pattern']">El teléfono debe ser un número válido.</span>
+        </div>
       </div>
     </div>
   </div>
