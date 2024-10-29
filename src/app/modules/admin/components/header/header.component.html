@@ -1,1 +1,193 @@
-<p>header works!</p>
+<div class="sidenav"  [class.collapsed]="isCollapsed">
+  <br />
+  <div class="logo">
+    <span *ngIf="!isTextVisible" class="">ATR</span>
+  </div>
+
+  <ul class="nav flex-column">
+    <!-- Inicio -->
+    <li>
+      <a 
+        tabindex="0"
+        (click)="redirectToAdminBoutique('Home');setActiveLink($event)"
+        class="nav-link"
+      >
+        <i class="pi pi-home"></i>
+        <span *ngIf="!isCollapsed" class="link-text">Inicio</span>
+      </a>
+    </li>
+
+    <!-- Clientes -->
+    <li class="nav-item">
+      <a
+        tabindex="0"
+        class="nav-link"
+        [class.open]="openSubmenu === 'clientes-submenu'"
+        (click)="toggleSubmenu('clientes-submenu');setActiveLink($event)"
+      >
+        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'clientes-submenu'"></i>
+        <i class="pi pi-user"></i>
+        <span class="link-text">Clientes</span>
+      </a>
+      <ul *ngIf="openSubmenu === 'clientes-submenu'" class="submenu" id="clientes-submenu">
+        <li>
+          <a tabindex="0" (click)="redirectToCotrolClientes('lista-clientes');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-list"></i> Listar clientes
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Productos -->
+    <li class="nav-item">
+      <a
+        tabindex="0"
+        class="nav-link"
+        [class.open]="openSubmenu === 'productos-submenu'"
+        (click)="toggleSubmenu('productos-submenu');setActiveLink($event)"
+      >
+        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'productos-submenu'"></i>
+        <i class="pi pi-tags"></i>
+        <span class="link-text">Productos</span>
+      </a>
+      <ul *ngIf="openSubmenu === 'productos-submenu'" class="submenu" id="productos-submenu">
+        <li>
+          <a tabindex="0" (click)="redirectToProductos('lista-productos');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-list"></i> Listar productos
+          </a>
+        </li>
+        <li>
+          <a tabindex="0" (click)="redirectToProductos('registro-producto');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-plus"></i> Agregar producto
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Renta de Productos -->
+    <li class="nav-item">
+      <a 
+        tabindex="0"
+        class="nav-link"
+        [class.open]="openSubmenu === 'renta-submenu'"
+        (click)="toggleSubmenu('renta-submenu');setActiveLink($event)"
+      >
+        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'renta-submenu'"></i>
+        <i class="pi pi-calendar"></i>
+        <span class="link-text">Renta</span>
+      </a>
+      <ul *ngIf="openSubmenu === 'renta-submenu'" class="submenu" id="renta-submenu">
+        <li>
+          <a tabindex="0" (click)="redirectToRenta('lista-renta');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-list"></i> Listar rentas
+          </a>
+        </li>
+        <li>
+          <a tabindex="0" (click)="redirectToRenta('registro-renta');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-plus"></i> Agregar renta
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Ventas -->
+    <li class="nav-item">
+      <a 
+        tabindex="0"
+        class="nav-link"
+        [class.open]="openSubmenu === 'ventas-submenu'"
+        (click)="toggleSubmenu('ventas-submenu');setActiveLink($event)"
+      >
+        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'ventas-submenu'"></i>
+        <i class="pi pi-dollar"></i>
+        <span class="link-text">Ventas</span>
+      </a>
+      <ul *ngIf="openSubmenu === 'ventas-submenu'" class="submenu" id="ventas-submenu">
+        <li>
+          <a tabindex="0" (click)="redirectToVentas('lista-venta');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-list"></i> Listar ventas
+          </a>
+        </li>
+        <li>
+          <a tabindex="0" (click)="redirectToVentas('registro-venta');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-plus"></i> Registrar nueva venta
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Reportes -->
+    <li class="nav-item">
+      <a 
+        tabindex="0"
+        class="nav-link"
+        [class.open]="openSubmenu === 'reportes-submenu'"
+        (click)="toggleSubmenu('reportes-submenu');setActiveLink($event)"
+      >
+        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'reportes-submenu'"></i>
+        <i class="pi pi-chart-line"></i>
+        <span class="link-text">Reportes</span>
+      </a>
+      <ul *ngIf="openSubmenu === 'reportes-submenu'" class="submenu" id="reportes-submenu">
+        <li>
+          <a [ariaDisabled]="true" tabindex="0" (click)="redirectToReportes('ventas-reporte');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-file"></i> Reporte de ventas
+          </a>
+        </li>
+        <li>
+          <a [ariaDisabled]="true" tabindex="0" (click)="redirectToReportes('rentas-reporte');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-file"></i> Reporte de rentas
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Configuración -->
+    <li class="nav-item">
+      <a 
+        tabindex="0"
+        class="nav-link"
+        [class.open]="openSubmenu === 'configuracion-submenu'"
+        (click)="toggleSubmenu('configuracion-submenu');setActiveLink($event)"
+      >
+        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'configuracion-submenu'"></i>
+        <i class="pi pi-cog"></i>
+        <span class="link-text">Configuración</span>
+      </a>
+      <ul *ngIf="openSubmenu === 'configuracion-submenu'" class="submenu" id="configuracion-submenu">
+        <li>
+          <a tabindex="0" (click)="redirectToConfiguracion('perfil-administrador');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-user"></i> Perfil de administrador
+          </a>
+        </li>
+        <li>
+          <a tabindex="0" (click)="redirectToConfiguracion('ajustes-generales');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-cog"></i> Ajustes generales
+          </a>
+        </li>
+        <li>
+          <a tabindex="0" (click)="redirectToConfiguracion('documentos-legales');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-file"></i> Documentos Legales
+          </a>
+        </li>
+        <li>
+          <a tabindex="0" (click)="redirectToConfiguracion('notificaciones');setActiveLink($event)" class="nav-link">
+            <i class="pi pi-bell"></i> Notificaciones
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  
+  <button class="toggle-btn" (click)="toggleCollapse()">
+    <i [ngClass]="isCollapsed ? 'pi pi-angle-double-left' : 'pi pi-angle-double-right'"></i>
+  </button>
+
+  <div class="resize-handle" (mousedown)="startResizing($event)"></div>
+</div>
+
+<div class="floating-header">
+  <div class="admin-info">
+    <span class="date">{{fechaTexto}}</span>
+  </div>
+</div>

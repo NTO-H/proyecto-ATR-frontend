@@ -9,7 +9,7 @@ import { UsuarioService } from '../../../../shared/services/usuario.service';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.view.html',
-  styleUrl: './perfil.view.css',
+  styleUrl: './perfil-administrador.component.scss',
 })
 export class PerfilView implements OnInit {
   data: any = {};

@@ -9,25 +9,50 @@
 body {
   font-family: "Passion One", display;
 }
+.contiene-all {
+  display: flex;
+  flex-direction: row;
+
+  border: #e4e4e4 solid 1px;
+  background: #ffffff;
+}
+.container-productos {
+  padding: 20px;
+}
+
 .hero-img {
+  animation: blur-in 2s ease-in-out;
+
+  /* view-timeline-name: --reveal;
+  animation-fill-mode: both;
+  animation-timeline: --reveal; */
+  animation-name: show-hero;
+
   display: flex;
   /* border: dashed green; */
   align-items: center;
   justify-content: center;
-  /* background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png"); */
-  /* background-size: contain; */
-  /* background-repeat: no-repeat; */
-  /* background-position: center; */
+
+  /* Fondo dividido en dos mitades */
+  /* background: linear-gradient(-12deg, #FFFFFE 54%, #FFF8EC 69%); */
+  /* background: linear-gradient(-20deg, #1a1a1a 50%, #fff8ee 0%);  */
+  
+  /* background: linear-gradient(to right, #fff8ee 50%, #1a1a1a 50%); */
+  /* margin-left: 30px; */
+  /* margin-bottom: 50px; */
+  background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+position: sticky;
+  background-position:right;
   width: 100%;
   height: 400px;
-  /* background-color: #fff8ee; */
-  /* margin: 0; */
-  /* margin-top: 55px; */
 
   /* !hacer responsive */
   .text-anuncio {
     /* border: dashed yellow; */
 
+    /* border: dashed yellow; */
     margin-right: 10px;
     /* width: 30%; */
     p.nombre {
@@ -67,10 +92,14 @@ body {
   margin: 0;
 }
 
+
+
+
+
 /* !hacer responsive */
 .text {
   /* border: dashed rebeccapurple; */
-  margin-left: 20px;
+  margin-left: 50px;
   margin-right: 300px;
 }
 
@@ -79,19 +108,22 @@ body {
   flex-wrap: wrap;
   gap: 7rem;
   margin-top: 20px;
+  margin-left: 50px;
 }
 
 .producto-card {
   backdrop-filter: blur(1px);
-
+  /* border: dashed lawngreen; */
   border: 1px solid #e4e4e4;
   padding-bottom: 16px;
   /* padding: 16px; */
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
-  max-width: 250px;
+  max-width: 200px;
   margin-bottom: 20px;
-  background-color: rgba(255, 252, 247, 0.472);
+  background: #ffffff;
+
+  /* background-color: rgba(255, 252, 247, 0.472); */
   &:hover {
     background-color: #ffffff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -109,13 +141,14 @@ body {
 
 .product-content {
   text-align: center;
+  padding: 10px;
+  /* border: dashed rgb(207, 204, 117); */
 }
 
 .product-image img {
-  width: 90%;
-  /* height: auto; */
-  height: 340px;
-
+  width: 100%;
+  height: 300px;
+  /* border: dashed red; */
   margin-bottom: 16px;
   border-bottom: #e4e4e4 solid 1px;
 }
@@ -131,16 +164,25 @@ body {
   /* padding: 20px; */
   /* margin-inline: 0vw; */
   /* padding-inline: 5vw; */
+  h2 {
+    color: #374151;
+  }
   .card {
+    color: #6b7280;
+
     max-width: 310px;
     height: 140px;
 
     backdrop-filter: blur(1px);
-    background-color: #fff8ee85;
+    border-radius: 8px;
+    border: 1px solid rgb(228, 223, 233);
+    background: #ffffff;
+
+    padding: 0.5rem 1rem;
     /* border: dashed; */
     /* width: 400px; */
     /* height: 150px; */
-    padding: 20px;
+    /* padding: 20px; */
     flex-wrap: wrap;
   }
 }
@@ -155,8 +197,14 @@ body {
   /* padding: 20px; */
   /* margin-inline: 0vw; */
   /* padding-inline: 5vw; */
+
   .card {
+    color: #6b7280;
+    background: #ffffff;
     border: #e4e4e4 solid 1px;
+    h2 {
+      color: #374151;
+    }
     img {
       align-items: center;
       border-radius: 50px;
@@ -164,7 +212,7 @@ body {
     }
     max-width: 310px;
     /* height: 180px; */
-    background-color: transparent;
+    /* background-color: transparent; */
     /* border: dashed; */
     /* width: 400px; */
     /* height: 150px; */
@@ -214,5 +262,18 @@ body {
 
   .cards-info {
     display: none;
+  }
+}
+
+@keyframes show-hero {
+  from {
+    opacity: 0;
+    /* transform: scale(1.40); */
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
   }
 }

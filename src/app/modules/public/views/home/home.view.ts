@@ -1,63 +1,81 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.view.html',
-  styleUrl: './home.view.css',
+  styleUrls: ['./home.view.css', '../../../../shared/styles/categoriesNav.scss','../../../../shared/styles/styles.scss'],
 })
-export class HomeView {
-  constructor(private router: Router) {}
+export class HomeView implements OnInit {
   productos = [
     {
       id: 1,
       nombre: 'Producto 1',
       descripcion: 'Descripción del producto 1',
       precio: 100,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     {
       id: 2,
       nombre: 'Producto 2',
       descripcion: 'Descripción del producto 2',
       precio: 200,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
+      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
     },
     {
-      id: 2,
-      nombre: 'Producto 2',
-      descripcion: 'Descripción del producto 2',
-      precio: 200,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      id: 3,
+      nombre: 'Producto 3',
+      descripcion: 'Descripción del producto 3',
+      precio: 150,
+      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     {
-      id: 2,
-      nombre: 'Producto 2',
-      descripcion: 'Descripción del producto 2',
-      precio: 200,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
+      id: 4,
+      nombre: 'Producto 4',
+      descripcion: 'Descripción del producto 4',
+      precio: 250,
+      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
     },
-
-    // Agrega más productos aquí
   ];
 
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init(); // Inicializa AOS solo si está en el navegador
+    }
+  }
+
   verDetalles() {
-    // alert('mostrar');
-    this.router.navigate(['/public/Detail']); // Navegación hacia otras páginas públicas
+    this.router.navigate(['/public/Detail']);
   }
 
   redirectTo(route: string): void {
-    // this.sidebarVisible2 = !this.sidebarVisible2
     console.log(route);
     if (route === 'login') {
-      this.router.navigate(['/auth/login']); // Navegación hacia la página de inicio de sesión
+      this.router.navigate(['/auth/login']);
     } else {
       console.log('click', route);
-      this.router.navigate(['/public', route]); // Navegación hacia otras páginas públicas
+      this.router.navigate(['/public', route]);
+    }
+  }
+
+  agregarProducto() {
+    const nuevoProducto = {
+      id: 5,
+      nombre: 'Producto 5',
+      descripcion: 'Descripción del producto 5',
+      precio: 300,
+      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+    };
+    this.productos.push(nuevoProducto);
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.refresh(); // Refresca AOS solo si está en el navegador
     }
   }
 }

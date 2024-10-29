@@ -42,14 +42,6 @@ export class SignInView implements OnInit {
     // Use the response token as needed
     console.log('reCAPTCHA v2 Response:', response);
   }
-  // recaptchaV3Service = inject(ReCaptchaV3Service);
-  // executeRecaptcha() {
-  //   // La acción 'login' es un ejemplo, puedes usar otra acción personalizada.
-  //   this.recaptchaV3Service.execute('').subscribe((token) => {
-  //     // Puedes usar el token aquí para la verificación
-  //     console.log('Captcha token:', token);
-  //   });
-  // }
 
   executeRecaptchaVisible(token:any){
     console.log('token visible', token);
@@ -180,13 +172,13 @@ export class SignInView implements OnInit {
             let navigateTo = '';
 
             if (this.userROL === ERol.ADMIN) {
-              navigateTo = 'admin/inicio';
+              navigateTo = '/admin/home';
             } else if (this.userROL === ERol.CLIENTE) {
-              navigateTo = 'repartidor/Home';
+              navigateTo = '/public/home';
             }
 
             this.router.navigate([navigateTo]).then(() => {
-              if (navigateTo === 'repartidor/Home') {
+              if (navigateTo === '/public/home') {
                 window.location.reload();
               } else {
                 Swal.fire({

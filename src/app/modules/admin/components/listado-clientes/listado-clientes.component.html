@@ -1,2 +1,90 @@
-<p>listado-clientes works!</p>
-<pre>{{ data | json }}</pre>
+<p-toast />
+<p-dialog *ngIf="listUsuario" header="Información del Usuario" [modal]="true" [(visible)]="visible"
+  [style]="{ width: '35rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <form [formGroup]="clienteForm" (ngSubmit)="actualizarCliente(listUsuario._id)">
+    <h3>Detalles Personales</h3>
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" formControlName="nombre" />
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="email" />
+    </div>
+
+    <div>
+      <label for="estatus">Status:</label>
+      <input type="text" id="estatus" formControlName="estatus" />
+    </div>
+   
+    <div>
+      <label for="telefono">Teléfono:</label>
+      <input type="text" id="telefono" formControlName="telefono" />
+    </div>
+
+    
+    <!-- <app-mapa-client-ubicacion></app-mapa-client-ubicacion> -->
+
+    <div class="btn-group" role="group">
+      <button type="submit" class="btn btn-primary">Actualizar</button>
+    </div>
+  </form>
+</p-dialog>
+
+
+
+<section>
+  <h2>Lista de Clientes</h2>
+
+  <p-table #dt2 [value]="paginatedUser" selectionMode="single" dataKey="_id" [rows]="rows" [totalRecords]="totalRecords"
+    [first]="first" (onPageChange)="onPageChange($event)">
+
+    <ng-template pTemplate="caption">
+      <span class="p-input-icon-left">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input pInputText style="width: 150%; padding-left: 20%;" type="text" (input)="onGlobalFilter($event)"
+          placeholder="Buscar cliente..." [(ngModel)]="filterText" />
+      </span>
+      <button (click)="redirecTo('agregar-cliente')" class="custom-btn add-button">
+        <i class="fa-solid fa-plus"></i> Nuevo
+      </button>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+        <th pSortableColumn="email">Correo <p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="telefono">Teléfono <p-sortIcon field="telefono"></p-sortIcon></th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-cliente>
+      <tr>
+        <td [innerHTML]="highlightText(cliente.nombre)"></td>
+        <td [innerHTML]="highlightText(cliente.email)"></td>
+        <td [innerHTML]="highlightText(cliente.telefono)"></td>
+        <td>
+          <button class="custom-btn custom-btn-danger" (click)="eliminarUsuario(cliente._id);">
+            <i class="fas fa-trash-can"></i> Eliminar
+          </button>
+          <button class="custom-btn custom-btn-primary" (click)="editar(cliente._id)">
+            <i class="fa-solid fa-pen-to-square"></i> Editar
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6">No se encuentra ningún cliente.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-paginator [totalRecords]="totalRecords" [rows]="rows" [first]="first"
+    (onPageChange)="onPageChange($event)"></p-paginator>
+
+  <p>Hay {{paginatedUser ? paginatedUser.length : 0 }} clientes.</p>
+</section>

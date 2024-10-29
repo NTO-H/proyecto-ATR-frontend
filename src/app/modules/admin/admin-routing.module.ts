@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeView } from './views/home/home.view';
 import { ControlClientesView } from './views/control-clientes/control-clientes.view';
-import { ClienteListadoComponent } from './components/cliente-listado/cliente-listado.component';
 import { ReportesView } from './views/reportes/reportes.view';
 import { ConfiguracionView } from './views/configuracion/configuracion.view';
 import { PoliticasView } from './views/politicas/politicas.view';
@@ -35,7 +34,7 @@ import { HistorialDeslindeLegalComponent } from './components/historial-deslinde
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'politicas',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
@@ -43,7 +42,7 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: 'inicio',
+        path: 'home',
         component: HomeView,
       },
       {
@@ -52,7 +51,7 @@ const routes: Routes = [
         children: [
           {
             path: 'lista-clientes',
-            component: ClienteListadoComponent,
+            component: ListadoClientesComponent,
           },
           {
             path: '',
@@ -219,10 +218,10 @@ const routes: Routes = [
           },
         ],
       },
-      {
-        path: '**', // Ruta wildcard para manejar rutas no encontradas
-        redirectTo: 'inicio', // O puedes redirigir a otra ruta
-      },
+      // {
+      //   path: '**', // Ruta wildcard para manejar rutas no encontradas
+      //   redirectTo: 'inicio', // O puedes redirigir a otra ruta
+      // },
     ],
   },
 ];

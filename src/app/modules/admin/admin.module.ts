@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeView } from './views/home/home.view';
@@ -10,9 +10,8 @@ import { RouterModule } from '@angular/router';
 import { ClientesService } from '../../shared/services/clientes.service';
 import { SessionService } from '../../shared/services/session.service';
 import { StorageService } from '../../shared/services/storage.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 // import { CrudTerminosCondicionesView } from './views/crud-terminos-condiciones/crud-terminos-condiciones.view';
-import { ClienteListadoComponent } from './components/cliente-listado/cliente-listado.component';
 import { ControlClientesView } from './views/control-clientes/control-clientes.view';
 import { ControlProductosView } from './views/control-productos/control-productos.view';
 import { ControlVentasView } from './views/control-ventas/control-ventas.view';
@@ -38,15 +37,35 @@ import { AjustesGeneralesComponent } from './components/ajustes-generales/ajuste
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { DatosEmpresaService } from '../../shared/services/datos-empresa.service';
+import { HeaderComponent } from './components/header/header.component';
+import { provideClientHydration } from '@angular/platform-browser';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import {  ToastrModule } from 'ngx-toastr';
+import { TabViewModule } from 'primeng/tabview';
+import { AvatarModule } from 'primeng/avatar';
+import { PaginatorModule } from 'primeng/paginator';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { MessageService } from 'primeng/api';
+import { Toast } from '../../shared/services/toast.service';
+import { ToastModule } from 'primeng/toast';
+
+
 
 const VIEWS = [HomeView, FooterComponent];
-const UTILS = [];
 
+const MATERIALS = [CalendarModule, InputNumberModule, ToastrModule,TabViewModule,
+  AvatarModule, PaginatorModule,AvatarGroupModule, DialogModule,TableModule,IconFieldModule,InputIconModule
+]
 @NgModule({
   declarations: [
     VIEWS,
     AdminComponent,
-    ClienteListadoComponent,
+    ListadoClientesComponent,
     ControlClientesView,
     ControlProductosView,
     ControlVentasView,
@@ -54,7 +73,8 @@ const UTILS = [];
     HistorialView,
     RegistroRentaComponent,
     ListadoRentaComponent,
-    
+    HeaderComponent,
+    FooterComponent,
     RegistroVentaComponent,
     RegistoProductoComponent,
     RegistoPoliticaComponent,
@@ -69,16 +89,16 @@ const UTILS = [];
     ListadoClientesComponent,
     PerfilAdministradorComponent,
     AjustesGeneralesComponent,
-    NotificacionesComponent,
+    NotificacionesComponent
   ],
-  imports: [CommonModule, FormsModule, AdminRoutingModule, FormsModule,HttpClientModule,],
+  imports: [MATERIALS,ReactiveFormsModule,ToastModule ,FormsModule,CommonModule, FormsModule, AdminRoutingModule, FormsModule,HttpClientModule,],
   providers: [
     UsuarioService,
     ControlAdministrativaService,
     ClientesService,
     StorageService,
     SessionService,
-    DatosEmpresaService,
+    DatosEmpresaService,Toast, MessageService, provideClientHydration(), [provideHttpClient(withFetch())],
   ],
 })
 export class AdminModule {}

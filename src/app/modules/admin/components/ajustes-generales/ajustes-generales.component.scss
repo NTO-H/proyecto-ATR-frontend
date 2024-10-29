@@ -1,129 +1,147 @@
 .ajustes-generales-form {
-  max-width: 700px; /* Ancho máximo del formulario */
-  margin: 0 auto; /* Centramos el formulario */
-  padding: 20px; /* Espaciado interno */
-  background-color: #ffffff; /* Fondo blanco */
-  border-radius: 12px; /* Bordes redondeados */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra */
+  width: 100%;
+  // max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    // text-align: center;
+    color: #333;
+  }
+
+  .table {
+    display: table;
+    width: 100%;
+
+    .table-row {
+      display: table-row;
+
+      .table-cell {
+        display: table-cell;
+        padding: 10px;
+        vertical-align: top;
+
+        label {
+          font-size: 0.9em;
+          color: #333;
+          margin-bottom: 5px;
+          display: block;
+        }
+
+        .form-control {
+          width: 100%;
+          padding: 10px;
+          font-size: 0.9rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          transition: border-color 0.3s ease;
+
+          &:focus {
+            border-color: #007bff;
+            outline: none;
+          }
+        }
+
+        .logo-container {
+          margin-top: 10px;
+
+          .logo-preview {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+          }
+        }
+
+        .redes-sociales-container {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .red-social {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .form-control {
+              flex: 1;
+            }
+
+            .btn.eliminar {
+              padding: 5px 10px;
+              background-color: #dc3545;
+              color: #fff;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 0.8rem;
+
+              &:hover {
+                background-color: #c82333;
+              }
+            }
+          }
+        }
+
+        .error-message {
+          margin-top: 5px;
+          font-size: 0.8rem;
+          color: #dc3545;
+
+          span {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .form-actions {
+    margin-top: 20px;
+    text-align: center;
+
+    .btn.guardar {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: #218838;
+      }
+    }
+
+    .btn.agregar {
+      padding: 5px 15px;
+      font-size: 0.9rem;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+
+      &:hover {
+        background-color: #0069d9;
+      }
+    }
+  }
 }
 
-.form-title {
-  font-size: 2rem; /* Tamaño de fuente del título */
-  color: #333333; /* Color del texto oscuro */
-  margin-bottom: 20px; /* Margen inferior */
-  text-align: center; /* Centrar el título */
-  font-weight: bold; /* Texto en negrita */
-}
-
-.table {
-  display: table;
-  width: 100%; /* Ancho completo */
-  border-collapse: collapse; /* Colapsar bordes */
-}
-
-.table-row {
-  display: table-row; /* Estilo de fila de tabla */
-}
-
-.table-cell {
-  display: flex; /* Usar flexbox para alineación */
-  flex-direction: column; /* Apilar elementos verticalmente */
-  padding: 12px; /* Espaciado interno de celdas */
-  border: 1px solid #e0e0e0; /* Borde de las celdas */
-  vertical-align: top; /* Alinear el contenido en la parte superior */
-  align-items: center; /* Centrar el contenido */
-}
-
-.form-group {
-  margin-bottom: 20px; /* Espaciado inferior entre grupos */
-}
-
-.redes-sociales-container {
+.form-group-container {
   display: flex;
-  flex-direction: column; /* Apilar redes sociales */
-  gap: 10px; /* Espacio entre redes sociales */
-}
-
-.red-social {
-  display: flex;
-  align-items: center; /* Alinear verticalmente */
-  gap: 10px; /* Espacio entre entradas */
-}
-
-.btn {
-  padding: 10px 20px; /* Espaciado interno */
-  border: none; /* Sin borde */
-  border-radius: 6px; /* Bordes redondeados */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
-  font-size: 0.9rem; /* Tamaño de fuente */
-  font-weight: bold; /* Negrita */
-  transition: background-color 0.3s, transform 0.3s; /* Transiciones */
-}
-
-.btn.agregar {
-  background-color: #4caf50; /* Color verde */
-  color: white; /* Texto blanco */
-}
-
-.btn.agregar:hover {
-  background-color: #45a049; /* Oscurecer al pasar el mouse */
-}
-
-.btn.guardar {
-  background-color: #4caf50; /* Color verde */
-  color: white; /* Texto blanco */
-}
-
-.btn.guardar:hover {
-  background-color: #45a049; /* Oscurecer al pasar el mouse */
-}
-
-.btn.eliminar {
-  background-color: #e53e3e; /* Color rojo */
-  color: white; /* Texto blanco */
-}
-
-.btn.eliminar:hover {
-  background-color: #c53030; /* Oscurecer al pasar el mouse */
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end; /* Alinear el botón guardar a la derecha */
-}
-
-.form-control {
-  width: 100%; /* Ancho completo */
-  padding: 10px; /* Espaciado interno */
-  border: 1px solid #ccc; /* Borde gris claro */
-  border-radius: 6px; /* Bordes redondeados */
-  font-size: 1rem; /* Tamaño de fuente */
-  transition: border-color 0.3s, box-shadow 0.3s; /* Transiciones */
-}
-
-.form-control:focus {
-  border-color: #5a67d8; /* Cambiar color del borde al enfocar */
-  box-shadow: 0 0 5px rgba(90, 103, 216, 0.5); /* Efecto de sombra al enfocar */
-  outline: none; /* Eliminar el borde predeterminado */
-}
-
-.error-message {
-  color: #e53e3e;
-  font-size: 0.875rem;
-  margin-top: 5px;
-}
-
-.logo-container {
-  margin-top: 10px; /* Espacio arriba del logo */
-  display: flex;
-  justify-content: center; /* Centra el logo */
-  width: 100%; /* Asegura que ocupe todo el ancho */
-}
-
-.logo-preview {
-  max-width: 200px; /* Limita el ancho máximo a 200px */
-  width: 100%; /* Asegura que se ajuste al contenedor */
-  height: auto; /* Mantiene la proporción */
-  border: 1px solid #ccc; /* Bordes suaves */
-  border-radius: 5px; /* Esquinas redondeadas */
+  gap:20px;
+  flex-direction: row;
 }

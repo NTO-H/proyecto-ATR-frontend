@@ -1,82 +1,72 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID, Renderer2, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-
+import * as AOS from 'aos';
+import { isPlatformBrowser } from '@angular/common';
+import { SessionService } from '../../../../shared/services/session.service';
+import { ERol } from '../../../../shared/constants/rol.enum';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   isScrolled = false;
-
   sidebarVisible: boolean = false;
   isMobile: boolean = false;
   items: MenuItem[] = [];
-  isLoggedIn: boolean = false; // Set this based on your authentication logic
+  isLoggedIn: boolean = false;
+  userROL!: string;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private sessionService: SessionService,
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
-  ngOnInit(): void {
+  
+ngOnInit() {
+  if (isPlatformBrowser(this.platformId)) {
+    import('aos').then(AOS => {
+      AOS.init();
+    });
+
+    this.checkScreenSize();
+    this.renderer.listen('window', 'resize', () => this.checkScreenSize());
     this.updateMenuItems();
-    const ua = navigator.userAgent;
-    this.onWindowScroll();
-    console.log(ua);
-
-    // Verificar si estamos en un entorno del navegador (donde window existe)
-    if (typeof window !== 'undefined') {
-      const ua = navigator.userAgent;
-      console.log(ua);
-
-      // Detectar si la ventana tiene un tamaño similar al de un móvil
-      if (window.innerWidth <= 768) {
-        this.isMobile = true;
-        console.log('El navegador está en un tamaño de móvil');
-      } else {
-        this.isMobile = false;
-        console.log('El navegador está en un tamaño de escritorio');
-      }
-
-      // Detectar si el navegador es Chrome
-      if (/Chrome/i.test(ua)) {
-        console.log('Navegador Chrome detectado');
-      } else {
-        console.log('Navegador no es Chrome');
-      }
-
-      // Escuchar cambios en el tamaño de la ventana
-      window.addEventListener('resize', () => {
-        if (window.innerWidth <= 768) {
-          this.isMobile = true;
-          console.log('El navegador ahora está en un tamaño de móvil');
-        } else {
-          this.isMobile = false;
-          console.log('El navegador ahora está en un tamaño de escritorio');
-        }
-      });
-    } else {
-      console.log('No se está ejecutando en un navegador');
+  }
+}
+  
+  ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      const scrollPosition = window.pageYOffset || 0;
+      this.isScrolled = scrollPosition > 10;
     }
   }
-  // Detecta el scroll del usuario
+  
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (typeof window !== 'undefined') {
-      const scrollPosition =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop ||
-        0;
+    if (isPlatformBrowser(this.platformId)) {
+      const scrollPosition = window.pageYOffset || 0;
       this.isScrolled = scrollPosition > 10;
     }
   }
 
-  showDialog() {
-    this.sidebarVisible = true;
+  checkScreenSize() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isMobile = window.innerWidth <= 768; // Determina si es móvil o escritorio
+      console.log(this.isMobile ? 'Modo móvil' : 'Modo escritorio');
+    }
   }
+
+  showDialog() {
+    this.sidebarVisible = true; // Muestra el sidebar
+  }
+
   updateMenuItems() {
-    if (this.isUserLoggedIn()) {
-      // If the user is logged in
+    this.isLoggedIn = this.isUserLoggedIn(); // Actualiza el estado de inicio de sesión
+    if (this.isLoggedIn) {
       this.items = [
         {
           label: 'Mi perfil',
@@ -84,18 +74,17 @@ export class HeaderComponent implements OnInit {
           command: () => this.redirectTo('Mi-perfil'),
         },
         {
-          label: 'User Settings',
+          label: 'Configuración',
           icon: 'pi pi-cog',
-          command: () => this.goToSettings(),
+          command: () => this.redirectTo('Config'),
         },
         {
-          label: 'Logout',
+          label: 'Cerrar sesión',
           icon: 'pi pi-sign-out',
           command: () => this.logout(),
         },
       ];
     } else {
-      // If the user is not logged in
       this.items = [
         {
           label: 'Iniciar sesión',
@@ -116,62 +105,41 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  goToLogin() {
-    // Navigate to login page
-    console.log('Navigating to login page');
-  }
-
-  goToRegister() {
-    // Navigate to register page
-    console.log('Navigating to register page');
-  }
-
-  goToSettings() {
-    // Navigate to user settings page
-    console.log('Navigating to settings page');
-  }
   logout() {
-    // Verificar si localStorage está disponible
-    if (typeof localStorage !== 'undefined') {
-      console.log('Logging out');
-      localStorage.removeItem('token'); // Eliminar el token de autenticación
-    } else {
-      console.error('localStorage no está disponible');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token'); // Elimina el token de inicio de sesión
     }
-  
-    this.isLoggedIn = false;
-    this.updateMenuItems(); // Actualizar el menú después de logout
-    this.router.navigate(['/auth/login']); // Redirigir al login
+    this.isLoggedIn = false; // Cambia el estado de inicio de sesión
+    this.updateMenuItems(); // Actualiza los elementos del menú
+    this.router.navigate(['/auth/login']); // Redirige a la página de inicio de sesión
   }
-  
+
   isUserLoggedIn(): boolean {
-    // Verificar si localStorage está disponible
-    if (typeof localStorage !== 'undefined') {
-      return !!localStorage.getItem('token'); // Comprobar si el token existe
-    } else {
-      console.error('localStorage no está disponible');
-      return false;
+    // if (userData) {
+      const userData = this.sessionService.getUserData();
+          if (userData) {
+      this.userROL = userData.rol;
+      let navigateTo = '';
+
+      if (this.userROL === ERol.CLIENTE) {
+        return true
+      }
     }
+    return false; // Devuelve false si no está en el navegador
+    
+    // return null; // Devuelve false si no está en el navegador
+    // Verifica si está en el navegador antes de acceder a localStorage
+    // if (isPlatformBrowser(this.platformId)) {
+    //   return !!localStorage.getItem('token');
+    // }
   }
-  
+
   redirectTo(route: string): void {
-    this.sidebarVisible = false;
-    // this.sidebarVisible2 = !this.sidebarVisible2
-    console.log(route);
-    if (route === 'Sign-in') {
-      this.router.navigate(['/auth', route]); // Navegación hacia la página de inicio de sesión
-    } else if (route === 'Sign-up') {
-      this.router.navigate(['/auth', route]); // Navegación hacia la página de inicio de sesión
-    }
-     else if (route === 'Activar-cuenta') {
-      this.router.navigate(['/auth', route]); // Navegación hacia la página de inicio de sesión
-    }
-     else if (route === 'Activar-cuenta') {
-      this.router.navigate(['/auth', route]); // Navegación hacia la página de inicio de sesión
-    }
-     else {
-      console.log('click', route);
-      this.router.navigate(['/public', route]); // Navegación hacia otras páginas públicas
+    this.sidebarVisible = false; // Cierra el sidebar al redirigir
+    if (route === 'Sign-in' || route === 'Sign-up' || route === 'Activar-cuenta') {
+      this.router.navigate(['/auth', route]);
+    } else {
+      this.router.navigate(['/public', route]);
     }
   }
 }

@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,24 +10,20 @@ import { Router } from '@angular/router';
 })
 export class FooterComponent {
   isScrolled = false;
-
   sidebarVisible: boolean = false;
   isMobile: boolean = false;
 
-  constructor(private router:Router){
-  }
-
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object // Inject PLATFORM_ID to detect the environment
+  ) {}
 
   ngOnInit(): void {
-    const ua = navigator.userAgent;
-    console.log(ua);
-
-    // Verificar si estamos en un entorno del navegador (donde window existe)
-    if (typeof window !== 'undefined') {
+    if (isPlatformBrowser(this.platformId)) { // Check if we're in the browser
       const ua = navigator.userAgent;
       console.log(ua);
 
-      // Detectar si la ventana tiene un tamaño similar al de un móvil
+      // Detect if the viewport size is mobile-like
       if (window.innerWidth <= 768) {
         this.isMobile = true;
         console.log('El navegador está en un tamaño de móvil');
@@ -35,14 +32,14 @@ export class FooterComponent {
         console.log('El navegador está en un tamaño de escritorio');
       }
 
-      // Detectar si el navegador es Chrome
+      // Detect if the browser is Chrome
       if (/Chrome/i.test(ua)) {
         console.log('Navegador Chrome detectado');
       } else {
         console.log('Navegador no es Chrome');
       }
 
-      // Escuchar cambios en el tamaño de la ventana
+      // Listen for window resize events
       window.addEventListener('resize', () => {
         if (window.innerWidth <= 768) {
           this.isMobile = true;
@@ -56,29 +53,31 @@ export class FooterComponent {
       console.log('No se está ejecutando en un navegador');
     }
   }
-  // Detecta el scroll del usuario
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollPosition =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-    this.isScrolled = scrollPosition > 10;
-  }
-  
+
+  // // Detects user scroll
+  // @HostListener('window:scroll', [])
+  // onWindowScroll() {
+  //   if (isPlatformBrowser(this.platformId)) { // Check if we're in the browser
+  //     const scrollPosition =
+  //       window.pageYOffset ||
+  //       document.documentElement.scrollTop ||
+  //       document.body.scrollTop ||
+  //       0;
+  //     this.isScrolled = scrollPosition > 10;
+  //   }
+  // }
+
   showDialog() {
-    this.sidebarVisible =true;
+    this.sidebarVisible = true;
   }
 
   redirectTo(route: string): void {
-    // this.sidebarVisible2 = !this.sidebarVisible2
-    console.log(route)
+    console.log(route);
     if (route === 'login') {
-      this.router.navigate(['/auth/login']) // Navegación hacia la página de inicio de sesión
+      this.router.navigate(['/auth/login']);
     } else {
-      console.log("click",route)
-      this.router.navigate(['/public', route]) // Navegación hacia otras páginas públicas
+      console.log("click", route);
+      this.router.navigate(['/public', route]);
     }
   }
 }

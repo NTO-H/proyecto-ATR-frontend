@@ -1,20 +1,30 @@
 <div class="hero-img">
   <div class="text">
-    <h1 data-aos="flip-left" class="text-info">Welcome to Our Website!</h1>
+    <img
+      src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730059547/images-AR/tzxnm1p1ao1hunak2ddj.png"
+      alt=""
+      style="max-width: 35%"
+      srcset=""
+    />
+    <h1 class="text-info">Welcome to Our Website!</h1>
     <p>
       LO MÁS TOP DE VESTIDOS EN RENTA PARA FIESTAS, UN ESPACIO DONDE ENCONTRARÁS
       LO QUE ESTÁS BUSCANDO ✨.
     </p>
   </div>
 
-  <div class="text-anuncio">
-    <p class="nombre">ATELIER</p>
-    <p class="info">Ven y visitanos</p>
-  </div>
+  <!-- <div class="text-anuncio">
+    <img
+      src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg"
+      alt="imagen representativo"
+      style="max-width: 30%"
+      srcset=""
+    />
+  </div> -->
 </div>
-
-<h1 style="text-align: center">Categorias</h1>
-<p style="text-align: center">
+<!-- 
+<h1  data-aos="zoom-out-up" style="text-align: center">Categorias</h1>
+<p  data-aos="zoom-out-up" style="text-align: center">
   Encuentra los mejores productos para tus eventos
 </p>
 <div class="cards">
@@ -31,23 +41,96 @@
     <h2 style="text-align: center">Combinaciones</h2>
     aperiam veniam repellat quasi iure quibusdam, autem temporibus amet
   </div>
-</div>
+</div> -->
 
-<h1 style="text-align: center">Encuentra tu estilo</h1>
-
-<div class="productos-container">
-  <div data-aos="zoom-out-up" *ngFor="let producto of productos" class="producto-card p-mb-4">
-    <div class="product-image">
-      <img  (click)="verDetalles()" [src]="producto.imagen" alt="{{ producto.nombre }}" />
+<div class="contiene-all">
+  <div class="sidebar">
+    <!-- Categorías -->
+    <div class="filter-section">
+      <h3>Categories</h3>
+      <ul class="category-list">
+        <li><strong>WOMAN</strong> (96)</li>
+        <ul class="subcategory-list">
+          <li>Blouses</li>
+          <li>Jackets</li>
+          <li>Dresses</li>
+          <li>Jeans</li>
+        </ul>
+        <li><strong>MAN</strong> (20)</li>
+        <li><strong>KID</strong> (12)</li>
+        <li><strong>SALE</strong> (15)</li>
+        <li><strong>NEW ARRIVALS</strong> (150)</li>
+      </ul>
     </div>
-    <div class="product-content">
-      <p>{{ producto.descripcion }}</p>
-      <p><strong>Precio:</strong> {{ producto.precio | currency }}</p>
+
+    <!-- Color -->
+    <div class="filter-section">
+      <h3>Color</h3>
+      <div class="color-options">
+        <span class="color black"></span>
+        <span class="color gray"></span>
+        <span class="color pink"></span>
+        <span class="color red"></span>
+        <span class="color green"></span>
+        <span class="color blue"></span>
+        <span class="color yellow"></span>
+        <span class="color purple"></span>
+      </div>
+    </div>
+
+    <!-- Filtro por precio -->
+    <div class="filter-section">
+      <h3>Filter by price</h3>
+      <div class="price-filter">
+        <input type="range" min="10" max="1000" step="10" />
+        <div class="price-values">
+          <span>$10</span>
+          <span>$1000</span>
+        </div>
+        <button class="filter-button">Filter</button>
+      </div>
+    </div>
+
+    <!-- Tamaño -->
+    <div class="filter-section">
+      <h3>Size</h3>
+      <div class="size-options">
+        <label><input type="checkbox" /> All sizes</label>
+        <label><input type="checkbox" /> XS</label>
+        <label><input type="checkbox" /> S</label>
+        <label><input type="checkbox" /> M</label>
+        <label><input type="checkbox" /> L</label>
+        <label><input type="checkbox" /> XL</label>
+      </div>
+    </div>
+  </div>
+  <div class="container-productos">
+    <h1 data-aos="zoom-out-up" style="text-align: center">
+      Encuentra tu estilo
+    </h1>
+
+    <div data-aos="zoom-out-up" class="productos-container">
+      <div
+        data-aos="zoom-out-up"
+        *ngFor="let producto of productos"
+        class="producto-card p-mb-4"
+      >
+        <div class="product-image">
+          <img
+            (click)="verDetalles()"
+            [src]="producto.imagen"
+            alt="{{ producto.nombre }}"
+          />
+        </div>
+        <div class="product-content">
+          <p>{{ producto.descripcion }}</p>
+          <p><strong>Precio:</strong> {{ producto.precio | currency }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<div class="cards-info">
+<div data-aos="zoom-out-up" class="cards-info">
   <div class="card">
     <img
       src="https://via.placeholder.com/100"

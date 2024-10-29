@@ -127,19 +127,19 @@ export class RecuperarPasswordView {
         if (response) {
           this.esFrmCorreo = false;
           this.toastr.info(`Revisa tu vandeja de correos.`, 'Envio');
-          this.msg.enviarCorreo(correo).subscribe(
-            () => {
-              this.toastr.success('Correo electrónico enviado correctamente');
-              this.esfrmVerficacion = true;
-              // Aquí puedes implementar más lógica si es necesario, como obtener un token de verificación o actualizar el estado de la aplicación
-              this.msg.enviarNotificacion().subscribe({});
-            },
-            (error) => {
-              console.error('Error al enviar correo electrónico:', error);
-              this.toastr.error('Error al enviar correo electrónico');
-              this.esfrmVerficacion = false;
-            }
-          );
+          // this.msg.enviarCorreo(correo).subscribe(
+          //   () => {
+          //     this.toastr.success('Correo electrónico enviado correctamente');
+          //     this.esfrmVerficacion = true;
+          //     // Aquí puedes implementar más lógica si es necesario, como obtener un token de verificación o actualizar el estado de la aplicación
+          //     this.msg.enviarNotificacion().subscribe({});
+          //   },
+          //   (error) => {
+          //     console.error('Error al enviar correo electrónico:', error);
+          //     this.toastr.error('Error al enviar correo electrónico');
+          //     this.esfrmVerficacion = false;
+          //   }
+          // );
         } else {
           this.esFrmCorreo = true;
           this.toastr.error('El correo no fue encontrado', 'Error');

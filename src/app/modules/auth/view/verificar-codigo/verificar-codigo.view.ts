@@ -34,21 +34,21 @@ export class VerificarCodigoView implements OnInit {
       const email = this.formulario.get('email')?.value;
   
       // Simular la lógica para enviar el código de verificación
-      this.msgs.enviarCorreo(email).subscribe({
-        next: (res) => {
-          this.isOtpSent = true;
-          console.log('Código de verificación enviado con éxito:', res);
+      // this.msgs.enviarCorreo(email).subscribe({
+      //   next: (res) => {
+      //     this.isOtpSent = true;
+      //     console.log('Código de verificación enviado con éxito:', res);
           
-          // Aquí puedes implementar más lógica si es necesario, como obtener un token de verificación o actualizar el estado de la aplicación
-          this.msgs.enviarNotificacion().subscribe({
-          });
+      //     // Aquí puedes implementar más lógica si es necesario, como obtener un token de verificación o actualizar el estado de la aplicación
+      //     this.msgs.enviarNotificacion().subscribe({
+      //     });
           
-          // Cambiar el valor de isOtpSent a true para mostrar el segundo formulario
-        },
-        error: (err) => {
-          console.error('Error enviando el código de verificación:', err);
-        }
-      });
+      //     // Cambiar el valor de isOtpSent a true para mostrar el segundo formulario
+      //   },
+      //   error: (err) => {
+      //     console.error('Error enviando el código de verificación:', err);
+      //   }
+      // });
     }
   }
   

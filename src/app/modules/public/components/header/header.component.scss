@@ -135,11 +135,11 @@ p-sidebar {
 /* // Header styles */
 .app-header {
   z-index: 1 !important;
-  background-color: transparent;
+  background-color: rgba(231, 231, 231, 0.461);
   /* color: $text-color; */
   /* background-color: $hover-color; */
 
-  box-shadow: 0 2px 2px rgba(114, 114, 114, 0.1);
+  // box-shadow: 0 0px 2px rgba(114, 114, 114, 0.1);
 
   position: fixed;
   width: 100%;
@@ -160,7 +160,6 @@ p-sidebar {
     .logo {
       /* font-family: 'Italiana', serif; */
       /* font-family: 'Cormorant Garamond', serif; */
-      font-family: "Cormorant", serif;
 
       /* 
       font-family: 'Petit Formal Script', handwriting; */
@@ -171,7 +170,7 @@ p-sidebar {
 
       /* Estilo inicial mostrando el texto "Altier" */
       &::before {
-        content: "ATELIER";
+        content: "";
       }
     }
 
@@ -221,12 +220,17 @@ p-sidebar {
         a {
           text-decoration: none;
           /* color: $text-color; */
-          font-weight: bold;
+          // font-weight: bold;
+          font-size: 14px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          // font-display: to-upper-case($string: "true");
+          // font-synthesis: ;
           padding: 10px 20px;
           border-radius: 50px;
           transition: background-color 0.3s ease;
           // color: #303a50;
-          
+
           color: #495464;
           cursor: pointer;
           &:hover {
@@ -263,9 +267,10 @@ p-sidebar {
   pointer-events: none; /* Desactivar interacciones mientras está oculto */
 }
 .scrolled {
-  background-color: #ffffffaf;
-  backdrop-filter: blur(1px);
-  box-shadow: 0 2px 2px rgba(228, 228, 228, 0.864);
+  background-color: #ffffff9e;
+  backdrop-filter: blur(2px);
+  border: solid 1px #eaedf1;
+  // box-shadow: 0 2px 2px rgba(228, 228, 228, 0.864);
   .nav-bar {
     .logo {
       background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726496561/images-AR/n7cjxwmizj0ath7oegjq.png");

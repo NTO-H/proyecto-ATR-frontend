@@ -28,6 +28,11 @@ export class UsuarioService {
 
   // http://localhost:4000/api/v1/usuarios/
 
+  checkEmailExists(email: Usuario): Observable<any> {
+    return this.http.post<any>(environment.api + '/usuarios/check-email', {email}, {
+      withCredentials: true,
+    });
+  }
   getUsuarios(): Observable<any> {
     return this.http.get(environment.api + '/usuarios');
   }
