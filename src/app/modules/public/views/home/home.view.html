@@ -1,65 +1,32 @@
+<!-- <div [ngClass]="isMobile ? 'hide-hero-img' : 'hero-img'"> -->
 <div class="hero-img">
+  <!-- Contenido dentro del héroe -->
+  <!-- <h1>Bienvenido a Nuestra Página</h1> -->
+  <!-- <p>Descubre más -->
+
   <div class="text">
-    <img
+    <img class="imagen-logo"
       src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730059547/images-AR/tzxnm1p1ao1hunak2ddj.png"
-      alt=""
-      style="max-width: 35%"
-      srcset=""
-    />
-    <h1 class="text-info">Welcome to Our Website!</h1>
+      alt="logo atelier"/>
+    
+    <h1 class="text-info">Bienvenido a Nuestra Página!</h1>
     <p>
       LO MÁS TOP DE VESTIDOS EN RENTA PARA FIESTAS, UN ESPACIO DONDE ENCONTRARÁS
       LO QUE ESTÁS BUSCANDO ✨.
     </p>
   </div>
-
-  <!-- <div class="text-anuncio">
-    <img
-      src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg"
-      alt="imagen representativo"
-      style="max-width: 30%"
-      srcset=""
-    />
-  </div> -->
 </div>
-<!-- 
-<h1  data-aos="zoom-out-up" style="text-align: center">Categorias</h1>
-<p  data-aos="zoom-out-up" style="text-align: center">
-  Encuentra los mejores productos para tus eventos
-</p>
-<div class="cards">
-  <div data-aos="zoom-out-up" class="card">
-    <h2 style="text-align: center">Vestidos</h2>
-    aperiam veniam repellat quasi iure quibusdam, autem temporibus amet
-  </div>
-  <div data-aos="zoom-out-up" class="card">
-    <h2 style="text-align: center">Accesorios</h2>
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores doloribus
-  </div>
 
-  <div data-aos="zoom-out-up" class="card">
-    <h2 style="text-align: center">Combinaciones</h2>
-    aperiam veniam repellat quasi iure quibusdam, autem temporibus amet
-  </div>
-</div> -->
 
 <div class="contiene-all">
-  <div class="sidebar">
-    <!-- Categorías -->
+  <div *ngIf="!isMobile" class="sidebar">
+    
     <div class="filter-section">
-      <h3>Categories</h3>
+      <h3>Categorías</h3>
       <ul class="category-list">
-        <li><strong>WOMAN</strong> (96)</li>
-        <ul class="subcategory-list">
-          <li>Blouses</li>
-          <li>Jackets</li>
-          <li>Dresses</li>
-          <li>Jeans</li>
-        </ul>
-        <li><strong>MAN</strong> (20)</li>
-        <li><strong>KID</strong> (12)</li>
-        <li><strong>SALE</strong> (15)</li>
-        <li><strong>NEW ARRIVALS</strong> (150)</li>
+        <li><strong>MUJER</strong> (96)</li>
+        <li><strong>OFERTAS</strong> (15)</li>
+        <li><strong>NUEVAS LLEGADAS</strong> (150)</li>
       </ul>
     </div>
 
@@ -80,22 +47,22 @@
 
     <!-- Filtro por precio -->
     <div class="filter-section">
-      <h3>Filter by price</h3>
+      <h3>Filtrar por precio</h3>
       <div class="price-filter">
         <input type="range" min="10" max="1000" step="10" />
         <div class="price-values">
           <span>$10</span>
           <span>$1000</span>
         </div>
-        <button class="filter-button">Filter</button>
+        <button class="filter-button">Filtrar</button>
       </div>
     </div>
 
     <!-- Tamaño -->
     <div class="filter-section">
-      <h3>Size</h3>
+      <h3>Tamaño</h3>
       <div class="size-options">
-        <label><input type="checkbox" /> All sizes</label>
+        <label><input type="checkbox" /> Todas las tallas</label>
         <label><input type="checkbox" /> XS</label>
         <label><input type="checkbox" /> S</label>
         <label><input type="checkbox" /> M</label>
@@ -104,6 +71,7 @@
       </div>
     </div>
   </div>
+  
   <div class="container-productos">
     <h1 data-aos="zoom-out-up" style="text-align: center">
       Encuentra tu estilo
@@ -130,6 +98,7 @@
     </div>
   </div>
 </div>
+
 <div data-aos="zoom-out-up" class="cards-info">
   <div class="card">
     <img

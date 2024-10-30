@@ -72,7 +72,7 @@
 
     .social-icon {
       margin-left: 10px;
-      font-size: 20px;
+      font-size: 25px;
       transition: transform 0.3s ease;
 
       &:hover {
@@ -170,7 +170,7 @@ p-sidebar {
 
       /* Estilo inicial mostrando el texto "Altier" */
       &::before {
-        content: "";
+        content: "ATELIER";
       }
     }
 
@@ -350,8 +350,49 @@ p-sidebar {
     /* background-color: #ffffffaf; */
     /* backdrop-filter: blur(1px); */
     box-shadow: none;
+
+  
   }
+  .social-header {
+    // padding-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+    
+    padding: 0;
+    // border: dashed red; 
+
+    .contacto {
+      margin-left: 20px;
+      gap: 20px;
+      display: flex;
+      flex-direction: row;
+      font-weight: bold;
+      color: #334256;
+      /* border: dashed greenyellow; */
+     
+    }
+    .redes {
+      margin-bottom: 0px;
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-top: 5px;
+      // display: flex;
+      // justify-content: flex-end;
+      /* z-index: 1; */
+  
+      .social-icon {
+        margin-left: 10px;
+        font-size: 25px;
+        transition: transform 0.3s ease;
+  
+      }
+    }
+  }
+
   .app-header {
+    // border: dashed red;
     background-color: #ede4db;
     /* color: $text-color; */
     /* margin-bottom:50%; */
@@ -369,7 +410,12 @@ p-sidebar {
         }
 
         .nav-icon {
+          // border: dashed black;
+          font-size: 22px;
+          gap: 20px;
           i {
+            margin-right: 10px;
+            font-size: 22px;
           }
 
           &:hover i {
