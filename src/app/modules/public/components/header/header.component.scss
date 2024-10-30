@@ -1,35 +1,4 @@
-// /*
-// @import url(https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap); */
-// @import url(https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@100;200;300;400;500;600;800&display=swap);
 
-// @import url(https://fonts.googleapis.com/css2?family=Playfair+Display:wght@100;200;300;400;500;600;800;900&display=swap);
-// @import url(https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@100;200;300;400;500;600;700&display=swap);
-// @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@100;200;300;400;500;600;700&display=swap);
-
-// @import url(https://fonts.googleapis.com/css2?family=Inria+Serif:wght@100;200;300;400;500;600;700&display=swap);
-// @import url(https://fonts.googleapis.com/css2?family=Caladea:wght@100;200;300;400;500;600;700&display=swap);
-
-// body {
-//   font-family: "Caladea", serif;
-// }
-// body {
-//   font-family: "Inria Serif", serif;
-//   /* user-select: none; */
-// }
-// /* @import url(https://fonts.googleapis.com/css2?family=Italiana&display=swap); */
-// /* @import url(https://fonts.googleapis.com/css2?family=PT+Serif:wght@100;200;300;400;500;600;700&display=swap); */
-// main {
-//   /* user-select: none; */
-//   margin-top: 2%;
-//   /* border: dashed; */
-//   /* z-index: 999; */
-// }
-// .content-all {
-//   padding: 20px;
-//   /* height: 100vh; */
-// }
-
-/*  */
 .social-header {
   display: flex;
   flex-direction: row;
@@ -356,12 +325,10 @@ p-sidebar {
   .social-header {
     // padding-top: 10px;
     margin-bottom: 0px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 5px;
-    
     padding: 0;
-    // border: dashed red; 
 
     .contacto {
       margin-left: 20px;
@@ -375,16 +342,16 @@ p-sidebar {
     }
     .redes {
       margin-bottom: 0px;
-      margin-left: 20px;
-      margin-right: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
       margin-top: 5px;
       // display: flex;
       // justify-content: flex-end;
       /* z-index: 1; */
   
       .social-icon {
-        margin-left: 10px;
-        font-size: 25px;
+        margin-left: 15px;
+        font-size: 20px;
         transition: transform 0.3s ease;
   
       }
@@ -398,7 +365,10 @@ p-sidebar {
     /* margin-bottom:50%; */
     .nav-bar {
       /* border: dashed red; */
-      /* margin: 5px; */
+      // /* margin: 5px; */
+      padding: 0;
+      // margin: 0;
+      // border: dashed black;
       .logo {
       }
 
@@ -410,12 +380,11 @@ p-sidebar {
         }
 
         .nav-icon {
-          // border: dashed black;
-          font-size: 22px;
+          font-size: 20px;
           gap: 20px;
           i {
             margin-right: 10px;
-            font-size: 22px;
+            font-size: 20px;
           }
 
           &:hover i {
