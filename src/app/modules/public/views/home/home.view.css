@@ -208,25 +208,55 @@ p {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* gap: 2rem; */
-    margin: 10px;
+    margin: 5px;
+    gap: 5%;
+  justify-content: space-between;
+
+    /* ali */
+    flex-wrap: wrap;
+    /* flex-direction: ; */
+
+    /* display: flex; */
+    /* flex-direction: row; */
+  }
+  .contiene-all {
+    border: none;
+    background-color: transparent !important;
   }
   .container-productos {
+    /* border: dashed rgb(0, 140, 255); */
+
     padding: 0;
     margin: 0;
+    background: #ffffff;
+    border: #e4e4e4 solid 1px;
+    box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
+    border-radius: 5px;
   }
 
   .producto-card {
+    border-radius: 5px;
+    
     padding-bottom: 0px;
-    border-radius: 2px;
+    /* border-radius: 20px; */
+    /* border: dashed red; */
     box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
     width: 175px;
+  justify-content: space-between;
+
     margin-bottom: 20px;
     background: #ffffff;
 
     &:hover {
       background-color: #ffffff;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .product-image{
+      img{
+
+        border-radius:5px 5px 0 0 ;
+      }
+
     }
   }
   .contiene-all {
@@ -247,7 +277,7 @@ p {
     position: sticky;
     width: 100%;
     height: 175px;
-    border-radius: 5%;
+    border-radius: 20px;
     .text {
       height: 175px;
       background-color: #ebe3db79;
@@ -286,6 +316,7 @@ p {
   }
 
   .cards {
+    /* border: dashed rgb(89, 0, 255); */
     display: none;
     /* flex-direction: column;
     gap: 10px;

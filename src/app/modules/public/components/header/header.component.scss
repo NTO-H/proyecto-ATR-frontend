@@ -360,13 +360,15 @@ p-sidebar {
 
   .app-header {
     // border: dashed red;
-    background-color: #ede4db;
     /* color: $text-color; */
     /* margin-bottom:50%; */
+    // border-radius: 0 0 10px 10px;
+    background-color: #ede4db;
+    padding: 0 10px;
     .nav-bar {
-      /* border: dashed red; */
+      background-color: transparent !important;
+    // border: dashed red; 
       // /* margin: 5px; */
-      padding: 0;
       // margin: 0;
       // border: dashed black;
       .logo {
