@@ -1,7 +1,7 @@
 import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-
+import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-footer',
   standalone: false,
@@ -13,12 +13,27 @@ export class FooterComponent {
   sidebarVisible: boolean = false;
   isMobile: boolean = false;
 
+
+
+
+
+
+  menuItems!: MenuItem[];
+  activeItem!: MenuItem;
+
+
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object // Inject PLATFORM_ID to detect the environment
   ) {}
 
   ngOnInit(): void {
+    this.menuItems = [
+      { label: 'Inicio', icon: 'pi pi-home', command: () => this.navigateTo('home') },
+      { label: 'Perfil', icon: 'pi pi-user', command: () => this.navigateTo('profile') },
+      { label: 'Carrito', icon: 'pi pi-shopping-cart', command: () => this.navigateTo('cart') },
+    ];
+    this.activeItem = this.menuItems[0];
     if (isPlatformBrowser(this.platformId)) { // Check if we're in the browser
       const ua = navigator.userAgent;
       console.log(ua);
@@ -53,6 +68,35 @@ export class FooterComponent {
       console.log('No se está ejecutando en un navegador');
     }
   }
+
+
+
+
+
+ 
+
+  onTabClick(event: any) {
+    this.activeItem = event.item;
+  }
+
+  navigateTo(route: string) {
+    console.log(`Navigating to ${route}`);
+    // Implementa aquí la lógica de navegación
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // // Detects user scroll
   // @HostListener('window:scroll', [])

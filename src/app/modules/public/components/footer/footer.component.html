@@ -58,9 +58,14 @@
     <!-- <img src="path-to-amex-icon" alt="American Express"> -->
   </div>
 </footer>
-<!-- 
-<nav *ngIf="isMobile">
-  <div class="menu-toggle">
-    <i class="fas fa-bars"></i>
+<nav class="custom-tab-nav" *ngIf="isMobile">
+  <div 
+    *ngFor="let item of menuItems" 
+    class="nav-item" 
+    [class.active]="item === activeItem" 
+    (click)="onTabClick(item)"
+  >
+    <i [class]="item.icon"></i>
+    <span>{{ item.label }}</span>
   </div>
-</nav> -->
+</nav>

@@ -22,6 +22,7 @@ import { DetailsProductView } from './views/details-product/details-product.view
 import { SkeletonModule } from 'primeng/skeleton';
 import { CarritoView } from './views/carrito/carrito.view';
 import { DatosEmpresaService } from '../../shared/services/datos-empresa.service';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 // import { VerificarCodigoView } from './views/verificar-codigo/verificar-codigo.view';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -31,7 +32,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { SignUpService } from '../auth/commons/services/sign-up.service';
 import { UsuarioService } from '../../shared/services/usuario.service';
-const MATERIALS =[SkeletonModule,CardModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
+const MATERIALS =[SkeletonModule,CardModule,TabMenuModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductView]
 @NgModule({
