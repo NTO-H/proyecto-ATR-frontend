@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   items: MenuItem[] = [];
   isLoggedIn: boolean = false;
   userROL!: string;
+  isSticky:boolean= false;
 
   constructor(
     private router: Router,
@@ -37,7 +38,11 @@ ngOnInit() {
     this.updateMenuItems();
   }
 }
-  
+
+@HostListener('window:scroll', [])
+// onWindowScroll() {
+  // Detectar la posición de scroll
+  // }
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       const scrollPosition = window.pageYOffset || 0;
@@ -47,6 +52,9 @@ ngOnInit() {
   
   @HostListener('window:scroll', [])
   onWindowScroll() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    // Cambiar el valor de isSticky según la posición del scroll (por ejemplo, 40px)
+    this.isSticky = scrollTop > 20;
     if (isPlatformBrowser(this.platformId)) {
       const scrollPosition = window.pageYOffset || 0;
       this.isScrolled = scrollPosition > 10;

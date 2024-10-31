@@ -33,21 +33,13 @@ body {
   background-position: right;
   width: 100%;
   height: 400px;
-  /* &:hover {
-    background-size: 150%; /* Aumenta el tamaño para recortar */
-  /* background-position: center center; */
 }
 
 .imagen-logo {
   max-width: 35%;
-  /* } */
 }
 .text-anuncio {
-  /* border: dashed yellow; */
-
-  /* border: dashed yellow; */
   margin-right: 10px;
-  /* width: 30%; */
   p.nombre {
     font-size: 60px;
     font-family: "Passion One", display;
@@ -57,7 +49,6 @@ body {
     font-size: 50px;
     cursor: pointer;
     font-family: "Sacramento", handwriting;
-
     &:hover {
       color: dodgerblue;
     }
@@ -86,7 +77,6 @@ p {
 
 /* !hacer responsive */
 .text {
-  /* border: dashed rebeccapurple; */
   margin-left: 50px;
   margin-right: 300px;
 }
@@ -101,17 +91,13 @@ p {
 
 .producto-card {
   backdrop-filter: blur(1px);
-  /* border: dashed lawngreen; */
   border: 1px solid #e4e4e4;
   padding-bottom: 16px;
-  /* padding: 16px; */
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
   max-width: 200px;
   margin-bottom: 20px;
   background: #ffffff;
-
-  /* background-color: rgba(255, 252, 247, 0.472); */
   &:hover {
     background-color: #ffffff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -124,7 +110,7 @@ p {
 }
 
 .header-content {
-  text-align: center;
+   text-align: center;
 }
 
 .product-content {
@@ -210,7 +196,7 @@ p {
     flex-wrap: wrap;
     margin: 5px;
     gap: 5%;
-  justify-content: space-between;
+    justify-content: space-between;
 
     /* ali */
     flex-wrap: wrap;
@@ -236,13 +222,13 @@ p {
 
   .producto-card {
     border-radius: 5px;
-    
+
     padding-bottom: 0px;
     /* border-radius: 20px; */
     /* border: dashed red; */
     box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
     width: 175px;
-  justify-content: space-between;
+    justify-content: space-between;
 
     margin-bottom: 20px;
     background: #ffffff;
@@ -251,12 +237,10 @@ p {
       background-color: #ffffff;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
-    .product-image{
-      img{
-
-        border-radius:5px 5px 0 0 ;
+    .product-image {
+      img {
+        border-radius: 5px 5px 0 0;
       }
-
     }
   }
   .contiene-all {

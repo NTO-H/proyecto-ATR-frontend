@@ -1,42 +1,50 @@
 <!-- <body> -->
 <header class="app-header" [ngClass]="{ scrolled: isScrolled }">
-  <nav class="nav-one">
+  <nav  class="nav-one">
     <nav class="navbar-one flex">
       <div class="left flex">
         <div class="email">
           <i class="fa fa-envelope"></i>
+          <span>infoyourdomain.com</span>
         </div>
         <div class="call">
           <i class="fa fa-phone-alt"></i>
+          <span>+91 (112) 1245789</span>
         </div>
       </div>
       <div class="right flex">
+        <div class="twitter">
+          <i class="fab fa-twitter"></i>
+          <span>Twitter</span>
+        </div>
         <div class="facebook">
           <i class="fab fa-facebook"></i>
+          <span>Facebook</span>
         </div>
-        <div class="instagram">
-          <i  class="fab fa-instagram"></i>
+        
+        <div class="facebook">
+          <i _ngcontent-ng-c4082883417="" class="fab fa-instagram"></i>
         </div>
-        <div class="theme">
-          <i  class="pi pi-sun"></i>
-        </div>
+
+
+        
       </div>
     </nav>
   </nav>
-  <nav class="navbar-second flex" [ngClass]="{ sticky: isSticky }">
-    <div class="logo">
-      <div class="logo1"></div>
-    </div>
-    <ul *ngIf="!isMobile" class="nav-menu flex">
+  <nav class="nav-second">
+    <div class="logo zoom"></div>
+    <ul *ngIf="!isMobile" class="nav-menu">
       <li><a (click)="redirectTo('home')">Home</a></li>
-      <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
+      <li>
+        <a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a>
+      </li>
     </ul>
     <ul class="nav-accion">
       <li>
-        <a class="nav-icon"><i class="pi pi-search"></i></a>
+        <a href="#" class="nav-icon"><i class="pi pi-search"></i></a>
       </li>
       <li>
-        <a  class="nav-icon"> <i class="pi pi-shopping-cart"></i></a>
+        <a href="#" class="nav-icon">    <i class="pi pi-shopping-cart"></i></a>
       </li>
       <li *ngIf="!isMobile">
         <a tabindex="0" class="nav-icon" (click)="menu.toggle($event)">
@@ -89,7 +97,7 @@
       </li>
     </ul>
   </div>
-  <!-- Mango para redimensionar -->
+   <!-- Mango para redimensionar -->
 </p-sidebar>
 
 <!-- <div class="resize-handle" (mousedown)="startResizing($event)"></div> -->

@@ -1,9 +1,4 @@
-<!-- <div [ngClass]="isMobile ? 'hide-hero-img' : 'hero-img'"> -->
 <div class="hero-img">
-  <!-- Contenido dentro del héroe -->
-  <!-- <h1>Bienvenido a Nuestra Página</h1> -->
-  <!-- <p>Descubre más -->
-
   <div class="text">
     <img
       class="imagen-logo"
@@ -76,8 +71,12 @@
     <h1 data-aos="zoom-out-up" style="text-align: center">
       Encuentra tu estilo
     </h1>
-
-    <div data-aos="zoom-out-up" class="productos-container">
+    <!-- 
+    <div data-aos="zoom-out-up" class="productos-container"> -->
+    <div
+      [attr.data-aos]="isMobile ? 'zoom-out-up' : null"
+      class="productos-container"
+    >
       <div
         data-aos="zoom-out-up"
         *ngFor="let producto of productos"
@@ -99,7 +98,7 @@
   </div>
 </div>
 
-<div data-aos="zoom-out-up" class="cards-info">
+<div class="cards-info">
   <div class="card">
     <img
       src="https://via.placeholder.com/100"

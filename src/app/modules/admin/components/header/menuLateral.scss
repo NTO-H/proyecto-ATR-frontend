@@ -4,7 +4,6 @@ body {
   padding: 0;
   padding-left: 20%;
   // background-color: #c6d7e26b;
-  
 }
 
 body.collapsed-padding {
@@ -25,9 +24,9 @@ body.collapsed-padding {
 .sidenav {
   width: 250px;
   height: 100vh;
-  background-color: #ffffff;
-  
-          color: #495464;
+  // background-color: #ffffff;
+
+  color: #495464;
 
   // box-shadow: 0 0 3px #0000001a;
   border-right: solid 1.5px #d2d7d9;
@@ -44,10 +43,6 @@ body.collapsed-padding {
 
   scrollbar-color: #28b6b1 transparent;
   scrollbar-width: thin;
-
-
-
-
 
   &.collapsed {
     width: 80px;
@@ -135,17 +130,21 @@ body.collapsed-padding {
       width: 100%;
       margin-bottom: 10px;
       border-radius: 5px;
-     
+      
       a {
         
-  letter-spacing: 1.5px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        // letter-spacing: 1.5px;
         text-decoration: none;
         color: #22262b !important;
         padding: 10px 10px;
-        display: flex; 
+        display: flex;
         cursor: pointer;
+        // color: #2b2e31;
         align-items: center;
-        font-family: Arial, Helvetica, sans-serif;
+        // font-family: Arial, Helvetica, sans-serif;
         // font-family: "Poppins",
         //     sans-serif;
         border-radius: 4px;
@@ -155,22 +154,21 @@ body.collapsed-padding {
         font-size: 14px;
         // font-weight: bold;
 
-
         // >i {
         //     color: #6366f1;
         // // }
         // &:hover{
-        
+
         // }
-        
+
         &:hover {
-        background-color: #efe4e4;
+          background-color: #efe4e4;
           opacity: 1;
           transform: scale(0.9);
           // text-decoration-line: underline;
           /* Aumenta el tamaño al 110% */
           // box-shadow: 0 8px 16px rgba(85, 85, 85, 0.475);
-         
+
           color: #6366f1;
         }
 
@@ -181,10 +179,7 @@ body.collapsed-padding {
         // }
 
         i {
-
-         
-          // color: #495464;
-          color: #2b2e31;
+          color: #495464;
           margin-right: 10px;
         }
 
@@ -193,27 +188,23 @@ body.collapsed-padding {
         //     }
 
         .submenu-toggle {
-          // margin-left: auto;
           transform: rotate(-90deg);
-          // -90deg
+          font-size: xx-small;
           transition: transform 0.3s ease;
-
         }
 
         .submenu-toggle.open {
+
           transform: rotate(0deg);
           transition: transform 0.3s ease;
-
         }
 
         // }
       }
 
-
-
-
       .nav-link.open {
-        color: #00aeff;
+        font-weight: 700;
+        // color: #00aeff;
       }
 
       .submenu {
@@ -227,7 +218,10 @@ body.collapsed-padding {
 
           a {
             padding: 10px 20px;
-
+  
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             &:hover {
               text-decoration-line: underline;
             }
@@ -238,7 +232,10 @@ body.collapsed-padding {
   }
 
   .m-tree__itemContent__selected {
-    color: #28b6b1 !important;
+    color: #22262b !important;
+    font-weight: 700;
+
+    // color: #28b6b1 !important;
   }
 
   .toggle-btn {
@@ -262,11 +259,6 @@ body.collapsed-padding {
   }
 }
 
-
-
-
-
-
 .round-button i {
   line-height: 40px;
 }
@@ -278,24 +270,24 @@ body.collapsed-padding {
 }
 .floating-header {
   position: fixed;
-    top: 0;
-    width: 85%;
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: transparent;
-    -webkit-backdrop-filter: blur(1px);
-    backdrop-filter: blur(1px);
-    z-index: 999;
-    gap: 36px;
-    // border: dashed;
-    margin-left: 16%;
+  top: 0;
+  width: 85%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  z-index: 999;
+  gap: 36px;
+  // border: dashed;
+  margin-left: 16%;
   .p-breadcrumb {
     background: transparent;
     border: none;
     border-radius: 6px;
-        font-size: 14px;
+    font-size: 14px;
     padding: 1rem;
     position: unset;
   }
@@ -344,19 +336,9 @@ body.collapsed-padding {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 .sidenav {
   width: 250px;
-  background-color: #f5f5f5;
+  // background-color: #f5f5f5;
   height: 100vh;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -412,10 +394,6 @@ body.collapsed-padding {
   margin-right: 10px;
 }
 
-
-
-
-
 .resize-handle {
   width: 5px;
   height: 100%;
@@ -425,7 +403,6 @@ body.collapsed-padding {
   cursor: ew-resize;
   background-color: transparent;
 }
-
 
 .sidenav.collapsed {
   width: 70px; /* Ancho cuando está colapsado */

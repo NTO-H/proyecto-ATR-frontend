@@ -25,7 +25,8 @@
         [class.open]="openSubmenu === 'clientes-submenu'"
         (click)="toggleSubmenu('clientes-submenu');setActiveLink($event)"
       >
-        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'clientes-submenu'"></i>
+        <i *ngIf="!isCollapsed" class="pi pi-sort-down-fill submenu-toggle" [class.open]="openSubmenu === 'clientes-submenu'"></i>
+        <!-- <i *ngIf="!isCollapsed" class="pi pi-sort-down-fill submenu-toggle" [class.open]="openSubmenu === 'clientes-submenu'"></i> -->
         <i class="pi pi-user"></i>
         <span class="link-text">Clientes</span>
       </a>
@@ -46,7 +47,7 @@
         [class.open]="openSubmenu === 'productos-submenu'"
         (click)="toggleSubmenu('productos-submenu');setActiveLink($event)"
       >
-        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'productos-submenu'"></i>
+        <i *ngIf="!isCollapsed" class="pi pi-sort-down-fill submenu-toggle" [class.open]="openSubmenu === 'productos-submenu'"></i>
         <i class="pi pi-tags"></i>
         <span class="link-text">Productos</span>
       </a>
@@ -72,7 +73,7 @@
         [class.open]="openSubmenu === 'renta-submenu'"
         (click)="toggleSubmenu('renta-submenu');setActiveLink($event)"
       >
-        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'renta-submenu'"></i>
+        <i *ngIf="!isCollapsed" class="pi pi-sort-down-fill submenu-toggle" [class.open]="openSubmenu === 'renta-submenu'"></i>
         <i class="pi pi-calendar"></i>
         <span class="link-text">Renta</span>
       </a>
@@ -98,7 +99,7 @@
         [class.open]="openSubmenu === 'ventas-submenu'"
         (click)="toggleSubmenu('ventas-submenu');setActiveLink($event)"
       >
-        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'ventas-submenu'"></i>
+        <i *ngIf="!isCollapsed" class="pi pi-sort-down-fill submenu-toggle" [class.open]="openSubmenu === 'ventas-submenu'"></i>
         <i class="pi pi-dollar"></i>
         <span class="link-text">Ventas</span>
       </a>
@@ -124,7 +125,7 @@
         [class.open]="openSubmenu === 'reportes-submenu'"
         (click)="toggleSubmenu('reportes-submenu');setActiveLink($event)"
       >
-        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'reportes-submenu'"></i>
+        <i *ngIf="!isCollapsed" class="pi pi-sort-down-fill submenu-toggle" [class.open]="openSubmenu === 'reportes-submenu'"></i>
         <i class="pi pi-chart-line"></i>
         <span class="link-text">Reportes</span>
       </a>
@@ -150,7 +151,7 @@
         [class.open]="openSubmenu === 'configuracion-submenu'"
         (click)="toggleSubmenu('configuracion-submenu');setActiveLink($event)"
       >
-        <i *ngIf="!isCollapsed" class="pi pi-chevron-down submenu-toggle" [class.open]="openSubmenu === 'configuracion-submenu'"></i>
+        <i *ngIf="!isCollapsed" class="pi pi-sort-down-fill submenu-toggle" [class.open]="openSubmenu === 'configuracion-submenu'"></i>
         <i class="pi pi-cog"></i>
         <span class="link-text">Configuración</span>
       </a>
