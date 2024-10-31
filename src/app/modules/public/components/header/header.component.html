@@ -15,10 +15,10 @@
           <i class="fab fa-facebook"></i>
         </div>
         <div class="instagram">
-          <i  class="fab fa-instagram"></i>
+          <i class="fab fa-instagram"></i>
         </div>
         <div class="theme">
-          <i  class="pi pi-sun"></i>
+          <i class="pi pi-sun"></i>
         </div>
       </div>
     </nav>
@@ -32,20 +32,21 @@
       <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
     </ul>
     <ul class="nav-accion">
-      <!-- <li>
-        <a class="nav-icon"><i class="pi pi-search"></i></a>
-      </li> -->
-      <div class="ui search" [ngClass]="{ 'loading': isLoading }">
+      <div class="ui search" [ngClass]="{ loading: isLoading }">
         <div class="ui icon input">
-          <input class="prompt" type="text" placeholder="Buscar en atelier..." (keyup.enter)="onSearch()">
+          <input
+            class="prompt"
+            type="text"
+            placeholder="Buscar en atelier..."
+            (keyup.enter)="onSearch()"
+          />
           <i class="search icon"></i>
         </div>
         <div class="results"></div>
       </div>
-      
-      
+
       <li>
-        <a  class="nav-icon"> <i class="pi pi-shopping-cart"></i></a>
+        <a class="nav-icon"> <i class="pi pi-shopping-cart"></i></a>
       </li>
       <li *ngIf="!isMobile">
         <a tabindex="0" class="nav-icon" (click)="menu.toggle($event)">
