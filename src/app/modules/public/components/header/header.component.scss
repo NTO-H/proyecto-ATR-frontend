@@ -13,10 +13,9 @@ nav {
   background-color: none;
   color: #495464;
   height: 40px;
-  cursor: pointer;
-
+  
   // .social-icon {
-  // margin-left: 10px;
+    // margin-left: 10px;
   // font-size: 25px;
   // transition: transform 0.3s ease;
 
@@ -24,23 +23,24 @@ nav {
   //   transform: scale(1.2);
   // }
   .right > div {
-  
-  &.facebook {
-    color: #3b5998;
-  }
+    cursor: pointer;
+    // border: dashed red;
+    &.facebook {
+      color: #3b5998;
+    }
 
-  &.twitter {
-    color: #1da1f2;
-  }
+    &.twitter {
+      color: #1da1f2;
+    }
 
-  &.instagram {
-    color: #e1306c;
-  }
+    &.instagram {
+      color: #e1306c;
+    }
   }
 }
 
 header.app-header {
-  background-color: #ffffff;
+  background-color: #ede4db;
   width: 100%;
 }
 
@@ -79,6 +79,10 @@ li {
   list-style: none;
 }
 
+.ui.loading.search .input {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .logo1 {
   font-size: 24px;
   font-weight: bold;
@@ -94,6 +98,7 @@ li {
   background-color: #ffffff9e;
   backdrop-filter: blur(2px);
   border: solid 1px #eaedf1;
+    transition: transform 3s ease; /* Add transition for zoom effect */
   .logo > .logo1 {
     background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726496561/images-AR/n7cjxwmizj0ath7oegjq.png");
     background-size: contain;
@@ -102,7 +107,6 @@ li {
     width: 100px;
     height: 100px;
     border-radius: 500%;
-    transition: transform 1.5s ease; /* Add transition for zoom effect */
     margin: 0;
     &::before {
       content: "";
@@ -178,7 +182,7 @@ li {
   .left > div + div {
     // gap: 20px;
     display: flex;
-// justify-content: spa;
+    // justify-content: spa;
     // margin-left: 0px;
   }
   .right > div {
@@ -186,14 +190,14 @@ li {
   }
   span {
   }
-  .navbar-one{
+  .navbar-one {
     padding: 0 25px;
     margin-left: 0px;
     display: flex;
     justify-content: space-between;
     // border: dashed red;
   }
-  .navbar-second{
+  .navbar-second {
     padding: 0 0px;
     margin-left: 0px;
     display: flex;

@@ -1,7 +1,8 @@
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID, Renderer2, AfterViewInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import * as AOS from 'aos';
+declare const $: any;
 import { isPlatformBrowser } from '@angular/common';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
@@ -18,9 +19,22 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isLoggedIn: boolean = false;
   userROL!: string;
   isSticky:boolean= false;
+  isLoading = false;
+
+  onSearch() {
+    // Activa el estado de carga
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      // Aquí puedes agregar la lógica para manejar los resultados de búsqueda
+    }, 2000); // Cambia el tiempo según la duración de tu búsqueda real
+  
+  }
 
   constructor(
     private router: Router,
+    private elementRef: ElementRef,
+
     private sessionService: SessionService,
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -48,6 +62,12 @@ ngOnInit() {
       const scrollPosition = window.pageYOffset || 0;
       this.isScrolled = scrollPosition > 10;
     }
+    $(this.elementRef.nativeElement).find('.ui.search').search({
+      type: 'category',
+      apiSettings: {
+        url: '/search/{query}'
+      }
+    });
   }
   
   @HostListener('window:scroll', [])

@@ -74,7 +74,7 @@
     <!-- 
     <div data-aos="zoom-out-up" class="productos-container"> -->
     <div
-      [attr.data-aos]="isMobile ? 'zoom-out-up' : null"
+      [attr.data-aos]="!isMobile ? 'zoom-out-up' : null"
       class="productos-container"
     >
       <div

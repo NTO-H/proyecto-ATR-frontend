@@ -1,6 +1,6 @@
 
-<footer class="app-footer">
-  <div *ngIf="!isMobile" class="footer-section">
+<footer *ngIf="!isMobile"  class="app-footer">
+  <div class="footer-section">
     <div class="footer-column">
       <h3>Contacto</h3>
       <p>(55) 4757 5597</p>
@@ -58,3 +58,9 @@
     <!-- <img src="path-to-amex-icon" alt="American Express"> -->
   </div>
 </footer>
+
+<nav *ngIf="isMobile">
+  <div class="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </div>
+</nav>

@@ -32,9 +32,18 @@
       <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
     </ul>
     <ul class="nav-accion">
-      <li>
+      <!-- <li>
         <a class="nav-icon"><i class="pi pi-search"></i></a>
-      </li>
+      </li> -->
+      <div class="ui search" [ngClass]="{ 'loading': isLoading }">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Buscar en atelier..." (keyup.enter)="onSearch()">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
+      
+      
       <li>
         <a  class="nav-icon"> <i class="pi pi-shopping-cart"></i></a>
       </li>
