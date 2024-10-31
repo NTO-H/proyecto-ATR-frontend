@@ -1,63 +1,34 @@
 <p class="header-text">¡Registro de Deslinde Legal!</p>
 <div class="form-container">
   <h2 class="form-title">Registrar Nuevo Deslinde Legal</h2>
-  <form (ngSubmit)="onSubmit()" #deslindeForm="ngForm">
-    <!-- Campo para el Título -->
-    <div class="form-group">
-      <label for="titulo">Título</label>
+  <form #formDeslinde="ngForm" (ngSubmit)="onSubmit(formDeslinde)">
+    <div>
+      <label>Título:</label>
       <input
         type="text"
-        id="titulo"
         name="titulo"
         [(ngModel)]="nuevoDeslindeLegal.titulo"
         required
-        #tituloInput="ngModel"
-        placeholder="Ingresa el título del deslinde legal"
-        class="form-control"
       />
-      <div *ngIf="tituloInput.invalid && tituloInput.touched" class="error">
-        El título es requerido.
-      </div>
     </div>
-
-    <!-- Campo para el Contenido -->
-    <div class="form-group">
-      <label for="contenido">Contenido</label>
+    <div>
+      <label>Contenido:</label>
       <textarea
-        id="contenido"
         name="contenido"
         [(ngModel)]="nuevoDeslindeLegal.contenido"
         required
-        #contenidoInput="ngModel"
-        placeholder="Ingresa el contenido del deslinde legal"
-        class="form-control textarea-control"
-        rows="5"
       ></textarea>
-      <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
-        El contenido es requerido.
-      </div>
     </div>
-
-    <!-- Campo para la Vigencia -->
-    <div class="form-group">
-      <label for="fechaVigencia">Vigencia</label>
+    <div>
+      <label>Fecha de Vigencia:</label>
       <input
         type="date"
-        id="fechaVigencia"
         name="fechaVigencia"
         [(ngModel)]="nuevoDeslindeLegal.fechaVigencia"
         required
-        #vigenciaInput="ngModel"
-        class="form-control"
       />
-      <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
-        La vigencia es requerida.
-      </div>
     </div>
-
-    <!-- Botón de Enviar -->
-    <button type="submit" class="btn-primary" [disabled]="deslindeForm.invalid">
-      Registrar Deslinde Legal
-    </button>
+    <button type="submit">Registrar Deslinde Legal</button>
   </form>
+  
 </div>

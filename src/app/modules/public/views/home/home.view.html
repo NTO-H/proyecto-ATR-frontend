@@ -73,15 +73,8 @@
     </h1>
     <!-- 
     <div data-aos="zoom-out-up" class="productos-container"> -->
-    <div
-      [attr.data-aos]="!isMobile ? 'zoom-out-up' : null"
-      class="productos-container"
-    >
-      <div
-        data-aos="zoom-out-up"
-        *ngFor="let producto of productos"
-        class="producto-card p-mb-4"
-      >
+    <div class="productos-container">
+      <div *ngFor="let producto of productos" class="producto-card p-mb-4">
         <div class="product-image">
           <img
             (click)="verDetalles()"

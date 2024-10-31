@@ -1,173 +1,139 @@
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID, Renderer2, AfterViewInit, ElementRef } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+  Renderer2,
+  AfterViewInit,
+  ElementRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import * as AOS from 'aos';
-declare const $: any;
 import { isPlatformBrowser } from '@angular/common';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
+declare const $: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   isScrolled = false;
-  sidebarVisible: boolean = false;
-  isMobile: boolean = false;
+  sidebarVisible = false;
+  isMobile = false;
   items: MenuItem[] = [];
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
   userROL!: string;
-  isSticky:boolean= false;
+  isSticky = false;
   isLoading = false;
-
-  onSearch() {
-    // Activa el estado de carga
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-      // Aquí puedes agregar la lógica para manejar los resultados de búsqueda
-    }, 2000); // Cambia el tiempo según la duración de tu búsqueda real
-  
-  }
+  searchQuery = ''; // Bind search input
 
   constructor(
     private router: Router,
     private elementRef: ElementRef,
-
     private sessionService: SessionService,
     private renderer: Renderer2,
+    private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  
-ngOnInit() {
-  if (isPlatformBrowser(this.platformId)) {
-    import('aos').then(AOS => {
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkScreenSize();
       AOS.init();
-    });
-
-    this.checkScreenSize();
-    this.renderer.listen('window', 'resize', () => this.checkScreenSize());
-    this.updateMenuItems();
+      this.renderer.listen('window', 'resize', () => this.checkScreenSize());
+      this.updateMenuItems();
+    }
   }
-}
 
-@HostListener('window:scroll', [])
-// onWindowScroll() {
-  // Detectar la posición de scroll
-  // }
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      const scrollPosition = window.pageYOffset || 0;
-      this.isScrolled = scrollPosition > 10;
+      $(this.elementRef.nativeElement)
+        .find('.ui.search')
+        .search({
+          type: 'category',
+          apiSettings: {
+            url: '/search/{query}', // Ensure this URL is correct
+          },
+          onSelect: (result: any) => {
+            // Handle the result selection here, if needed
+          },
+        });
     }
-    $(this.elementRef.nativeElement).find('.ui.search').search({
-      type: 'category',
-      apiSettings: {
-        url: '/search/{query}'
-      }
-    });
   }
-  
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    // Cambiar el valor de isSticky según la posición del scroll (por ejemplo, 40px)
     this.isSticky = scrollTop > 20;
-    if (isPlatformBrowser(this.platformId)) {
-      const scrollPosition = window.pageYOffset || 0;
-      this.isScrolled = scrollPosition > 10;
-    }
+    this.isScrolled = scrollTop > 10;
   }
 
   checkScreenSize() {
     if (isPlatformBrowser(this.platformId)) {
-      this.isMobile = window.innerWidth <= 768; // Determina si es móvil o escritorio
-      console.log(this.isMobile ? 'Modo móvil' : 'Modo escritorio');
+      const isNowMobile = window.innerWidth <= 608;
+      if (isNowMobile !== this.isMobile) {
+        this.isMobile = isNowMobile;
+        this.cdr.detectChanges();
+      }
     }
+  }
+
+  onSearch() {
+    this.isLoading = true;
+    // Replace with actual search API call
+    setTimeout(() => {
+      this.isLoading = false;
+      // Implement your search logic here
+      console.log('Searching for:', this.searchQuery);
+    }, 2000);
   }
 
   showDialog() {
-    this.sidebarVisible = true; // Muestra el sidebar
+    this.sidebarVisible = true;
   }
 
   updateMenuItems() {
-    this.isLoggedIn = this.isUserLoggedIn(); // Actualiza el estado de inicio de sesión
-    if (this.isLoggedIn) {
-      this.items = [
-        {
-          label: 'Mi perfil',
-          icon: 'pi pi-user',
-          command: () => this.redirectTo('Mi-perfil'),
-        },
-        {
-          label: 'Configuración',
-          icon: 'pi pi-cog',
-          command: () => this.redirectTo('Config'),
-        },
-        {
-          label: 'Cerrar sesión',
-          icon: 'pi pi-sign-out',
-          command: () => this.logout(),
-        },
-      ];
-    } else {
-      this.items = [
-        {
-          label: 'Iniciar sesión',
-          icon: 'pi pi-sign-in',
-          command: () => this.redirectTo('Sign-in'),
-        },
-        {
-          label: 'Registrarme',
-          icon: 'pi pi-user-plus',
-          command: () => this.redirectTo('Sign-up'),
-        },
-        {
-          label: 'Activar cuenta',
-          icon: 'pi pi-check-circle',
-          command: () => this.redirectTo('Activar-cuenta'),
-        },
-      ];
-    }
+    this.isLoggedIn = this.isUserLoggedIn();
+    this.items = this.isLoggedIn
+      ? [
+          { label: 'Mi perfil', icon: 'pi pi-user', command: () => this.redirectTo('Mi-perfil') },
+          { label: 'Configuración', icon: 'pi pi-cog', command: () => this.redirectTo('Config') },
+          { label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => this.logout() },
+        ]
+      : [
+          { label: 'Iniciar sesión', icon: 'pi pi-sign-in', command: () => this.redirectTo('Sign-in') },
+          { label: 'Registrarme', icon: 'pi pi-user-plus', command: () => this.redirectTo('Sign-up') },
+          { label: 'Activar cuenta', icon: 'pi pi-check-circle', command: () => this.redirectTo('Activar-cuenta') },
+        ];
   }
 
   logout() {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('token'); // Elimina el token de inicio de sesión
-    }
-    this.isLoggedIn = false; // Cambia el estado de inicio de sesión
-    this.updateMenuItems(); // Actualiza los elementos del menú
-    this.router.navigate(['/auth/login']); // Redirige a la página de inicio de sesión
+    localStorage.removeItem('token');
+    this.isLoggedIn = false;
+    this.updateMenuItems();
+    this.router.navigate(['/auth/login']);
   }
 
   isUserLoggedIn(): boolean {
-    // if (userData) {
-      const userData = this.sessionService.getUserData();
-          if (userData) {
+    const userData = this.sessionService.getUserData();
+    if (userData) {
       this.userROL = userData.rol;
-      let navigateTo = '';
-
-      if (this.userROL === ERol.CLIENTE) {
-        return true
-      }
+      return this.userROL === ERol.CLIENTE;
     }
-    return false; // Devuelve false si no está en el navegador
-    
-    // return null; // Devuelve false si no está en el navegador
-    // Verifica si está en el navegador antes de acceder a localStorage
-    // if (isPlatformBrowser(this.platformId)) {
-    //   return !!localStorage.getItem('token');
-    // }
+    return false;
   }
 
   redirectTo(route: string): void {
-    this.sidebarVisible = false; // Cierra el sidebar al redirigir
-    if (route === 'Sign-in' || route === 'Sign-up' || route === 'Activar-cuenta') {
-      this.router.navigate(['/auth', route]);
-    } else {
-      this.router.navigate(['/public', route]);
-    }
+    this.sidebarVisible = false;
+    this.router.navigate(route.includes('Sign-in') || route.includes('Sign-up') || route.includes('Activar-cuenta')
+      ? ['/auth', route]
+      : ['/public', route]);
   }
 }

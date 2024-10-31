@@ -13,9 +13,9 @@ nav {
   background-color: none;
   color: #495464;
   height: 40px;
-
+  
   // .social-icon {
-  // margin-left: 10px;
+    // margin-left: 10px;
   // font-size: 25px;
   // transition: transform 0.3s ease;
 
@@ -42,6 +42,8 @@ nav {
 header.app-header {
   background-color: #ede4db;
   width: 100%;
+  border: dashed red;
+
 }
 
 .left > div + div {
@@ -56,14 +58,14 @@ header.app-header {
   color: #000;
   transition: all 0.5s;
 }
-span {
-  margin-left: 5px;
-}
+// span {
+//   margin-left: 5px;
+// }
 /* Hacemos que la segunda barra sea sticky */
 .navbar-second {
   display: flex;
   justify-content: left;
-  // border: dashed red;
+  border: dashed red;
   background-color: none;
   height: 70px;
   position: sticky;
@@ -73,60 +75,34 @@ span {
 
 .logo {
   text-transform: uppercase;
-  font-size: 24px;
+  // font-size: 24px;
 }
 li {
   list-style: none;
 }
 
+.ui.loading.search .input {
+  opacity: 0.5;
+  pointer-events: none;
+  // border: dashed blue;
+}
 .logo1 {
   font-size: 24px;
   font-weight: bold;
   color: #333;
   transition: all 0.3s ease; /* Transición suave */
-  margin-left: 20px;
+  margin-left: 5px;
+  border: dashed red;
   &::before {
     content: "ATELIER";
   }
 }
 
-p-sidebar {
-  .menu-content {
-    padding: 20px;
-
-    ul {
-      list-style: none; /* Elimina los puntos de la lista */
-      padding: 0;
-
-      li {
-        margin-bottom: 30px;
-
-        a {
-          text-decoration: none;
-          font-size: 18px;
-          //   font-weight: bold;
-          color: #334256;
-          display: flex;
-          align-items: center;
-
-          i {
-            // -webkit-text-stroke: 1px rgb(255, 173, 115);
-            // background-color: rgb(255, 255, 255);
-
-            margin-right: 10px; /* Espacio entre el ícono y el texto */
-            // color: #333; /* Color del ícono */
-          }
-        }
-      }
-    }
-  }
-}
-
-
 .sticky {
   background-color: #ffffff9e;
   backdrop-filter: blur(2px);
   border: solid 1px #eaedf1;
+    transition: transform 3s ease; /* Add transition for zoom effect */
   .logo > .logo1 {
     background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
     background-size: contain;
@@ -134,8 +110,8 @@ p-sidebar {
     background-position: center;
     width: 50px;
     height: 50px;
-    border-radius: 500%;
-    margin: 0;
+    // border-radius: 500%;
+    margin-left: 5px;
     &::before {
       content: "";
     }
@@ -151,13 +127,15 @@ p-sidebar {
   padding-top: 40px; /* Ajusta esto según la altura combinada de tus headers */
 }
 .nav-menu {
-  // border: dashed red;
+  border: dashed red;
   display: flex;
   padding: 0 2px;
 }
 .nav-menu li {
-  margin-left: 30px; /* Adjust the spacing as needed */
-  margin-right: 30px; /* Adjust the spacing as needed */
+  border: dashed red;
+
+  // margin-left: 30px; /* Adjust the spacing as needed */
+  // margin-right: 50px; /* Adjust the spacing as needed */
   a {
     text-decoration: none;
     font-size: 14px;
@@ -178,18 +156,23 @@ p-sidebar {
 }
 
 .nav-accion {
-  // border: dashed rgb(255, 157, 0);
+  border: dashed rgb(255, 157, 0);
   display: flex;
+  padding: 0;
+  justify-content: space-between;
   align-items: center;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .nav-accion li {
+  border: dashed red;
+
   color: #495464;
   transition: transform 0.3s ease;
 
   cursor: pointer;
-  margin-right: 30px; /* Adjust the spacing as needed */
+
+  // margin-right: 30px; /* Adjust the spacing as needed */
   &:hover i {
     color: #007bff;
 
@@ -207,11 +190,11 @@ p-sidebar {
 }
 
 @media only screen and (max-width: 768px) {
-  .nav-menu {
-    display: none;
-  }
   .left > div + div {
+    // gap: 20px;
     display: flex;
+    // justify-content: spa;
+    // margin-left: 0px;
   }
   .right > div {
     // margin-left: 0px;
@@ -223,62 +206,16 @@ p-sidebar {
     margin-left: 0px;
     display: flex;
     justify-content: space-between;
-  }
-  nav {
-    padding: 0 0px;
-    width: 100%;
-  }
-  .sticky {
-    .logo > .logo1 {
-      background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 500%;
-      margin-left: 5px;
-      &::before {
-        content: "";
-      }
-    }
-  }
-  .logo1 {
-    margin-left: 10px;
-    &::before {
-      content: "ATELIER";
-    }
+    // border: dashed red;
   }
   .navbar-second {
     padding: 0 0px;
     margin-left: 0px;
     display: flex;
-    // border: dashed red;
-    padding-right: 10px;
     justify-content: space-between;
-
-    .nav-accion {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      margin-left: 0px; /* Adjust the spacing as needed */
-      margin-right: 0px; /* Adjust the spacing as needed */
-      // margin-right: 0px; /* Adjust the spacing as needed */
-      // border-color: red; // Color del borde para el elemento de búsqueda
-
-      gap: 10px;
-      li {
-        display: inline-block;
-        margin-right: 0px; // Espaciado entre los elementos
-        // Estilo general para los bordes
-        // border: 2px dashed;
-        // border-radius: 50px; // Esquinas redondeadas
-
-        i {
-          padding: 10px; // Espacio interno alrededor del contenido
-          // border-color: red; // Color del borde para el elemento de búsqueda
-        }
-      }
-    }
+  }
+  nav {
+    padding: 0 0px;
+    width: 100%;
   }
 }

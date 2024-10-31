@@ -31,22 +31,25 @@
       <li><a (click)="redirectTo('home')">Home</a></li>
       <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
     </ul>
-    <ul class="nav-accion">
-      <div class="ui search" [ngClass]="{ loading: isLoading }">
-        <div class="ui icon input">
-          <input
-            class="prompt"
-            type="text"
-            placeholder="Buscar en atelier..."
-            (keyup.enter)="onSearch()"
-          />
-          <i class="search icon"></i>
-        </div>
-        <div class="results"></div>
-      </div>
 
+    
+    <ul  class="nav-accion">
       <li>
-        <a class="nav-icon"> <i class="pi pi-shopping-cart"></i></a>
+        <div class="ui search" [ngClass]="{ loading: isLoading }">
+          <div class="ui icon input">
+            <input
+              class="prompt"
+              type="text"
+              placeholder="Buscar en atelier..."
+              [(ngModel)]="searchQuery"
+              (keyup.enter)="onSearch()"
+            />
+            <i class="search icon"></i>
+          </div>
+        </div>
+      </li>
+      <li>
+      <i class="pi pi-shopping-cart"></i>
       </li>
       <li *ngIf="!isMobile">
         <a tabindex="0" class="nav-icon" (click)="menu.toggle($event)">
@@ -55,9 +58,12 @@
         <p-menu #menu [model]="items" [popup]="true"></p-menu>
       </li>
       <li *ngIf="isMobile">
-        <a tabindex="0" (click)="showDialog()" class="nav-icon"
-          ><i class="fa-solid fa-bars-staggered"></i
-        ></a>
+        <!-- <a tabindex="0" (click)="showDialog()" class="nav-icon" -->
+          
+          <i (click)="showDialog()" class="fa-solid fa-bars-staggered"></i
+            >
+            <!-- 
+          </a> -->
       </li>
     </ul>
   </nav>
