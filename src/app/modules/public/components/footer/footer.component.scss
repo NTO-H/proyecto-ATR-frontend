@@ -1,6 +1,8 @@
 /* archivo .scss del componente */
 
 .custom-tab-nav {
+  outline: none;
+  user-select: none;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -24,6 +26,8 @@
   align-items: center;
   cursor: pointer;
   padding: 0.5rem;
+  outline: none;
+  user-select: none;
   transition: color 0.3s, background-color 0.3s;
 }
 
@@ -257,6 +261,10 @@
     /* background-color: #ffffffaf; */
     /* backdrop-filter: blur(1px); */
     box-shadow: none;
+
+  }
+  footer{
+    display: none;
   }
 
   /* Estilos para pantallas más pequeñas van aquí */

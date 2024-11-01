@@ -17,7 +17,26 @@ body {
     color: inherit; /* Mantiene el color original del texto */
 }
 
-
+* {
+    outline: none;
+    -webkit-focus-ring-color: transparent;  
+}
+  
+  
+*::selection {
+    background: transparent;
+    -webkit-focus-ring-color: transparent;
+  }
+  
+  /* Mantén accesibilidad en dispositivos de teclado */
+  *:focus-visible {
+    -webkit-focus-ring-color: transparent;
+    outline: none; /* Ajusta el estilo si necesitas uno personalizado */
+  }
+  *:focus {
+    -webkit-focus-ring-color: transparent;
+    outline: none; /* Ajusta el estilo si necesitas uno personalizado */
+  }
 .p-component-overlay {
     position: fixed;
     // top: 0;

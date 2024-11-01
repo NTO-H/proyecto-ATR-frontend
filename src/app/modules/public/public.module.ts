@@ -23,7 +23,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { CarritoView } from './views/carrito/carrito.view';
 import { DatosEmpresaService } from '../../shared/services/datos-empresa.service';
 import { TabMenuModule } from 'primeng/tabmenu';
-
+import { GalleriaModule } from 'primeng/galleria';
 // import { VerificarCodigoView } from './views/verificar-codigo/verificar-codigo.view';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Toast } from 'ngx-toastr';
@@ -37,7 +37,7 @@ const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductView]
 @NgModule({
   declarations: [VIEWS,COMPONENTS, CarritoView],
-  imports: [
+  imports: [GalleriaModule,
     CommonModule,ReactiveFormsModule,FormsModule,
     PublicRoutingModule,HttpClientModule, ...MATERIALS,
   ],

@@ -1,61 +1,86 @@
-<!-- <div class="product-detail-container" *ngIf="isLoading; else productLoaded"> -->
 <div class="product-detail-container">
-  <div class="product-images">
-    <p-skeleton width="100%" height="400px" styleClass="p-mb-5"></p-skeleton>
-    <p-skeleton width="50px" height="50px" styleClass="p-mb-2"></p-skeleton>
-    <p-skeleton width="50px" height="50px" styleClass="p-mb-2"></p-skeleton>
-    <p-skeleton width="50px" height="50px" styleClass="p-mb-2"></p-skeleton>
+  <div class="product-img">
+    <div class="thumbnail-images">
+      <img
+        *ngFor="let image of thumbnailImages"
+        [src]="image"
+        alt="Thumbnail"
+        (click)="changeMainImage(image)"
+        class="thumbnail"
+      />
+    </div>
+
+    <div class="product-images">
+      <img [src]="mainImage" alt="Product Main Image" class="main-image" />
+    </div>
   </div>
 
+  <div class="image-carousel" *ngIf="!isLoading">
+    <p-galleria
+      [value]="images"
+      [(activeIndex)]="selectedImageIndex"
+      [showIndicators]="true"
+      [showThumbnails]="false"
+      [responsiveOptions]="responsiveOptions"
+      
+      class="styled-galleria"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img
+          [src]="item.itemImageSrc"
+          class="carousel-image"
+          alt="Product Image"
+        />
+      </ng-template>
+    </p-galleria>
+  </div>
+  
   <div class="product-info">
-    <p-skeleton width="80%" height="30px" styleClass="p-mb-3"></p-skeleton>
-    <p-skeleton width="60%" height="20px" styleClass="p-mb-2"></p-skeleton>
-    <p-skeleton width="100%" height="100px" styleClass="p-mb-3"></p-skeleton>
-
+    <h1>Product Name</h1>
+    
+    <h2 class="price">$129</h2>
+    
+    <p class="description">Short description of the product.</p>
+  
+    <!-- Opciones del producto -->
     <div class="product-options">
-      <p-skeleton width="40px" height="20px" styleClass="p-mb-2"></p-skeleton>
-      <p-skeleton width="100px" height="40px" styleClass="p-mb-2"></p-skeleton>
-    </div>
-
-    <div class="actions">
-      <p-skeleton width="200px" height="40px" styleClass="p-mb-2"></p-skeleton>
-      <p-skeleton width="150px" height="20px"></p-skeleton>
+      <!-- Talla -->
+      <div class="product-detail">
+        <label>Talla:</label>
+        <span class="circle-option">M</span>
+      </div>
+      
+      <!-- Textura -->
+      <div class="product-detail">
+        <label>Textura:</label>
+        <span class="circle-option">Cuero</span>
+      </div>
+      
+      <!-- Color -->
+      <div class="product-detail">
+        <label>Color:</label>
+        <span class="color-option" style="background-color: #8B4513;"></span> <!-- Color marrón -->
+        <span class="color-option" style="background-color: #C0C0C0;"></span> <!-- Color plata -->
+      </div>
+      
+      <!-- Estado (Nuevo o para Renta) -->
+      <div class="product-detail">
+        <label>Estado:</label>
+        <span class="circle-option">Nuevo</span>
+        <!-- o -->
+        <span class="circle-option">Para Renta</span>
+      </div>
+      
+      <!-- Cantidad -->
+      <div class="product-detail">
+        <label>Cantidad:</label>
+        <span class="circle-option">1</span>
+      </div>
+  
+      <!-- Botón para agregar al carrito -->
+      <button class="add-to-cart">Add to Bag</button>
     </div>
   </div>
+  
 </div>
 
-<!-- <ng-template #productLoaded>
-    <div class="product-detail-container">
-      <div class="product-images">
-        <p-carousel [value]="images" numVisible="1" numScroll="1">
-          <ng-template pTemplate="item" let-image>
-            <img [src]="image" alt="Product Image" />
-          </ng-template>
-        </p-carousel>
-      </div>
-  
-      <div class="product-info">
-        <h1>{{ productName }}</h1>
-        <h2 class="price">{{ productPrice }}</h2>
-        <p class="description">{{ productDescription }}</p>
-  
-        <div class="product-options">
-          <div class="color-selection">
-            <label>Color:</label>
-            <p-radioButton name="color" value="black" [(ngModel)]="selectedColor"></p-radioButton>
-          </div>
-  
-          <div class="size-selection">
-            <label>Talla:</label>
-            <p-dropdown [options]="sizes" [(ngModel)]="selectedSize"></p-dropdown>
-          </div>
-        </div>
-  
-        <div class="actions">
-          <button pButton type="button" label="Añadir al carrito"></button>
-          <a href="#">Añadir a la lista de deseos</a>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-   -->
