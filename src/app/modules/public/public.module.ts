@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -40,7 +40,7 @@ const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductVie
   imports: [GalleriaModule,
     CommonModule,ReactiveFormsModule,FormsModule,
     PublicRoutingModule,HttpClientModule, ...MATERIALS,
-  ],
+  ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Toast,MessageService,provideClientHydration(), [provideHttpClient(withFetch())],
   SignUpService,UsuarioService,DatosEmpresaService],
 })
