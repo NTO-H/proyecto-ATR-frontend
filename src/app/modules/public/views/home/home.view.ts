@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID, HostListener } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import * as AOS from 'aos';
+// import * as AOS from 'aos';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
 
@@ -120,7 +120,7 @@ rows = 7; // Número de elementos por página
 
   ngOnInit() {
 
-  // 
+  //
 
   // ngOnInit() {
     this.productosPaginados = this.productos.slice(0, this.rows);
@@ -130,14 +130,14 @@ rows = 7; // Número de elementos por página
     // if (typeof window !== 'undefined') {
     //   this.position = 'bottom-left';
     // }
-    if (isPlatformBrowser(this.platformId)) {
-      AOS.init(); // Inicializa AOS solo si está en el navegador
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   AOS.init(); // Inicializa AOS solo si está en el navegador
+    // }
     this.detectDevice();
     // Asigna items de menú con el tipo correcto
     // this.items = this.isLoggedIn
 
-  
+
 
     const ua = navigator.userAgent;
     console.log(ua);
@@ -212,9 +212,9 @@ rows = 7; // Número de elementos por página
       imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     };
     this.productos.push(nuevoProducto);
-    if (isPlatformBrowser(this.platformId)) {
-      AOS.refresh(); // Refresca AOS solo si está en el navegador
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   AOS.refresh(); // Refresca AOS solo si está en el navegador
+    // }
   }
 
 
