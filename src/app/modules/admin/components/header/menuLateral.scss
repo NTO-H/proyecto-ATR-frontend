@@ -148,10 +148,10 @@ body.collapsed-padding {
         // font-family: "Poppins",
         //     sans-serif;
         border-radius: 4px;
-        transition: transform 0.3s;
+        // transition: transform 0.3s;
         // transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s ease;
         opacity: 0.9;
-        font-size: 14px;
+        font-size: 13px;
         // font-weight: bold;
 
         // >i {
@@ -164,7 +164,7 @@ body.collapsed-padding {
         &:hover {
           background-color: #efe4e4;
           opacity: 1;
-          transform: scale(0.9);
+          // transform: scale(0.9);
           // text-decoration-line: underline;
           /* Aumenta el tamaño al 110% */
           // box-shadow: 0 8px 16px rgba(85, 85, 85, 0.475);

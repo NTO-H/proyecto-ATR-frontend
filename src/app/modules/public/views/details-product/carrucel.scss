@@ -22,3 +22,27 @@
   }
   
   
+  .carousel-nav.left {
+    left: 50px;
+  }
+  
+  .carousel-nav.right {
+    right: 50px;
+  }
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-300%);
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  color: #fff; /* Color de ícono */
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}

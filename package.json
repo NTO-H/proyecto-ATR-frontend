@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:frontend": "node dist/frontend/server/server.mjs"
+    "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
+    "start-pwa": "ng build --configuration production --base-href=/ && http-server -p 8080 -c-1 dist/frontend"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +30,7 @@
     "ngx-cookie-service": "^18.0.0",
     "ngx-toastr": "^19.0.0",
     "ngx-ui-loader": "^1.1.5",
+    "pouchdb-browser": "^9.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.11",
     "rxjs": "~7.8.0",

@@ -93,7 +93,9 @@
 @media only screen and (max-width: 768px) {
   .product-detail-container {
     margin: 0px;
-    border: dashed 1px #ccc;
+    // border: dashed 1px #ccc;
+    
+  border:none;
     padding: 0px;
     width: 100%;
     // max-width: 1200px;

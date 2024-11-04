@@ -3,8 +3,12 @@
 /* body {
   font-family: 'Sacramento', handwriting;
 } */
+/* @import url(https://fonts.googleapis.com/css2?family=Passion+One:wght@100;200;300;400;500;600;800;900&display=swap); */
 
-@import url(https://fonts.googleapis.com/css2?family=Passion+One:wght@100;200;300;400;500;600;800;900&display=swap);
+body {
+  font-family: "Passion One", display;
+}
+/* @import url(https://fonts.googleapis.com/css2?family=Passion+One:wght@100;200;300;400;500;600;800;900&display=swap); */
 
 body {
   font-family: "Passion One", display;
@@ -13,18 +17,30 @@ body {
   display: flex;
   flex-direction: row;
 
-  border: #e4e4e4 solid 1px;
+  border: 0.5px solid #e6e6e6;
+  /* box-shadow: 0px 0px 5px 9px rgba(235, 227, 219, 1); */
+  border-bottom: 4px solid #ebe3db;
   background: #ffffff;
+}
+.box {
+  box-shadow: 0px 0px 10px 10px rgb(255, 248, 240);
 }
 .container-productos {
   padding: 20px;
 }
 
 .hero-img {
+  background-color: #ffffff;
   animation: blur-in 2s ease-in-out;
   animation-name: show-hero;
   display: flex;
   align-items: center;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+  border-bottom: 1px solid #ebe3db;
+
+  /* box-shadow: 0px 0px 88px 20px rgba(235, 227, 219, 1); */
+
   justify-content: center;
   background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg");
   background-size: contain;
@@ -32,23 +48,23 @@ body {
   position: sticky;
   background-position: right;
   width: 100%;
-  height: 400px;
+  height: 310px;
 }
 
 .imagen-logo {
-  max-width: 35%;
+  max-width: 25%;
 }
 .text-anuncio {
   margin-right: 10px;
   p.nombre {
     font-size: 60px;
-    font-family: "Passion One", display;
+    /* font-family: "Passion One", display; */
     color: rgb(56, 58, 46);
   }
   p.info {
     font-size: 50px;
     cursor: pointer;
-    font-family: "Sacramento", handwriting;
+    /* font-family: "Sacramento", handwriting; */
     &:hover {
       color: dodgerblue;
     }
@@ -57,10 +73,11 @@ body {
 
 .text-info {
   font-size: 28px;
-  color: rgb(56, 58, 46);
+  color: #4b535b;
 }
 p {
-  color: rgb(91, 95, 61);
+  color: #7b838a;
+  /* color: #4b535b; chido */
 }
 
 .hide-hero-img {
@@ -84,7 +101,7 @@ p {
 .productos-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 7rem;
+  gap: 5rem;
   margin-top: 20px;
   margin-left: 50px;
 }
@@ -98,7 +115,9 @@ p {
   max-width: 200px;
   margin-bottom: 20px;
   background: #ffffff;
+  transition: transform 0.3s, box-shadow 0.3s;
   &:hover {
+    transform: scale(1.02); /* Zoom al 105% */
     background-color: #ffffff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
@@ -110,11 +129,12 @@ p {
 }
 
 .header-content {
-   text-align: center;
+  text-align: center;
 }
 
 .product-content {
-  text-align: center;
+  color: #333b43;
+  text-align: start;
   padding: 10px;
   /* border: dashed rgb(207, 204, 117); */
 }
@@ -137,7 +157,7 @@ p {
     color: #374151;
   }
   .card {
-    color: #6b7280;
+    color: #4b535b;
 
     max-width: 310px;
     height: 140px;
@@ -189,14 +209,30 @@ p {
     flex-wrap: wrap;
   }
 }
+
+.nuevo-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #ff0000;
+  color: #fff281;
+  /* color: #ffffff; */
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
 @media (max-width: 600px) {
   .productos-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-left: 0px;
     margin: 5px;
-    gap: 5%;
-    justify-content: space-between;
+    gap: 5px;
+    /* gap: 2%; */
+    justify-content: space-around;
 
     /* ali */
     flex-wrap: wrap;
@@ -270,6 +306,10 @@ p {
       margin-left: 0;
       margin-right: 0;
       max-width: 1700px;
+      .marquee-container {
+        text-align: center;
+
+      }
       h1,
       p {
         color: #3e3834;
@@ -323,5 +363,44 @@ p {
   to {
     opacity: 1;
     filter: blur(0);
+  }
+}
+
+/* // marque */
+.marquee-container {
+  width: 100%;
+  text-align: start;
+  position: relative;
+}
+
+.marquee {
+  font-size: 14px;
+  color: #ff4500; /* Color llamativo */
+  font-weight: bold;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  animation: showHide 9s infinite;
+}
+
+#item2 {
+  animation-delay: 3s; /* Muestra el segundo después de 3s */
+}
+
+#item3 {
+  animation-delay: 6s; /* Muestra el tercero después de 6s */
+}
+
+@keyframes showHide {
+  0% {
+    opacity: 0;
+  }
+  10%,
+  30% {
+    opacity: 1;
+  }
+  40%,
+  100% {
+    opacity: 0;
   }
 }

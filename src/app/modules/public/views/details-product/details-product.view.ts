@@ -53,7 +53,22 @@ export class DetailsProductView {
       ];
     }, 3000);
   }
+  // selectedImageIndex = 0; // Índice inicial de la imagen
 
+  prevImage() {
+    this.selectedImageIndex =
+      (this.selectedImageIndex - 1 + this.images.length) % this.images.length;
+  }
+  
+  nextImage() {
+    this.selectedImageIndex =
+      (this.selectedImageIndex + 1) % this.images.length;
+  }
+  
+  onImageChange(event: any) {
+    this.selectedImageIndex = event.index;
+  }
+  
    // Imagen principal del producto
    mainImage: string = 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg';
 

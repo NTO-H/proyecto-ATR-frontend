@@ -40,7 +40,7 @@ export class SignInView implements OnInit {
   // Implement a callback for reCAPTCHA v2 resolution
   onCaptchaResolved(response: string): void {
     // Use the response token as needed
-    console.log('reCAPTCHA v2 Response:', response);
+    // console.log('reCAPTCHA v2 Response:', response);
   }
 
   executeRecaptchaVisible(token:any){
@@ -70,18 +70,18 @@ export class SignInView implements OnInit {
   // ngOnInit(): void {
   // }
   
-  generateCaptcha(): void {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZadcdefghijklmnopqrstuvwxyz0123456789';
-    const captchaLength = 6;
-    let captcha = '';
-    for (let i = 0; i<captchaLength; i++) {
-      const index = Math.floor(Math.random() * chars.length);
-      captcha +=chars[index];
-    }
-    this.captchaText = captcha;
-  }
+  // generateCaptcha(): void {
+  //   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZadcdefghijklmnopqrstuvwxyz0123456789';
+  //   const captchaLength = 6;
+  //   let captcha = '';
+  //   for (let i = 0; i<captchaLength; i++) {
+  //     const index = Math.floor(Math.random() * chars.length);
+  //     captcha +=chars[index];
+  //   }
+  //   this.captchaText = captcha;
+  // }
   ngOnInit(): void {
-  this.generateCaptcha();
+  // this.generateCaptcha();
     this.robot = true;
     this.presionado = false;
     this.checkLockState(); // Verificar si la cuenta está bloqueada al cargar

@@ -81,3 +81,28 @@
     height: auto;
   }
 }
+
+
+.share-link {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+
+  label {
+    margin-right: 8px;
+    font-weight: bold;
+  }
+
+  .share-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #007bff; /* Color del ícono de compartir */
+    font-size: 24px;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #0056b3; /* Color más oscuro al pasar el ratón */
+    }
+  }
+}

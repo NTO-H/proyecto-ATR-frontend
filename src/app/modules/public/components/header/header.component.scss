@@ -40,7 +40,12 @@ nav {
 }
 
 header.app-header {
-  background-color: #ede4db;
+  // border-radius: 5px;
+  background-color:white;
+  // background-color: #f8f5f2;
+  // background-color: #f8f5f2;
+  // border: 1px solid #ebe3db;
+  // box-shadow: 0 4px 8px #fff9f39a;
   width: 100%;
 }
 
@@ -64,7 +69,10 @@ span {
   display: flex;
   justify-content: left;
   // border: dashed red;
-  background-color: none;
+  border-bottom: 1px solid #ebe3db;
+  box-shadow:0px 0px 10px 10px rgba(255, 251, 246, 0.429);
+
+  background-color: white;
   height: 70px;
   position: sticky;
   top: 0;
@@ -104,17 +112,13 @@ p-sidebar {
         a {
           text-decoration: none;
           font-size: 18px;
-          //   font-weight: bold;
           color: #334256;
           display: flex;
           align-items: center;
 
           i {
             // -webkit-text-stroke: 1px rgb(255, 173, 115);
-            // background-color: rgb(255, 255, 255);
-
-            margin-right: 10px; /* Espacio entre el ícono y el texto */
-            // color: #333; /* Color del ícono */
+            margin-right: 10px;
           }
         }
       }
@@ -122,11 +126,10 @@ p-sidebar {
   }
 }
 
-
 .sticky {
   background-color: #ffffff9e;
   backdrop-filter: blur(2px);
-  border: solid 1px #eaedf1;
+  border: solid 1px #f6f2ef;
   .logo > .logo1 {
     background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
     background-size: contain;
@@ -145,19 +148,16 @@ p-sidebar {
     transform: scale(2);
   }
 }
-// }
-
 :host ::ng-deep .content-all {
-  padding-top: 40px; /* Ajusta esto según la altura combinada de tus headers */
+  padding-top: 40px;
 }
 .nav-menu {
-  // border: dashed red;
   display: flex;
   padding: 0 2px;
 }
 .nav-menu li {
-  margin-left: 30px; /* Adjust the spacing as needed */
-  margin-right: 30px; /* Adjust the spacing as needed */
+  margin-left: 30px;
+  margin-right: 30px;
   a {
     text-decoration: none;
     font-size: 14px;
@@ -166,8 +166,6 @@ p-sidebar {
     padding: 10px 20px;
     border-radius: 50px;
     transition: background-color 0.3s ease;
-    // color: #303a50;
-
     color: #495464;
     cursor: pointer;
     &:hover {
@@ -178,7 +176,6 @@ p-sidebar {
 }
 
 .nav-accion {
-  // border: dashed rgb(255, 157, 0);
   display: flex;
   align-items: center;
   margin-left: auto;
@@ -189,12 +186,11 @@ p-sidebar {
   transition: transform 0.3s ease;
 
   cursor: pointer;
-  margin-right: 30px; /* Adjust the spacing as needed */
-  &:hover i {
-    color: #007bff;
-
-    transform: scale(1.2);
-  }
+  margin-right: 30px;
+  // &:hover i {
+  //   color: #007bff;
+  //   transform: scale(1.2);
+  // }
 }
 .sticky {
   position: fixed;
@@ -202,8 +198,57 @@ p-sidebar {
   width: 100%;
   z-index: 10;
   background: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px #ebe3db7a;
   transition: background-color 0.5s ease;
+}
+.nav-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.muestra-opciones-user {
+  position: fixed;
+  top: 100px; /* Valor predeterminado sin scroll */
+  left: auto;
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+  width: max-content;
+}
+
+/* Cambia el top a 60px cuando haya scroll */
+.app-header.scrolled .muestra-opciones-user {
+  top: 60px;
+}
+
+.muestra-opciones-user li {
+  padding: 5px;
+  margin: 0;
+  margin-bottom: 2px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.3em;
+  i {
+    margin-left: 5px;
+    margin-right: 10px;
+    &:hover {
+      color: none;
+    }
+  }
+}
+
+.muestra-opciones-user li:hover {
+  background-color: #ffe6ea;
+i{
+   color: none; 
+   transform:none;
+}
 }
 
 @media only screen and (max-width: 768px) {
@@ -212,11 +257,6 @@ p-sidebar {
   }
   .left > div + div {
     display: flex;
-  }
-  .right > div {
-    // margin-left: 0px;
-  }
-  span {
   }
   .navbar-one {
     padding: 0 25px;
@@ -253,7 +293,6 @@ p-sidebar {
     padding: 0 0px;
     margin-left: 0px;
     display: flex;
-    // border: dashed red;
     padding-right: 10px;
     justify-content: space-between;
 
@@ -261,24 +300,38 @@ p-sidebar {
       list-style: none;
       padding: 0;
       margin: 0;
-      margin-left: 0px; /* Adjust the spacing as needed */
-      margin-right: 0px; /* Adjust the spacing as needed */
-      // margin-right: 0px; /* Adjust the spacing as needed */
-      // border-color: red; // Color del borde para el elemento de búsqueda
-
+      margin-left: 0px;
+      margin-right: 0px;
       gap: 10px;
       li {
         display: inline-block;
-        margin-right: 0px; // Espaciado entre los elementos
-        // Estilo general para los bordes
-        // border: 2px dashed;
-        // border-radius: 50px; // Esquinas redondeadas
-
+        margin-right: 0px;
         i {
-          padding: 10px; // Espacio interno alrededor del contenido
-          // border-color: red; // Color del borde para el elemento de búsqueda
+          font-size: 18px;
+          padding: 10px;
         }
       }
     }
   }
 }
+
+.ui.menu .browse.item {
+  cursor: pointer;
+}
+
+.ui.popup.transition.hidden {
+  display: none;
+}
+
+.ui.popup.transition {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+}
+// !mejorar el diseño del input de busqueda
+// .ui.input {
+  // font-size: 1em;
+  // width: 202%;
+  // border: dashed;
+// }

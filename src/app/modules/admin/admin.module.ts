@@ -53,6 +53,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { MessageService } from 'primeng/api';
 import { Toast } from '../../shared/services/toast.service';
 import { ToastModule } from 'primeng/toast';
+import { ProductoService } from '../../shared/services/producto.service';
 
 
 
@@ -97,7 +98,7 @@ const MATERIALS = [CalendarModule, InputNumberModule, ToastrModule,TabViewModule
     ControlAdministrativaService,
     ClientesService,
     StorageService,
-    SessionService,
+    SessionService,ProductoService,
     DatosEmpresaService,Toast, MessageService, provideClientHydration(), [provideHttpClient(withFetch())],
   ],
 })

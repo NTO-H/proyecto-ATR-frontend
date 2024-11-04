@@ -11,12 +11,13 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MenuItemCommandEvent } from 'primeng/api';
 import * as AOS from 'aos';
 import { isPlatformBrowser } from '@angular/common';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
 declare const $: any;
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -59,10 +60,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         .search({
           type: 'category',
           apiSettings: {
-            url: '/search/{query}', // Ensure this URL is correct
+            url: '/search/{query}', // Asegúrate de que esta URL sea correcta
           },
           onSelect: (result: any) => {
-            // Handle the result selection here, if needed
+            // Manejar la selección del resultado aquí, si es necesario
           },
         });
     }
@@ -87,30 +88,70 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   onSearch() {
     this.isLoading = true;
-    // Replace with actual search API call
+    // Reemplaza con la llamada real a la API de búsqueda
     setTimeout(() => {
       this.isLoading = false;
-      // Implement your search logic here
-      console.log('Searching for:', this.searchQuery);
+      // Implementa tu lógica de búsqueda aquí
+      console.log('Buscando:', this.searchQuery);
     }, 2000);
   }
 
   showDialog() {
     this.sidebarVisible = true;
   }
+  popupVisible: boolean = false;
+
+  // Alterna la visibilidad del popup
+  togglePopup() {
+    this.popupVisible = !this.popupVisible;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const clickedInside = this.elementRef.nativeElement.contains(event.target);
+    if (!clickedInside) {
+      this.popupVisible = false;
+    }
+  }
 
   updateMenuItems() {
     this.isLoggedIn = this.isUserLoggedIn();
+
+    // Asigna items de menú con el tipo correcto
     this.items = this.isLoggedIn
       ? [
-          { label: 'Mi perfil', icon: 'pi pi-user', command: () => this.redirectTo('Mi-perfil') },
-          { label: 'Configuración', icon: 'pi pi-cog', command: () => this.redirectTo('Config') },
-          { label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => this.logout() },
+          {
+            label: 'Mi perfil',
+            icon: 'pi pi-user',
+            command: (event: MenuItemCommandEvent) => this.redirectTo('Mi-perfil'),
+          },
+          {
+            label: 'Configuración',
+            icon: 'pi pi-cog',
+            command: (event: MenuItemCommandEvent) => this.redirectTo('Config'),
+          },
+          {
+            label: 'Cerrar sesión',
+            icon: 'pi pi-sign-out',
+            command: (event: MenuItemCommandEvent) => this.logout(),
+          },
         ]
       : [
-          { label: 'Iniciar sesión', icon: 'pi pi-sign-in', command: () => this.redirectTo('Sign-in') },
-          { label: 'Registrarme', icon: 'pi pi-user-plus', command: () => this.redirectTo('Sign-up') },
-          { label: 'Activar cuenta', icon: 'pi pi-check-circle', command: () => this.redirectTo('Activar-cuenta') },
+          {
+            label: 'Iniciar sesión',
+            icon: 'pi pi-sign-in',
+            command: (event: MenuItemCommandEvent) => this.redirectTo('Sign-in'),
+          },
+          {
+            label: 'Registrarme',
+            icon: 'pi pi-user-plus',
+            command: (event: MenuItemCommandEvent) => this.redirectTo('Sign-up'),
+          },
+          {
+            label: 'Activar cuenta',
+            icon: 'pi pi-check-circle',
+            command: (event: MenuItemCommandEvent) => this.redirectTo('Activar-cuenta'),
+          },
         ];
   }
 
@@ -132,8 +173,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   redirectTo(route: string): void {
     this.sidebarVisible = false;
-    this.router.navigate(route.includes('Sign-in') || route.includes('Sign-up') || route.includes('Activar-cuenta')
-      ? ['/auth', route]
-      : ['/public', route]);
+    this.router.navigate(
+      route.includes('Sign-in') ||
+      route.includes('Sign-up') ||
+      route.includes('Activar-cuenta')
+        ? ['/auth', route]
+        : ['/public', route]
+    );
   }
 }

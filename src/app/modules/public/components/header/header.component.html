@@ -52,18 +52,22 @@
       <i class="pi pi-shopping-cart"></i>
       </li>
       <li *ngIf="!isMobile">
-        <a tabindex="0" class="nav-icon" (click)="menu.toggle($event)">
+        <a tabindex="0" class="nav-icon" (click)="togglePopup()">
           <i class="fa-regular fa-user"></i>
+          <ul class="muestra-opciones-user" *ngIf="popupVisible">
+            <li *ngFor="let item of items" (click)="item.command ? item.command({ originalEvent: $event }) : null">
+              <i [class]="item.icon"></i> {{ item.label }}
+            </li>
+            
+          </ul>
         </a>
-        <p-menu #menu [model]="items" [popup]="true"></p-menu>
       </li>
+      
+      
+      
       <li *ngIf="isMobile">
-        <!-- <a tabindex="0" (click)="showDialog()" class="nav-icon" -->
-          
           <i (click)="showDialog()" class="fa-solid fa-bars-staggered"></i
             >
-            <!-- 
-          </a> -->
       </li>
     </ul>
   </nav>

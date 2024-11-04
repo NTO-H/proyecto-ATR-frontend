@@ -48,5 +48,10 @@ export class PerfilView implements OnInit {
         });
       }
     }
+    
+  }
+  logout() {
+    this.storageService.removeItem('token');
+    this.router.navigate(["/auth/login"]);
   }
 }

@@ -24,19 +24,26 @@ import { CarritoView } from './views/carrito/carrito.view';
 import { DatosEmpresaService } from '../../shared/services/datos-empresa.service';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { GalleriaModule } from 'primeng/galleria';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 // import { VerificarCodigoView } from './views/verificar-codigo/verificar-codigo.view';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Toast } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { SignUpService } from '../auth/commons/services/sign-up.service';
 import { UsuarioService } from '../../shared/services/usuario.service';
-const MATERIALS =[SkeletonModule,CardModule,TabMenuModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
+import { TagComponent } from './components/tag/tag.component';
+
+import { PaginatorModule } from 'primeng/paginator';
+
+const MATERIALS =[PaginatorModule,OverlayPanelModule,TieredMenuModule,SkeletonModule,CardModule,TabMenuModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductView]
 @NgModule({
-  declarations: [VIEWS,COMPONENTS, CarritoView],
+  declarations: [VIEWS,COMPONENTS, CarritoView, TagComponent],
   imports: [GalleriaModule,
     CommonModule,ReactiveFormsModule,FormsModule,
     PublicRoutingModule,HttpClientModule, ...MATERIALS,
