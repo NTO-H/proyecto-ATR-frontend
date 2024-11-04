@@ -25,5 +25,48 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "image-cache",
+      "urls": [
+        "https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg",
+        "https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png",
+        "https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "1h",
+        "timeout": "10s"
+      }
+    },
+    {
+      "name": "library-cache",
+      "urls": [
+        "https://fonts.googleapis.com/css?family=Roboto",
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "1h",
+        "timeout": "10s"
+      }
+    },
+    {
+      "name": "external-scripts-cache",
+      "urls": [
+        "https://unpkg.com/aos@2.3.1/dist/aos.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 50,
+        "maxAge": "1d",
+        "timeout": "10s"
+      }
+    }
   ]
 }
