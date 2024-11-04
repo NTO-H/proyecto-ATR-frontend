@@ -14,8 +14,8 @@
           "/*.js"
         ],
         "urls": [
-          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.20971958617502717",
-          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.2509356652193573",
+          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.28857445018568995",
+          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.027702804763513056",
           "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.8034212077827811",
           "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.5711138395791993",
           "https://atelier-hgo.vercel.app/public/home",
