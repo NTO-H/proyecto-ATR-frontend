@@ -78,7 +78,10 @@ span {
   top: 0;
   z-index: 10;
 }
-
+.custom-header {
+  justify-content: center;
+  display: flex;
+}
 .logo {
   text-transform: uppercase;
   font-size: 24px;
@@ -111,7 +114,7 @@ p-sidebar {
 
         a {
           text-decoration: none;
-          font-size: 18px;
+          font-size: 14px;
           color: #334256;
           display: flex;
           align-items: center;

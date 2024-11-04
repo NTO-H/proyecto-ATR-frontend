@@ -75,8 +75,9 @@
 
 <!-- <body> -->
 <p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="w-30rem">
-  <ng-template pTemplate="header">
-    <span class="font-semibold text-xl">Atelier</span>
+  <ng-template pTemplate="header"  style="justify-content: center;">
+    <!-- <span class="font-semibold text-xl">Atelier</span> -->
+<img style="weight:25px;height:25px;margin-right: 30px;margin-left: 30px;" src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png" alt="" srcset="">
   </ng-template>
 
   <!-- <div class="resize-handle" (mousedown)="startResizing($event)"></div> -->
@@ -84,29 +85,30 @@
     <ul>
       <li>
         <a tabindex="0" (click)="redirectTo('Home')">
-          <i class="fas fa-home"></i> Home
+          <i class="pi pi-home"></i> Home
         </a>
       </li>
       <li>
         <a tabindex="0" (click)="redirectTo('Sign-in')">
-          <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+          <i class="pi pi-sign-in"></i> Iniciar sesión
         </a>
       </li>
       <li>
         <a tabindex="0" (click)="redirectTo('Sign-up')">
-          <i class="fas fa-user-plus"></i> Registrarme
+          <i class="pi pi-user-plus"></i> Registrarme
         </a>
       </li>
       <li>
         <a tabindex="0" (click)="redirectTo('Config')">
-          <i class="fas fa-gear"></i> configuración
+          <i class="pi pi-cog"></i> Configuración
         </a>
       </li>
       <li>
         <a tabindex="0" (click)="redirectTo('AcercaDe')">
-          <i class="fas fa-info-circle"></i> Acerca de Atelier
+          <i class="pi pi-info-circle"></i> Acerca de Atelier
         </a>
       </li>
+      
     </ul>
   </div>
   <!-- Mango para redimensionar -->
