@@ -70,10 +70,10 @@
         "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
       ],
       "cacheConfig": {
-        "strategy": "freshness",
-        "maxSize": 50,
+        "maxSize": 100,
         "maxAge": "1d",
-        "timeout": "10s"
+        "timeout": "10s",
+        "strategy": "freshness"
       }
     }
   ]
