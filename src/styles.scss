@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+body {
+    user-select: none; /* Evita la selección de texto */
+    margin: 0;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+::selection {
+    pointer-events: none;
+    background: transparent; /* Sin fondo en la selección */
+    color: inherit; /* Mantiene el color original del texto */
+}
+
+* {
+    outline: none;
+    -webkit-focus-ring-color: transparent;
+}
+
+
+*::selection {
+    background: transparent;
+    -webkit-focus-ring-color: transparent;
+  }
+
+  /* Mantén accesibilidad en dispositivos de teclado */
+  *:focus-visible {
+    -webkit-focus-ring-color: transparent;
+    outline: none; /* Ajusta el estilo si necesitas uno personalizado */
+  }
+  *:focus {
+    -webkit-focus-ring-color: transparent;
+    outline: none; /* Ajusta el estilo si necesitas uno personalizado */
+  }
+.p-component-overlay {
+    position: fixed;
+    // top: 0;
+    // left: 0;
+    // width: 100%;
+    // height: 100%;
+
+}
+  
