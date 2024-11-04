@@ -1,0 +1,107 @@
+<div class="product-detail-container">
+  <div class="product-img">
+    <div class="thumbnail-images">
+      <img
+        *ngFor="let image of thumbnailImages"
+        [src]="image"
+        alt="Thumbnail"
+        (click)="changeMainImage(image)"
+        class="thumbnail"
+      />
+    </div>
+
+    <div class="product-images">
+      <img [src]="mainImage" alt="Product Main Image" class="main-image" />
+    </div>
+  </div>
+
+  <div class="image-carousel" *ngIf="!isLoading">
+    <p-galleria
+      [value]="images"
+      [(activeIndex)]="selectedImageIndex"
+      [showIndicators]="true"
+      [showThumbnails]="false"
+      [responsiveOptions]="responsiveOptions"
+      [circular]="true"
+      class="styled-galleria"
+      (onItemChange)="onImageChange($event)"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img
+          [src]="item.itemImageSrc"
+          class="carousel-image"
+          alt="Product Image"
+        />
+      </ng-template>
+    </p-galleria>
+    
+    <!-- Icono de navegación izquierda -->
+    <button class="carousel-nav left" (click)="prevImage()">
+      <i class="pi pi-chevron-left"></i>
+    </button>
+    
+    <!-- Icono de navegación derecha -->
+    <button class="carousel-nav right" (click)="nextImage()">
+      <i class="pi pi-chevron-right"></i>
+    </button>
+  </div>
+  
+  
+  <div class="product-info">
+    <h1>Product Name</h1>
+    
+    <h2 class="price">$129</h2>
+    
+    <p class="description">Short description of the product.</p>
+  
+  <!-- Opciones del producto -->
+<div class="product-options">
+  <!-- Talla -->
+  <div class="product-detail">
+    <label>Talla:</label>
+    <span class="circle-option">M</span>
+  </div>
+  
+  <!-- Textura -->
+  <div class="product-detail">
+    <label>Textura:</label>
+    <span class="circle-option">Cuero</span>
+  </div>
+  
+  <!-- Color -->
+  <div class="product-detail">
+    <label>Color:</label>
+    <span class="color-option" style="background-color: #8B4513;"></span> <!-- Color marrón -->
+    <span class="color-option" style="background-color: #C0C0C0;"></span> <!-- Color plata -->
+  </div>
+  
+  <!-- Estado (Nuevo o para Renta) -->
+  <div class="product-detail">
+    <label>Estado:</label>
+    <span class="circle-option">Nuevo</span>
+    <!-- o -->
+    <span class="circle-option">Para Renta</span>
+  </div>
+  
+  <!-- Cantidad -->
+  <div class="product-detail">
+    <label>Cantidad:</label>
+    <span class="circle-option">1</span>
+  </div>
+
+  <!-- Botón para agregar al carrito -->
+  <button class="add-to-cart">Add to Bag</button>
+  
+  <!-- Ícono de compartir enlace -->
+  <div class="share-link">
+    <label>Compartir:</label>
+    <button class="share-button" title="Compartir enlace">
+      <i class="pi pi-share-alt"></i> <!-- Aquí puedes usar tu ícono preferido -->
+    </button>
+  </div>
+</div>
+
+  </div>
+  
+</div>
+

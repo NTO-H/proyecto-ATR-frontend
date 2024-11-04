@@ -1,0 +1,102 @@
+/* animations */
+
+@keyframes dropAnimation {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes borderBlink {
+  0%,
+  100% {
+    box-shadow: 0 0 0 2px rgb(255, 204, 0), 0 0 0 10px rgb(247, 242, 188);
+  }
+
+  50% {
+    box-shadow: 0 0 0 1px rgba(248, 231, 28, 0), 0 0 0 5px rgba(248, 231, 28, 0);
+  }
+}
+
+/* visibility: visible; */
+
+@keyframes text-shadow {
+  0% {
+    opacity: 0;
+    font-size: 30px;
+    text-shadow: 15px 15px #e0ace4;
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow: -15px -15px #9bcae3;
+  }
+
+  80% {
+    opacity: 1;
+    text-shadow: -55px 25px #e1d1d1;
+  }
+
+  100% {
+    opacity: 1;
+    text-shadow: -50px 55px #f6f6f6;
+  }
+}
+
+@keyframes cursor {
+  50% {
+    visibility: visible;
+    /* color: darkblue; */
+  }
+}
+
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    scale: 0.2;
+    filter: blur(2px);
+
+    /* transform: scale(1.40); */
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+
+    filter: blur(0);
+  }
+}
+
+@keyframes show-hero {
+  from {
+    opacity: 0;
+    /* transform: scale(1.40); */
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}

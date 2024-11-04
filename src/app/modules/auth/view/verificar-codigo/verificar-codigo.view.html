@@ -1,0 +1,40 @@
+<div class="container-form">
+  <!-- Botón de regreso -->
+  <div class="back-button">
+    <a routerLink="/public/home" class="go-back">
+      <i class="fas fa-chevron-left"></i> Ir atrás
+    </a>
+  </div>
+
+  <!-- Formulario para ingresar correo electrónico -->
+  <div class="form-container" *ngIf="!isOtpSent">
+    <form [formGroup]="formulario" (ngSubmit)="sendVerificationCode()" class="centered-form">
+      <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <br />
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          name="email"
+          pInputText
+          class="form-control"
+          placeholder="Ingresa tu correo"
+          required
+        />
+      </div>
+      <p-button iconPos="right" type="submit" label="Enviar Código"></p-button>
+    </form>
+  </div>
+
+  <!-- Formulario para verificar el código OTP -->
+  <div class="form-container" *ngIf="isOtpSent">
+    <form [formGroup]="formulario1" (ngSubmit)="verifyOtp()" class="centered-form">
+      <label for="otp">Ingresa el código de verificación</label>
+      <br>
+      <p-inputOtp formControlName="otpCode" name="otpCode"></p-inputOtp>
+      <br />
+      <p-button type="submit" label="Verificar Código"></p-button>
+    </form>
+  </div>
+</div>

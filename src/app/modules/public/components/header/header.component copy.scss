@@ -1,0 +1,414 @@
+.social-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 5px;
+  margin-bottom: -20px;
+  margin-right: 20px;
+  .contacto {
+    margin-left: 20px;
+    gap: 15px;
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    color: #334256;
+    /* border: dashed greenyellow; */
+    p {
+      cursor: pointer;
+
+      i.fa-whatsapp {
+        color: green;
+      }
+      i.fa-envelope-open {
+        color: red;
+      }
+      font-size: small;
+      &:hover {
+        color: #1da1f2;
+        background-color: #e7e7e7;
+      }
+    }
+  }
+  .redes {
+    /* border: dashed red; */
+    /* padding: 5px; */
+    /* background-color: #333; */
+    display: flex;
+    justify-content: flex-end;
+    /* z-index: 1; */
+
+    .social-icon {
+      margin-left: 10px;
+      font-size: 25px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      &.facebook {
+        color: #3b5998;
+      }
+
+      &.twitter {
+        color: #1da1f2;
+      }
+
+      &.instagram {
+        color: #e1306c;
+      }
+    }
+  }
+}
+
+/* @layer primeng { */
+.p-sidebar .p-sidebar-header {
+  padding: 1.25rem;
+  background: antiquewhite;
+}
+/* } */
+p-sidebar {
+  .menu-content {
+    padding: 20px;
+
+    ul {
+      list-style: none; /* Elimina los puntos de la lista */
+      padding: 0;
+
+      li {
+        margin-bottom: 30px;
+
+        a {
+          text-decoration: none;
+          font-size: 18px;
+          //   font-weight: bold;
+          // color: #334256;
+          display: flex;
+          align-items: center;
+
+          i {
+            // -webkit-text-stroke: 1px rgb(255, 173, 115);
+            // background-color: rgb(255, 255, 255);
+
+            margin-right: 10px; /* Espacio entre el ícono y el texto */
+            // color: #333; /* Color del ícono */
+          }
+        }
+      }
+    }
+  }
+}
+
+/* // Header styles */
+.app-header {
+  z-index: 1 !important;
+  background-color: rgba(231, 231, 231, 0.461);
+  /* color: $text-color; */
+  /* background-color: $hover-color; */
+
+  // box-shadow: 0 0px 2px rgba(114, 114, 114, 0.1);
+
+  position: fixed;
+  width: 100%;
+  /* padding: 15px 0; */
+  top: 0;
+  /* // Asegúrate de que el header se mantenga en la parte superior */
+  left: 0;
+  padding: 0;
+
+  .nav-bar {
+    display: flex;
+    justify-content: start;
+    /* // Ajuste para logo y menú */
+    align-items: center;
+    padding: 0 2px;
+    /* // Espaciado lateral */
+
+    .logo {
+      /* font-family: 'Italiana', serif; */
+      /* font-family: 'Cormorant Garamond', serif; */
+
+      /* 
+      font-family: 'Petit Formal Script', handwriting; */
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      transition: all 0.3s ease; /* Transición suave */
+
+      /* Estilo inicial mostrando el texto "Altier" */
+      &::before {
+        content: "ATELIER";
+      }
+    }
+
+    /* Estilos del logo cuando hay scroll */
+    .nav-accion {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+
+      li {
+        list-style: none;
+        margin-left: 15px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #292829;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .nav-icon {
+        font-size: 18px;
+
+        i {
+          color: #495464;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover i {
+          color: #007bff;
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 10px;
+      margin: 0;
+      display: flex;
+      gap: 20px;
+
+      li {
+        a {
+          text-decoration: none;
+          /* color: $text-color; */
+          // font-weight: bold;
+          font-size: 14px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          // font-display: to-upper-case($string: "true");
+          // font-synthesis: ;
+          padding: 10px 20px;
+          border-radius: 50px;
+          transition: background-color 0.3s ease;
+          // color: #303a50;
+
+          color: #495464;
+          cursor: pointer;
+          &:hover {
+            color: fuchsia;
+            backdrop-filter: blur(10px);
+
+            // dr: ;
+            // filter: drop-shadow(1px});
+            // backdrop-filter: ;
+
+            // background-color: #e7e7e7;
+            /* background-color: $hover-color; */
+          }
+        }
+      }
+    }
+  }
+}
+
+.scrolled {
+  .social-header {
+    opacity: 1;
+    transform: scale(1); /* Escala inicial */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Transiciones para el tamaño y opacidad */
+
+    background-color: #007bff;
+    display: none;
+  }
+}
+
+.app-header.scrolled .social-header {
+  opacity: 0; /* Desvanecer */
+  transform: scale(0); /* Hacer más pequeño */
+  pointer-events: none; /* Desactivar interacciones mientras está oculto */
+}
+.scrolled {
+  background-color: #ffffff9e;
+  backdrop-filter: blur(2px);
+  border: solid 1px #eaedf1;
+  // box-shadow: 0 2px 2px rgba(228, 228, 228, 0.864);
+  .nav-bar {
+    .logo {
+      background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726496561/images-AR/n7cjxwmizj0ath7oegjq.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 500%;
+      /* border: dashed; */
+      transition: transform 1.5s ease; /* Add transition for zoom effect */
+      margin: 0;
+      /* Hide text when logo is visible */
+      /* color: transparent; */
+
+      /* Remove text when class is applied */
+      &::before {
+        content: "";
+      }
+
+      /* Target the image inside the logo for zoom effect */
+    }
+
+    /* Apply zoom effect to the image inside the logo */
+    .zoom {
+      transform: scale(2);
+    }
+  }
+}
+
+/* Estilo general para el botón */
+.menu-button {
+  background-color: #007bff; /* Color de fondo azul */
+  color: white; /* Color del texto blanco */
+  border: none; /* Sin borde */
+  padding: 10px 16px; /* Espaciado interno */
+  font-size: 18px; /* Tamaño de fuente */
+  cursor: pointer; /* Cursor de mano al pasar por encima */
+  display: inline-flex; /* Para centrar el ícono */
+  align-items: center; /* Alinear verticalmente ícono y texto */
+  border-radius: 4px; /* Bordes redondeados */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar el color */
+}
+
+/* Estilo para el ícono de Font Awesome */
+.menu-button i {
+  margin-right: 8px; /* Espaciado entre el ícono y el texto */
+  font-size: 24px; /* Tamaño del ícono */
+}
+
+/* Estilo al pasar el mouse sobre el botón */
+.menu-button:hover {
+  background-color: #0056b3; /* Color de fondo más oscuro en hover */
+}
+
+/* Estilo al hacer clic */
+.menu-button:active {
+  background-color: #003d80; /* Aún más oscuro cuando se hace clic */
+  transform: scale(0.98); /* Ligeramente más pequeño al hacer clic */
+}
+
+/* Estilo para enfoque (accesibilidad) */
+.menu-button:focus {
+  outline: none; /* Quitar borde de enfoque por defecto */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Añadir sombra para indicar el enfoque */
+}
+
+.p-component-overlay {
+  background-color: transparent;
+  transition-duration: 0.2s;
+}
+/* Media queries */
+
+/* Para pantallas pequeñas, como móviles */
+@media only screen and (max-width: 768px) {
+  .scrolled {
+    /* background-color: #ffffffaf; */
+    /* backdrop-filter: blur(1px); */
+    box-shadow: none;
+  }
+  .social-header {
+    // padding-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 0;
+    
+    .contacto {
+      margin-left: 20px;
+      gap: 20px;
+      display: flex;
+      flex-direction: row;
+      font-weight: bold;
+      color: #334256;
+    }
+    .redes {
+      margin-bottom: 0px;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 5px;
+      // display: flex;
+      // justify-content: flex-end;
+      /* z-index: 1; */
+
+      .social-icon {
+        margin-left: 15px;
+        font-size: 20px;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+
+  .app-header {
+    padding: 0 10px;
+    .nav-bar {
+      background-color: transparent !important;
+      // border: dashed red;
+      // /* margin: 5px; */
+      // margin: 0;
+      // border: dashed black;
+      border: dashed greenyellow;
+
+      .logo {
+      }
+
+      .nav-accion {
+        margin-bottom: 8px;
+        padding: 0 2px;
+
+        li {
+        }
+
+        a {
+        }
+
+        .nav-icon {
+          font-size: 20px;
+          gap: 20px;
+          i {
+            margin-right: 10px;
+            font-size: 20px;
+          }
+
+          &:hover i {
+          }
+        }
+      }
+
+      .nav-menu {
+        /* border: dashed rgb(81, 255, 0); */
+        margin-right: 10px;
+        gap: 5px;
+
+        li {
+          a {
+          }
+        }
+      }
+    }
+  }
+
+  /* Estilos para pantallas más pequeñas van aquí */
+}
+
+/* Para pantallas medianas, como tabletas */
+@media only screen and (max-width: 1024px) {
+  /* Estilos para pantallas medianas van aquí */
+}
+
+/* Para pantallas muy pequeñas, como móviles más compactos */
+@media only screen and (max-width: 480px) {
+  /* Estilos para pantallas muy pequeñas van aquí */
+}

@@ -1,0 +1,89 @@
+.formulario {
+  display: flex;
+  flex-direction: column;
+  /* Ajusta el ancho máximo del formulario según tu preferencia */
+}
+
+// .form-title {
+//     margin-bottom: 2rem;
+//     font-size: 1.5rem;
+//     font-weight: bold;
+// }
+
+.form-group {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  // margin-bottom: 5rem;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #878a8e;
+  box-sizing: border-box;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 20px;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background-color: #4cafa2;
+  border-color: #4c90af;
+  color: #fff;
+
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #ffffff;
+  border-color: #4cafa2;
+  color: black;
+}
+
+label {
+  margin-bottom: 5px;
+  /* Espacio entre el label y el input */
+}
+
+input {
+  width: 100%;
+  /* Los inputs ocuparán todo el ancho disponible */
+  padding: 8px;
+  /* Espaciado interno */
+  border: 1px solid #ccc;
+  /* Borde del input */
+  border-radius: 5px;
+  /* Bordes redondeados */
+}
+
+.custom-dropdown {
+  // display: inline-flex;
+  cursor: pointer;
+  // position: relative;
+  -webkit-user-select: none;
+  background: azure;
+  user-select: none;
+  margin-bottom: 30px;
+}
+
+
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+}

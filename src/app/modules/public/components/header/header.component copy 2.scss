@@ -1,0 +1,221 @@
+nav {
+  padding: 0 50px;
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-one {
+  background-color: none;
+  color: #495464;
+  height: 40px;
+  
+  // .social-icon {
+    // margin-left: 10px;
+  // font-size: 25px;
+  // transition: transform 0.3s ease;
+
+  // &:hover {
+  //   transform: scale(1.2);
+  // }
+  .right > div {
+    cursor: pointer;
+    // border: dashed red;
+    &.facebook {
+      color: #3b5998;
+    }
+
+    &.twitter {
+      color: #1da1f2;
+    }
+
+    &.instagram {
+      color: #e1306c;
+    }
+  }
+}
+
+header.app-header {
+  background-color: #ede4db;
+  width: 100%;
+  border: dashed red;
+
+}
+
+.left > div + div {
+  margin-left: 40px;
+}
+.right > div {
+  margin-left: 40px;
+}
+
+.left > div:hover,
+.right > div:hover {
+  color: #000;
+  transition: all 0.5s;
+}
+// span {
+//   margin-left: 5px;
+// }
+/* Hacemos que la segunda barra sea sticky */
+.navbar-second {
+  display: flex;
+  justify-content: left;
+  border: dashed red;
+  background-color: none;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  text-transform: uppercase;
+  // font-size: 24px;
+}
+li {
+  list-style: none;
+}
+
+.ui.loading.search .input {
+  opacity: 0.5;
+  pointer-events: none;
+  // border: dashed blue;
+}
+.logo1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  transition: all 0.3s ease; /* Transición suave */
+  margin-left: 5px;
+  border: dashed red;
+  &::before {
+    content: "ATELIER";
+  }
+}
+
+.sticky {
+  background-color: #ffffff9e;
+  backdrop-filter: blur(2px);
+  border: solid 1px #eaedf1;
+    transition: transform 3s ease; /* Add transition for zoom effect */
+  .logo > .logo1 {
+    background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 50px;
+    // border-radius: 500%;
+    margin-left: 5px;
+    &::before {
+      content: "";
+    }
+  }
+
+  .zoom {
+    transform: scale(2);
+  }
+}
+// }
+
+:host ::ng-deep .content-all {
+  padding-top: 40px; /* Ajusta esto según la altura combinada de tus headers */
+}
+.nav-menu {
+  border: dashed red;
+  display: flex;
+  padding: 0 2px;
+}
+.nav-menu li {
+  border: dashed red;
+
+  // margin-left: 30px; /* Adjust the spacing as needed */
+  // margin-right: 50px; /* Adjust the spacing as needed */
+  a {
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    // color: #303a50;
+
+    color: #495464;
+    cursor: pointer;
+    &:hover {
+      color: fuchsia;
+      backdrop-filter: blur(10px);
+    }
+  }
+}
+
+.nav-accion {
+  border: dashed rgb(255, 157, 0);
+  display: flex;
+  padding: 0;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 0;
+}
+
+.nav-accion li {
+  border: dashed red;
+
+  color: #495464;
+  transition: transform 0.3s ease;
+
+  cursor: pointer;
+
+  // margin-right: 30px; /* Adjust the spacing as needed */
+  &:hover i {
+    color: #007bff;
+
+    transform: scale(1.2);
+  }
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.5s ease;
+}
+
+@media only screen and (max-width: 768px) {
+  .left > div + div {
+    // gap: 20px;
+    display: flex;
+    // justify-content: spa;
+    // margin-left: 0px;
+  }
+  .right > div {
+    // margin-left: 0px;
+  }
+  span {
+  }
+  .navbar-one {
+    padding: 0 25px;
+    margin-left: 0px;
+    display: flex;
+    justify-content: space-between;
+    // border: dashed red;
+  }
+  .navbar-second {
+    padding: 0 0px;
+    margin-left: 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+  nav {
+    padding: 0 0px;
+    width: 100%;
+  }
+}

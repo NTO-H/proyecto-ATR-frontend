@@ -1,0 +1,99 @@
+<div class="form-container" *ngIf="terminoAEditar">
+  <h2 class="form-title">Editar Término y Condición</h2>
+  <form (ngSubmit)="actualizarTermino()" class="form-edit">
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input
+        type="text"
+        id="titulo"
+        [(ngModel)]="terminoAEditar.titulo"
+        name="titulo"
+        required
+        placeholder="Ingresa el título del término"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="contenido">Contenido</label>
+      <textarea
+        id="contenido"
+        [(ngModel)]="terminoAEditar.contenido"
+        name="contenido"
+        required
+        placeholder="Ingresa el contenido del término"
+        class="form-control"
+      ></textarea>
+    </div>
+    <!-- Campo para la Vigencia -->
+    <div class="form-group">
+      <label for="fechaVigencia">Vigencia</label>
+
+      <input
+        type="date"
+        id="fechaVigencia"
+        name="fechaVigencia"
+        [(ngModel)]="terminoAEditar.fechaVigencia"
+        [ngModel]="terminoAEditar.fechaVigencia || getCurrentDate()"
+        required
+        #vigenciaInput="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
+        La vigencia es requerida.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Actualizar Término</button>
+      <button
+        type="button"
+        (click)="cancelarEdicion()"
+        class="btn btn-secondary"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Tabla del Historial de Términos y Condiciones -->
+<div class="table-responsive">
+  <table class="terminos-table">
+    <thead>
+      <tr>
+        <th>Versión</th>
+        <th>Título</th>
+        <th>Contenido</th>
+        <th>Fecha de Creación</th>
+        <th>Fecha de Vigencia</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let termino of historialTerminos">
+        <td>{{ termino?.version }}</td>
+        <td>{{ termino?.titulo }}</td>
+        <td>{{ termino?.contenido }}</td>
+        <td>{{ termino?.fechaCreacion | date : "short" }}</td>
+        <td>{{ termino?.fechaVigencia | date : "short" }}</td>
+        <td>{{ termino?.estado }}</td>
+        <td>
+          <button (click)="editarTermino(termino)" class="btn btn-edit">
+            Editar
+          </button>
+          <button
+            (click)="eliminarTermino(termino._id)"
+            class="btn btn-secondary"
+          >
+            Eliminar
+          </button>
+          <button (click)="verHistorial(termino._id)" class="btn btn-secondary">
+            Ver Versiones
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

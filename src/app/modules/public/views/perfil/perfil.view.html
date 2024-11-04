@@ -1,0 +1,54 @@
+<div class="profile-edit-container">
+  <h1>Editar perfil</h1>
+  <p class="subtitle">
+    Mantén privados tus datos personales. Cualquier persona que pueda ver tu
+    perfil podrá ver la información que agregues aquí.
+  </p>
+
+  <div class="profile-picture">
+    <img src="your-photo.jpg" alt="Foto de perfil" class="profile-img" />
+    <button class="change-photo-btn">Cambiar</button>
+  </div>
+
+  <form class="profile-form">
+    <div class="form-group-container">
+
+      <div class="form-group">
+        <label for="first-name">Nombre(s)</label>
+        <input type="text" id="first-name" value="{{ data.nombre }}" />
+      </div>
+      
+      <div class="form-group">
+        <label for="last-name">Correo</label>
+        <input type="text" id="last-name" value="{{ data.email }}" />
+      </div>
+      <div class="form-group">
+        <label for="last-name">Numero telefonico</label>
+        <input type="text" id="last-name" value="{{ data.telefono }}" />
+      </div>
+      </div>
+
+   
+    
+    <!-- <div class="form-group">
+      <label for="website">Sitio web</label>
+      <input
+        type="url"
+        id="website"
+        placeholder="Agrega un enlace e impulsa tráfico a tu sitio"
+      />
+    </div> -->
+
+    <!-- <div class="form-group">
+      <label for="username">Nombre de usuario</label>
+      <input type="text" id="username" value="nicolasantoniod" />
+      <p class="info-text">www.pinterest.com/nicolasantoniod</p>
+    </div> -->
+
+    <div class="button-group">
+      <button type="button" (click)="logout()" class="reset-btn">cerrar sesón</button>
+      <button type="button" class="reset-btn">Restablecer</button>
+      <button type="submit" class="save-btn">Guardar</button>
+    </div>
+  </form>
+</div>

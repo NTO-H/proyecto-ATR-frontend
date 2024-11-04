@@ -1,0 +1,33 @@
+<div *ngIf="isLoading" class="loading-message">Cargando historial...</div>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<div *ngIf="historial.length > 0">
+  <h2 class="form-title">Historial de Políticas</h2>
+  <table class="politicas-table">
+    <thead>
+      <tr>
+        <th>Versión</th>
+        <th>Título</th>
+        <th>Contenido</th>
+        <th>Fecha de Creación</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doc of historial">
+        <td>{{ doc.version }}</td>
+        <td>{{ doc.titulo }}</td>
+        <td>{{ doc.contenido }}</td>
+        <td>{{ doc.fechaCreacion | date : "short" }}</td>
+        <!-- Usar un pipe de fecha para dar formato -->
+        <td>{{ doc.fechaVigencia | date : "short" }}</td>
+        <!-- Usar un pipe de fecha para dar formato -->
+        <td>{{ doc.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="historial.length === 0 && !isLoading" class="no-historial">
+  <p>No hay historial disponible para esta política.</p>
+</div>

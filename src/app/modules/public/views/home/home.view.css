@@ -1,0 +1,406 @@
+/* @import url(https://fonts.googleapis.com/css2?family=Sacramento&display=swap); */
+
+/* body {
+  font-family: 'Sacramento', handwriting;
+} */
+/* @import url(https://fonts.googleapis.com/css2?family=Passion+One:wght@100;200;300;400;500;600;800;900&display=swap); */
+
+body {
+  font-family: "Passion One", display;
+}
+/* @import url(https://fonts.googleapis.com/css2?family=Passion+One:wght@100;200;300;400;500;600;800;900&display=swap); */
+
+body {
+  font-family: "Passion One", display;
+}
+.contiene-all {
+  display: flex;
+  flex-direction: row;
+
+  border: 0.5px solid #e6e6e6;
+  /* box-shadow: 0px 0px 5px 9px rgba(235, 227, 219, 1); */
+  border-bottom: 4px solid #ebe3db;
+  background: #ffffff;
+}
+.box {
+  box-shadow: 0px 0px 10px 10px rgb(255, 248, 240);
+}
+.container-productos {
+  padding: 20px;
+}
+
+.hero-img {
+  background-color: #ffffff;
+  animation: blur-in 2s ease-in-out;
+  animation-name: show-hero;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+  border-bottom: 1px solid #ebe3db;
+
+  /* box-shadow: 0px 0px 88px 20px rgba(235, 227, 219, 1); */
+
+  justify-content: center;
+  background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: sticky;
+  background-position: right;
+  width: 100%;
+  height: 310px;
+}
+
+.imagen-logo {
+  max-width: 25%;
+}
+.text-anuncio {
+  margin-right: 10px;
+  p.nombre {
+    font-size: 60px;
+    /* font-family: "Passion One", display; */
+    color: rgb(56, 58, 46);
+  }
+  p.info {
+    font-size: 50px;
+    cursor: pointer;
+    /* font-family: "Sacramento", handwriting; */
+    &:hover {
+      color: dodgerblue;
+    }
+  }
+}
+
+.text-info {
+  font-size: 28px;
+  color: #4b535b;
+}
+p {
+  color: #7b838a;
+  /* color: #4b535b; chido */
+}
+
+.hide-hero-img {
+  background-image: none;
+}
+.hero-img1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  background-color: #fff8ee;
+  margin: 0;
+}
+
+/* !hacer responsive */
+.text {
+  margin-left: 50px;
+  margin-right: 300px;
+}
+
+.productos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.producto-card {
+  backdrop-filter: blur(1px);
+  border: 1px solid #e4e4e4;
+  padding-bottom: 16px;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
+  max-width: 200px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  &:hover {
+    transform: scale(1.02); /* Zoom al 105% */
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.p-card {
+  border: dashed;
+  width: 220px; /* Ajusta el tamaño de la tarjeta según sea necesario */
+}
+
+.header-content {
+  text-align: center;
+}
+
+.product-content {
+  color: #333b43;
+  text-align: start;
+  padding: 10px;
+  /* border: dashed rgb(207, 204, 117); */
+}
+
+.product-image img {
+  width: 100%;
+  height: 300px;
+  /* border: dashed red; */
+  margin-bottom: 16px;
+  border-bottom: #e4e4e4 solid 1px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  h2 {
+    color: #374151;
+  }
+  .card {
+    color: #4b535b;
+
+    max-width: 310px;
+    height: 140px;
+
+    backdrop-filter: blur(1px);
+    border-radius: 8px;
+    border: 1px solid rgb(228, 223, 233);
+    background: #ffffff;
+
+    padding: 0.5rem 1rem;
+    /* border: dashed; */
+    /* width: 400px; */
+    /* height: 150px; */
+    /* padding: 20px; */
+    flex-wrap: wrap;
+  }
+}
+.cards-info {
+  display: flex;
+  flex-direction: row;
+  /* border: dashed; */
+  /* gap: 50px; */
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  /* padding: 20px; */
+  /* margin-inline: 0vw; */
+  /* padding-inline: 5vw; */
+
+  .card {
+    color: #6b7280;
+    background: #ffffff;
+    border: #e4e4e4 solid 1px;
+    h2 {
+      color: #374151;
+    }
+    img {
+      align-items: center;
+      border-radius: 50px;
+      width: 50px;
+    }
+    max-width: 310px;
+    /* height: 180px; */
+    /* background-color: transparent; */
+    /* border: dashed; */
+    /* width: 400px; */
+    /* height: 150px; */
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+}
+
+.nuevo-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #ff0000;
+  color: #fff281;
+  /* color: #ffffff; */
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .productos-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 0px;
+    margin: 5px;
+    gap: 5px;
+    /* gap: 2%; */
+    justify-content: space-around;
+
+    /* ali */
+    flex-wrap: wrap;
+    /* flex-direction: ; */
+
+    /* display: flex; */
+    /* flex-direction: row; */
+  }
+  .contiene-all {
+    border: none;
+    background-color: transparent !important;
+  }
+  .container-productos {
+    /* border: dashed rgb(0, 140, 255); */
+
+    padding: 0;
+    margin: 0;
+    background: #ffffff;
+    border: #e4e4e4 solid 1px;
+    box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
+    border-radius: 5px;
+  }
+
+  .producto-card {
+    border-radius: 5px;
+
+    padding-bottom: 0px;
+    /* border-radius: 20px; */
+    /* border: dashed red; */
+    box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
+    width: 175px;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+    background: #ffffff;
+
+    &:hover {
+      background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .product-image {
+      img {
+        border-radius: 5px 5px 0 0;
+      }
+    }
+  }
+  .contiene-all {
+    border-radius: 2px;
+    margin-top: 10px;
+  }
+
+  .hero-img {
+    animation: blur-in 1s ease-in-out;
+    animation-name: show-hero;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg");
+    background-size: 100%; /* Aumenta el tamaño para recortar */
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: sticky;
+    width: 100%;
+    height: 175px;
+    border-radius: 20px;
+    .text {
+      height: 175px;
+      background-color: #ebe3db79;
+      backdrop-filter: blur(3px);
+      padding: 2%;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 1700px;
+      .marquee-container {
+        text-align: center;
+
+      }
+      h1,
+      p {
+        color: #3e3834;
+      }
+      border-radius: 5%;
+      .imagen-logo {
+        margin-bottom: auto;
+        display: inline-block;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        /* position: relative; */
+        align-items: center;
+        justify-content: center;
+        max-width: 55%;
+      }
+    }
+    .imagen-logo {
+    }
+    .text-info {
+      font-size: 18px;
+      text-align: center;
+    }
+    p {
+      font-size: 10px;
+      text-align: center;
+    }
+  }
+
+  .cards {
+    /* border: dashed rgb(89, 0, 255); */
+    display: none;
+    /* flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+     */
+  }
+
+  .cards-info {
+    display: none;
+  }
+}
+
+@keyframes show-hero {
+  from {
+    opacity: 0;
+    /* transform: scale(1.40); */
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* // marque */
+.marquee-container {
+  width: 100%;
+  text-align: start;
+  position: relative;
+}
+
+.marquee {
+  font-size: 14px;
+  color: #ff4500; /* Color llamativo */
+  font-weight: bold;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  animation: showHide 9s infinite;
+}
+
+#item2 {
+  animation-delay: 3s; /* Muestra el segundo después de 3s */
+}
+
+#item3 {
+  animation-delay: 6s; /* Muestra el tercero después de 6s */
+}
+
+@keyframes showHide {
+  0% {
+    opacity: 0;
+  }
+  10%,
+  30% {
+    opacity: 1;
+  }
+  40%,
+  100% {
+    opacity: 0;
+  }
+}

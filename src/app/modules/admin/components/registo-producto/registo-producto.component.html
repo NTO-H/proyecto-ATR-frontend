@@ -1,0 +1,97 @@
+<form class="form-container"  enctype="multipart/form-data"  [formGroup]="productoForm">
+    <h2>Agregar vestido</h2>
+  
+    <div class="image-section">
+      <!-- Imagen principal -->
+      <div class="img-principal">
+        <label for="imagenPrincipalInput" class="upload-button">
+          {{ productoForm.get("imagenPrincipal")?.value ? "Cambiar" : "Cargar" }} imagen
+        </label>
+        <div *ngIf="productoForm.get('imagenPrincipal')?.value" class="main-image">
+          <img
+            *ngIf="productoForm.get('imagenPrincipal')?.value"
+            [src]="productoForm.get('imagenPrincipal')?.value"
+            alt="Imagen principal"
+          />
+        </div>
+        <!-- formControlName="imagenPrincipal" -->
+        <input
+          id="imagenPrincipalInput"
+          type="file"accept="image/*"
+          (change)="onFileSelected($event)"
+          hidden
+          />
+          <!-- (change)="onImagePrincipalChange($event)" -->
+      </div>
+  
+      <!-- Sección para las imágenes adicionales -->
+      <div class="otrasImagenes" formArrayName="otrasImagenes">
+        <div *ngFor="let imagen of otrasImagenes.controls; let i = index" class="additional-images">
+          <div>
+            <img *ngIf="imagen.value" [src]="imagen.value" alt="Imagen adicional {{i + 1}}" />
+          </div>
+          <label [for]="'otrasImagenesInput' + i" class="upload-button">
+            {{ imagen.value ? 'Cambiar' : 'Cargar' }} imagen adicional
+          </label>
+          <input accept="image/*" [id]="'otrasImagenesInput' + i" type="file" (change)="otrasImagenesChange($event, i)" hidden />
+        </div>
+      </div>
+  
+      <!-- Botón para agregar más imágenes -->
+      <button type="button" (click)="agregarImagen()">Agregar más imágenes</button>
+    </div>
+  
+    <!-- Otros campos del formulario -->
+    <div>
+      <input type="text" placeholder="Nombre del vestido" formControlName="nombre" />
+      <input type="text" placeholder="Talla" formControlName="talla" />
+      <input type="text" placeholder="Medida" formControlName="medida" />
+    </div>
+  
+    <div class="select-section">
+      <div>
+        <label>Seleccionar color</label>
+        <select formControlName="color">
+          <option>azul</option>
+          <option>rojo</option>
+          <option>verde</option>
+          <!-- Agrega más colores si es necesario -->
+        </select>
+      </div>
+      <div>
+        <label>Categoría</label>
+        <select formControlName="categoria">
+          <option>Ropa</option>
+          <option>Accesorios</option>
+          <option>Calzado</option>
+          <option>Otro</option>
+        </select>
+      </div>
+    </div>
+  
+    <!-- Campos adicionales -->
+    <div>
+      <input type="text" placeholder="Textura (opcional)" formControlName="textura" />
+      <input type="number" placeholder="Ingrese el precio" formControlName="precio" />
+      <textarea placeholder="Agrega la descripción" formControlName="descripcion"></textarea>
+    </div>
+  
+    <!-- Opciones adicionales -->
+    <div>
+      <label>Disponible:</label>
+      <input type="checkbox" formControlName="disponible" />
+      <label>Tipo de Venta:</label>
+      <select formControlName="tipoVenta">
+        <option>Venta</option>
+        <option>Renta</option>
+      </select>
+      <label>Estado del producto:</label>
+      <select formControlName="nuevo">
+        <option [value]="true">Nuevo</option>
+        <option [value]="false">Usado</option>
+      </select>
+    </div>
+  
+    <button class="submit-btn" (click)="onAgregarProducto()">Agregar Producto</button>
+  </form>
+  

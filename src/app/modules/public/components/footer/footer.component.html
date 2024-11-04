@@ -1,0 +1,71 @@
+
+<footer *ngIf="!isMobile"  class="app-footer">
+  <div class="footer-section">
+    <div class="footer-column">
+      <h3>Contacto</h3>
+      <p>(55) 4757 5597</p>
+      <p><a href="mailto:ventas@yourcompany.com">ventasourcompany.com</a></p>
+      <div class="social-icons">
+        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+      </div>
+      <p>&copy; 2024 Your Company</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Categorías</h3>
+      <ul>
+        <li><a href="#">Básico</a></li>
+        <li><a href="#">Cocktail / Fiesta</a></li>
+        <li><a href="#">Gala</a></li>
+        <li><a href="#">Graduación</a></li>
+        <li><a href="#">Novias & Damas de honor</a></li>
+        <li><a href="#">Mamás & Madrinas</a></li>
+        <li><a href="#">Curvy</a></li>
+        <li><a href="#">Exclusivo Online</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Información</h3>
+      <ul>
+        <li><a href="#">Agenda tu cita</a></li>
+        <li><a href="#">Acerca de nosotros</a></li>
+        <li><a href="#">Guía de tallas</a></li>
+        <li><a href="#">Boutiques</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Bolsa de trabajo</a></li>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Aviso de privacidad</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Mi Cuenta</h3>
+      <ul>
+        <li><a href="#">Mis órdenes</a></li>
+        <li><a href="#">Mis direcciones</a></li>
+        <li><a href="#">Detalles de cuenta</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="payment-icons">
+    <!-- <img src="path-to-visa-icon" alt="Visa"> -->
+    <!-- <img src="path-to-mastercard-icon" alt="MasterCard"> -->
+    <!-- <img src="path-to-amex-icon" alt="American Express"> -->
+  </div>
+</footer>
+<nav class="custom-tab-nav" *ngIf="isMobile">
+  <div 
+    *ngFor="let item of menuItems" 
+    class="nav-item" 
+    [class.active]="item === activeItem" 
+    (click)="onTabClick(item)"
+  >
+    <i [class]="item.icon"></i>
+    <span>{{ item.label }}</span>
+  </div>
+</nav>

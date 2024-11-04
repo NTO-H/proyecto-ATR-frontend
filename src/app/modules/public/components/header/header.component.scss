@@ -1,0 +1,340 @@
+nav {
+  padding: 0 50px;
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-one {
+  background-color: none;
+  color: #495464;
+  height: 40px;
+
+  // .social-icon {
+  // margin-left: 10px;
+  // font-size: 25px;
+  // transition: transform 0.3s ease;
+
+  // &:hover {
+  //   transform: scale(1.2);
+  // }
+  .right > div {
+    cursor: pointer;
+    // border: dashed red;
+    &.facebook {
+      color: #3b5998;
+    }
+
+    &.twitter {
+      color: #1da1f2;
+    }
+
+    &.instagram {
+      color: #e1306c;
+    }
+  }
+}
+
+header.app-header {
+  // border-radius: 5px;
+  background-color:white;
+  // background-color: #f8f5f2;
+  // background-color: #f8f5f2;
+  // border: 1px solid #ebe3db;
+  // box-shadow: 0 4px 8px #fff9f39a;
+  width: 100%;
+}
+
+.left > div + div {
+  margin-left: 40px;
+}
+.right > div {
+  margin-left: 40px;
+}
+
+.left > div:hover,
+.right > div:hover {
+  color: #000;
+  transition: all 0.5s;
+}
+span {
+  margin-left: 5px;
+}
+/* Hacemos que la segunda barra sea sticky */
+.navbar-second {
+  display: flex;
+  justify-content: left;
+  // border: dashed red;
+  border-bottom: 1px solid #ebe3db;
+  box-shadow:0px 0px 10px 10px rgba(255, 251, 246, 0.429);
+
+  background-color: white;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.custom-header {
+  justify-content: center;
+  display: flex;
+}
+.logo {
+  text-transform: uppercase;
+  font-size: 24px;
+}
+li {
+  list-style: none;
+}
+
+.logo1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  transition: all 0.3s ease; /* Transición suave */
+  margin-left: 20px;
+  &::before {
+    content: "ATELIER";
+  }
+}
+
+p-sidebar {
+  .menu-content {
+    padding: 20px;
+
+    ul {
+      list-style: none; /* Elimina los puntos de la lista */
+      padding: 0;
+
+      li {
+        margin-bottom: 30px;
+
+        a {
+          text-decoration: none;
+          font-size: 14px;
+          color: #334256;
+          display: flex;
+          align-items: center;
+
+          i {
+            // -webkit-text-stroke: 1px rgb(255, 173, 115);
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.sticky {
+  background-color: #ffffff9e;
+  backdrop-filter: blur(2px);
+  border: solid 1px #f6f2ef;
+  .logo > .logo1 {
+    background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 500%;
+    margin: 0;
+    &::before {
+      content: "";
+    }
+  }
+
+  .zoom {
+    transform: scale(2);
+  }
+}
+:host ::ng-deep .content-all {
+  padding-top: 40px;
+}
+.nav-menu {
+  display: flex;
+  padding: 0 2px;
+}
+.nav-menu li {
+  margin-left: 30px;
+  margin-right: 30px;
+  a {
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    color: #495464;
+    cursor: pointer;
+    &:hover {
+      color: fuchsia;
+      backdrop-filter: blur(10px);
+    }
+  }
+}
+
+.nav-accion {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.nav-accion li {
+  color: #495464;
+  transition: transform 0.3s ease;
+
+  cursor: pointer;
+  margin-right: 30px;
+  // &:hover i {
+  //   color: #007bff;
+  //   transform: scale(1.2);
+  // }
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  background: #ffffff;
+  box-shadow: 0 2px 5px #ebe3db7a;
+  transition: background-color 0.5s ease;
+}
+.nav-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.muestra-opciones-user {
+  position: fixed;
+  top: 100px; /* Valor predeterminado sin scroll */
+  left: auto;
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+  width: max-content;
+}
+
+/* Cambia el top a 60px cuando haya scroll */
+.app-header.scrolled .muestra-opciones-user {
+  top: 60px;
+}
+
+.muestra-opciones-user li {
+  padding: 5px;
+  margin: 0;
+  margin-bottom: 2px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.3em;
+  i {
+    margin-left: 5px;
+    margin-right: 10px;
+    &:hover {
+      color: none;
+    }
+  }
+}
+
+.muestra-opciones-user li:hover {
+  background-color: #ffe6ea;
+i{
+   color: none; 
+   transform:none;
+}
+}
+
+@media only screen and (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+  .left > div + div {
+    display: flex;
+  }
+  .navbar-one {
+    padding: 0 25px;
+    margin-left: 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+  nav {
+    padding: 0 0px;
+    width: 100%;
+  }
+  .sticky {
+    .logo > .logo1 {
+      background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 500%;
+      margin-left: 5px;
+      &::before {
+        content: "";
+      }
+    }
+  }
+  .logo1 {
+    margin-left: 10px;
+    &::before {
+      content: "ATELIER";
+    }
+  }
+  .navbar-second {
+    padding: 0 0px;
+    margin-left: 0px;
+    display: flex;
+    padding-right: 10px;
+    justify-content: space-between;
+
+    .nav-accion {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin-left: 0px;
+      margin-right: 0px;
+      gap: 10px;
+      li {
+        display: inline-block;
+        margin-right: 0px;
+        i {
+          font-size: 18px;
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
+
+.ui.menu .browse.item {
+  cursor: pointer;
+}
+
+.ui.popup.transition.hidden {
+  display: none;
+}
+
+.ui.popup.transition {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+}
+// !mejorar el diseño del input de busqueda
+// .ui.input {
+  // font-size: 1em;
+  // width: 202%;
+  // border: dashed;
+// }

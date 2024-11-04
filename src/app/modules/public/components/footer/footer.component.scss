@@ -1,0 +1,278 @@
+/* archivo .scss del componente */
+
+.custom-tab-nav {
+  outline: none;
+  user-select: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white; // Fondo de la barra
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); // Sombra en la parte superior
+  border-radius: 15px 15px 0 0;
+  z-index: 1000;
+}
+
+.nav-item {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  outline: none;
+  user-select: none;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.nav-item i {
+  font-size: 1rem;
+  // margin-bottom: 0.25rem;
+}
+
+.nav-item.active {
+  color: #e91e63; // Color del ítem activo
+  background-color: #ffe6ea; // Fondo del ítem activo
+  border-radius: 10px;
+}
+
+.nav-item:hover {
+  color: #e91e63;
+}
+
+// .social-header {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   /* border: dashed blue; */
+//   padding-top: 5px;
+//   margin-bottom: -20px;
+//   margin-right: 20px;
+//   .contacto {
+//     margin-left: 15px;
+//     gap: 15px;
+//     display: flex;
+//     flex-direction: row;
+//     /* border: dashed greenyellow; */
+//     p {
+//       cursor: pointer;
+
+//       font-size: 1.5rem;
+//       &:hover {
+//         color: #1da1f2;
+//         background-color: #e7e7e7;
+//       }
+//     }
+//   }
+//   .redes {
+//     /* border: dashed red; */
+//     /* padding: 5px; */
+//     /* background-color: #333; */
+//     display: flex;
+//     justify-content: flex-end;
+//     /* z-index: 1; */
+
+
+i.fa-facebook {
+  color: #3b5998; /* Color específico de Facebook */
+}
+
+i.fa-instagram {
+  color: #e1306c; /* Color específico de Instagram */
+}
+
+i.fa-pinterest {
+  color: #bd081c; /* Color específico de Pinterest */
+}
+
+i.fa-tiktok {
+  color: #010101; /* Color oscuro para TikTok */
+}
+// }
+// }
+.app-footer {
+  //  background: radial-gradient(at 76.98204961013006% 69.96727250214853%, hsla(28.62385321100918, 87.20000000000002%, 75.49019607843137%, 1) 0%, hsla(28.62385321100918, 87.20000000000002%, 75.49019607843137%, 0) 100%), radial-gradient(at 15.361738265236191% 47.69000202931104%, hsla(351.2195121951219, 100%, 83.92156862745098%, 1) 0%, hsla(351.2195121951219, 100%, 83.92156862745098%, 0) 100%), radial-gradient(at 97.02836692741734% 8.463689944319208%, hsla(281.37931034482756, 61.702127659574494%, 81.56862745098039%, 1) 0%, hsla(281.37931034482756, 61.702127659574494%, 81.56862745098039%, 0) 100%), radial-gradient(at 96.5873224677975% 37.340186277048645%, hsla(208.6238532110092, 87.20000000000002%, 75.49019607843137%, 1) 0%, hsla(208.6238532110092, 87.20000000000002%, 75.49019607843137%, 0) 100%), radial-gradient(at 29.321758028179225% 80.15321966165854%, hsla(28.62385321100918, 87.20000000000002%, 75.49019607843137%, 1) 0%, hsla(28.62385321100918, 87.20000000000002%, 75.49019607843137%, 0) 100%), radial-gradient(at 39.7834408542344% 30.16023891284778%, hsla(351.2195121951219, 100%, 83.92156862745098%, 1) 0%, hsla(351.2195121951219, 100%, 83.92156862745098%, 0) 100%), radial-gradient(at 32.550135465737704% 66.37909989391385%, hsla(281.37931034482756, 61.702127659574494%, 81.56862745098039%, 1) 0%, hsla(281.37931034482756, 61.702127659574494%, 81.56862745098039%, 0) 100%), radial-gradient(at 70.25455625765214% 30.1510420707255%, hsla(208.6238532110092, 87.20000000000002%, 75.49019607843137%, 1) 0%, hsla(208.6238532110092, 87.20000000000002%, 75.49019607843137%, 0) 100%), radial-gradient(at 37.365327958189695% 54.39750042642255%, hsla(28.62385321100918, 87.20000000000002%, 75.49019607843137%, 1) 0%, hsla(28.62385321100918, 87.20000000000002%, 75.49019607843137%, 0) 100%), radial-gradient(at 23.736868296533654% 9.334914353131651%, hsla(351.2195121951219, 100%, 83.92156862745098%, 1) 0%, hsla(351.2195121951219, 100%, 83.92156862745098%, 0) 100%), radial-gradient(at 12.309541228894961% 15.877973852663562%, hsla(281.37931034482756, 61.702127659574494%, 81.56862745098039%, 1) 0%, hsla(281.37931034482756, 61.702127659574494%, 81.56862745098039%, 0) 100%);
+  //  background: radial-gradient(at 16.252982482386734% 10.93177869805797%, hsla(330.2857142857143, 85.36585365853661%, 75.88235294117646%, 1) 0%, hsla(330.2857142857143, 85.36585365853661%, 75.88235294117646%, 0) 100%), radial-gradient(at 56.92105163522203% 97.92446254867859%, hsla(40.15748031496063, 100%, 75.09803921568627%, 1) 0%, hsla(40.15748031496063, 100%, 75.09803921568627%, 0) 100%), radial-gradient(at 36.416905959788835% 98.33182778827153%, hsla(100.46511627906976, 87.75510204081634%, 80.7843137254902%, 1) 0%, hsla(100.46511627906976, 87.75510204081634%, 80.7843137254902%, 0) 100%), radial-gradient(at 32.50351332466028% 78.842064370015%, hsla(179.2173913043478, 100%, 45.09803921568628%, 1) 0%, hsla(179.2173913043478, 100%, 45.09803921568628%, 0) 100%), radial-gradient(at 5.383860429247989% 99.63506233314644%, hsla(240.57142857142856, 85.36585365853661%, 75.88235294117646%, 1) 0%, hsla(240.57142857142856, 85.36585365853661%, 75.88235294117646%, 0) 100%), radial-gradient(at 12.457495253304218% 16.5868811391654%, hsla(330.2857142857143, 85.36585365853661%, 75.88235294117646%, 1) 0%, hsla(330.2857142857143, 85.36585365853661%, 75.88235294117646%, 0) 100%), radial-gradient(at 86.87795453153203% 27.577771633899097%, hsla(40.15748031496063, 100%, 75.09803921568627%, 1) 0%, hsla(40.15748031496063, 100%, 75.09803921568627%, 0) 100%), radial-gradient(at 82.76920765631898% 21.1764622101394%, hsla(100.46511627906976, 87.75510204081634%, 80.7843137254902%, 1) 0%, hsla(100.46511627906976, 87.75510204081634%, 80.7843137254902%, 0) 100%), radial-gradient(at 0.39066882752134546% 10.664317978047944%, hsla(179.2173913043478, 100%, 45.09803921568628%, 1) 0%, hsla(179.2173913043478, 100%, 45.09803921568628%, 0) 100%), radial-gradient(at 54.61793782956536% 4.646348644659537%, hsla(240.57142857142856, 85.36585365853661%, 75.88235294117646%, 1) 0%, hsla(240.57142857142856, 85.36585365853661%, 75.88235294117646%, 0) 100%), radial-gradient(at 67.10746677064374% 74.10666740137964%, hsla(330.2857142857143, 85.36585365853661%, 75.88235294117646%, 1) 0%, hsla(330.2857142857143, 85.36585365853661%, 75.88235294117646%, 0) 100%), radial-gradient(at 96.77123539683332% 84.13359581745974%, hsla(40.15748031496063, 100%, 75.09803921568627%, 1) 0%, hsla(40.15748031496063, 100%, 75.09803921568627%, 0) 100%);
+  // background: radial-gradient(at 81.40795099451961% 34.43501327367089%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 48.06381750927091% 45.947074059817304%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 30.03899313537397% 99.74021690752477%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 61.85805230913361% 55.10418152840191%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 18.811715763739034% 89.72699178507717%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 78.86525725709876% 13.707684429118716%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 36.922690557764916% 93.08166539373516%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 84.71330269348695% 69.77151099736993%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 62.848134612084564% 51.478511322612206%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 55.2733875615943% 32.28522284199571%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 37.91161707274171% 59.913039873834826%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%), radial-gradient(at 4.566024511890432% 32.96314755742178%, hsla(0, 100%, 50%, 1) 0%, hsla(0, 100%, 50%, 0) 100%);
+  // background: radial-gradient(at 30.722546028123297% 51.86508881314798%, hsla(334.8, 75.7575757575758%, 87.05882352941177%, 1) 0%, hsla(334.8, 75.7575757575758%, 87.05882352941177%, 0) 100%), radial-gradient(at 46.769670595928446% 99.9803033119782%, hsla(344.84210526315786, 41.484716157205256%, 55.09803921568628%, 1) 0%, hsla(344.84210526315786, 41.484716157205256%, 55.09803921568628%, 0) 100%), radial-gradient(at 13.816955639222117% 61.792625625675335%, hsla(44.54545454545455, 100%, 87.05882352941177%, 1) 0%, hsla(44.54545454545455, 100%, 87.05882352941177%, 0) 100%), radial-gradient(at 90.9926966215686% 15.408950164423295%, hsla(334.8, 75.7575757575758%, 87.05882352941177%, 1) 0%, hsla(334.8, 75.7575757575758%, 87.05882352941177%, 0) 100%), radial-gradient(at 0.5112792902285612% 72.66049529798045%, hsla(344.84210526315786, 41.484716157205256%, 55.09803921568628%, 1) 0%, hsla(344.84210526315786, 41.484716157205256%, 55.09803921568628%, 0) 100%), radial-gradient(at 10.978945513378102% 98.57191420301481%, hsla(44.54545454545455, 100%, 87.05882352941177%, 1) 0%, hsla(44.54545454545455, 100%, 87.05882352941177%, 0) 100%), radial-gradient(at 7.156189462677531% 63.75316105006905%, hsla(334.8, 75.7575757575758%, 87.05882352941177%, 1) 0%, hsla(334.8, 75.7575757575758%, 87.05882352941177%, 0) 100%), radial-gradient(at 30.31205666674406% 89.21146818928034%, hsla(344.84210526315786, 41.484716157205256%, 55.09803921568628%, 1) 0%, hsla(344.84210526315786, 41.484716157205256%, 55.09803921568628%, 0) 100%);
+  //
+  // color: #334256;
+
+  // background-color: #333b43;
+  // color: white;
+  color: #333b43;
+  background-color: #f0ebe5;
+  padding: 20px;
+  text-align: center;
+
+  .footer-section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+
+    .footer-column {
+      width: 20%;
+      text-align: left;
+
+      h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        font-weight: 400px;
+        text-transform: uppercase;
+        color: #333b43;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin: 10px 0;
+
+          a {
+        color: #41464e;
+            text-decoration: none;
+            transition: color 0.3s ease;
+
+            &:hover {
+              text-decoration: revert-layer;
+              color: #7b7b8b;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .social-icons {
+    display: flex;
+    // justify-content: center;
+    margin: 10px 0;
+
+    a {
+      color: #fff;
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+
+      &:hover {
+      
+        color: #ddd;
+      }
+    }
+  }
+
+  .payment-icons {
+    img {
+      margin: 0 10px;
+      width: 40px;
+    }
+  }
+}
+
+.scrolled {
+  background-color: #ffffffaf;
+  backdrop-filter: blur(1px);
+  box-shadow: 0 2px 2px rgba(228, 228, 228, 0.864);
+  .nav-bar {
+    .logo {
+      background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1726496561/images-AR/n7cjxwmizj0ath7oegjq.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 500%;
+      /* border: dashed; */
+      transition: transform 1.5s ease; /* Add transition for zoom effect */
+      margin: 0;
+      /* Hide text when logo is visible */
+      /* color: transparent; */
+
+      /* Remove text when class is applied */
+      &::before {
+        content: "";
+      }
+
+      /* Target the image inside the logo for zoom effect */
+    }
+
+    /* Apply zoom effect to the image inside the logo */
+    .zoom {
+      transform: scale(2);
+    }
+  }
+}
+
+/* Estilo general para el botón */
+.menu-button {
+  background-color: #007bff; /* Color de fondo azul */
+  color: white; /* Color del texto blanco */
+  border: none; /* Sin borde */
+  padding: 10px 16px; /* Espaciado interno */
+  font-size: 18px; /* Tamaño de fuente */
+  cursor: pointer; /* Cursor de mano al pasar por encima */
+  display: inline-flex; /* Para centrar el ícono */
+  align-items: center; /* Alinear verticalmente ícono y texto */
+  border-radius: 4px; /* Bordes redondeados */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar el color */
+}
+
+/* Estilo para el ícono de Font Awesome */
+.menu-button i {
+  margin-right: 8px; /* Espaciado entre el ícono y el texto */
+  font-size: 24px; /* Tamaño del ícono */
+}
+
+/* Estilo al pasar el mouse sobre el botón */
+.menu-button:hover {
+  background-color: #0056b3; /* Color de fondo más oscuro en hover */
+}
+
+/* Estilo al hacer clic */
+.menu-button:active {
+  background-color: #003d80; /* Aún más oscuro cuando se hace clic */
+  transform: scale(0.98); /* Ligeramente más pequeño al hacer clic */
+}
+
+/* Estilo para enfoque (accesibilidad) */
+.menu-button:focus {
+  outline: none; /* Quitar borde de enfoque por defecto */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Añadir sombra para indicar el enfoque */
+}
+
+.p-component-overlay {
+  background-color: transparent;
+  transition-duration: 0.2s;
+}
+/* Media queries */
+
+/* Para pantallas pequeñas, como móviles */
+@media only screen and (max-width: 768px) {
+  .scrolled {
+    /* background-color: #ffffffaf; */
+    /* backdrop-filter: blur(1px); */
+    box-shadow: none;
+  }
+  footer {
+    display: none;
+  }
+
+  /* Estilos para pantallas más pequeñas van aquí */
+}
+
+/* Para pantallas medianas, como tabletas */
+@media only screen and (max-width: 1024px) {
+  /* Estilos para pantallas medianas van aquí */
+}
+
+/* Para pantallas muy pequeñas, como móviles más compactos */
+@media only screen and (max-width: 480px) {
+  /* Estilos para pantallas muy pequeñas van aquí */
+}

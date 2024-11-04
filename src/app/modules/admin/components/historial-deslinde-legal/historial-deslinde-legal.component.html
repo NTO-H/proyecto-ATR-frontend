@@ -1,0 +1,40 @@
+<div *ngIf="isLoading" class="loading-message">
+  Cargando historial del deslinde legal...
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="historialDeslindeLegal.length > 0">
+  <h2>Historial de Deslinde Legal</h2>
+  <table class="politicas-table">
+    <thead>
+      <tr>
+        <th>Versión</th>
+        <th>Título</th>
+        <th>Contenido</th>
+        <th>Fecha de Creación</th>
+        <th>Fecha de Vigencia</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let deslinde of historialDeslindeLegal">
+        <td>{{ deslinde.version }}</td>
+        <td>{{ deslinde.titulo }}</td>
+        <td>{{ deslinde.contenido }}</td>
+        <td>{{ deslinde.fechaCreacion | date : "short" }}</td>
+        <td>{{ deslinde.fechaVigencia | date : "short" }}</td>
+        <td>{{ deslinde.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div
+  *ngIf="historialDeslindeLegal.length === 0 && !isLoading"
+  class="no-historial"
+>
+  <p>No hay historial disponible para este deslinde legal.</p>
+</div>

@@ -1,0 +1,147 @@
+.ajustes-generales-form {
+  width: 100%;
+  // max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    // text-align: center;
+    color: #333;
+  }
+
+  .table {
+    display: table;
+    width: 100%;
+
+    .table-row {
+      display: table-row;
+
+      .table-cell {
+        display: table-cell;
+        padding: 10px;
+        vertical-align: top;
+
+        label {
+          font-size: 0.9em;
+          color: #333;
+          margin-bottom: 5px;
+          display: block;
+        }
+
+        .form-control {
+          width: 100%;
+          padding: 10px;
+          font-size: 0.9rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          transition: border-color 0.3s ease;
+
+          &:focus {
+            border-color: #007bff;
+            outline: none;
+          }
+        }
+
+        .logo-container {
+          margin-top: 10px;
+
+          .logo-preview {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+          }
+        }
+
+        .redes-sociales-container {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .red-social {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .form-control {
+              flex: 1;
+            }
+
+            .btn.eliminar {
+              padding: 5px 10px;
+              background-color: #dc3545;
+              color: #fff;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 0.8rem;
+
+              &:hover {
+                background-color: #c82333;
+              }
+            }
+          }
+        }
+
+        .error-message {
+          margin-top: 5px;
+          font-size: 0.8rem;
+          color: #dc3545;
+
+          span {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .form-actions {
+    margin-top: 20px;
+    text-align: center;
+
+    .btn.guardar {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: #218838;
+      }
+    }
+
+    .btn.agregar {
+      padding: 5px 15px;
+      font-size: 0.9rem;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+
+      &:hover {
+        background-color: #0069d9;
+      }
+    }
+  }
+}
+
+.form-group-container {
+  display: flex;
+  gap:20px;
+  flex-direction: row;
+}

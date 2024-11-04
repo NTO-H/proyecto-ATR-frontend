@@ -1,0 +1,45 @@
+<p-toast></p-toast>
+<!-- <pre>{{allProducts|json}}</pre> -->
+<section>
+  <h2>Lista de Productos</h2>
+  <p-table #dt [value]="allProducts" selectionMode="single" dataKey="_id" [rows]="rows" [totalRecords]="totalRecords"
+    [first]="first" (onPageChange)="onPageChange($event)">
+    <ng-template pTemplate="caption">
+      <span class="p-input-icon-left">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <!-- <i class="pi pi-search"></i> -->
+        <input pInputText style="width: 150%; padding-left: 20%;" type="text" (input)="onGlobalFilter($event)" placeholder="Buscar producto..."
+          [(ngModel)]="filterText" />
+      </span>
+      <!-- <button (click)="openNewProductDialog()" class="custom-btn add-button"> -->
+        <!-- <i class="pi pi-plus"></i> Nuevo Producto -->
+      <!-- </button> -->
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Imagen</th>
+        <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+        <th pSortableColumn="categoria">Categoría <p-sortIcon field="categoria"></p-sortIcon></th>
+        <th pSortableColumn="precio">Precio <p-sortIcon field="precio"></p-sortIcon></th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>
+            <img [src]="product.imagenPrincipal" alt="Imagen del producto" class="product-image" />
+          </td>
+        <td>{{ product.nombre }}</td>
+        <td>{{ product.categoria }}</td>
+        <td>{{ product.precio | currency }}</td>
+        <td>
+          <button (click)="editProduct(product)" class="custom-btn custom-btn-primary">Editar</button>
+          <button (click)="deleteProduct(product._id)" class="custom-btn custom-btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

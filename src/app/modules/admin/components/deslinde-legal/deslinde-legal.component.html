@@ -1,0 +1,34 @@
+<p class="header-text">¡Registro de Deslinde Legal!</p>
+<div class="form-container">
+  <h2 class="form-title">Registrar Nuevo Deslinde Legal</h2>
+  <form #formDeslinde="ngForm" (ngSubmit)="onSubmit(formDeslinde)">
+    <div>
+      <label>Título:</label>
+      <input
+        type="text"
+        name="titulo"
+        [(ngModel)]="nuevoDeslindeLegal.titulo"
+        required
+      />
+    </div>
+    <div>
+      <label>Contenido:</label>
+      <textarea
+        name="contenido"
+        [(ngModel)]="nuevoDeslindeLegal.contenido"
+        required
+      ></textarea>
+    </div>
+    <div>
+      <label>Fecha de Vigencia:</label>
+      <input
+        type="date"
+        name="fechaVigencia"
+        [(ngModel)]="nuevoDeslindeLegal.fechaVigencia"
+        required
+      />
+    </div>
+    <button type="submit">Registrar Deslinde Legal</button>
+  </form>
+  
+</div>

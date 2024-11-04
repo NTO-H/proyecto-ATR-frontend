@@ -1,0 +1,63 @@
+<p class="header-text">¡Registro de Política!</p>
+<div class="form-container">
+  <h2 class="form-title">Registrar Nueva Política</h2>
+  <form (ngSubmit)="onSubmit()" #politicaForm="ngForm">
+    <!-- Campo para el Título -->
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input
+        type="text"
+        id="titulo"
+        name="titulo"
+        [(ngModel)]="nuevaPolitica.titulo"
+        required
+        #tituloInput="ngModel"
+        placeholder="Ingresa el título de la política"
+        class="form-control"
+      />
+      <div *ngIf="tituloInput.invalid && tituloInput.touched" class="error">
+        El título es requerido.
+      </div>
+    </div>
+
+    <!-- Campo para el Contenido -->
+    <div class="form-group">
+      <label for="contenido">Contenido</label>
+      <textarea
+        id="contenido"
+        name="contenido"
+        [(ngModel)]="nuevaPolitica.contenido"
+        required
+        #contenidoInput="ngModel"
+        placeholder="Ingresa el contenido de la política"
+        class="form-control textarea-control"
+        rows="5"
+      ></textarea>
+      <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
+        El contenido es requerido.
+      </div>
+    </div>
+
+    <!-- Campo para la Vigencia -->
+    <div class="form-group">
+      <label for="fechaVigencia">Vigencia</label>
+      <input
+        type="date"
+        id="fechaVigencia"
+        name="fechaVigencia"
+        [(ngModel)]="nuevaPolitica.fechaVigencia"
+        required
+        #vigenciaInput="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
+        La vigencia es requerida.
+      </div>
+    </div>
+
+    <!-- Botón de Enviar -->
+    <button type="submit" class="btn btn-primary" [disabled]="politicaForm.invalid">
+      Registrar Política
+    </button>
+  </form>
+</div>

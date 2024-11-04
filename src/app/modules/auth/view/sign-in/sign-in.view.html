@@ -1,0 +1,75 @@
+<div class="container-form">
+ 
+  <div class="back-button">
+    <a routerLink="/public/home" class="go-back">
+      <i class="fas fa-chevron-left"></i> Ir atrás
+    </a>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
+    <label for="usuario" class="">Correo electronico</label>
+    <input
+      pInputText
+      type="text"
+      placeholder="Introduce tu correo electrónico"
+      formControlName="email"
+      id="usuario"
+      required
+      [disabled]="isLocked"
+    />
+
+    <label for="pass" class="">Contraseña</label>
+    <input
+      pInputText
+      type="password"
+      placeholder="Introduce tu contraseña"
+      formControlName="password"
+      id="pass"
+      required
+      [disabled]="isLocked"
+    />
+
+    <!-- CAPTCHA: Solo se muestra cuando se ha intentado iniciar sesión -->
+
+
+    <!-- <div *ngIf="showCaptcha" class="captcha-container">
+      <h3>Por favor ingresa el CAPTCHA para continuar</h3>
+      <p class="captcha-text">{{ captchaText }}</p>
+      <input
+        type="text"
+        placeholder="Ingresa el texto del captcha"
+        formControlName="captchaInput"
+        class="captcha-input"
+        required
+      />
+      <button type="button" (click)="generateCaptcha()">
+        Generar nuevo CAPTCHA
+      </button>
+    </div> -->
+
+    <!-- Botón para iniciar sesión -->
+    <p-button
+      iconPos="right"
+      label="Iniciar Sesión"
+      type="submit"
+      [disabled]="loading || isLocked"
+    >
+    </p-button>
+
+    <!-- Mostrar mensaje de bloqueo si está bloqueado -->
+    <div *ngIf="isLocked" class="lock-message">
+      Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en {{
+      remainingTime }} segundos.
+    </div>
+
+    <!-- Opciones adicionales -->
+    <div class="options" [class.disabled]="isLocked">
+      <a (click)="redirectTo('forgot-password')" class="forgot-password"
+        >Olvidé mi contraseña</a
+      >
+      <a routerLink="/auth/Sign-up" class="create-account"
+        >Crear una cuenta nueva</a
+      >
+    </div>
+  </form>
+</div>
