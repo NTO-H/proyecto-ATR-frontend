@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:my-pwa": "node dist/my-pwa/server/server.mjs"  },
+    "serve:ssr:my-pwa": "node dist/my-pwa/server/server.mjs"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.2.0",
@@ -24,7 +25,9 @@
     "@auth0/angular-jwt": "^5.2.0",
     "aos": "^2.3.4",
     "express": "^4.18.2",
+    "frontend": "file:",
     "libphonenumber-js": "^1.11.12",
+    "my-pwa": "file:",
     "ngx-cookie-service": "^18.0.0",
     "ngx-toastr": "^19.0.0",
     "ngx-ui-loader": "^1.1.5",
@@ -35,7 +38,6 @@
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.14.3",
     "toastr": "^2.1.4",
-    "frontend": "file:",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
