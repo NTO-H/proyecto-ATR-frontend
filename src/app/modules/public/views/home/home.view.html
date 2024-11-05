@@ -1,0 +1,139 @@
+
+<div class="box">
+  <div class="hero-img">
+    <div class="text">
+      <img
+        class="imagen-logo"
+        src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png"
+        alt="logo atelier"
+      />
+
+      <h1 class="text-info">Bienvenido a Nuestra Página!</h1>
+      <div class="marquee-container">
+        <div class="marquee" id="item1">🔥 ¡Cómpralo ya! 🔥</div>
+        <div class="marquee" id="item2">¡Elige a tu gusto !✨</div>
+        <div class="marquee" id="item3">🔥 ¡Aprovecha ahora! 🔥</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contiene-all">
+    <div *ngIf="!isMobile" class="sidebar">
+      <div class="filter-section">
+        <h3>Categorías</h3>
+        <ul class="category-list">
+          <!-- <li><strong>MUJER</strong> (96)</li> -->
+          <li><strong>OFERTAS 🔥</strong> (15)</li>
+          <li><strong>NUEVAS LLEGADAS</strong> (150)</li>
+        </ul>
+      </div>
+
+      <!-- Color -->
+      <div class="filter-section">
+        <h3>Color</h3>
+        <div class="color-options">
+          <span class="color black"></span>
+          <span class="color gray"></span>
+          <span class="color pink"></span>
+          <span class="color red"></span>
+          <span class="color green"></span>
+          <span class="color blue"></span>
+          <span class="color yellow"></span>
+          <span class="color purple"></span>
+        </div>
+      </div>
+
+      <!-- Filtro por precio -->
+      <div class="filter-section">
+        <h3>Rango de precios(MXN)</h3>
+        <div class="price-filter">
+          <input type="range" min="10" max="1000" step="10" />
+          <div class="price-values">
+            <span>$10</span>
+            <span>$1000</span>
+          </div>
+          <button class="filter-button">Filtrar</button>
+        </div>
+      </div>
+
+      <!-- Tamaño -->
+      <div class="filter-section">
+        <h3>Tamaño</h3>
+        <div class="size-options">
+          <label><input type="checkbox" /> Todas las tallas</label>
+          <label><input type="checkbox" /> XS</label>
+          <label><input type="checkbox" /> S</label>
+          <label><input type="checkbox" /> M</label>
+          <label><input type="checkbox" /> L</label>
+          <label><input type="checkbox" /> XL</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-productos">
+      <h1 style="text-align: center; color: #333b43">Encuentra tu estilo</h1>
+      <!-- 
+    <div data-aos="zoom-out-up" class="productos-container"> -->
+      <div class="productos-container">
+        <div *ngFor="let producto of productos" class="producto-card p-mb-4">
+          <div class="product-image">
+            <img
+              (click)="verDetalles()"
+              [src]="producto.imagen"
+              alt="{{ producto.nombre }}"
+            />
+            <!-- Etiqueta "Nuevo" -->
+            <span class="nuevo-label">Nuevo</span>
+          </div>
+          <div class="product-content">
+            <p>{{ producto.descripcion }}</p>
+            <p><strong>MX$:</strong> {{ producto.precio | currency }}</p>
+          </div>
+        </div>
+      </div>
+      <p-paginator
+      [showFirstLastIcon]="false"
+        [rows]="rows"
+        [totalRecords]="productos.length"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        styleClass="mt-3"
+        currentPageReportTemplate="Producto {first} a {last} de {totalRecords}"
+      >
+      </p-paginator>
+    </div>
+    <!-- (onPageChange)="cambiarPagina($event)" -->
+  </div>
+</div>
+
+<div class="cards-info">
+  <div class="card">
+    <img
+      src="https://via.placeholder.com/100"
+      alt="Vestidos"
+      class="card-image"
+    />
+    <h2 style="text-align: center">Vestidos</h2>
+    En ATELIER nos aseguramos de que recibas esa prenda que durará un largo
+    tiempo.
+  </div>
+  <div class="card">
+    <img
+      src="https://via.placeholder.com/100"
+      alt="Accesorios"
+      class="card-image"
+    />
+    <h2 style="text-align: center">Accesorios</h2>
+    Nuestro sistema está protegido para que realices tu compra sin
+    preocupaciones, Elige tu método de pago más cómodo.
+  </div>
+  <div class="card">
+    <img
+      src="https://via.placeholder.com/100"
+      alt="Combinaciones"
+      class="card-image"
+    />
+    <h2 style="text-align: center">Combinaciones</h2>
+    Nuestros catálogos siempre están actualizados a la temporada.
+  </div>
+</div>
+<app-tag></app-tag>

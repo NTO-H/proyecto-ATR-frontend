@@ -130,9 +130,9 @@ rows = 7; // Número de elementos por página
     // if (typeof window !== 'undefined') {
     //   this.position = 'bottom-left';
     // }
-    if (isPlatformBrowser(this.platformId)) {
-      AOS.init(); // Inicializa AOS solo si está en el navegador
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   AOS.init(); // Inicializa AOS solo si está en el navegador
+    // }
     this.detectDevice();
     // Asigna items de menú con el tipo correcto
     // this.items = this.isLoggedIn
@@ -212,9 +212,9 @@ rows = 7; // Número de elementos por página
       imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     };
     this.productos.push(nuevoProducto);
-    if (isPlatformBrowser(this.platformId)) {
-      AOS.refresh(); // Refresca AOS solo si está en el navegador
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   AOS.refresh(); // Refresca AOS solo si está en el navegador
+    // }
   }
 
 

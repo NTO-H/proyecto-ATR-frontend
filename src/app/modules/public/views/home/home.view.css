@@ -35,12 +35,8 @@ body {
   animation-name: show-hero;
   display: flex;
   align-items: center;
-  border-left: 1px solid #e6e6e6;
-  border-right: 1px solid #e6e6e6;
-  border-bottom: 1px solid #ebe3db;
-
-  /* box-shadow: 0px 0px 88px 20px rgba(235, 227, 219, 1); */
-
+  border: 1px solid;
+  border-color: #e6e6e6 #e6e6e6 #ebe3db;
   justify-content: center;
   background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg");
   background-size: contain;
@@ -308,7 +304,6 @@ p {
       max-width: 1700px;
       .marquee-container {
         text-align: center;
-
       }
       h1,
       p {
