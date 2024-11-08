@@ -1,5 +1,5 @@
 <div class="container-form">
- 
+
   <div class="back-button">
     <a routerLink="/public/home" class="go-back">
       <i class="fas fa-chevron-left"></i> Ir atrás
@@ -17,7 +17,9 @@
       required
       [disabled]="isLocked"
     />
-
+    <div class="erros" *ngIf="email?.errors?.['invalidEmail'] && email?.touched">
+      El correo electrónico no es válido o termina con un carácter inválido.
+    </div>
     <label for="pass" class="">Contraseña</label>
     <input
       pInputText

@@ -11,6 +11,7 @@ import { ERol } from '../../../../shared/constants/rol.enum';
 import { environment } from '../../../../../environments/environment';
 import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
 import { mensageservice } from '../../../../shared/services/mensage.service';
+import { emailValidator } from '../../../../shared/pipes/validators';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.view.html',
@@ -18,7 +19,7 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class SignInView implements OnInit {
-  maxAttempts = 3; // Número máximo de intentos permitidos
+  maxAttempts = 5; // Número máximo de intentos permitidos
   attempts = 0; // Contador de intentos actuales
   isLocked = false; // Estado para saber si está bloqueado
   lockTime = 30; // Tiempo de bloqueo en segundos
@@ -49,6 +50,9 @@ export class SignInView implements OnInit {
     // this.presionado = true;
     // this.executeVisibleCatcha(token); // Ejecutar la acción que requiera el token visible
   }
+  get email() {
+    return this.loginForm.get('email');
+  }
   constructor(
     private msgs: mensageservice,
     private signInService: SignInService,
@@ -59,7 +63,7 @@ export class SignInView implements OnInit {
     private messageService: MessageService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required,emailValidator()]],
       password: ['', Validators.required],
     });
   }
@@ -69,7 +73,7 @@ export class SignInView implements OnInit {
 
   // ngOnInit(): void {
   // }
-  
+
   // generateCaptcha(): void {
   //   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZadcdefghijklmnopqrstuvwxyz0123456789';
   //   const captchaLength = 6;

@@ -92,7 +92,7 @@ form {
   padding: 30px;
   width: 50%; /* Ajuste del ancho del formulario */
   display: flex;
-  
+
   flex-direction: column;
   // border: 2px solid #ccc;
   border-radius: 10px;
@@ -140,4 +140,7 @@ input {
 button {
   width: 100%;
   margin-top: 10px;
+}
+.erros{
+  color: red;
 }
