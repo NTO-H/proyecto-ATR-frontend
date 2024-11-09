@@ -10,28 +10,45 @@
     <button class="change-photo-btn">Cambiar</button>
   </div>
 
-  <form [formGroup]="form" class="profile-form">
+  <form class="profile-form">
     <div class="form-group-container">
       <div class="form-group">
         <label for="first-name">Nombre(s)</label>
-        <input type="text" id="first-name" formControlName="nombre" />
+        <input type="text" id="first-name" value="{{ data.nombre }}" />
+
       </div>
 
       <div class="form-group">
         <label for="last-name">Apellidos</label>
-        <input type="text" id="last-name" formControlName="apellidos" />
+        <input type="text" id="last-name" value="{{ data.email }}" />
       </div>
       <div class="form-group">
         <label for="last-name">Numero telefonico</label>
-        <input type="text" id="last-name" formControlName="telefono" />
+        <input type="text" id="last-name" value="{{ data.telefono }}" />
       </div>
     </div>
+<!-- 999
+   9
+    
+    <div class="form-group">
+      <label for="website">Sitio web</label>
+      <input
+        type="url"
+        id="website"
+        placeholder="Agrega un enlace e impulsa tráfico a tu sitio"
+      />
+    </div> -->
+
+    <!-- <div class="form-group">
+      <label for="username">Nombre de usuario</label>
+      <input type="text" id="username" value="nicolasantoniod" />
+      <p class="info-text">www.pinterest.com/nicolasantoniod</p>
+    </div> -->
 
     <div class="button-group">
-      <i (click)="logout()" style="cursor: pointer" class="pi pi-sign-out">
-        Cerrar sesión</i
-      >
+      <i (click)="logout()"  style="cursor: pointer;" class="pi pi-sign-out"> Cerrar sesión</i>
 
+<!-- <i (click)="logout()"  class"pi pi-sign-out"> Cerrar sesión </i> -->
       <button type="button" class="reset-btn">Restablecer</button>
       <button type="submit" class="save-btn">Guardar</button>
     </div>

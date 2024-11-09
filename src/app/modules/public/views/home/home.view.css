@@ -18,7 +18,6 @@ body {
   flex-direction: row;
 
   border: 0.5px solid #e6e6e6;
-  /* box-shadow: 0px 0px 5px 9px rgba(235, 227, 219, 1); */
   border-bottom: 4px solid #ebe3db;
   background: #ffffff;
 }
@@ -35,8 +34,9 @@ body {
   animation-name: show-hero;
   display: flex;
   align-items: center;
-  border: 1px solid;
-  border-color: #e6e6e6 #e6e6e6 #ebe3db;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+  border-bottom: 1px solid #ebe3db;
   justify-content: center;
   background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg");
   background-size: contain;
@@ -220,6 +220,9 @@ p {
 }
 
 @media (max-width: 600px) {
+  .IsMobile {
+    visibility: hidden;
+  }
   .productos-container {
     display: flex;
     flex-direction: row;
@@ -227,23 +230,14 @@ p {
     margin-left: 0px;
     margin: 5px;
     gap: 5px;
-    /* gap: 2%; */
     justify-content: space-around;
-
-    /* ali */
     flex-wrap: wrap;
-    /* flex-direction: ; */
-
-    /* display: flex; */
-    /* flex-direction: row; */
   }
   .contiene-all {
     border: none;
     background-color: transparent !important;
   }
   .container-productos {
-    /* border: dashed rgb(0, 140, 255); */
-
     padding: 0;
     margin: 0;
     background: #ffffff;
@@ -256,8 +250,6 @@ p {
     border-radius: 5px;
 
     padding-bottom: 0px;
-    /* border-radius: 20px; */
-    /* border: dashed red; */
     box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
     width: 175px;
     justify-content: space-between;

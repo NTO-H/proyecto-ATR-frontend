@@ -1,103 +1,120 @@
 <!-- <body> -->
-<header class="app-header" [ngClass]="{ scrolled: isScrolled }">
-  <nav  class="nav-one">
-    <nav class="navbar-one flex">
-      <div class="left flex">
-        <div class="email">
-          <i class="fa fa-envelope"></i>
-          <span>infoyourdomain.com</span>
+  <header class="app-header" [ngClass]="{ scrolled: isScrolled }">
+    <nav class="nav-one">
+      <nav class="navbar-one flex">
+        <div class="left flex">
+          <div class="email">
+            <i class="fa fa-envelope"></i>
+          </div>
+          <div class="call">
+            <i class="fa fa-phone-alt"></i>
+          </div>
         </div>
-        <div class="call">
-          <i class="fa fa-phone-alt"></i>
-          <span>+91 (112) 1245789</span>
+        <div class="right flex">
+          <div class="facebook">
+            <i class="fab fa-facebook"></i>
+          </div>
+          <div class="instagram">
+            <i class="fab fa-instagram"></i>
+          </div>
+          <div class="theme">
+            <i class="pi pi-sun"></i>
+          </div>
         </div>
-      </div>
-      <div class="right flex">
-        <div class="twitter">
-          <i class="fab fa-twitter"></i>
-          <span>Twitter</span>
-        </div>
-        <div class="facebook">
-          <i class="fab fa-facebook"></i>
-          <span>Facebook</span>
-        </div>
-        
-        <div class="facebook">
-          <i _ngcontent-ng-c4082883417="" class="fab fa-instagram"></i>
-        </div>
-
-
-        
-      </div>
+      </nav>
     </nav>
-  </nav>
-  <nav class="nav-second">
-    <div class="logo zoom"></div>
-    <ul *ngIf="!isMobile" class="nav-menu">
-      <li><a (click)="redirectTo('home')">Home</a></li>
-      <li>
-        <a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a>
-      </li>
-    </ul>
-    <ul class="nav-accion">
-      <li>
-        <a href="#" class="nav-icon"><i class="pi pi-search"></i></a>
-      </li>
-      <li>
-        <a href="#" class="nav-icon">    <i class="pi pi-shopping-cart"></i></a>
-      </li>
-      <li *ngIf="!isMobile">
-        <a tabindex="0" class="nav-icon" (click)="menu.toggle($event)">
-          <i class="fa-regular fa-user"></i>
-        </a>
-        <p-menu #menu [model]="items" [popup]="true"></p-menu>
-      </li>
-      <li *ngIf="isMobile">
-        <a tabindex="0" (click)="showDialog()" class="nav-icon"
-          ><i class="fa-solid fa-bars-staggered"></i
-        ></a>
-      </li>
-    </ul>
-  </nav>
-</header>
+    <nav class="navbar-second flex" [ngClass]="{ sticky: isSticky }">
+      <div class="logo">
+        <div class="logo1"></div>
+      </div>
+      <ul *ngIf="!isMobile" class="nav-menu flex">
+        <li><a (click)="redirectTo('home')">Home</a></li>
+        <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
+      </ul>
 
-<!-- <body> -->
-<p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="w-30rem">
-  <ng-template pTemplate="header">
-    <span class="font-semibold text-xl">Atelier</span>
-  </ng-template>
+
+      <ul  class="nav-accion">
+        <li>
+          <div class="ui search" [ngClass]="{ loading: isLoading }">
+            <div class="ui icon input">
+              <input
+                class="prompt"
+                type="text"
+                placeholder="Buscar en atelier..."
+                [(ngModel)]="searchQuery"
+                (keyup.enter)="onSearch()"
+              />
+              <i class="search icon"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+        <i class="pi pi-shopping-cart"></i>
+        </li>
+        <li *ngIf="!isMobile">
+          <a tabindex="0" class="nav-icon" (click)="togglePopup()">
+            <i class="fa-regular fa-user"></i>
+            <ul class="muestra-opciones-user" *ngIf="popupVisible">
+              <li *ngFor="let item of items" (click)="item.command ? item.command({ originalEvent: $event }) : null">
+                <i [class]="item.icon"></i> {{ item.label }}
+              </li>
+
+            </ul>
+          </a>
+        </li>
+
+
+
+        <li *ngIf="isMobile">
+            <i (click)="showDialog()" class="fa-solid fa-bars-staggered"></i
+              >
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- <body> -->
+  <p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="w-30rem">
+    <ng-template pTemplate="header"  style="justify-content: center;">
+      <!-- <span class="font-semibold text-xl">Atelier</span> -->
+  <img style="weight:25px;height:25px;margin-right: 30px;margin-left: 30px;" src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png" alt="" srcset="">
+    </ng-template>
+
+    <!-- <div class="resize-handle" (mousedown)="startResizing($event)"></div> -->
+    <div class="menu-content">
+      <ul>
+        <li>
+          <a tabindex="0" (click)="redirectTo('Home')">
+            <i class="pi pi-home"></i> Home
+          </a>
+        </li>
+        <li *ngFor="let item of items" (click)="item.command ? item.command({ originalEvent: $event }) : null">
+          <i [class]="item.icon"></i> {{ item.label }}
+        </li>
+        <!-- <li>
+          <a tabindex="0" (click)="redirectTo('Sign-in')">
+            <i class="pi pi-sign-in"></i> Iniciar sesión
+          </a>
+        </li>
+        <li>
+          <a tabindex="0" (click)="redirectTo('Sign-up')">
+            <i class="pi pi-user-plus"></i> Registrarme
+          </a>
+        </li>
+        <li>
+          <a tabindex="0" (click)="redirectTo('Config')">
+            <i class="pi pi-cog"></i> Configuración
+          </a>
+        </li> -->
+        <li>
+          <a tabindex="0" (click)="redirectTo('AcercaDe')">
+            <i class="pi pi-info-circle"></i> Acerca de Atelier
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    <!-- Mango para redimensionar -->
+  </p-sidebar>
 
   <!-- <div class="resize-handle" (mousedown)="startResizing($event)"></div> -->
-  <div class="menu-content">
-    <ul>
-      <li>
-        <a tabindex="0" (click)="redirectTo('Home')">
-          <i class="fas fa-home"></i> Home
-        </a>
-      </li>
-      <li>
-        <a tabindex="0" (click)="redirectTo('Sign-in')">
-          <i class="fas fa-sign-in-alt"></i> Iniciar sesión
-        </a>
-      </li>
-      <li>
-        <a tabindex="0" (click)="redirectTo('Sign-up')">
-          <i class="fas fa-user-plus"></i> Registrarme
-        </a>
-      </li>
-      <li>
-        <a tabindex="0" (click)="redirectTo('Config')">
-          <i class="fas fa-gear"></i> configuración
-        </a>
-      </li>
-      <li>
-        <a tabindex="0" (click)="redirectTo('AcercaDe')">
-          <i class="fas fa-info-circle"></i> Acerca de Atelier
-        </a>
-      </li>
-    </ul>
-  </div>
-   <!-- Mango para redimensionar -->
-</p-sidebar>
-
-<!-- <div class="resize-handle" (mousedown)="startResizing($event)"></div> -->

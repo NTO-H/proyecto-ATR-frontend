@@ -13,7 +13,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { AcercaDeView } from './views/acerca-de/acerca-de.view';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-// DialogModule 
+// DialogModule
 import { PerfilView } from './views/perfil/perfil.view';
 import { MenuModule } from 'primeng/menu';
 // import { ButtonModule } from 'primeng/button';
@@ -37,14 +37,16 @@ import { SignUpService } from '../auth/commons/services/sign-up.service';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { TagComponent } from './components/tag/tag.component';
 
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 import { PaginatorModule } from 'primeng/paginator';
 
-const MATERIALS =[PaginatorModule,OverlayPanelModule,TieredMenuModule,SkeletonModule,CardModule,TabMenuModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
+const MATERIALS =[AvatarModule,AvatarGroupModule,PaginatorModule,OverlayPanelModule,TieredMenuModule,SkeletonModule,CardModule,TabMenuModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductView]
 @NgModule({
   declarations: [VIEWS,COMPONENTS, CarritoView, TagComponent],
-  exports: [COMPONENTS,],
+  exports:[COMPONENTS],
   imports: [GalleriaModule,
     CommonModule,ReactiveFormsModule,FormsModule,
     PublicRoutingModule,HttpClientModule, ...MATERIALS,
@@ -52,7 +54,6 @@ const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductVie
   providers: [Toast,MessageService,provideClientHydration(), [provideHttpClient(withFetch())],
   SignUpService,UsuarioService,DatosEmpresaService],
 })
-
 export class PublicModule {
 
 

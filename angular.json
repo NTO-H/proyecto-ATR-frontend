@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "my-pwa": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": "dist/my-pwa",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -44,8 +44,6 @@
           },
           "configurations": {
             "production": {
-              "aot": true,
-              "optimization": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -73,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend:build:production"
+              "buildTarget": "my-pwa:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "my-pwa:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +95,7 @@
               }
             ],
             "styles": ["src/styles.scss"],
-            "scripts": [
+"scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/semantic-ui-css/semantic.min.js"
             ]
@@ -107,6 +105,6 @@
     }
   },
   "cli": {
-    "analytics": "935a746d-7480-45f6-81b9-9d8d8ab8d20c"
+    "analytics": "b4090fe7-a4fe-4e17-a474-a877816f131a"
   }
 }

@@ -2,7 +2,7 @@
   "name": "Atelier",
   "short_name": "Atelier",
   "theme_color": "#374151",
-  "background_color": "#EDE4DB",
+  "background_color": "#EDE3DB",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

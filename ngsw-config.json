@@ -3,23 +3,16 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "Atelier",
+      "name": "app",
       "installMode": "prefetch",
       "resources": {
         "files": [
           "/favicon.ico",
+          "/index.csr.html",
           "/index.html",
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
-        ],
-        "urls": [
-          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.28857445018568995",
-          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.027702804763513056",
-          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.8034212077827811",
-          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.5711138395791993",
-          "https://atelier-hgo.vercel.app/public/home",
-          "https://atelier-hgo.vercel.app/ngsw.json?ngsw-cache-bust=0.3075687965128737"
         ]
       }
     },
@@ -31,51 +24,6 @@
         "files": [
           "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
-      }
-    }
-  ],
-  "dataGroups": [
-    {
-      "name": "image-cache",
-      "urls": [
-        "https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg",
-        "https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg",
-        "https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png",
-        "https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png"
-      ],
-      "cacheConfig": {
-        "strategy": "freshness",
-        "maxSize": 100,
-        "maxAge": "1h",
-        "timeout": "10s"
-      }
-    },
-    {
-      "name": "library-cache",
-      "urls": [
-        "https://fonts.googleapis.com/css?family=Roboto",
-        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      ],
-      "cacheConfig": {
-        "strategy": "freshness",
-        "maxSize": 100,
-        "maxAge": "1h",
-        "timeout": "10s"
-      }
-    },
-    {
-      "name": "external-scripts-cache",
-      "urls": [
-        "https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png",
-        "https://unpkg.com/aos@2.3.1/dist/aos.js",
-        "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js",
-        "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
-      ],
-      "cacheConfig": {
-        "maxSize": 100,
-        "maxAge": "1d",
-        "timeout": "10s",
-        "strategy": "freshness"
       }
     }
   ]
