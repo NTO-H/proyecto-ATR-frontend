@@ -5,7 +5,6 @@
 body {
   margin: 0;
   padding: 0;
-  border: 2px dashed;
   height: 100vh;
 
   h1 {
@@ -144,14 +143,14 @@ body {
 
           .p-icon {
             position: absolute;
-            top:-6px;
+            top: -6px;
             right: 10px;
             font-size: 20px;
             width: 20px;
             height: 38px;
             color: #733333;
           }
-          .ng-template{
+          .ng-template {
             background-color: #f30808;
           }
         }
