@@ -48,10 +48,36 @@ export class PerfilView implements OnInit {
         });
       }
     }
-    
   }
   logout() {
     this.storageService.removeItem('token');
-    this.router.navigate(["/auth/login"]);
+    this.router.navigate(['/auth/login']);
+  }
+
+  nombre: string = 'Juan Pérez';
+  profileImg: string | null = null; // Imagen por defecto es null
+  // muestra las primeras letras del nombre en el avatar
+  getInitials(name: string | null | undefined): string {
+    if (!name) {
+      return 'NA'; // Valor por defecto si no hay nombre
+    }
+    return name
+      .split('')
+      .map((word) => word.charAt(0))
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+  }
+
+  // cambiar el contenido por una imagen
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profileImg = e.target.result; // Actualiza con la imagen seleccionada
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
   }
 }

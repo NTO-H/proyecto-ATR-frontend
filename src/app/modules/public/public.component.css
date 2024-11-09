@@ -1,57 +1,15 @@
-/* 
-@import url(https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap); */
-/* @import url(https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@100;200;300;400;500;600;800&display=swap); */
-
-/* @import url(https://fonts.googleapis.com/css2?family=Playfair+Display:wght@100;200;300;400;500;600;800;900&display=swap); */
-/* @import url(https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@100;200;300;400;500;600;700&display=swap); */
-/* @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@100;200;300;400;500;600;700&display=swap); */
-
-/* @import url(https://fonts.googleapis.com/css2?family=Inria+Serif:wght@100;200;300;400;500;600;700&display=swap); */
-/* @import url(https://fonts.googleapis.com/css2?family=Caladea:wght@100;200;300;400;500;600;700&display=swap); */
-
-body {
-  /* background-color: #f3f5fb; */
-  /* background-color: #f3f5fb; */
-  /* background-color: #f3f5fb; */
-  /* background-color: #f3f5fb; */
-  
-  /* font-family: "Inria Serif", serif; */
-  /* user-select: none; */
-}
-/* @import url(https://fonts.googleapis.com/css2?family=Italiana&display=swap); */
-/* @import url(https://fonts.googleapis.com/css2?family=PT+Serif:wght@100;200;300;400;500;600;700&display=swap); */
 main {
+  
   margin-top: 0%;
   margin-bottom: 0%;
   background-color: white;
-  /* box-shadow: 0px 0px 88px 20px rgba(235, 227, 219, 1);EL HEADER*/
-  /* background:linear-gradient(180deg, #ebe3db -70%, #ffffff 52%); */
 }
-.content-all {
-  /* padding-top: 10px; */
+.content-all {  
   padding-left: 80px;
   padding-right: 80px;
   padding-bottom: 80px;
-  /* box-shadow: 0px 0px 5px 9px rgba(235, 227, 219, 1); */
-  /* background: linear-gradient(180deg, #ebe3db 10%, #ffffff 20%);  */
   background-color: #f3f5fb;
-  /* box-shadow: 0px 0px 88px 20px rgb(255, 248, 241); */
-
-  /* Fondo blanco para mejor visibilidad */
-  /*  */
-  /* height: 100vh; */
 }
-
-/*  */
-
-
-
-
-
-
-
-
-/* Estilo general para el botón */
 .menu-button {
   background-color: #007bff; /* Color de fondo azul */
   color: white; /* Color del texto blanco */

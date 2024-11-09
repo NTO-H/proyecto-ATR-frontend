@@ -32,7 +32,7 @@
       <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
     </ul>
 
-    
+
     <ul  class="nav-accion">
       <li>
         <div class="ui search" [ngClass]="{ loading: isLoading }">
@@ -51,20 +51,18 @@
       <li>
       <i class="pi pi-shopping-cart"></i>
       </li>
-      <li *ngIf="!isMobile">
+      <li class="IsMobile" *ngIf="!isMobile">
         <a tabindex="0" class="nav-icon" (click)="togglePopup()">
           <i class="fa-regular fa-user"></i>
           <ul class="muestra-opciones-user" *ngIf="popupVisible">
             <li *ngFor="let item of items" (click)="item.command ? item.command({ originalEvent: $event }) : null">
               <i [class]="item.icon"></i> {{ item.label }}
             </li>
-            
+
           </ul>
         </a>
       </li>
-      
-      
-      
+
       <li *ngIf="isMobile">
           <i (click)="showDialog()" class="fa-solid fa-bars-staggered"></i
             >
@@ -88,7 +86,10 @@
           <i class="pi pi-home"></i> Home
         </a>
       </li>
-      <li>
+      <li *ngFor="let item of items" (click)="item.command ? item.command({ originalEvent: $event }) : null">
+        <i [class]="item.icon"></i> {{ item.label }}
+      </li>
+      <!-- <li>
         <a tabindex="0" (click)="redirectTo('Sign-in')">
           <i class="pi pi-sign-in"></i> Iniciar sesión
         </a>
@@ -102,13 +103,13 @@
         <a tabindex="0" (click)="redirectTo('Config')">
           <i class="pi pi-cog"></i> Configuración
         </a>
-      </li>
+      </li> -->
       <li>
         <a tabindex="0" (click)="redirectTo('AcercaDe')">
           <i class="pi pi-info-circle"></i> Acerca de Atelier
         </a>
       </li>
-      
+
     </ul>
   </div>
   <!-- Mango para redimensionar -->
