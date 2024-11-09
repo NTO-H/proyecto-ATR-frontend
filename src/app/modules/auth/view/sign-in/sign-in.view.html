@@ -1,5 +1,4 @@
 <div class="container-form">
- 
   <div class="back-button">
     <a routerLink="/public/home" class="go-back">
       <i class="fas fa-chevron-left"></i> Ir atrás
@@ -7,32 +6,73 @@
   </div>
 
   <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
-    <label for="usuario" class="">Correo electronico</label>
-    <input
-      pInputText
-      type="text"
-      placeholder="Introduce tu correo electrónico"
-      formControlName="email"
-      id="usuario"
-      required
-      [disabled]="isLocked"
-    />
+    <div class="item">
+      <div class="nombre-empresa">
+        <h1>Atelier</h1>
+      </div>
 
-    <label for="pass" class="">Contraseña</label>
-    <input
-      pInputText
-      type="password"
-      placeholder="Introduce tu contraseña"
-      formControlName="password"
-      id="pass"
-      required
-      [disabled]="isLocked"
-    />
+      <div class="logo">
+        <img
+          src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png"
+          alt=""
+        />
+      </div>
+      <div class="text-item">
+        <h2>Bienvenido <br /><span>A la a nuestra a Atelier</span></h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
+          suscipit amet recusandae beatae cumque consectetur magnam aperiam
+          maiores ratione,
+        </p>
+        <div class="social-icon">
+          <a href="#"><i class="bx bxl-facebook">facebook</i></a>
+          <a href="#"><i class="bx bxl-twitter">twitter</i></a>
+          <a href="#"><i class="bx bxl-instagram">instagram</i></a>
+          <a href="#"><i class="bx bxl-whatsapp">whatsapp</i></a>
+        </div>
+      </div>
+    </div>
 
-    <!-- CAPTCHA: Solo se muestra cuando se ha intentado iniciar sesión -->
+    <div class="login-section">
+      <div class="form-box-titulo">
+        <h1>Login</h1>
+      </div>
 
+      <div class="form-box">
+        <label for="usuario" class="">Correo electronico</label>
+        <input
+          pInputText
+          type="text"
+          placeholder="Introduce tu correo electrónico"
+          formControlName="email"
+          id="usuario"
+          required
+          [disabled]="isLocked"
+        />
+      </div>
 
-    <!-- <div *ngIf="showCaptcha" class="captcha-container">
+      <div class="form-box">
+        <label for="pass" class="">Contraseña</label>
+        <p-password formControlName="password" [toggleMask]="true">
+          <ng-template pTemplate="header">
+            <h6>Escoge una contraseña</h6>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <p-divider></p-divider>
+            <p class="mt-2">Sugerencias</p>
+            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+              <li>Al menos una letra minúscula</li>
+              <li>Al menos una letra mayúscula</li>
+              <li>Al menos un número</li>
+              <li>Mínimo 8 caracteres</li>
+            </ul>
+          </ng-template>
+        </p-password>
+      </div>
+
+      <!-- CAPTCHA: Solo se muestra cuando se ha intentado iniciar sesión -->
+
+      <!-- <div *ngIf="showCaptcha" class="captcha-container">
       <h3>Por favor ingresa el CAPTCHA para continuar</h3>
       <p class="captcha-text">{{ captchaText }}</p>
       <input
@@ -47,29 +87,34 @@
       </button>
     </div> -->
 
-    <!-- Botón para iniciar sesión -->
-    <p-button
-      iconPos="right"
-      label="Iniciar Sesión"
-      type="submit"
-      [disabled]="loading || isLocked"
-    >
-    </p-button>
+      <!-- Botón para iniciar sesión -->
+      <div class="form-box-button">
+        <p-button
+          iconPos="right"
+          label="Iniciar Sesión"
+          type="submit"
+          [disabled]="loading || isLocked"
+        >
+        </p-button>
+      </div>
 
-    <!-- Mostrar mensaje de bloqueo si está bloqueado -->
-    <div *ngIf="isLocked" class="lock-message">
-      Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en {{
-      remainingTime }} segundos.
-    </div>
+      <!-- Opciones adicionales -->
+      <div class="options" [class.disabled]="isLocked">
+        <a (click)="redirectTo('forgot-password')" class="forgot-password"
+          >Olvidé mi contraseña</a
+        >
+        <a routerLink="/auth/Sign-up" class="create-account"
+          >Crear una cuenta nueva</a
+        >
+      </div>
 
-    <!-- Opciones adicionales -->
-    <div class="options" [class.disabled]="isLocked">
-      <a (click)="redirectTo('forgot-password')" class="forgot-password"
-        >Olvidé mi contraseña</a
-      >
-      <a routerLink="/auth/Sign-up" class="create-account"
-        >Crear una cuenta nueva</a
-      >
+      <div class="lock-message">
+        <!-- Mostrar mensaje de bloqueo si está bloqueado -->
+        <div *ngIf="isLocked" ngclass="lock-message">
+          Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo
+          en {{ remainingTime }} segundos.
+        </div>
+      </div>
     </div>
   </form>
 </div>

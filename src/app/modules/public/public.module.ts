@@ -44,6 +44,7 @@ const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductView]
 @NgModule({
   declarations: [VIEWS,COMPONENTS, CarritoView, TagComponent],
+  exports: [COMPONENTS,],
   imports: [GalleriaModule,
     CommonModule,ReactiveFormsModule,FormsModule,
     PublicRoutingModule,HttpClientModule, ...MATERIALS,
@@ -51,6 +52,7 @@ const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductVie
   providers: [Toast,MessageService,provideClientHydration(), [provideHttpClient(withFetch())],
   SignUpService,UsuarioService,DatosEmpresaService],
 })
+
 export class PublicModule {
 
 

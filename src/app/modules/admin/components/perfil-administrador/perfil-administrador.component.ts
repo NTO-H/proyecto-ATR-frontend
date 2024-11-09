@@ -3,6 +3,7 @@ import { UsuarioService } from '../../../../shared/services/usuario.service';
 import { SessionService } from '../../../../shared/services/session.service';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../../shared/services/storage.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil-administrador',
@@ -10,6 +11,7 @@ import { StorageService } from '../../../../shared/services/storage.service';
   styleUrl: './perfil-administrador.component.scss'
 })
 export class PerfilAdministradorComponent {
+  form: FormGroup;
   data: any = {};
 
   id!: string;
@@ -24,17 +26,23 @@ export class PerfilAdministradorComponent {
     private storageService: StorageService,
     private sessionService: SessionService,
     private router: Router
-  ) {}
+  ) {
+    this.form = new FormGroup({
+      nombre: new FormControl('', Validators.required),
+      apellido: new FormControl('',Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      telefono: new FormControl('', Validators.required)
+    });
+  }
   toggleEditMode(): void {
     this.editMode = !this.editMode;
     // Puedes agregar lógica para guardar datos aquí
     if (!this.editMode) {
-      console.log('Datos guardados:', this.data);
+      console.log('Datos guardados:', this.form.value);
     }
   }
 
   getData(): void {
-    // this.ngxService.start();
     const userData = this.sessionService.getId();
     console.log('userData=>', userData);
     if (userData) {
@@ -42,7 +50,7 @@ export class PerfilAdministradorComponent {
       console.log('id=>', this.id);
       if (this.id) {
         this.uss.detalleUsuarioById(this.id).subscribe((data) => {
-          this.data = data;
+          this.form.patchValue(data);
         });
       }
     }

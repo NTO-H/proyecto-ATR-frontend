@@ -13,6 +13,7 @@ import { SignInService } from './commons/services/sign-in.service';
 import {
   HttpClientModule,
   provideHttpClient,
+  withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -41,6 +42,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.view';
 
 import { InputOtpModule } from 'primeng/inputotp';
+import { PublicModule } from "../public/public.module";
+
 @NgModule({
   declarations: [
     AuthComponent,
@@ -65,6 +68,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     // RecaptchaModule,
     // RecaptchaV3Module,
 
+    PublicModule,
     ToastrModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -82,7 +86,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     ToastrService,
     MessageService,
     ConfirmationService,
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withFetch(),withInterceptorsFromDi()),
   ],
 })
 export class AuthModule {}

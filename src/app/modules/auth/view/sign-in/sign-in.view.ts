@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -8,9 +8,10 @@ import { SessionService } from '../../../../shared/services/session.service';
 import { MessageService } from 'primeng/api';
 import { Subscription, interval } from 'rxjs';
 import { ERol } from '../../../../shared/constants/rol.enum';
-import { environment } from '../../../../../environments/environment';
-import { RecaptchaService } from '../../../../shared/services/recaptcha.service';
 import { mensageservice } from '../../../../shared/services/mensage.service';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.view.html',
@@ -43,7 +44,7 @@ export class SignInView implements OnInit {
     // console.log('reCAPTCHA v2 Response:', response);
   }
 
-  executeRecaptchaVisible(token:any){
+  executeRecaptchaVisible(token: any) {
     console.log('token visible', token);
     // this.robot = false;
     // this.presionado = true;
@@ -56,7 +57,8 @@ export class SignInView implements OnInit {
     private sessionService: SessionService,
     private fb: FormBuilder,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
@@ -69,7 +71,7 @@ export class SignInView implements OnInit {
 
   // ngOnInit(): void {
   // }
-  
+
   // generateCaptcha(): void {
   //   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZadcdefghijklmnopqrstuvwxyz0123456789';
   //   const captchaLength = 6;
@@ -81,7 +83,7 @@ export class SignInView implements OnInit {
   //   this.captchaText = captcha;
   // }
   ngOnInit(): void {
-  // this.generateCaptcha();
+    // this.generateCaptcha();
     this.robot = true;
     this.presionado = false;
     this.checkLockState(); // Verificar si la cuenta está bloqueada al cargar
@@ -89,17 +91,19 @@ export class SignInView implements OnInit {
 
   // Verifica el estado de bloqueo en localStorage o sessionStorage
   checkLockState() {
-    const lockInfo = localStorage.getItem('lockInfo'); // O sessionStorage.getItem('lockInfo') si prefieres sessionStorage
-    if (lockInfo) {
-      const { attempts, lockTime, isLocked, remainingTime } =
-        JSON.parse(lockInfo);
-      this.attempts = attempts;
-      this.lockTime = lockTime;
-      this.isLocked = isLocked;
-      this.remainingTime = remainingTime;
+    if (isPlatformBrowser(this.platformId)) {
+      const lockInfo = localStorage.getItem('lockInfo'); // O sessionStorage.getItem('lockInfo') si prefieres sessionStorage
+      if (lockInfo) {
+        const { attempts, lockTime, isLocked, remainingTime } =
+          JSON.parse(lockInfo);
+        this.attempts = attempts;
+        this.lockTime = lockTime;
+        this.isLocked = isLocked;
+        this.remainingTime = remainingTime;
 
-      if (this.isLocked) {
-        this.startCountdown(); // Iniciar el temporizador si ya está bloqueado
+        if (this.isLocked) {
+          this.startCountdown(); // Iniciar el temporizador si ya está bloqueado
+        }
       }
     }
   }
