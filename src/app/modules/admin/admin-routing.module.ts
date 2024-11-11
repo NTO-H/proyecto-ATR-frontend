@@ -30,6 +30,7 @@ import { ListadoTerminosCondicionesComponent } from './components/listado-termin
 import { HistorialTerminosCondicionesComponent } from './components/historial-terminos-condiciones/historial-terminos-condiciones.component';
 import { ListadoDeslindeLegalComponent } from './components/listado-deslinde-legal/listado-deslinde-legal.component';
 import { HistorialDeslindeLegalComponent } from './components/historial-deslinde-legal/historial-deslinde-legal.component';
+import { adminGuard } from '../../shared/guards/auth.guard';
 
 const routes: Routes = [
   {

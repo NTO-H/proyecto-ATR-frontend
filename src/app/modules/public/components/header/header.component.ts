@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MenuItemCommandEvent } from 'primeng/api';
-import * as AOS from 'aos';
+// import * as AOS from 'aos';
 import { isPlatformBrowser } from '@angular/common';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenSize();
-      AOS.init();
+      // AOS.init();
       this.renderer.listen('window', 'resize', () => this.checkScreenSize());
       this.updateMenuItems();
     }

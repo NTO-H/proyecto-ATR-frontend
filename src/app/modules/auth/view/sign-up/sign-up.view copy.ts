@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // import * AOS
 import {
   FormGroup,
@@ -24,13 +17,12 @@ import * as AOS from 'aos';
 import { Router } from '@angular/router';
 import { mensageservice } from '../../../../shared/services/mensage.service';
 import { ToastrModule, Toast, ToastrService } from 'ngx-toastr';
-import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-sign-up-view',
-  templateUrl: 'sign-up.view.html',
+  templateUrl: 'sign-up.view copy 2.html',
   styleUrls: ['./sign-up.view.scss', './listacard.scss'],
 })
-export class SignUpView implements OnInit, AfterViewInit {
+export class SignUpView implements OnInit {
   @Output() nextCallback = new EventEmitter<void>();
   formulario!: FormGroup;
   passwordStrength: string = '';
@@ -65,8 +57,6 @@ export class SignUpView implements OnInit, AfterViewInit {
   };
 
   constructor(
-    private elementRef: ElementRef,
-    @Inject(PLATFORM_ID) private platformId: Object,
     private msgs: mensageservice,
     private router: Router,
     private fb: FormBuilder,
@@ -98,7 +88,7 @@ export class SignUpView implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // AOS.init();
+    AOS.init();
     // Validar coincidencia de contraseñas
     this.datosConfidencialesForm
       .get('confirmPassword')
@@ -122,14 +112,6 @@ export class SignUpView implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      AOS.init({
-        duration: 1200, // Customize AOS animation duration
-        once: true, // Whether animation should happen only once
-      });
-    }
-  }
   togglePasswordVisibility() {
     this.mostrarPassword = !this.mostrarPassword; // Cambia el estado de la visibilidad
   }
@@ -195,11 +177,11 @@ export class SignUpView implements OnInit, AfterViewInit {
           this.valid = true;
           this.toastr.info(response.message, 'Éxito');
 
-          this.codigoVerificacion = Math.floor(1000 + Math.random() * 9000); // Código de 4 dígitos
+          // this.codigoVerificacion = Math.floor(1000 + Math.random() * 9000); // Código de 4 dígitos
           // console.log(this.codigoVerificacion);
 
           // console.log(this.codigoVerificacion);
-          this.msgs.enviarCorreo(email, this.codigoVerificacion).subscribe({
+          this.msgs.enviarCorreo(email).subscribe({
             next: (res) => {
               console.log('Código de verificación enviado con éxito:', res);
 
@@ -368,26 +350,44 @@ export class SignUpView implements OnInit, AfterViewInit {
   }
 
   verifyOtp(): void {
-    // this.codeValid = true;
     const enteredCode = Number(this.frmActivateAcount.get('otpCode')?.value); // Convertir a número
-    console.log('Ingresado:', enteredCode, 'Tipo:', typeof enteredCode);
-    console.log(
-      'Origin:',
-      this.codigoVerificacion,
-      'Tipo:',
-      typeof this.codigoVerificacion
+   
+    this.uservice.checkCode(enteredCode).subscribe(
+      (response) => {
+        Swal.fire('Éxito', 'El código de verificación es correcto', 'success');
+        this.currentStep = 2; // Cambiar a la siguiente vista (ajusta según tu lógica)
+
+        this.codeValid = true;
+      },
+      (error) => {
+        Swal.fire('Error', 'El código de verificación es incorrecto', 'error');
+      }
     );
 
-    if (enteredCode === this.codigoVerificacion) {
-      Swal.fire('Éxito', 'El código de verificación es correcto', 'success');
-      // Procede a la siguiente vista
-      // this.nextCallback.emit();
-      // this.ViewActivateAcount = false;
-      this.codeValid = true;
+    // verifyOtp(): void {
+    //   // this.codeValid = true;
+    //   const enteredCode = Number(this.frmActivateAcount.get('otpCode')?.value); // Convertir a número
+    //   console.log('Ingresado:', enteredCode, 'Tipo:', typeof enteredCode);
+    //   console.log(
+    //     'Origin:',
+    //     this.codigoVerificacion,
+    //     'Tipo:',
+    //     typeof this.codigoVerificacion
+    //   );
 
-      // Aquí puedes cambiar el paso del stepper si tienes una referencia a él
-    } else {
-      Swal.fire('Error', 'El código de verificación es incorrecto', 'error');
-    }
+    //   if (enteredCode === this.codigoVerificacion) {
+    //     Swal.fire('Éxito', 'El código de verificación es correcto', 'success');
+    //     // Procede a la siguiente vista
+    //     // this.nextCallback.emit();
+    //     this.currentStep = 2; // Cambiar a la siguiente vista (ajusta según tu lógica)
+    //     // this.ViewActivateAcount = false;
+    //     this.codeValid = true;
+
+    //     // Aquí puedes cambiar el paso del stepper si tienes una referencia a él
+
+    //   } else {
+    //     Swal.fire('Error', 'El código de verificación es incorrecto', 'error');
+    //   }
+    // }
   }
 }

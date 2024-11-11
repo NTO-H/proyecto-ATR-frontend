@@ -11,12 +11,15 @@ export class AjustesGeneralesComponent {
   @ViewChild('fileInput') fileInput!: ElementRef; // Referencia al input de archivo
   logoUrl: string | ArrayBuffer | null = null;
   empresa = {
+    logo: '',
     slogan: '',
     tituloPagina: '',
     direccion: '',
     correoElectronico: '',
     telefono: '',
   };
+
+  profileImg: string | null = null; // Imagen por defecto es null
 
   redesSociales: { plataforma: string; enlace: string }[] = [
     { plataforma: '', enlace: '' },
@@ -35,7 +38,9 @@ export class AjustesGeneralesComponent {
       (data) => {
         if (Array.isArray(data) && data.length > 0) {
           const empresaData = data[0]; // Suponiendo que `data` es un arreglo y tomamos el primer elemento
+          this.profileImg= empresaData.logo;
           this.empresa = {
+            logo	: empresaData.logo,
             slogan: empresaData.slogan,
             tituloPagina: empresaData.tituloPagina,
             direccion: empresaData.direccion,
@@ -97,7 +102,7 @@ export class AjustesGeneralesComponent {
         console.log('Usuario actualizado', response);
 
         // Limpiar el input de archivo y la selección
-        this.resetForm();
+        // this.resetForm();
       },
       (error) => {
         Swal.fire({
@@ -135,9 +140,10 @@ onFileSelected(event: any) {
         }
 
         const reader = new FileReader();
-        reader.onload = () => {
+        reader.onload = (e:any) => {
             this.logoUrl = reader.result; // Asignar la URL del archivo
-        };
+            this.profileImg = e.target.result; 
+          };
         reader.readAsDataURL(file);
 
         console.log('Archivo seleccionado:', file);
@@ -154,6 +160,7 @@ onFileSelected(event: any) {
 
   resetForm() {
     this.empresa = {
+      logo: '',
       slogan: '',
       tituloPagina: '',
       direccion: '',

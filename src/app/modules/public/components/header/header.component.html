@@ -1,13 +1,20 @@
 <!-- <body> -->
 <header class="app-header" [ngClass]="{ scrolled: isScrolled }">
+  <!-- <nav> -->
+  <nav class="marquee-container" style="text-align: center">
+    <div class="marquee" id="item1">🔥 ¡Cómpralo ya! 🔥</div>
+    <div class="marquee" id="item2">¡Elige a tu gusto !✨</div>
+    <div class="marquee" id="item3">🔥 ¡Aprovecha ahora! 🔥</div>
+  </nav>
+  <!-- </nav> -->
   <nav class="nav-one">
     <nav class="navbar-one flex">
       <div class="left flex">
         <div class="email">
-          <i class="fa fa-envelope"></i>
+          <i class="fa fa-map-marker-alt"></i>
         </div>
         <div class="call">
-          <i class="fa fa-phone-alt"></i>
+          <i class="fa-brands fa-whatsapp"></i>
         </div>
       </div>
       <div class="right flex">
@@ -32,8 +39,7 @@
       <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
     </ul>
 
-
-    <ul  class="nav-accion">
+    <ul class="nav-accion">
       <li>
         <div class="ui search" [ngClass]="{ loading: isLoading }">
           <div class="ui icon input">
@@ -49,23 +55,26 @@
         </div>
       </li>
       <li>
-      <i class="pi pi-shopping-cart"></i>
+        <i class="pi pi-shopping-cart"></i>
       </li>
       <li class="IsMobile" *ngIf="!isMobile">
         <a tabindex="0" class="nav-icon" (click)="togglePopup()">
           <i class="fa-regular fa-user"></i>
           <ul class="muestra-opciones-user" *ngIf="popupVisible">
-            <li *ngFor="let item of items" (click)="item.command ? item.command({ originalEvent: $event }) : null">
+            <li
+              *ngFor="let item of items"
+              (click)="
+                item.command ? item.command({ originalEvent: $event }) : null
+              "
+            >
               <i [class]="item.icon"></i> {{ item.label }}
             </li>
-
           </ul>
         </a>
       </li>
 
       <li *ngIf="isMobile">
-          <i (click)="showDialog()" class="fa-solid fa-bars-staggered"></i
-            >
+        <i (click)="showDialog()" class="fa-solid fa-bars-staggered"></i>
       </li>
     </ul>
   </nav>
@@ -73,9 +82,14 @@
 
 <!-- <body> -->
 <p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="w-30rem">
-  <ng-template pTemplate="header"  style="justify-content: center;">
+  <ng-template pTemplate="header" style="justify-content: center">
     <!-- <span class="font-semibold text-xl">Atelier</span> -->
-<img style="weight:25px;height:25px;margin-right: 30px;margin-left: 30px;" src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png" alt="" srcset="">
+    <img
+      style="weight: 25px; height: 25px; margin-right: 30px; margin-left: 30px"
+      src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png"
+      alt=""
+      srcset=""
+    />
   </ng-template>
 
   <!-- <div class="resize-handle" (mousedown)="startResizing($event)"></div> -->
@@ -86,7 +100,10 @@
           <i class="pi pi-home"></i> Home
         </a>
       </li>
-      <li *ngFor="let item of items" (click)="item.command ? item.command({ originalEvent: $event }) : null">
+      <li
+        *ngFor="let item of items"
+        (click)="item.command ? item.command({ originalEvent: $event }) : null"
+      >
         <i [class]="item.icon"></i> {{ item.label }}
       </li>
       <!-- <li>
@@ -109,7 +126,6 @@
           <i class="pi pi-info-circle"></i> Acerca de Atelier
         </a>
       </li>
-
     </ul>
   </div>
   <!-- Mango para redimensionar -->

@@ -14,6 +14,8 @@ export class PerfilAdministradorComponent {
 
   id!: string;
   editMode: boolean = false;
+  profileImg: string | null = null; // Imagen por defecto es null
+
 
   ngOnInit() {
     this.getData();
@@ -31,6 +33,27 @@ export class PerfilAdministradorComponent {
     if (!this.editMode) {
       console.log('Datos guardados:', this.data);
     }
+  }
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profileImg = e.target.result; // Actualiza con la imagen seleccionada
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  getInitials(name: string | null | undefined): string {
+    if (!name) {
+      return 'NA'; // Valor por defecto si no hay nombre
+    }
+    return name
+      .split('')
+      .map((word) => word.charAt(0))
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
   }
 
   getData(): void {

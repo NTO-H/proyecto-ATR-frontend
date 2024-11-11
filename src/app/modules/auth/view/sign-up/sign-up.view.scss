@@ -43,7 +43,6 @@ div.container-form {
     }
   }
 
-
   /* Estilos del formulario */
 
   /* Estilo de la imagen del logo */
@@ -150,7 +149,7 @@ form {
   }
 
   /* Botón de envío */
-  button {
+  .p-button,button {
     margin-top: 20px;
     padding: 12px;
     width: 100%;
@@ -187,7 +186,7 @@ form {
     }
   }
 }
-.text-danger{
+.text-danger {
   color: red;
 }
 /* Clases para la validación de campos */
@@ -215,7 +214,13 @@ form {
 .text-success {
   color: #4caf50;
 }
-
+.content-botoms {
+  gap: 20px;
+  display: flex;
+  margin: top;
+  top: 110px;
+  margin-top: 20px;
+}
 /* Estilo específico para el componente de contraseña */
 .p-password {
   position: relative;
@@ -251,17 +256,17 @@ form {
     width: 100%;
   }
 }
-  input {
-    width: 100%;
+input {
+  width: 100%;
 
-    border-radius: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
 
-  .ui-password-toggle-icon {
-    color: #007bff; // Cambia el color del icono de mostrar/ocultar
-  }
+.ui-password-toggle-icon {
+  color: #007bff; // Cambia el color del icono de mostrar/ocultar
+}
 // }
 .checkbox-terms {
   display: flex;
@@ -283,7 +288,7 @@ input.accept-terms {
   line-height: 1.5;
   color: #333;
 }
-.confr{
+.confr {
   margin-top: 20px;
 }
 .checkbox-terms label a {
