@@ -166,9 +166,9 @@ resizeSidebar(event: MouseEvent) {
   //   }
   // }
 
-  redirectToAdminBoutique(route: string): void {
-    this.router.navigate([route === "login" ? "/auth/login" : `/admin/${route}`]);
-  }
+  // redirectToAdminBoutique(route: string): void {
+  //   this.router.navigate(`/admin/${route}`);
+  // }
 
   logout() {
     this.storageService.removeItem('token');

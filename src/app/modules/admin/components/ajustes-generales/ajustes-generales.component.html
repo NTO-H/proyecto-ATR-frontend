@@ -19,16 +19,18 @@
             size="xlarge"
             shape="circle"
           ></p-avatar>
-
           <input
-            type="file"
-            id="logo"
-            #fileInput
-            (change)="onFileSelected($event)"
-            accept="image/jpeg,image/png"
-            required
-            class="form-control"
-          />
+          [hidden]="true"
+          type="file"
+          id="logo"
+          #fileInput
+          (change)="onFileSelected($event)"
+          accept="image/jpeg,image/png"
+          class="form-control"
+        />
+        <label for="logo" class="btn btn-primary mt-2">
+          {{ empresa.logo ? 'Cambiar' : 'Subir' }} Logo
+        </label>
           <!-- Mostrar el logo si existe -->
           <!-- <div *ngIf="logoUrl" class="logo-container">
             <img [src]="logoUrl" alt="Logo" class="logo-preview" />
@@ -235,10 +237,10 @@
   <div class="form-actions">
     <button
       type="submit"
-      [disabled]="!empresaForm.form.valid"
       class="btn guardar"
     >
       Guardar
     </button>
+    <!-- [disabled]="!empresaForm.form.valid" -->
   </div>
 </form>

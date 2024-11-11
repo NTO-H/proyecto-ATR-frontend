@@ -133,12 +133,12 @@ form {
   /* Estilo de los campos de entrada */
   .extended-input,
   input {
-    padding: 15px;
+    padding: 13px;
     width: 100%;
     border: solid 1px #ddd;
     border-radius: 8px;
     transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    // box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 
     &:focus {
       outline: none;
