@@ -16,6 +16,7 @@ import { MenuItem, MenuItemCommandEvent } from 'primeng/api';
 import { isPlatformBrowser } from '@angular/common';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
+import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
 declare const $: any;
 
 @Component({
@@ -34,6 +35,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isSticky = false;
   isLoading = false;
   searchQuery = ''; // Bind search input
+  empresaData: any;
+  
+  imageUrl!: string;
+  defaultImageUrl: string = 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png'
+
 
   constructor(
     private router: Router,
@@ -41,10 +47,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private sessionService: SessionService,
     private renderer: Renderer2,
     private cdr: ChangeDetectorRef,
+    private datosEmpresaService: DatosEmpresaService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
+    this.loadCompanyData(); // Cargar los datos de la empresa al iniciar
+
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenSize();
       // AOS.init();
@@ -53,7 +62,20 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  loadCompanyData() {
+    this.datosEmpresaService.traerDatosEmpresa().subscribe(
+      (data) => {
+        this.empresaData = data[0];  // Guardar los datos en la variable
+        this.imageUrl=this.empresaData?.logo;
+        console.log('Datos de la empresa:', this.empresaData);
+      },
+      (error) => {
+
+        console.error('Error al cargar los datos de la empresa:', error);
+      }
+    );
+  }
+    ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       $(this.elementRef.nativeElement)
         .find('.ui.search')
