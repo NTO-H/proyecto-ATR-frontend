@@ -89,7 +89,9 @@
               >
             </div>
 
-            <button type="button" (click)="removeRed(i)" class="btn eliminar">
+            <button type="button" 
+            (click)="removeRed(i)" 
+            class="btn eliminar">
               Eliminar
             </button>
           </div>
@@ -233,12 +235,6 @@
     </div>
   </div>
   <div class="form-actions">
-    <button
-      type="submit"
-      [disabled]="!empresaForm.form.valid"
-      class="btn guardar"
-    >
-      Guardar
-    </button>
+    <button type="submit" class="btn guardar">Guardar</button>
   </div>
 </form>

@@ -18,13 +18,18 @@ body {
     font-weight: bold;
     font-size: 24px;
   }
+  .errorMenssage {
+    position: relative;
+    color: #e91e63;
+    font-size: 16px;
+    left: 10px;
+    margin-top: 5px;
+  }
 
   p {
     color: #5c4c4c;
     font-size: 16px;
   }
-
-  
 
   .container-form {
     width: 100%; /* El contenedor ocupa el 100% del ancho del body */
@@ -201,13 +206,13 @@ body {
         font-weight: bold;
         text-decoration: wavy;
         border-bottom: 1px solid #a08e8e;
-    
+
         &:hover {
           font-weight: bold;
           color: #4f3e3e;
         }
-        &.forgot-password{
-          margin-right: 10px; 
+        &.forgot-password {
+          margin-right: 10px;
         }
       }
 
@@ -259,7 +264,7 @@ body {
         font-weight: bold;
         text-decoration: wavy;
         border-bottom: 1px solid #a08e8e;
-    
+
         &:hover {
           font-weight: bold;
           color: #4f3e3e;
@@ -274,6 +279,92 @@ body {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+      }
+    }
+  }
+}
+
+/* Media Query for smaller screens (Tablets) */
+@media (max-width: 768px) {
+  .container-form {
+    width: 50%; /* El contenedor ocupa el 100% del ancho del body */
+    height: auto;
+    border: 2px dashed red;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    .back-button {
+      left: 10px;
+      top: 10px;
+      padding: 8px;
+      font-size: 14px;
+      width: auto;
+    }
+
+    .form {
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 60px;
+      padding: 25px;
+      margin-bottom: 30px;
+      height: 480px;
+      width:  30%;
+      border: 2px dashed darkblue;
+    
+
+      .login-section {
+        height: 100%;
+        width: 60%;
+        .form-box {
+          margin-bottom: 20px;
+          padding: 15px;
+          box-sizing: border-box;
+          border: 2px solid #ddd;
+          border-radius: 8px;
+          background-color: #fafafa;
+
+          input,
+          .p-password {
+            height: 45px;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+          }
+
+          .p-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+          }
+        }
+        .form-box-titulo h1 {
+          font-size: 26px;
+          margin-bottom: 15px;
+        }
+      }
+      .item {
+        height: 100%;
+        width: 20%;
+        display: none;
+
+        .social-icon {
+          margin-top: 20px;
+          justify-content: center;
+          width: 100%;
+        }
+
+        .lock-message {
+          font-size: 14px;
+          padding: 10px;
+        }
       }
     }
   }

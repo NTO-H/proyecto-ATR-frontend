@@ -39,16 +39,22 @@
       </div>
 
       <div class="form-box">
-        <label for="usuario" class="">Correo electronico</label>
+        <label for="email" class="">Correo electronico</label>
         <input
           pInputText
           type="text"
           placeholder="Introduce tu correo electrónico"
           formControlName="email"
-          id="usuario"
+          id="email"
           required
           [disabled]="isLocked"
         />
+      </div>
+      <div
+        *ngIf="errorMessage && errorMessage.includes('correo')"
+        class="errorMenssage"
+      >
+        {{ errorMessage }}
       </div>
 
       <div class="form-box">
@@ -68,6 +74,12 @@
             </ul>
           </ng-template>
         </p-password>
+      </div>
+      <div
+        *ngIf="errorMessage && errorMessage.includes('Contraseña')"
+        class="errorMenssage"
+      >
+        {{ errorMessage }}
       </div>
 
       <!-- CAPTCHA: Solo se muestra cuando se ha intentado iniciar sesión -->

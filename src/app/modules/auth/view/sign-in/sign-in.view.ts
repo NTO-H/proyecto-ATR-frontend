@@ -19,30 +19,22 @@ import { PLATFORM_ID, Inject } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class SignInView implements OnInit {
-  maxAttempts = 3; // Número máximo de intentos permitidos
-  attempts = 0; // Contador de intentos actuales
-  isLocked = false; // Estado para saber si está bloqueado
-  lockTime = 30; // Tiempo de bloqueo en segundos
-  remainingTime = 0; // Tiempo restante para volver a intentar
+  maxAttempts: number = 5; // Se puede asignar un número o 0 más adelante
+
+  attempts: number = 0; // Contador de intentos actuales
+  isLocked :boolean= false; // Estado para saber si está bloqueado
+  lockTime: number = 30; // Tiempo de bloqueo en segundos
+  remainingTime: number = 0; // Tiempo restante para volver a intentar
   timerSubscription!: Subscription;
 
   loginForm: FormGroup;
-  errorMessage!: string;
+  errorMessage: string = '';
   userROL!: string;
   loading: boolean = false;
 
   //
   public robot!: boolean;
   public presionado!: boolean;
-
-  // Inject the service in the constructor
-  // constructor() {}
-
-  // Implement a callback for reCAPTCHA v2 resolution
-  onCaptchaResolved(response: string): void {
-    // Use the response token as needed
-    // console.log('reCAPTCHA v2 Response:', response);
-  }
 
   executeRecaptchaVisible(token: any) {
     console.log('token visible', token);
@@ -67,21 +59,6 @@ export class SignInView implements OnInit {
   }
   captchaText: string = '';
 
-  // constructor () { }
-
-  // ngOnInit(): void {
-  // }
-
-  // generateCaptcha(): void {
-  //   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZadcdefghijklmnopqrstuvwxyz0123456789';
-  //   const captchaLength = 6;
-  //   let captcha = '';
-  //   for (let i = 0; i<captchaLength; i++) {
-  //     const index = Math.floor(Math.random() * chars.length);
-  //     captcha +=chars[index];
-  //   }
-  //   this.captchaText = captcha;
-  // }
   ngOnInit(): void {
     // this.generateCaptcha();
     this.robot = true;
@@ -197,21 +174,31 @@ export class SignInView implements OnInit {
         }
       },
       (err) => {
-        this.attempts++; // Incrementar el contador de intentos fallidos
+        if (err) {
+          if (err.error && err.error.message) {
+            this.errorMessage = err.error.message;
+          }
+          if (err.error?.tiempo) {
+            const tiempoDeBloqueo = err.error.tiempo;
+            const numeroDeIntentos = err.error.numeroDeIntentos;
+            this.attempts = numeroDeIntentos;
+            this.lockTime = tiempoDeBloqueo;
+            this.isLocked = true;
+            this.remainingTime = tiempoDeBloqueo;
+            this.saveLockState();
 
-        let errorMessage = 'Credenciales incorrectas. Intento fallido.'; // Mensaje por defecto
-
-        // Si el backend devuelve un mensaje específico, úsalo
-        if (err.error && err.error.message) {
-          errorMessage = err.error.message;
-        }
-
-        if (this.attempts >= this.maxAttempts) {
-          this.lockAccount(); // Bloquear si se superan los intentos
-        } else {
+            Swal.fire({
+              title: 'Cuenta Bloqueada',
+              text: err.error.message,
+              icon: 'warning',
+              confirmButtonText: 'Ok',
+            });
+            this.startCountdown();
+          }
+        }else{
           Swal.fire({
-            title: 'Error!',
-            text: errorMessage, // Mostrar mensaje del backend
+            title: 'Error ',
+            text: 'Ha ocurrido un error al iniciar sesión.',
             icon: 'error',
             confirmButtonText: 'Ok',
           });
