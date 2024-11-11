@@ -23,6 +23,7 @@
     "@angular/service-worker": "^18.2.0",
     "@angular/ssr": "^18.2.0",
     "@auth0/angular-jwt": "^5.2.0",
+    "angular-toastr": "^2.1.1",
     "aos": "^2.3.4",
     "express": "^4.18.2",
     "frontend": "file:",

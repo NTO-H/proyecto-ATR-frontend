@@ -11,16 +11,10 @@ body.collapsed-padding {
 }
 
 .sidenav {
-  width: 250px; /* o el ancho inicial deseado */
   transition: width 0.3s ease;
   // resize: horizontal;
 }
 
-.sidenav.collapsed {
-  // resize: none;
-
-  width: 60px; /* Ancho cuando el menú está colapsado */
-}
 .sidenav {
   width: 250px;
   height: 100vh;
@@ -36,13 +30,13 @@ body.collapsed-padding {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  padding: 0 0 0 20px;
   transition: width 0.3s;
   z-index: 100;
-  overflow: scroll;
+  // overflow: scroll;
 
-  scrollbar-color: #28b6b1 transparent;
-  scrollbar-width: thin;
+  // scrollbar-color: #28b6b1 transparent;
+  // scrollbar-width: thin;
 
   &.collapsed {
     width: 80px;
@@ -87,7 +81,7 @@ body.collapsed-padding {
 
   .flex-column {
     height: 70vh;
-    width: auto;
+    // width: auto;
 
     &::-webkit-scrollbar {
       width: 1em;
@@ -109,7 +103,7 @@ body.collapsed-padding {
     list-style: none;
     padding: 0;
     width: 100%;
-
+    // margin: 0;
     &::-webkit-scrollbar {
       width: 1em;
     }
@@ -122,17 +116,15 @@ body.collapsed-padding {
       background-color: darkgrey;
     }
 
-    overflow: scroll;
-    scrollbar-color: #28b6b1 transparent;
+   
 
     // scrollbar-width: thin;
     li {
-      width: 100%;
+      // width: 100%;
       margin-bottom: 10px;
       border-radius: 5px;
-      
+
       a {
-        
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -190,13 +182,12 @@ body.collapsed-padding {
         .submenu-toggle {
           transform: rotate(-90deg);
           font-size: xx-small;
-          transition: transform 0.3s ease;
+          transition: transform 0s ease;
         }
 
         .submenu-toggle.open {
-
           transform: rotate(0deg);
-          transition: transform 0.3s ease;
+          transition: transform 0s ease;
         }
 
         // }
@@ -218,7 +209,7 @@ body.collapsed-padding {
 
           a {
             padding: 10px 20px;
-  
+
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -334,20 +325,6 @@ body.collapsed-padding {
   .notification-button i {
     font-size: 18px;
   }
-}
-
-.sidenav {
-  width: 250px;
-  // background-color: #f5f5f5;
-  height: 100vh;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  transition: width 0.3s ease;
-  position: fixed;
-}
-
-.sidenav.collapsed {
-  width: 80px;
 }
 
 .collapse-icon {

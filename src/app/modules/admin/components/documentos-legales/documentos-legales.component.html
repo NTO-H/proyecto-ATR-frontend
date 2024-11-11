@@ -7,8 +7,11 @@
         <div class="card-body">
           <h5 class="card-title">Política de Privacidad</h5>
           <p class="card-text">Maneja la política de privacidad de la empresa.</p>
-          <a [routerLink]="['/admin/configuracion/registo-politica']" class="btn">registrar </a>
+          <div class="btns">
+            
+            <a [routerLink]="['/admin/configuracion/registo-politica']" class="btn-r">registrar </a>
           <a [routerLink]="['/admin/configuracion/listado-politica']" class="btn">Gestionar</a>
+          </div>
         </div>
       </div>
     </div>
@@ -19,8 +22,11 @@
         <div class="card-body">
           <h5 class="card-title">Términos y Condiciones</h5>
           <p class="card-text">Administra los términos y condiciones de uso.</p>
-          <a [routerLink]="['/admin/configuracion/terminos-condiciones']" class="btn">registrar</a>
-          <a [routerLink]="['/admin/configuracion/listado-terminos-condiciones']" class="btn">Gestionar</a>
+          <div class="btns">
+            
+            <a [routerLink]="['/admin/configuracion/terminos-condiciones']" class="btn-r">registrar</a>
+            <a [routerLink]="['/admin/configuracion/listado-terminos-condiciones']" class="btn">Gestionar</a>
+          </div>
         </div>
       </div>
     </div>
@@ -31,8 +37,11 @@
         <div class="card-body">
           <h5 class="card-title">Deslinde Legal</h5>
           <p class="card-text">Revisa y actualiza el deslinde legal.</p>
-          <a [routerLink]="['/admin/configuracion/deslinde-legal']" class="btn">registrar</a>
+          <div class="btns">
+            
+            <a [routerLink]="['/admin/configuracion/deslinde-legal']" class="btn-r">registrar</a>
           <a [routerLink]="['/admin/configuracion/listado-legal']" class="btn">Gestionar</a>
+          </div>
         </div>
       </div>
     </div>

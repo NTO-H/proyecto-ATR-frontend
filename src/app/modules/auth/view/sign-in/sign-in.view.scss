@@ -120,6 +120,17 @@ label {
   display: block;
   margin-bottom: 5px;
 }
+// .custom-password-class {
+//   input {
+//     border-radius: 8px;
+//     padding: 0.5rem;
+//   }
+// }
+
+.p-password {
+  width: 100%;
+  // border: dashed;
+}
 
 input {
   padding: 15px;
@@ -141,6 +152,6 @@ button {
   width: 100%;
   margin-top: 10px;
 }
-.erros{
+.erros {
   color: red;
 }

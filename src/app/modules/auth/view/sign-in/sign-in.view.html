@@ -17,19 +17,23 @@
       required
       [disabled]="isLocked"
     />
+    <div class="erros" *ngIf="email==null || !email">
+      El correo electrónico está vacio.
+    </div>
     <div class="erros" *ngIf="email?.errors?.['invalidEmail'] && email?.touched">
       El correo electrónico no es válido o termina con un carácter inválido.
     </div>
     <label for="pass" class="">Contraseña</label>
-    <input
-      pInputText
-      type="password"
-      placeholder="Introduce tu contraseña"
-      formControlName="password"
-      id="pass"
-      required
-      [disabled]="isLocked"
-    />
+    <p-password
+  formControlName="password"
+  id="pass"
+  placeholder="Introduce tu contraseña"
+  [disabled]="isLocked"
+  [feedback]="false"
+  [toggleMask]="true"
+  [styleClass]="'custom-password-class'"
+></p-password>
+
 
     <!-- CAPTCHA: Solo se muestra cuando se ha intentado iniciar sesión -->
 

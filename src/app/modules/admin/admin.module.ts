@@ -55,7 +55,8 @@ import { Toast } from '../../shared/services/toast.service';
 import { ToastModule } from 'primeng/toast';
 import { ProductoService } from '../../shared/services/producto.service';
 
-
+// import { AvatarModule } from 'primeng/avatar';
+// import { AvatarGroupModule } from 'primeng/avatargroup';
 
 const VIEWS = [HomeView, FooterComponent];
 

@@ -47,7 +47,7 @@ export class RecuperarPasswordView {
   value: string | undefined;
   correoIngresado: string = '';
 
-  esFrmCorreo: boolean = true;
+  esFrmCorreo: boolean = false;
   esFrmWhatsapp: boolean = false;
   esFrmPregunta: boolean = false;
   esfrmVerficacion: boolean = false;
@@ -100,37 +100,37 @@ export class RecuperarPasswordView {
     this.coincidenPasswords = nueva === confirma;
   }
 
-  // seleccion() {
-  //   if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'correo') {
-  //     this.esFrmCorreo = true;
+  seleccion() {
+    if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'correo') {
+      this.esFrmCorreo = true;
 
-  //     console.log('actualizarPasswordxCorreo');
-  //     this.toastr.info(
-  //       `Has seleccionado la opción de recuperación por correo.`,
-  //       'Selección'
-  //     );
-  //   } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'whatsapp') {
-  //     console.log('actualizarPasswordPorWhatsapp');
-  //     this.toastr.info(
-  //       `Has seleccionado la opción de recuperación por whatsapp.`,
-  //       'Selección'
-  //     );
-  //     this.esFrmWhatsapp = true;
-  //   } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'pregunta') {
-  //     console.log('actualizarPasswordPorPregunta');
-  //     this.toastr.info(
-  //       `Has seleccionado la opción de recuperación por pregunta.`,
-  //       'Selección'
-  //     );
-  //     this.esFrmPregunta = true;
-  //   } else {
-  //     this.toastr.error(
-  //       `Debes seleccionar una opción de recuperación.`,
-  //       'Error'
-  //     );
-  //   }
-  //   this.formularioEnviado = true;
-  // }
+      console.log('actualizarPasswordxCorreo');
+      this.toastr.info(
+        `Has seleccionado la opción de recuperación por correo.`,
+        'Selección'
+      );
+    } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'whatsapp') {
+      console.log('actualizarPasswordPorWhatsapp');
+      this.toastr.info(
+        `Has seleccionado la opción de recuperación por whatsapp.`,
+        'Selección'
+      );
+      this.esFrmWhatsapp = true;
+    } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'pregunta') {
+      console.log('actualizarPasswordPorPregunta');
+      this.toastr.info(
+        `Has seleccionado la opción de recuperación por pregunta.`,
+        'Selección'
+      );
+      this.esFrmPregunta = true;
+    } else {
+      this.toastr.error(
+        `Debes seleccionar una opción de recuperación.`,
+        'Error'
+      );
+    }
+    this.formularioEnviado = true;
+  }
 
   enviarYbuscarCorreo() {
     const email = this.frmbuscarCorreo.get('email')?.value;

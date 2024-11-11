@@ -39,11 +39,27 @@
     color: #6c757d;
     margin-bottom: 15px;
   }
+
+
+  .btns{
+    // border: dashed;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+.btn-r {
+// box-shadow: ;
+    background-color: #ccffe5;
+    color: rgb(54, 54, 54);
+  }
   
-  .btn {
+  .btn{
+  background-color: #007bff;
+  color: white;
+  }
+  .btn,.btn-r {
+    box-shadow: 0px 0px 11px 0px rgb(193, 193, 193);
     display: inline-block;
-    background-color: #007bff;
-    color: white;
     padding: 10px 15px;
     text-decoration: none;
     border-radius: 5px;

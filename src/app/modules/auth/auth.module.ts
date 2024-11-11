@@ -31,13 +31,7 @@ import { DividerModule } from 'primeng/divider';
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
-// import {
-//   RECAPTCHA_V3_SITE_KEY,
-//   RecaptchaLoaderService,
-//   RecaptchaModule,
-//   RecaptchaV3Module,
-//   ReCaptchaV3Service,
-// } from 'ng-recaptcha';
+
 import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.view';
 
 import { InputOtpModule } from 'primeng/inputotp';

@@ -16,7 +16,7 @@ export class mensageservice {
   constructor(private _http: HttpClient) {}
 
   enviarCorreo(email: string,codigoVerificacion:number): Observable<any> {
-    return this._http.post<any>(`${environment.api}/enviar-correo`, { email,codigoVerificacion });
+    return this._http.post<any>(`${environment.api}/enviar-correo`, { email ,codigoVerificacion});
     // return this._http.post<any>(this.url, { correo });
   }
   activarCuenta(email: string, codigoVerificacion: string): Observable<any> {

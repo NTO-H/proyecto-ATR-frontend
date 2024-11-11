@@ -1,4 +1,10 @@
-import { Component, OnInit, Inject, PLATFORM_ID, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  PLATFORM_ID,
+  HostListener,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 // import * as AOS from 'aos';
@@ -8,71 +14,84 @@ import { ERol } from '../../../../shared/constants/rol.enum';
 @Component({
   selector: 'app-home',
   templateUrl: './home.view.html',
-  styleUrls: ['./home.view.css', '../../../../shared/styles/categoriesNav.scss','../../../../shared/styles/styles.scss'],
+  styleUrls: [
+    './home.view.css',
+    '../../../../shared/styles/categoriesNav.scss',
+    '../../../../shared/styles/styles.scss',
+    '../../../../shared/styles/animations.scss',
+  ],
 })
 export class HomeView implements OnInit {
   isMobile: boolean = false;
   visible: boolean = false;
   userROL!: string;
   position: any = 'bottom-left';
-productosPaginados:any = [];
-rows = 7; // Número de elementos por página
+  productosPaginados: any = [];
+  rows = 7; // Número de elementos por página
   productos = [
     {
       id: 1,
       nombre: 'Producto 1',
       descripcion: 'Descripción del producto 1',
       precio: 100,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     {
       id: 2,
       nombre: 'Producto 2',
       descripcion: 'Descripción del producto 2',
       precio: 200,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
     },
     {
       id: 3,
       nombre: 'Producto 3',
       descripcion: 'Descripción del producto 3',
       precio: 150,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     {
       id: 3,
       nombre: 'Producto 3',
       descripcion: 'Descripción del producto 3',
       precio: 150,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     {
       id: 3,
       nombre: 'Producto 3',
       descripcion: 'Descripción del producto 3',
       precio: 150,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     {
       id: 3,
       nombre: 'Producto 3',
       descripcion: 'Descripción del producto 3',
       precio: 150,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     {
       id: 3,
       nombre: 'Producto 3',
       descripcion: 'Descripción del producto 3',
       precio: 150,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     {
       id: 3,
       nombre: 'Producto 3',
       descripcion: 'Descripción del producto 3',
       precio: 150,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     },
     // {
     //   id: 4,
@@ -84,7 +103,8 @@ rows = 7; // Número de elementos por página
   ];
 
   constructor(
-    private router: Router, private sessionService: SessionService,
+    private router: Router,
+    private sessionService: SessionService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -117,16 +137,14 @@ rows = 7; // Número de elementos por página
     this.detectDevice();
   }
 
-
   ngOnInit() {
+    //
 
-  //
-
-  // ngOnInit() {
+    // ngOnInit() {
     this.productosPaginados = this.productos.slice(0, this.rows);
-  // }
+    // }
 
-    this.visible =true;
+    this.visible = true;
     // if (typeof window !== 'undefined') {
     //   this.position = 'bottom-left';
     // }
@@ -136,8 +154,6 @@ rows = 7; // Número de elementos por página
     this.detectDevice();
     // Asigna items de menú con el tipo correcto
     // this.items = this.isLoggedIn
-
-
 
     const ua = navigator.userAgent;
     console.log(ua);
@@ -185,7 +201,7 @@ rows = 7; // Número de elementos por página
       this.userROL = userData.rol;
       return this.userROL === ERol.CLIENTE;
     }
-  // visible = false;
+    // visible = false;
 
     return false;
   }
@@ -209,20 +225,14 @@ rows = 7; // Número de elementos por página
       nombre: 'Producto 5',
       descripcion: 'Descripción del producto 5',
       precio: 300,
-      imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+      imagen:
+        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
     };
     this.productos.push(nuevoProducto);
     // if (isPlatformBrowser(this.platformId)) {
     //   AOS.refresh(); // Refresca AOS solo si está en el navegador
     // }
   }
-
-
-
-
-
-
-
 
   cambiarPagina(event: any) {
     const start = event.first;

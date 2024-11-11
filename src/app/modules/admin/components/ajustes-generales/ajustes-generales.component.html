@@ -10,7 +10,16 @@
       <!-- Sección para el logo -->
       <div class="table-row">
         <div class="table-cell">
+          <!-- [src]="empresa.logo" -->
           <label for="logo">Logo</label>
+          <p-avatar
+            *ngIf="profileImg"
+            [image]="profileImg"
+            styleClass="mr-2"
+            size="xlarge"
+            shape="circle"
+          ></p-avatar>
+
           <input
             type="file"
             id="logo"
@@ -21,9 +30,9 @@
             class="form-control"
           />
           <!-- Mostrar el logo si existe -->
-          <div *ngIf="logoUrl" class="logo-container">
+          <!-- <div *ngIf="logoUrl" class="logo-container">
             <img [src]="logoUrl" alt="Logo" class="logo-preview" />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -165,63 +174,64 @@
       </div>
     </div>
     <div class="form-group-container">
-
       <div class="table-row">
-      <div class="table-cell">
-        <label for="correoElectronico">Correo Electrónico</label>
-        <input
-          type="email"
-          id="correoElectronico"
-          [(ngModel)]="empresa.correoElectronico"
-          name="correoElectronico"
-          required
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-          class="form-control"
-          #correoElectronico="ngModel"
-        />
-        <div
-          *ngIf="correoElectronico.invalid && correoElectronico.touched"
-          class="error-message"
-        >
-          <span *ngIf="correoElectronico.errors?.['required']"
-            >El correo electrónico es obligatorio.</span
+        <div class="table-cell">
+          <label for="correoElectronico">Correo Electrónico</label>
+          <input
+            type="email"
+            id="correoElectronico"
+            [(ngModel)]="empresa.correoElectronico"
+            name="correoElectronico"
+            required
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            class="form-control"
+            #correoElectronico="ngModel"
+          />
+          <div
+            *ngIf="correoElectronico.invalid && correoElectronico.touched"
+            class="error-message"
           >
-          <span *ngIf="correoElectronico.errors?.['email']"
-            >El correo electrónico no es válido.</span
-          >
-          <span *ngIf="correoElectronico.errors?.['pattern']"
-            >Formato de correo electrónico no válido.</span
-          >
+            <span *ngIf="correoElectronico.errors?.['required']"
+              >El correo electrónico es obligatorio.</span
+            >
+            <span *ngIf="correoElectronico.errors?.['email']"
+              >El correo electrónico no es válido.</span
+            >
+            <span *ngIf="correoElectronico.errors?.['pattern']"
+              >Formato de correo electrónico no válido.</span
+            >
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="table-row">
-      <div class="table-cell">
-        <label for="telefono">Teléfono</label>
-        <input
-          type="text"
-          id="telefono"
-          [(ngModel)]="empresa.telefono"
-          name="telefono"
-          class="form-control"
-          #telefono="ngModel"
-          pattern="^[0-9]{10,15}$"
-          required
-        />
-        <div *ngIf="telefono.invalid && telefono.touched" class="error-message">
-          <span *ngIf="telefono.errors?.['required']"
-            >El teléfono es obligatorio.</span
+      <div class="table-row">
+        <div class="table-cell">
+          <label for="telefono">Teléfono</label>
+          <input
+            type="text"
+            id="telefono"
+            [(ngModel)]="empresa.telefono"
+            name="telefono"
+            class="form-control"
+            #telefono="ngModel"
+            pattern="^[0-9]{10,15}$"
+            required
+          />
+          <div
+            *ngIf="telefono.invalid && telefono.touched"
+            class="error-message"
           >
-          <span *ngIf="telefono.errors?.['pattern']"
-            >El teléfono debe ser un número válido de 10 a 15 dígitos.</span
-          >
+            <span *ngIf="telefono.errors?.['required']"
+              >El teléfono es obligatorio.</span
+            >
+            <span *ngIf="telefono.errors?.['pattern']"
+              >El teléfono debe ser un número válido de 10 a 15 dígitos.</span
+            >
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-    </div>
   <div class="form-actions">
     <button
       type="submit"

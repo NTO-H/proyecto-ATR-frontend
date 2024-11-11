@@ -13,6 +13,12 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 })
 export class AppComponent {
   title = 'frontend';
+
+
+
+
+
+  
 }
 
 

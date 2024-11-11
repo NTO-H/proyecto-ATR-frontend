@@ -21,17 +21,39 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
 
-  enviarCorreo(correo: string): Observable<any> {
-    return this.http.post<any>(`${environment.api}/enviar-correo`, { correo });
+  enviarCorreo(email: string): Observable<any> {
+    return this.http.post<any>(`${environment.api}/enviar-correo`, { email });
     // return this._http.post<any>(this.url, { correo });
   }
 
   // http://localhost:4000/api/v1/usuarios/
 
-  checkEmailExists(email: Usuario): Observable<any> {
-    return this.http.post<any>(environment.api + '/usuarios/check-email', {email}, {
-      withCredentials: true,
-    });
+  checkEmailExists(email: string): Observable<any> {
+    return this.http.post<any>(
+      environment.api + '/usuarios/check-email',
+      { email },
+      {
+        withCredentials: true,
+      }
+    );
+  }
+  checkCode(code: number): Observable<any> {
+    return this.http.post<any>(
+      environment.api + '/usuarios/check-code',
+      { code },
+      {
+        withCredentials: true,
+      }
+    );
+  }
+  enviarCodido(email: number): Observable<any> {
+    return this.http.post<any>(
+      environment.api + '/enviar-correo/code',
+      { email },
+      {
+        withCredentials: true,
+      }
+    );
   }
   getUsuarios(): Observable<any> {
     return this.http.get(environment.api + '/usuarios');
@@ -43,8 +65,11 @@ export class UsuarioService {
     });
   }
 
-  enviarToken(correo: string, token: string): Observable<any> {
-    return this.http.post<boolean>(environment.api + 'token', { correo, token });
+  enviarToken(email: string, codigoVerificacion: string): Observable<any> {
+    return this.http.post<boolean>(
+      environment.api + '/verificacion/activar-cuenta',
+      { email, codigoVerificacion }
+    );
   }
 
   enviarDatos(pregunta: string, respuesta: string): Observable<any> {
@@ -55,15 +80,16 @@ export class UsuarioService {
   }
 
   actualizaPasswordxCorreo(
-    token: string,
-    correo: string,
+    email: string,
     nueva: string
   ): Observable<any> {
-    return this.http.put<boolean>(this.url + 'actualizaxCorreo', {
-      token,
-      correo,
-      nueva,
-    });
+    return this.http.put<boolean>(
+      environment.api + '/usuarios/actualizaxCorreo',
+      {
+        email,
+        nueva,
+      }
+    );
   }
 
   actualizaPasswordxPregunta(
@@ -105,7 +131,7 @@ export class UsuarioService {
 
   detalleUsuarioById(id: string): Observable<any> {
     //return this.http.get(`${this.apiUrl}/${id}`);
-    return this.http.get(`${environment.api}/usuarios/`+ id);
+    return this.http.get(`${environment.api}/usuarios/` + id);
   }
 
   buscaUsuarioByCorreo(correo: string): Observable<any> {
