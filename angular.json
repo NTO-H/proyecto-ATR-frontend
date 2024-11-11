@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": ["aos"],
             "outputPath": "dist/my-pwa",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -94,7 +95,7 @@
               }
             ],
             "styles": ["src/styles.scss"],
-"scripts": [
+            "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/semantic-ui-css/semantic.min.js"
             ]
