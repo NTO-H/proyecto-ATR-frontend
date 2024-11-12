@@ -22,7 +22,7 @@ export class SignInView implements OnInit {
   maxAttempts: number = 5; // Se puede asignar un número o 0 más adelante
 
   attempts: number = 0; // Contador de intentos actuales
-  isLocked :boolean= false; // Estado para saber si está bloqueado
+  isLocked: boolean = false; // Estado para saber si está bloqueado
   lockTime: number = 30; // Tiempo de bloqueo en segundos
   remainingTime: number = 0; // Tiempo restante para volver a intentar
   timerSubscription!: Subscription;
@@ -57,6 +57,7 @@ export class SignInView implements OnInit {
       password: ['', Validators.required],
     });
   }
+
   captchaText: string = '';
 
   ngOnInit(): void {
@@ -195,7 +196,7 @@ export class SignInView implements OnInit {
             });
             this.startCountdown();
           }
-        }else{
+        } else {
           Swal.fire({
             title: 'Error ',
             text: 'Ha ocurrido un error al iniciar sesión.',
@@ -246,5 +247,25 @@ export class SignInView implements OnInit {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe(); // Detener el temporizador
     }
+  }
+
+  get hasLowercase(): boolean {
+    return /[a-z]/.test(this.loginForm.get('password')?.value);
+  }
+
+  get hasUppercase(): boolean {
+    return /[A-Z]/.test(this.loginForm.get('password')?.value);
+  }
+
+  get hasNumber(): boolean {
+    return /[0-9]/.test(this.loginForm.get('password')?.value);
+  }
+
+  get hasSpecialChar(): boolean {
+    return /[@$!%*?&]/.test(this.loginForm.get('password')?.value);
+  }
+
+  get hasMinLength(): boolean {
+    return this.loginForm.get('password')?.value?.length >= 8;
   }
 }

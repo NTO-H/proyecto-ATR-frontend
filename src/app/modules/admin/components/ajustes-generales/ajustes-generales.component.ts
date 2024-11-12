@@ -38,9 +38,9 @@ export class AjustesGeneralesComponent {
       (data) => {
         if (Array.isArray(data) && data.length > 0) {
           const empresaData = data[0]; // Suponiendo que `data` es un arreglo y tomamos el primer elemento
-          this.profileImg= empresaData.logo;
+          this.profileImg = empresaData.logo;
           this.empresa = {
-            logo	: empresaData.logo,
+            logo: empresaData.logo,
             slogan: empresaData.slogan,
             tituloPagina: empresaData.tituloPagina,
             direccion: empresaData.direccion,
@@ -75,7 +75,9 @@ export class AjustesGeneralesComponent {
     formData.append('direccion', this.empresa.direccion);
     formData.append('correoElectronico', this.empresa.correoElectronico);
     formData.append('telefono', this.empresa.telefono);
-
+    
+    formData.append('redesSociales', JSON.stringify(this.redesSociales));
+    
     if (this.selectedFile) {
       const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
       if (this.selectedFile.size > maxSizeInBytes) {
@@ -88,9 +90,7 @@ export class AjustesGeneralesComponent {
       }
       formData.append('file', this.selectedFile);
     }
-    
 
-    formData.append('redesSociales', JSON.stringify(this.redesSociales));
 
     this.datosEmpresaService.updateUsuario(formData).subscribe(
       (response) => {
@@ -124,33 +124,32 @@ export class AjustesGeneralesComponent {
     );
   }
 
-onFileSelected(event: any) {
+  onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
-        const validExtensions = ['image/jpeg', 'image/png'];
-        if (!validExtensions.includes(file.type)) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Formato no válido',
-                text: 'Solo se permiten archivos en formato JPEG o PNG.',
-            });
-            this.selectedFile = null;
-            this.fileInput.nativeElement.value = ''; // Limpia el input de archivo
-            return;
-        }
+      const validExtensions = ['image/jpeg', 'image/png'];
+      if (!validExtensions.includes(file.type)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Formato no válido',
+          text: 'Solo se permiten archivos en formato JPEG o PNG.',
+        });
+        this.selectedFile = null;
+        this.fileInput.nativeElement.value = ''; // Limpia el input de archivo
+        return;
+      }
 
-        const reader = new FileReader();
-        reader.onload = (e:any) => {
-            this.logoUrl = reader.result; // Asignar la URL del archivo
-            this.profileImg = e.target.result; 
-          };
-        reader.readAsDataURL(file);
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.logoUrl = reader.result; // Asignar la URL del archivo
+        this.profileImg = e.target.result;
+      };
+      reader.readAsDataURL(file);
 
-        console.log('Archivo seleccionado:', file);
-        this.selectedFile = file;
+      console.log('Archivo seleccionado:', file);
+      this.selectedFile = file;
     }
-}
-
+  }
 
   resetFileInput() {
     this.selectedFile = null;

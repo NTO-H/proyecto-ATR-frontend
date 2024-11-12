@@ -2,7 +2,8 @@
   width: 100%;
   // max-width: 600px;
   margin: 0 auto;
-  padding: 20px;background: white;
+  padding: 20px;
+  background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
@@ -24,7 +25,14 @@
         display: table-cell;
         padding: 10px;
         vertical-align: top;
-
+        .btn-primary {
+          background-color: #effcff;
+        border: dashed rgb(95, 135, 160);
+          border-radius: 4px;
+          cursor: pointer;
+          width: 10%;
+          padding: 5px 10px;
+        }
         label {
           font-size: 0.9em;
           color: #333;
@@ -70,13 +78,13 @@
             .form-control {
               flex: 1;
             }
-
+          
             .btn.eliminar {
               padding: 5px 10px;
               background-color: #dc3545;
               color: #fff;
-              border: none;
               border-radius: 4px;
+              border: none;
               cursor: pointer;
               font-size: 0.8rem;
 
@@ -142,6 +150,6 @@
 
 .form-group-container {
   display: flex;
-  gap:20px;
+  gap: 20px;
   flex-direction: row;
 }

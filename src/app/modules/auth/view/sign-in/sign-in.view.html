@@ -1,9 +1,7 @@
 <div class="container-form">
-  <div class="back-button">
-    <a routerLink="/public/home" class="go-back">
-      <i class="fas fa-chevron-left"></i> Ir atrás
-    </a>
-  </div>
+  <!-- <button routerLink="/public/home" class="go-back">
+    <i class="btn-atras fas fa-chevron-left"></i> Ir atrás
+  </button> -->
 
   <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
     <div class="item">
@@ -39,16 +37,22 @@
       </div>
 
       <div class="form-box">
-        <label for="email" class="">Correo electronico</label>
-        <input
-          pInputText
-          type="text"
-          placeholder="Introduce tu correo electrónico"
-          formControlName="email"
-          id="email"
-          required
-          [disabled]="isLocked"
-        />
+        <label for="email">Correo electronico</label>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-envelope"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            type="text"
+            placeholder="Introduce tu correo electrónico"
+            formControlName="email"
+            id="email"
+            class="input-login"
+            required
+            [disabled]="isLocked"
+          />
+        </p-inputGroup>
       </div>
       <div
         *ngIf="errorMessage && errorMessage.includes('correo')"
@@ -59,21 +63,47 @@
 
       <div class="form-box">
         <label for="pass" class="">Contraseña</label>
-        <p-password formControlName="password" [toggleMask]="true">
-          <ng-template pTemplate="header">
-            <h6>Escoge una contraseña</h6>
-          </ng-template>
-          <ng-template pTemplate="footer">
-            <p-divider></p-divider>
-            <p>Sugerencias</p>
-            <ul>
-              <li>Al menos una letra minúscula</li>
-              <li>Al menos una letra mayúscula</li>
-              <li>Al menos un número</li>
-              <li>Mínimo 8 caracteres</li>
-            </ul>
-          </ng-template>
-        </p-password>
+        <p-inputGroup class="input-group">
+          <p-inputGroupAddon>
+            <i class="pi pi-lock"></i>
+            <!-- Ícono de candado para contraseña -->
+          </p-inputGroupAddon>
+          <p-password
+            formControlName="password"
+            [toggleMask]="true"
+            promptLabel="Ingresa tu contras"
+            weakLabel="Muy simple"
+            strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            mediumRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$"
+            inputStyleClass="input-login"
+            mediumLabel="Mediana mente segura"
+            strongLabel="Contraseña segura"
+            placeholder="Contraseña segura"
+          >
+            <ng-template pTemplate="header">
+              <h6>Escoge una contraseña</h6>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <p-divider></p-divider>
+              <p>Sugerencias</p>
+              <ul>
+                <li [ngClass]="{'hidden': hasLowercase}">
+                  Al menos una letra minúscula
+                </li>
+                <li [ngClass]="{'hidden': hasUppercase}">
+                  Al menos una letra mayúscula
+                </li>
+                <li [ngClass]="{'hidden': hasNumber}">Al menos un número</li>
+                <li [ngClass]="{'hidden': hasSpecialChar}">
+                  Al menos un carácter especial
+                </li>
+                <li [ngClass]="{'hidden': hasMinLength}">
+                  Mínimo 8 caracteres
+                </li>
+              </ul>
+            </ng-template>
+          </p-password>
+        </p-inputGroup>
       </div>
       <div
         *ngIf="errorMessage && errorMessage.includes('Contraseña')"
@@ -81,23 +111,6 @@
       >
         {{ errorMessage }}
       </div>
-
-      <!-- CAPTCHA: Solo se muestra cuando se ha intentado iniciar sesión -->
-
-      <!-- <div *ngIf="showCaptcha" class="captcha-container">
-      <h3>Por favor ingresa el CAPTCHA para continuar</h3>
-      <p class="captcha-text">{{ captchaText }}</p>
-      <input
-        type="text"
-        placeholder="Ingresa el texto del captcha"
-        formControlName="captchaInput"
-        class="captcha-input"
-        required
-      />
-      <button type="button" (click)="generateCaptcha()">
-        Generar nuevo CAPTCHA
-      </button>
-    </div> -->
 
       <!-- Botón para iniciar sesión -->
       <div class="form-box-button">

@@ -37,6 +37,7 @@ import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.vi
 
 import { InputOtpModule } from 'primeng/inputotp';
 import { PublicModule } from "../public/public.module";
+import { InputGroupModule } from 'primeng/inputgroup';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { PublicModule } from "../public/public.module";
     InputTextModule,
     // RecaptchaModule,
     // RecaptchaV3Module,
-
+    InputGroupModule,
     PublicModule,
     ToastrModule.forRoot(),
   ],

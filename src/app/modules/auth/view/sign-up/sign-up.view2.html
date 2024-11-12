@@ -1,0 +1,159 @@
+
+  <div class="container">
+    <div class="card">
+      <div class="illustration">
+        <img src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg" alt="Illustration">
+      </div>
+      <div class="form-container">
+        <h1>Marketplace</h1>
+        <h2>Create an account</h2>
+        <form>
+          <input type="text" placeholder="Full Name">
+          <input type="email" placeholder="Email Address">
+          <input type="password" placeholder="Password">
+          <input type="password" placeholder="Confirm Password">
+          <button class="btn register" type="submit">REGISTER</button>
+          <button class="btn signin" type="button">SIGN IN</button>
+          <div class="terms">
+            <input type="checkbox" id="terms">
+            <label for="terms">By registering your details, you agree with our <a href="#">Terms & Conditions</a>, and <a href="#">Privacy Policy</a>.</label>
+          </div>
+        </form>
+        <div class="social-links">
+          <a href="#">Facebook</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Google</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<style>
+  body {
+  font-family: 'Arial', sans-serif;
+  background: #f8f9fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  overflow: hidden;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.illustration {
+  flex: 1;
+  background: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.illustration img {
+  max-width: 80%;
+}
+
+.form-container {
+  flex: 1;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #6a6f73;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.btn {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register {
+  background-color: #6f4dfd;
+  color: #fff;
+}
+
+.register:hover {
+  background-color: #5b3ed1;
+}
+
+.signin {
+  background-color: transparent;
+  color: #6f4dfd;
+  border: 2px solid #6f4dfd;
+}
+
+.signin:hover {
+  background-color: #6f4dfd;
+  color: #fff;
+}
+
+.terms {
+  font-size: 12px;
+  color: #6a6f73;
+}
+
+.terms a {
+  color: #6f4dfd;
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
+}
+
+.social-links {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-links a {
+  color: #6f4dfd;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+
+</style>
