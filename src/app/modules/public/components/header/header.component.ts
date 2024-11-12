@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       (data) => {
         this.empresaData = data[0];  // Guardar los datos en la variable
         this.imageUrl=this.empresaData?.logo;
-        console.log('Datos de la empresa:', this.empresaData);
+        console.log('Datos de la empresa:', this.imageUrl);
       },
       (error) => {
 

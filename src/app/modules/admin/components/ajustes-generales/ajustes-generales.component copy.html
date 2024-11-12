@@ -41,6 +41,69 @@
 
     <div class="table-row">
       <div class="table-cell">
+        <label for="redesSociales">Redes Sociales</label>
+        <div class="redes-sociales-container">
+          <div
+            *ngFor="let red of redesSociales; let i = index"
+            class="red-social"
+          >
+            <input
+              type="text"
+              placeholder="Plataforma"
+              [(ngModel)]="red.plataforma"
+              name="plataforma{{ i }}"
+              minlength="3"
+              maxlength="20"
+              class="form-control"
+              #plataforma="ngModel"
+            />
+            <div
+              *ngIf="plataforma.invalid && plataforma.touched"
+              class="error-message"
+            >
+              <span *ngIf="plataforma.errors?.['required']"
+                >La plataforma es obligatoria.</span
+              >
+              <span *ngIf="plataforma.errors?.['minlength']"
+                >La plataforma debe tener al menos 3 caracteres.</span
+              >
+              <span *ngIf="plataforma.errors?.['maxlength']"
+                >La plataforma no puede tener más de 20 caracteres.</span
+              >
+            </div>
+
+            <input
+              type="text"
+              placeholder="Enlace"
+              [(ngModel)]="red.enlace"
+              name="enlace{{ i }}"
+              required
+              pattern="https?://.+"
+              class="form-control"
+              #enlace="ngModel"
+            />
+            <div *ngIf="enlace.invalid && enlace.touched" class="error-message">
+              <span *ngIf="enlace.errors?.['required']"
+                >El enlace es obligatorio.</span
+              >
+              <span *ngIf="enlace.errors?.['pattern']"
+                >El enlace debe ser una URL válida.</span
+              >
+            </div>
+
+            <button type="button" (click)="removeRed(i)" class="btn eliminar">
+              Eliminar
+            </button>
+          </div>
+        </div>
+        <button type="button" (click)="addRed()" class="btn agregar">
+          Agregar Red Social
+        </button>
+      </div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">
         <label for="slogan">Slogan</label>
         <input
           type="text"
