@@ -32,7 +32,12 @@
   </nav>
   <nav class="navbar-second flex" [ngClass]="{ sticky: isSticky }">
     <div class="logo">
-      <div class="logo1"></div>
+      <div
+        class="logo1"
+        [style.backgroundImage]="
+          'url(' + (isSticky ? imageUrl : defaultImageUrl) + ')'
+        "
+      ></div>
     </div>
     <ul *ngIf="!isMobile" class="nav-menu flex">
       <li><a (click)="redirectTo('home')">Home</a></li>
