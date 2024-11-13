@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isSticky = false;
   isLoading = false;
   searchQuery = ''; // Bind search input
-  empresaData: any;
+  datosEmpresa: any;
   
   imageUrl!: string;
   defaultImageUrl: string = 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png'
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.loadCompanyData(); // Cargar los datos de la empresa al iniciar
+    this.getDatosEmpresa(); // Cargar los datos de la empresa al iniciar
 
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenSize();
@@ -62,12 +62,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  loadCompanyData() {
+  getDatosEmpresa() {
     this.datosEmpresaService.traerDatosEmpresa().subscribe(
       (data) => {
-        this.empresaData = data[0];  // Guardar los datos en la variable
-        this.imageUrl=this.empresaData?.logo;
-        console.log('Datos de la empresa:', this.imageUrl);
+        this.datosEmpresa = data[0];  // Guardar los datos en la variable
+        this.imageUrl=this.datosEmpresa?.logo;
       },
       (error) => {
 

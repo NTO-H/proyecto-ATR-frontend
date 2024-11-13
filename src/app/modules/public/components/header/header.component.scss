@@ -12,6 +12,11 @@ nav {
   text-align: center;
 }
 
+.titulo{
+  font-size: 26px;
+  font-weight: bold;
+}
+
 /* // marque */
 .marquee-container {
   width: 100%;
@@ -178,18 +183,23 @@ p-sidebar {
   backdrop-filter: blur(2px);
   border: solid 1px #f6f2ef;
   .logo > .logo1 {
-    background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
+    background-image:
+    url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 50px;
+    width: 65px;
     height: 50px;
-    border-radius: 500%;
+    border-radius: 20%;
+    -webkit-border-radius: 20%;
+    -moz-border-radius: 20%;
+    -ms-border-radius: 20%;
+    -o-border-radius: 20%;
     margin: 0;
     &::before {
       content: "";
     }
-  }
+}
 
   .zoom {
     transform: scale(2);

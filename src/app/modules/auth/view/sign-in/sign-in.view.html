@@ -1,8 +1,12 @@
-<div class="container-form">
+<div class="container-form" 
+[style.backgroundImage]="'url(https://example.com/your-image.jpg)'"
+[style.backgroundSize]="'cover'" 
+[style.backgroundPosition]="'center'" 
+[style.backgroundRepeat]="'no-repeat'">>
   <!-- <button routerLink="/public/home" class="go-back">
     <i class="btn-atras fas fa-chevron-left"></i> Ir atrás
   </button> -->
-
+  
   <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
     <div class="item">
       <div class="nombre-empresa">

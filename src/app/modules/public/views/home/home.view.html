@@ -1,20 +1,15 @@
-
 <div class="box">
   <div class="hero-img">
     <div class="text">
-      <img
-        class="imagen-logo"
-        src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730313785/images-AR/ic5srzm6tzqyrosaexan.png"
-        alt="logo atelier"
-      />
+      <img class="imagen-logo" src="{{datosEmpresa.logo}}" alt="logo" />
 
-      <h1    class="sequence leFadeIn text-info">Bienvenido a Nuestra Página!</h1>
+      <h1 class="sequence leFadeIn text-info">Bienvenido a Nuestra Página!</h1>
     </div>
   </div>
 
   <div class="contiene-all">
     <div *ngIf="!isMobile" class="sidebar">
-      <div class="filter-section">  
+      <div class="filter-section">
         <h3>Categorías</h3>
         <ul class="category-list">
           <!-- <li><strong>MUJER</strong> (96)</li> -->
@@ -87,7 +82,7 @@
         </div>
       </div>
       <p-paginator
-      [showFirstLastIcon]="false"
+        [showFirstLastIcon]="false"
         [rows]="rows"
         [totalRecords]="productos.length"
         [rowsPerPageOptions]="[5, 10, 20]"
@@ -108,8 +103,8 @@
       class="card-image"
     />
     <h2 style="text-align: center">Vestidos</h2>
-    En ATELIER nos aseguramos de que recibas esa prenda que durará un largo
-    tiempo.
+    En {{datosEmpresa.tituloPagina}} nos aseguramos de que recibas esa prenda
+    que durará un largo tiempo.
   </div>
   <div class="card">
     <img

@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 // import * as AOS from 'aos';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
+import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
+import { response } from 'express';
+import { error } from 'console';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +31,8 @@ export class HomeView implements OnInit {
   position: any = 'bottom-left';
   productosPaginados: any = [];
   rows = 7; // Número de elementos por página
+  datosEmpresa: any;
+
   productos = [
     {
       id: 1,
@@ -105,6 +110,7 @@ export class HomeView implements OnInit {
   constructor(
     private router: Router,
     private sessionService: SessionService,
+    private datosEmpresaService: DatosEmpresaService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -133,13 +139,14 @@ export class HomeView implements OnInit {
     }
   }
   @HostListener('window:resize', ['$event'])
+  
   onResize() {
     this.detectDevice();
   }
 
   ngOnInit() {
     //
-
+    this.getDatosEmpresa();
     // ngOnInit() {
     this.productosPaginados = this.productos.slice(0, this.rows);
     // }
@@ -195,6 +202,19 @@ export class HomeView implements OnInit {
       console.log('No se está ejecutando en un navegador');
     }
   }
+
+  getDatosEmpresa() {
+    this.datosEmpresaService.traerDatosEmpresa().subscribe(
+      (respuesta) => {
+        console.log(respuesta[0]);
+        this.datosEmpresa = respuesta[0];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   isUserLoggedIn(): boolean {
     const userData = this.sessionService.getUserData();
     if (userData) {

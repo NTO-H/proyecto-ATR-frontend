@@ -26,6 +26,8 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
 import { ToastrModule, Toast, ToastrService } from 'ngx-toastr';
 import { isPlatformBrowser } from '@angular/common';
 @Component({
+
+  
   selector: 'app-sign-up-view',
   templateUrl: 'sign-up.view.html',
   styleUrls: ['./sign-up.view.scss', './listacard.scss'],
