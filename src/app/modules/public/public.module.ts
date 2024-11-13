@@ -22,6 +22,7 @@ import { DetailsProductView } from './views/details-product/details-product.view
 import { SkeletonModule } from 'primeng/skeleton';
 import { CarritoView } from './views/carrito/carrito.view';
 import { DatosEmpresaService } from '../../shared/services/datos-empresa.service';
+import {  ControlAdministrativaService} from "../../shared/services/control-administrativa.service";
 import { TabMenuModule } from 'primeng/tabmenu';
 import { GalleriaModule } from 'primeng/galleria';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -52,7 +53,7 @@ const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductVie
     PublicRoutingModule,HttpClientModule, ...MATERIALS,
   ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Toast,MessageService,provideClientHydration(), [provideHttpClient(withFetch())],
-  SignUpService,UsuarioService,DatosEmpresaService],
+  SignUpService,UsuarioService,DatosEmpresaService,ControlAdministrativaService],
 })
 export class PublicModule {
 

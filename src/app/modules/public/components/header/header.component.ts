@@ -35,11 +35,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isSticky = false;
   isLoading = false;
   searchQuery = ''; // Bind search input
-  datosEmpresa: any;
-  
-  imageUrl!: string;
-  defaultImageUrl: string = 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png'
+  datosEmpresa: any={};
+  nombreDeLaPagina: string = '';
 
+  imageUrl!: string;
+  defaultImageUrl: string =
+    'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png';
 
   constructor(
     private router: Router,
@@ -65,16 +66,16 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   getDatosEmpresa() {
     this.datosEmpresaService.traerDatosEmpresa().subscribe(
       (data) => {
-        this.datosEmpresa = data[0];  // Guardar los datos en la variable
-        this.imageUrl=this.datosEmpresa?.logo;
+        this.datosEmpresa = data[0]; // Guardar los datos en la variable
+        this.nombreDeLaPagina = this.datosEmpresa.tituloPagina;
+        this.imageUrl = this.datosEmpresa?.logo;
       },
       (error) => {
-
         console.error('Error al cargar los datos de la empresa:', error);
       }
     );
   }
-    ngAfterViewInit() {
+  ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       $(this.elementRef.nativeElement)
         .find('.ui.search')
@@ -144,7 +145,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           {
             label: 'Mi perfil',
             icon: 'pi pi-user',
-            command: (event: MenuItemCommandEvent) => this.redirectTo('Mi-perfil'),
+            command: (event: MenuItemCommandEvent) =>
+              this.redirectTo('Mi-perfil'),
           },
           {
             label: 'Configuración',
@@ -161,17 +163,20 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           {
             label: 'Iniciar sesión',
             icon: 'pi pi-sign-in',
-            command: (event: MenuItemCommandEvent) => this.redirectTo('Sign-in'),
+            command: (event: MenuItemCommandEvent) =>
+              this.redirectTo('Sign-in'),
           },
           {
             label: 'Registrarme',
             icon: 'pi pi-user-plus',
-            command: (event: MenuItemCommandEvent) => this.redirectTo('Sign-up'),
+            command: (event: MenuItemCommandEvent) =>
+              this.redirectTo('Sign-up'),
           },
           {
             label: 'Activar cuenta',
             icon: 'pi pi-check-circle',
-            command: (event: MenuItemCommandEvent) => this.redirectTo('Activar-cuenta'),
+            command: (event: MenuItemCommandEvent) =>
+              this.redirectTo('Activar-cuenta'),
           },
         ];
   }
@@ -196,8 +201,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.sidebarVisible = false;
     this.router.navigate(
       route.includes('Sign-in') ||
-      route.includes('Sign-up') ||
-      route.includes('Activar-cuenta')
+        route.includes('Sign-up') ||
+        route.includes('Activar-cuenta')
         ? ['/auth', route]
         : ['/public', route]
     );

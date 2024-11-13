@@ -39,7 +39,9 @@
         "
       ></div> -->
       <img *ngIf="isSticky" [src]="imageUrl" alt="logo" class="logo1" />
-      <span *ngIf="!isSticky" class="titulo">{{datosEmpresa.tituloPagina}}</span>
+      <span *ngIf="!isSticky" class="titulo">
+        {{ nombreDeLaPagina }}</span
+      >
     </div>
     <ul *ngIf="!isMobile" class="nav-menu flex">
       <li><a (click)="redirectTo('home')">Home</a></li>

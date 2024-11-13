@@ -11,32 +11,22 @@
   [closable]="false"
   [draggable]="false"
   [resizable]="false"
+  styleClass="form-terminos"
 >
   <!-- [width]="600" -->
-  <div class="terms-content">
-    <h3>Términos y Condiciones</h3>
-    <p>
-      Por favor, lee estos términos y condiciones detenidamente antes de
-      utilizar nuestra aplicación.
-    </p>
-    <ul>
-      <li>
-        Condición 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </li>
-      <li>
-        Condición 2: Integer nec odio. Praesent libero. Sed cursus ante dapibus
-        diam.
-      </li>
-      <li>
-        Condición 3: Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis
-        sagittis ipsum.
-      </li>
-      <!-- Más condiciones... -->
-    </ul>
+  <div class="terminos-content">
+    <div *ngFor="let politicas of politicasDePrivacidad" class="terminos">
+      <h4>{{ politicas?.titulo }}</h4>
+      <p>{{ politicas?.contenido }}</p>
+      <br />
+    </div>
   </div>
-  <input type="checkbox" [(ngModel)]="termsAccepted" />
-  <label for="">He leído y acepto los términos 1y condiciones</label>
+
   <ng-template pTemplate="footer">
+    <div class="terminos-opcion">
+      <input type="checkbox" [(ngModel)]="termsAccepted" />
+      <label for="">He leído y acepto los términos y condiciones</label>
+    </div>
     <p-button
       label="Aceptar"
       [disabled]="!termsAccepted"
@@ -49,11 +39,7 @@
 <!-- <body> -->
 <div class="container">
   <header class="logo-placeholder">
-    <img
-      src={{empresaData?.logo}}
-      alt="Atelier logo"
-      class="logo"
-    />
+    <img src="{{empresaData?.logo}}" alt="Atelier logo" class="logo" />
   </header>
   <h1 class="title">
     {{ empresaData?.tituloPagina || 'Nombre de la pagina' }}

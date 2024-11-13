@@ -31,7 +31,7 @@ export class HomeView implements OnInit {
   position: any = 'bottom-left';
   productosPaginados: any = [];
   rows = 7; // Número de elementos por página
-  datosEmpresa: any;
+  datosEmpresa: any={};
 
   productos = [
     {
@@ -206,7 +206,6 @@ export class HomeView implements OnInit {
   getDatosEmpresa() {
     this.datosEmpresaService.traerDatosEmpresa().subscribe(
       (respuesta) => {
-        console.log(respuesta[0]);
         this.datosEmpresa = respuesta[0];
       },
       (error) => {

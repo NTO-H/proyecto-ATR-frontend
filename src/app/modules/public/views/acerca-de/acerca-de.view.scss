@@ -15,86 +15,125 @@
 // }
 
 .container {
-    text-align: center;
-    width: 100%;
-    // max-width: 600px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    background-color: #f8f8f8;
+  text-align: center;
+  width: 100%;
+  // max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #f8f8f8;
 }
 
 .logo-placeholder img {
-    width: 100px;
-    height: 100px;
-    border-radius: 91%;
+  width: 100px;
+  height: 100px;
+  border-radius: 91%;
 }
 
 .title {
-    font-size: 24px;
-    color: #333;
-    margin: 20px 0;
+  font-size: 24px;
+  color: #333;
+  margin: 20px 0;
 }
 
 .description {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
-.terms {
-    font-size: 12px;
-    color: #999;
-    margin-bottom: 30px;
+.terminos-content {
+  width: 670px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed blue;
+  background: linear-gradient(135deg, #f0f8ff, #dcdfe6);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  .terminos-content:hover {
+    transform: scale(1.02); /* Efecto de agrandamiento al pasar el ratón */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada en hover */
+  }
+
+  .terminos {
+    padding: 10px;
+    font-size: 14px; /* Fuente ligeramente más grande para mejor lectura */
+    line-height: 1.6; /* Espaciado de línea mejorado para mayor legibilidad */
+    color: #333; /* Texto más oscuro para mejor contraste */
+    margin-bottom: 20px; /* Espacio entre cada sección de política */
+    border: 2px dashed #007bff; /* Línea azul en el lado izquierdo para acentuar */
+    .terminos h4 {
+      margin-top: 0; /* Elimina espacio antes del título */
+      font-size: 16px; /* Título ligeramente más grande */
+      color: #007bff; /* Color azul para el título */
+    }
+    .terminos p {
+      margin-bottom: 10px; /* Espacio entre párrafos */
+    }
+  }
+}
+.terminos-opcion {
+    overflow-x: hidden;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  border: 2px dashed red;
 }
 
 .buttons {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .btn {
-    background-color: #e91e63;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #e91e63;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #d81b60;
+  background-color: #d81b60;
 }
 
 /* Media queries for responsive design */
 @media (max-width: 768px) {
-    .title {
-        font-size: 20px;
-    }
+  .title {
+    font-size: 20px;
+  }
 
-    .description {
-        font-size: 14px;
-    }
+  .description {
+    font-size: 14px;
+  }
 
-    .btn {
-        padding: 8px 16px;
-    }
+  .btn {
+    padding: 8px 16px;
+  }
 }
 
 @media (max-width: 480px) {
-    .title {
-        font-size: 18px;
-    }
+  .title {
+    font-size: 18px;
+  }
 
-    .btn {
-        flex: 1;
-        padding: 10px;
-        font-size: 14px;
-    }
+  .btn {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+  }
 
-    .buttons {
-        flex-direction: column;
-        gap: 10px;
-    }
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
