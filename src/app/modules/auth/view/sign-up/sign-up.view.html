@@ -119,6 +119,7 @@
             Para fines de seguridad, ingresa el código que hemos enviado a
             <strong>{{ myGlobalVariable }}</strong> a continuación.
           </h5>
+          <p>El token expirará en: <strong>{{ remainingTime }}</strong></p>
           <form
             (ngSubmit)="verifyOtp()"
             [formGroup]="frmActivateAcount"
@@ -166,77 +167,64 @@
         >
           <div data-aos="fade-left">
             <form
-              [formGroup]="datosConfidencialesForm"
-              (ngSubmit)="registroDatosConfidenciales()"
-            >
-              <label for="password">Contraseña</label>
-              <p-password
-                formControlName="password"
-                (input)="verificarPassword()"
-                placeholder="Introduce tu contraseña"
-                [toggleMask]="true"
-              >
-                <ng-template pTemplate="footer">
-                  <p class="mt-2">Requisitos</p>
-                  <ul class="passwordStrength" style="line-height: 1.5">
-                    <li
-                      [ngClass]="{'text-success': validacionesPassword.tieneMinuscula}"
-                    >
-                      <span *ngIf="validacionesPassword.tieneMinuscula"
-                        >✅</span
-                      >
-                      Al menos una letra minúscula
-                    </li>
-                    <li
-                      [ngClass]="{'text-success': validacionesPassword.tieneMayuscula}"
-                    >
-                      <span *ngIf="validacionesPassword.tieneMayuscula"
-                        >✅</span
-                      >
-                      Al menos una letra mayúscula
-                    </li>
-                    <li
-                      [ngClass]="{'text-success': validacionesPassword.tieneNumero}"
-                    >
-                      <span *ngIf="validacionesPassword.tieneNumero">✅</span>
-                      Al menos un número
-                    </li>
-                    <li
-                      [ngClass]="{'text-success': validacionesPassword.longitudMinima}"
-                    >
-                      <span *ngIf="validacionesPassword.longitudMinima"
-                        >✅</span
-                      >
-                      Mínimo 8 caracteres
-                    </li>
-                  </ul>
-                </ng-template>
-              </p-password>
+  [formGroup]="datosConfidencialesForm"
+  (ngSubmit)="registroDatosConfidenciales()"
+>
+  <label for="password">Contraseña</label>
+  <p-password
+    formControlName="password"
+    (input)="verificarPassword()"
+    placeholder="Introduce tu contraseña"
+    [toggleMask]="true"
+  >
+    <ng-template pTemplate="footer">
+      <p class="mt-2">Requisitos</p>
+      <ul class="passwordStrength" style="line-height: 1.5">
+        <li [ngClass]="{'text-success': validacionesPassword.tieneMinuscula}">
+          <span *ngIf="validacionesPassword.tieneMinuscula">✅</span>
+          Al menos una letra minúscula
+        </li>
+        <li [ngClass]="{'text-success': validacionesPassword.tieneMayuscula}">
+          <span *ngIf="validacionesPassword.tieneMayuscula">✅</span>
+          Al menos una letra mayúscula
+        </li>
+        <li [ngClass]="{'text-success': validacionesPassword.tieneNumero}">
+          <span *ngIf="validacionesPassword.tieneNumero">✅</span>
+          Al menos un número
+        </li>
+        <li [ngClass]="{'text-success': validacionesPassword.longitudMinima}">
+          <span *ngIf="validacionesPassword.longitudMinima">✅</span>
+          Mínimo 8 caracteres
+        </li>
+      </ul>
+    </ng-template>
+  </p-password>
 
-              <label for="confirmPassword">Confirma tu contraseña</label>
-              <p-password
-                formControlName="confirmPassword"
-                placeholder="Confirma tu contraseña"
-                [toggleMask]="true"
-              ></p-password>
-              <span *ngIf="!coincidenPasswords" class="text-danger">
-                Las contraseñas no coinciden.
-              </span>
+  <label for="confirmPassword">Confirma tu contraseña</label>
+  <p-password
+    formControlName="confirmPassword"
+    placeholder="Confirma tu contraseña"
+    [toggleMask]="true"
+  ></p-password>
+  <span *ngIf="!coincidenPasswords" class="text-danger">
+    Las contraseñas no coinciden.
+  </span>
 
-              <div class="content-botoms">
-                <p-button
-                  label="Back"
-                  icon="pi pi-arrow-left"
-                  (onClick)="prevCallback.emit()"
-                />
-                <p-button
-                  label="Next"
-                  icon="pi pi-arrow-right"
-                  [disabled]="!datosConfidencialesForm.valid || !coincidenPasswords"
-                  (onClick)="nextCallback.emit()"
-                />
-              </div>
-            </form>
+  <div class="content-botoms">
+    <p-button
+      label="Back"
+      icon="pi pi-arrow-left"
+      (onClick)="prevCallback.emit()"
+    ></p-button>
+    <p-button
+      label="Next"
+      icon="pi pi-arrow-right"
+      [disabled]="!datosConfidencialesForm.valid || !coincidenPasswords"
+      (onClick)="nextCallback.emit()"
+    ></p-button>
+  </div>
+</form>
+
           </div>
         </ng-template>
       </p-stepperPanel>
@@ -277,12 +265,13 @@
                   label="Back"
                   icon="pi pi-arrow-left"
                   (onClick)="prevCallback.emit()"
-                />
+                ></p-button>
                 <p-button
                   label="Registrarse"
                   icon="pi pi-user-plus"
+                  [disabled]="politicasForm.invalid"
                   (onClick)="registroCliente()"
-                />
+                ></p-button>
               </div>
             </form>
           </div>

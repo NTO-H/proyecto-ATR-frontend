@@ -108,7 +108,7 @@ export class UsuarioService {
   }
 
   eliminarUsuario(id: string): Observable<any> {
-    return this.http.delete(this.url + id);
+    return this.http.delete(environment.api+'/usuarios/' + id);
   }
   // eliminarProducto(id: string): Observable<any> {
   //     return this.http.delete(this.url + id);

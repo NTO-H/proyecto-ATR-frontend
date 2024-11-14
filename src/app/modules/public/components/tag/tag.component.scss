@@ -1,9 +1,11 @@
 div.secciones {
   padding-left: 100px;
   padding-right: 100px;
-  color: #323343;
+  color:var(--bg-color-card);
   /* background: linear-gradient(180deg, #ebe3db 10%, #ffffff 20%);  */
-  background-color: #ffffff;
+  background-color: var(--back-secction);
+  backdrop-filter: blur(8px); // Desenfoque del fondo
+  -webkit-backdrop-filter: blur(8px);
   //   box-shadow: 0px 0px 20px 14px rgba(255, 251, 246, 0.4);
   //   box-shadow: 0px 0px 20px 14px rgba(235, 227, 219, 1);}
   box-shadow: rgba(150, 158, 166, 0.2) 0px 8px 24px;
@@ -22,7 +24,8 @@ section.resenas {
   margin: 20px auto;
   padding: 20px;
   max-width: 80%;
-  background-color: #fff;
+  background-color: var(--back-secction);
+
   border-radius: 8px;
   //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -50,7 +53,9 @@ section.resenas {
 
   .resena {
     width: 30%;
-    background-color: #eaeaea;
+    color:var(--bg-color-card);
+    /* background: linear-gradient(180deg, #ebe3db 10%, #ffffff 20%);  */
+    background-color: var(--back-secction);
     padding: 10px;
     border-radius: 8px;
     text-align: center;

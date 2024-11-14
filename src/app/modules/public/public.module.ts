@@ -40,6 +40,7 @@ import { TagComponent } from './components/tag/tag.component';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { PaginatorModule } from 'primeng/paginator';
+import { ThemeServiceService } from '../../shared/services/theme-service.service';
 
 const MATERIALS =[AvatarModule,AvatarGroupModule,PaginatorModule,OverlayPanelModule,TieredMenuModule,SkeletonModule,CardModule,TabMenuModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
@@ -51,7 +52,7 @@ const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductVie
     PublicRoutingModule,HttpClientModule, ...MATERIALS,
   ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Toast,MessageService,provideClientHydration(), [provideHttpClient(withFetch())],
-  SignUpService,UsuarioService,DatosEmpresaService],
+  SignUpService,UsuarioService,DatosEmpresaService,ThemeServiceService],
 })
 export class PublicModule {
 

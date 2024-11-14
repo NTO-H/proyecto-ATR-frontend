@@ -100,37 +100,6 @@ export class RecuperarPasswordView {
     this.coincidenPasswords = nueva === confirma;
   }
 
-  // seleccion() {
-  //   if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'correo') {
-  //     this.esFrmCorreo = true;
-
-  //     console.log('actualizarPasswordxCorreo');
-  //     this.toastr.info(
-  //       `Has seleccionado la opción de recuperación por correo.`,
-  //       'Selección'
-  //     );
-  //   } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'whatsapp') {
-  //     console.log('actualizarPasswordPorWhatsapp');
-  //     this.toastr.info(
-  //       `Has seleccionado la opción de recuperación por whatsapp.`,
-  //       'Selección'
-  //     );
-  //     this.esFrmWhatsapp = true;
-  //   } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'pregunta') {
-  //     console.log('actualizarPasswordPorPregunta');
-  //     this.toastr.info(
-  //       `Has seleccionado la opción de recuperación por pregunta.`,
-  //       'Selección'
-  //     );
-  //     this.esFrmPregunta = true;
-  //   } else {
-  //     this.toastr.error(
-  //       `Debes seleccionar una opción de recuperación.`,
-  //       'Error'
-  //     );
-  //   }
-  //   this.formularioEnviado = true;
-  // }
 
   enviarYbuscarCorreo() {
     const email = this.frmbuscarCorreo.get('email')?.value;
@@ -141,19 +110,10 @@ export class RecuperarPasswordView {
         if (response) {
           this.esFrmCorreo = false;
           this.toastr.info(`Revisa tu vandeja de correos.`, 'Envio');
-          // this.msg.enviarCorreo(correo).subscribe(
-          //   () => {
-          //     this.toastr.success('Correo electrónico enviado correctamente');
-          this.esfrmVerficacion = true;
+           this.esfrmVerficacion = true;
           //     // Aquí puedes implementar más lógica si es necesario, como obtener un token de verificación o actualizar el estado de la aplicación
           this.msg.enviarNotificacion().subscribe({});
-          //   },
-          //   (error) => {
-          //     console.error('Error al enviar correo electrónico:', error);
-          //     this.toastr.error('Error al enviar correo electrónico');
-          //     this.esfrmVerficacion = false;
-          //   }
-          // );
+        
         } else {
           this.esFrmCorreo = true;
           this.toastr.error('El correo no fue encontrado', 'Error');
@@ -166,12 +126,6 @@ export class RecuperarPasswordView {
       }
     );
   }
-
-  // enviarCorreoElectronico(correo: string, mensaje: string) {
-  //   console.log(
-  //     `Enviando correo electrónico a ${correo} con el mensaje: ${mensaje}`
-  //   );
-  // }
 
   enviarRespuesta() {
     this.esFrmPregunta = false;
@@ -297,60 +251,7 @@ export class RecuperarPasswordView {
     );
   }
 
-  actualizarPasswordPorPregunta() {
-    this.esFrmResetPassword = true;
 
-    const pregunta = this.frmPregunta.get('pregunta')?.value;
-    const respuesta = this.frmPregunta.value.respuesta;
-
-    console.log('respuesta=>', respuesta);
-    console.log('pregunta=>', pregunta);
-
-    if (pregunta == '' || respuesta == '') {
-      Swal.fire('Error', 'Por favor selecciona una pregunta', 'error');
-
-      this.esFrmPregunta = true;
-      // this.esFrmResetPassword = false;
-      return; // No permitir enviar el formulario si no se ha seleccionado una pregunta
-    } else {
-      this.esFrmPregunta = false;
-      this.esFrmResetPassword = true;
-
-      const nueva = this.frmActualizaPassword.get('nueva')?.value;
-      console.log(nueva);
-
-      this.usuarioService
-        .actualizaPasswordxPregunta(pregunta, respuesta, nueva)
-        .subscribe(
-          (response) => {
-            console.log(response);
-            if (response) {
-              Swal.fire(
-                '¡Operación exitosa!',
-                'Se actualizó tu contraseña',
-                'success'
-              );
-
-              console.log('Inicio de sesión exitoso:', response);
-              if (response && response.rol && response.rol == 'admin') {
-                const rol = response.rol;
-                localStorage.setItem('rol', rol);
-              }
-              this.router.navigate(['/login']); // Redirige al home del cliente
-              this.esFrmResetPassword = false;
-            } else {
-              this.toastr.error('Los datos no fueron encontrados', 'Error');
-              this.esFrmResetPassword = true;
-            }
-          },
-          (error) => {
-            this.esFrmResetPassword = false;
-            console.error('No se encontró coincidencias:', error);
-            // this.toastr.error('Error al actualizar la contraseña', 'Error');
-          }
-        );
-    }
-  }
   verificarPassword() {
     const password = this.frmActualizaPassword.get('nueva')?.value;
 
@@ -380,10 +281,7 @@ export class RecuperarPasswordView {
   }
 
   actualizarPassword() {
-    if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'pregunta') {
-      this.actualizarPasswordPorPregunta();
-      console.log('actualizarPasswordPorPregunta');
-    } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'whatsapp') {
+   if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'whatsapp') {
       console.log('actualizarPasswordxWhatsapp');
       this.actualizarPasswordxCorreo();
     } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'correo') {

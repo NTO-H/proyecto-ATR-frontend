@@ -6,13 +6,15 @@ import { SignInView } from './view/sign-in/sign-in.view';
 import { SignUpView } from './view/sign-up/sign-up.view';
 import { RecuperarPasswordView } from './view/recuperar-password/recuperar-password.view';
 import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.view';
+import { RegistroView } from './view/registro/registro.view';
 const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
     children: [
       { path: 'Sign-in', component: SignInView },
-      { path: 'Sign-up', component: SignUpView },
+      { path: 'Sign-up', component: RegistroView },
+      // { path: 'Sign-up', component: SignUpView },
       { path: 'forgot-password', component: RecuperarPasswordView },
       { path: 'Activar-cuenta', component: VerificarCodigoView },
     ],

@@ -20,17 +20,17 @@
             shape="circle"
           ></p-avatar>
           <input
-          [hidden]="true"
-          type="file"
-          id="logo"
-          #fileInput
-          (change)="onFileSelected($event)"
-          accept="image/jpeg,image/png"
-          class="form-control"
-        />
-        <label for="logo" class="btn btn-primary mt-2">
-          {{ empresa.logo ? 'Cambiar' : 'Subir' }} Logo
-        </label>
+            [hidden]="true"
+            type="file"
+            id="logo"
+            #fileInput
+            (change)="onFileSelected($event)"
+            accept="image/jpeg,image/png"
+            class="form-control"
+          />
+          <label for="logo" class="btn btn-primary mt-2">
+            {{ empresa.logo ? 'Cambiar' : 'Subir' }} Logo
+          </label>
           <!-- Mostrar el logo si existe -->
           <!-- <div *ngIf="logoUrl" class="logo-container">
             <img [src]="logoUrl" alt="Logo" class="logo-preview" />
@@ -43,73 +43,75 @@
       <div class="table-cell">
         <label for="redesSociales">Redes Sociales</label>
 
+        <p-card
+          header="Agregar Redes Sociales"
+          [style]="{ width: '100%', maxWidth: '400px', margin: '0 auto' }"
+        >
+          <div class="p-fluid">
+            <div class="p-field">
+              <label for="icon-select">Seleccionar Icono</label>
+              <p-dropdown
+                [options]="iconOptions"
+                [(ngModel)]="currentIcon"
+                optionLabel="label"
+                placeholder="Selecciona un icono"
+                [showClear]="true"
+              >
+                <ng-template pTemplate="selectedItem">
+                  <div
+                    class="flex align-items-center gap-2"
+                    *ngIf="currentIcon"
+                  >
+                    <i [class]="currentIcon.icon"></i>
+                    <div>{{ currentIcon.label }}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-option pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                    <i [class]="option.icon"></i>
+                    <div>{{ option.label }}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
 
+            <div class="p-field mt-3">
+              <label for="url-input">URL</label>
+              <input
+                id="url-input"
+                type="text"
+                pInputText
+                [(ngModel)]="currentUrl"
+                placeholder="https://ejemplo.com"
+              />
+            </div>
 
-        
-        <div class="redes-sociales-container">
-          <div *ngFor="let red of redesSociales; let i = index" class="red-social">
-            <p-dropdown
-              [options]="iconOptions"
-              [(ngModel)]="red.plataforma"
-              name="plataforma{{ i }}"
-              placeholder="Selecciona una plataforma"
-              [showClear]="true"
-              optionLabel="label"
-              [style]="{ width: '100%' }"
-              #plataforma="ngModel"
-              required
+            <p-button
+              label="Agregar Enlace"
+              (onClick)="handleAddLink()"
+              [disabled]="!currentIcon || !currentUrl"
+              styleClass="mt-3 p-button-primary"
+            ></p-button>
+          </div>
+
+          <div class="mt-4">
+            <h3>Enlaces Agregados:</h3>
+            <div
+              *ngFor="let link of socialLinks; let i = index"
+              class="flex justify-content-between align-items-center p-2 mt-2 surface-100 border-round"
             >
-              <ng-template pTemplate="selectedItem" let-selectedOption>
-                <div class="flex align-items-center gap-2" *ngIf="selectedOption">
-                  <i [class]="selectedOption.icon"></i>
-                  <span>{{ selectedOption.label }}</span>
-                </div>
-              </ng-template>
-              <ng-template let-option pTemplate="item">
-                <div class="flex align-items-center gap-2">
-                  <i [class]="option.icon"></i>
-                  <span>{{ option.label }}</span>
-                </div>
-              </ng-template>
-            </p-dropdown>
-            <div *ngIf="plataforma.invalid && plataforma.touched" class="error-message">
-              <span>La plataforma es obligatoria.</span>
-            </div>
-        
-            <input
-              type="text"
-              placeholder="Enlace"
-              [(ngModel)]="red.enlace"
-              name="enlace{{ i }}"
-              required
-              pattern="https?://.+"
-              class="form-control"
-              #enlace="ngModel"
-            />
-            <div *ngIf="enlace.invalid && enlace.touched" class="error-message">
-              <span *ngIf="enlace.errors?.['required']">El enlace es obligatorio.</span>
-              <span *ngIf="enlace.errors?.['pattern']">El enlace debe ser una URL válida.</span>
-            </div>
-        
-            <button type="button" (click)="removeRed(i)" class="btn eliminar">
-              Eliminar
-            </button>
-          </div>
-        
-          <!-- Vista Previa -->
-          <div *ngIf="currentPreview()" class="preview-container">
-            <h4>Vista Previa</h4>
-            <div class="preview-item" *ngFor="let red of redesSociales">
-              <i [class]="red.plataforma?.icon" class="icon-preview"></i>
-              <span>{{ red.plataforma?.label }}</span>
-              <a [href]="red.enlace" target="_blank">{{ red.enlace }}</a>
+              <div class="flex align-items-center">
+                <i [class]="link.icon" class="mr-2"></i>
+                <span>{{ link.url }}</span>
+              </div>
+              <p-button
+                icon="pi pi-trash"
+                (onClick)="handleRemoveLink(i)"
+                styleClass="p-button-danger p-button-text"
+              ></p-button>
             </div>
           </div>
-        </div>
-        
-        <button type="button" (click)="addRed()" class="btn agregar">
-          Agregar Red Social
-        </button>
+        </p-card>
       </div>
     </div>
 
@@ -246,12 +248,7 @@
     </div>
   </div>
   <div class="form-actions">
-    <button
-      type="submit"
-      class="btn guardar"
-    >
-      Guardar
-    </button>
+    <button type="submit" class="btn guardar">Guardar</button>
     <!-- [disabled]="!empresaForm.form.valid" -->
   </div>
 </form>

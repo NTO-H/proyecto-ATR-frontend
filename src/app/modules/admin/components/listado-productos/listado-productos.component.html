@@ -1,5 +1,27 @@
 <p-toast></p-toast>
 <!-- <pre>{{allProducts|json}}</pre> -->
+
+<div class="ui basic test modal">
+  <div class="ui icon header">
+    <i class="trash icon"></i>
+    Confirmar Eliminación
+  </div>
+  <div class="content">
+    <p>¿Estás seguro de que deseas eliminar este producto?</p>
+  </div>
+  <div class="actions">
+    <div class="ui red cancel inverted button">
+      <i class="remove icon"></i>
+      Cancelar
+    </div>
+    <div class="ui green ok inverted button" (click)="confirmarEliminar()">
+      <i class="checkmark icon"></i>
+      Confirmar
+    </div>
+  </div>
+</div>
+
+
 <section>
   <h2>Lista de Productos</h2>
   <p-table #dt [value]="allProducts" selectionMode="single" dataKey="_id" [rows]="rows" [totalRecords]="totalRecords"

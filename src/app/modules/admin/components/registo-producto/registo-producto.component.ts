@@ -21,7 +21,6 @@ export class RegistoProductoComponent implements OnInit {
     this.productoForm = this.fb.group({
       nombre: ['', [Validators.required]],
       imagenPrincipal: [''], // Aquí sigue siendo un string
-      //
       otrasImagenes: this.fb.array([]), // Inicializa el FormArray
 
       categoria: ['Ropa', [Validators.required]],

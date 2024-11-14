@@ -15,8 +15,12 @@ export class mensageservice {
   url = 'https://servidortropicalworld-1.onrender.com/correo/token/';
   constructor(private _http: HttpClient) {}
 
-  enviarCorreo(email: string,codigoVerificacion:number): Observable<any> {
-    return this._http.post<any>(`${environment.api}/enviar-correo`, { email ,codigoVerificacion});
+  enviarTokenCorreo(email: string): Observable<any> {
+    return this._http.post<any>(`${environment.api}/enviar-correo`, { email});
+    // return this._http.post<any>(this.url, { correo });
+  }
+  enviarTokenWasthapp(number_to_send: string): Observable<any> {
+    return this._http.post<any>(`${environment.api}/msj/enviar-mensaje`, { number_to_send });
     // return this._http.post<any>(this.url, { correo });
   }
   activarCuenta(email: string, codigoVerificacion: string): Observable<any> {

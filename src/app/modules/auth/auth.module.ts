@@ -32,9 +32,16 @@ import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 
+
+import { DialogModule } from 'primeng/dialog';
+
+
 import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.view';
 
 import { InputOtpModule } from 'primeng/inputotp';
+// import { RegistroComponent } from './view/registro/registro.component';
+import { RegistroView } from './view/registro/registro.view';
+import { SessionService } from '../../shared/services/session.service';
 @NgModule({
   declarations: [
     AuthComponent,
@@ -42,11 +49,13 @@ import { InputOtpModule } from 'primeng/inputotp';
     RecuperarPasswordView,
     SignInView,
     VerificarCodigoView,
+    RegistroView,
   ],
   imports: [
     InputOtpModule,
     ButtonModule,
     CommonModule,
+    DialogModule,
     RouterModule,
     FormsModule,
     DividerModule,
@@ -69,6 +78,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     //   useValue: '6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype',
     // },
     SignInService,
+    SessionService,
     // ReCaptchaV3Service,
     // RecaptchaLoaderService,
     mensageservice,

@@ -9,6 +9,7 @@ import {
   ElementRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MenuItemCommandEvent } from 'primeng/api';
@@ -16,12 +17,17 @@ import { MenuItem, MenuItemCommandEvent } from 'primeng/api';
 import { isPlatformBrowser } from '@angular/common';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
+import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
+import { ThemeServiceService } from '../../../../shared/services/theme-service.service';
 declare const $: any;
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: [
+    './header.component.scss',
+    // '../../../../shared/styles/dark-theme.scss',
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
@@ -34,17 +40,78 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isSticky = false;
   isLoading = false;
   searchQuery = ''; // Bind search input
+  empresaData: any;
 
+  imageUrl!: string;
+  defaultImageUrl: string =
+    'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png';
+  isDarkThemeOn = signal(false);
+
+  darkMode = false;
   constructor(
     private router: Router,
     private elementRef: ElementRef,
     private sessionService: SessionService,
     private renderer: Renderer2,
     private cdr: ChangeDetectorRef,
+    private datosEmpresaService: DatosEmpresaService,
+    public themeService: ThemeServiceService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+  // constructor() {}
+  // toggleDarkTheme(): void {
+  //   document.body.classList.toggle('dark-theme');
+  // }
+
+  toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    this.isDarkThemeOn.update((isDarkThemeOn) => !isDarkThemeOn);
+    this.darkMode = !this.darkMode;
+    document.documentElement.setAttribute(
+      'data-theme',
+      this.darkMode ? 'dark' : 'light'
+    );
+    //
+    const newTheme =
+      this.themeService.getTheme() === 'light' ? 'dark' : 'light';
+
+    // Guardar el tema en localStorage
+    localStorage.setItem('theme', newTheme);
+    this.themeService.setTheme(newTheme);
+  }
+
   ngOnInit() {
+    // Verificar si el entorno tiene acceso a localStorage (es decir, que no está en SSR)
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      // Recuperar el tema guardado en localStorage (si existe)
+      const savedTheme = localStorage.getItem('theme');
+
+      // Comprobar si el valor es válido
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        this.darkMode = savedTheme === 'dark';
+        document.body.classList.toggle('dark-theme', this.darkMode);
+        document.documentElement.setAttribute(
+          'data-theme',
+          this.darkMode ? 'dark' : 'light'
+        );
+        this.themeService.setTheme(savedTheme);
+      } else {
+        // Si no hay tema guardado o es inválido, usar el valor por defecto (por ejemplo, 'light')
+        this.darkMode = false;
+        document.body.classList.remove('dark-theme');
+        document.documentElement.setAttribute('data-theme', 'light');
+        this.themeService.setTheme('light');
+      }
+    } else {
+      // En un entorno donde localStorage no está disponible, establecer un tema predeterminado
+      this.darkMode = false;
+      document.body.classList.remove('dark-theme');
+      document.documentElement.setAttribute('data-theme', 'light');
+      this.themeService.setTheme('light');
+    }
+    this.loadCompanyData(); // Cargar los datos de la empresa al iniciar
+
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenSize();
       // AOS.init();
@@ -53,6 +120,18 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
+  loadCompanyData() {
+    this.datosEmpresaService.traerDatosEmpresa().subscribe(
+      (data) => {
+        this.empresaData = data[0]; // Guardar los datos en la variable
+        this.imageUrl = this.empresaData?.logo;
+        console.log('Datos de la empresa:', this.empresaData);
+      },
+      (error) => {
+        console.error('Error al cargar los datos de la empresa:', error);
+      }
+    );
+  }
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       $(this.elementRef.nativeElement)
@@ -123,7 +202,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           {
             label: 'Mi perfil',
             icon: 'pi pi-user',
-            command: (event: MenuItemCommandEvent) => this.redirectTo('Mi-perfil'),
+            command: (event: MenuItemCommandEvent) =>
+              this.redirectTo('Mi-perfil'),
           },
           {
             label: 'Configuración',
@@ -140,17 +220,20 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           {
             label: 'Iniciar sesión',
             icon: 'pi pi-sign-in',
-            command: (event: MenuItemCommandEvent) => this.redirectTo('Sign-in'),
+            command: (event: MenuItemCommandEvent) =>
+              this.redirectTo('Sign-in'),
           },
           {
             label: 'Registrarme',
             icon: 'pi pi-user-plus',
-            command: (event: MenuItemCommandEvent) => this.redirectTo('Sign-up'),
+            command: (event: MenuItemCommandEvent) =>
+              this.redirectTo('Sign-up'),
           },
           {
             label: 'Activar cuenta',
             icon: 'pi pi-check-circle',
-            command: (event: MenuItemCommandEvent) => this.redirectTo('Activar-cuenta'),
+            command: (event: MenuItemCommandEvent) =>
+              this.redirectTo('Activar-cuenta'),
           },
         ];
   }
@@ -175,8 +258,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.sidebarVisible = false;
     this.router.navigate(
       route.includes('Sign-in') ||
-      route.includes('Sign-up') ||
-      route.includes('Activar-cuenta')
+        route.includes('Sign-up') ||
+        route.includes('Activar-cuenta')
         ? ['/auth', route]
         : ['/public', route]
     );

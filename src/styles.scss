@@ -4,45 +4,102 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 body {
-    user-select: none; /* Evita la selección de texto */
-    margin: 0;
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Evita la selección de texto */
+  margin: 0;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 ::selection {
-    pointer-events: none;
-    background: transparent; /* Sin fondo en la selección */
-    color: inherit; /* Mantiene el color original del texto */
+  pointer-events: none;
+  background: transparent; /* Sin fondo en la selección */
+  color: inherit; /* Mantiene el color original del texto */
 }
 
 * {
-    outline: none;
-    -webkit-focus-ring-color: transparent;
+  outline: none;
+  -webkit-focus-ring-color: transparent;
 }
-
 
 *::selection {
-    background: transparent;
-    -webkit-focus-ring-color: transparent;
-  }
-
-  /* Mantén accesibilidad en dispositivos de teclado */
-  *:focus-visible {
-    -webkit-focus-ring-color: transparent;
-    outline: none; /* Ajusta el estilo si necesitas uno personalizado */
-  }
-  *:focus {
-    -webkit-focus-ring-color: transparent;
-    outline: none; /* Ajusta el estilo si necesitas uno personalizado */
-  }
-.p-component-overlay {
-    position: fixed;
-    // top: 0;
-    // left: 0;
-    // width: 100%;
-    // height: 100%;
-
+  background: transparent;
+  -webkit-focus-ring-color: transparent;
 }
+
+/* Mantén accesibilidad en dispositivos de teclado */
+*:focus-visible {
+  -webkit-focus-ring-color: transparent;
+  outline: none; /* Ajusta el estilo si necesitas uno personalizado */
+}
+*:focus {
+  -webkit-focus-ring-color: transparent;
+  outline: none; /* Ajusta el estilo si necesitas uno personalizado */
+}
+.p-component-overlay {
+  position: fixed;
+  // top: 0;
+  // left: 0;
+  // width: 100%;
+  // height: 100%;
+}
+
+:root {
+  --blur-bg: rgb(255, 255, 255); // Fondo oscuro con transparencia
+  --style-navbar-second: rgb(255, 255, 255); // Fondo oscuro con transparencia
+  --color-bg: #ee66a6;
+  --color-by: #f4f4f4;
+  --color-text: #333b43;
+  --box-sw: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --text-style-color: rgb(51, 66, 86);
+  --style-footer: #f0ebe5;
+  ----back-secction: #ffffff;
+
+  --card-bg-dark: linear-gradient(135deg, #1e1e2f, #3c3c5c);
+}
+
+[data-theme="dark"] {
+  --blur-bg: rgb(255, 255, 255); // Fondo oscuro con transparencia
   
+  // --card-bg-dark: linear-gradient(135deg, #1e1e2f, #3c3c5c);
+  --text-style-color: white;
+  // --color-bg: #cebfc0;
+
+  --style-navbar-second: #191919;
+  --style-footer: #191919;
+  // -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
+  // backdrop-filter: blur(8px); // Desenfoque del fondo
+  // color: #fff;
+  --bg-color-card: #ffffff;
+  --color-card: #ffffff;
+  --color-header: #ffffff;
+
+  body {
+    color: #fff;
+    background-color: var(--blur-bg);
+    backdrop-filter: blur(8px); // Desenfoque del fondo
+    -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
+  }
+
+  .sticky {
+    // position: fixed;
+    // top: 0;
+    // width: 100%;
+    z-index: 10;
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); // Sombra para más profundidad
+
+    backdrop-filter: blur(5px);
+  }
+  nav {
+    // background-color: var(--blur-bg);
+    // color: white;
+  }
+
+  --color-card: #ffffff;
+  ----back-secction: #1e182d66;
+  --color-bg: #2d3441;
+  --color-by: #282b34;
+  --color-text: white;
+  --box-sw: 0 4px 6px rgba(255, 255, 255, 0.9);
+}

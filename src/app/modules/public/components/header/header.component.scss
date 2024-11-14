@@ -17,12 +17,13 @@ nav {
   width: 100%;
   height:20px;
   // background: #FFAA80;
-  background: #EE66A6;
+  // background: #EE66A6;
   // background: #aba59f;
   // background: #ccc4bc;
   // background: #FF5580;
   text-align: center;
   position: relative;
+  background-color: var(--color-bg);
 }
 
 .marquee {
@@ -59,11 +60,10 @@ nav {
 }
 
 .nav-one {
-  background:#faf7f5;
+  background:var(--style-navbar-second);
 }
 .navbar-one {
-  background-color:none;
-  color: #495464;
+  color: var(--text-style-color);
   height: 40px;
   .right > div {
     cursor: pointer;
@@ -116,7 +116,11 @@ span {
   // border: dashed red;
   border-bottom: 1px solid #ebe3db;
  
-  background-color: white;
+  background-color: var(--style-navbar-second);
+
+
+
+
   height: 70px;
   position: sticky;
   top: 0;
@@ -159,7 +163,7 @@ p-sidebar {
         a {
           text-decoration: none;
           font-size: 14px;
-          color: #334256;
+          color:var(--text-style-color);
           display: flex;
           align-items: center;
 
@@ -213,7 +217,7 @@ p-sidebar {
     padding: 10px 20px;
     border-radius: 50px;
     transition: background-color 0.3s ease;
-    color: #495464;
+    color: var(--text-style-color) !important;
     cursor: pointer;
     &:hover {
       // color: fuchsia;
@@ -231,7 +235,7 @@ p-sidebar {
 }
 
 .nav-accion li {
-  color: #495464;
+  color:var(--text-style-color);
   transition: transform 0.3s ease;
 
   cursor: pointer;
@@ -242,7 +246,7 @@ p-sidebar {
   // }
 }
 .sticky {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   width: 100%;
   z-index: 10;

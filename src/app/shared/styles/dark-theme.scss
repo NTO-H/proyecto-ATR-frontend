@@ -1,0 +1,35 @@
+/* Tema oscuro */
+.dark-theme {
+  --primary-color: #000000;
+  --secondary-color: #333333;
+  --text-color: #ffffff;
+}
+
+/* Tema claro */
+body.light-theme {
+  background-color: #ffffff;
+  color: #333;
+}
+
+header.light-theme {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Tema oscuro */
+body.dark-theme {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+header.dark-theme {
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+}
+
+
+
+nav.light-theme {
+  background-color: #ffffff;
+  color: #333;
+}

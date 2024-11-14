@@ -2,21 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../../../shared/services/producto.service';
 import { Producto } from '../../../../shared/models/Producto.model';
 import { FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
+declare const $: any;
 
 @Component({
   selector: 'app-listado-productos',
   templateUrl: './listado-productos.component.html',
-  styleUrls: ["../../../../shared/styles/tablePrime.scss", "../../../../shared/styles/form.scss"],
+  styleUrls: [
+    '../../../../shared/styles/tablePrime.scss',
+    '../../../../shared/styles/form.scss',
+  ],
 })
 export class ListadoProductosComponent implements OnInit {
-  allProducts: Producto[]=[];
+  allProducts: Producto[] = [];
   visible: boolean = false;
   totalRecords: number = 0;
   rows: number = 5; // Número de registros por página
   first: number = 0; // Índice del primer registro de la página actual
   paginatedUser: Producto[] = [];
-  filterText: string = "";
-  productForm!:FormGroup;
+  filterText: string = '';
+  productForm!: FormGroup;
+  idProducto!: string;
+
   constructor(private productoS: ProductoService) {}
 
   ngOnInit(): void {
@@ -41,8 +48,8 @@ export class ListadoProductosComponent implements OnInit {
       return text; // Si no hay texto a filtrar, regresa el texto original.
     }
 
-    const regex = new RegExp(`(${this.filterText})`, "gi"); // Crea una expresión regular para encontrar el texto de búsqueda.
-    return text.replace(regex, "<strong>$1</strong>"); // Reemplaza las coincidencias con el texto en negritas.
+    const regex = new RegExp(`(${this.filterText})`, 'gi'); // Crea una expresión regular para encontrar el texto de búsqueda.
+    return text.replace(regex, '<strong>$1</strong>'); // Reemplaza las coincidencias con el texto en negritas.
   }
 
   onGlobalFilter(event: Event) {
@@ -55,8 +62,8 @@ export class ListadoProductosComponent implements OnInit {
           c.nombre.toLowerCase().includes(value) ||
           c.categoria.toLowerCase().includes(value) ||
           c.color.toLowerCase().includes(value)
-          // c.precio.toLowerCase().includes(value) ||
-          // c.colonia.toLowerCase().includes(value)
+        // c.precio.toLowerCase().includes(value) ||
+        // c.colonia.toLowerCase().includes(value)
       );
 
       this.totalRecords = filteredData.length;
@@ -76,27 +83,33 @@ export class ListadoProductosComponent implements OnInit {
   }
 
   deleteProduct(id: any) {
-    // this.UserS.eliminarCliente(id).pipe(
-    //   tap((data) => {
-    //     // Aquí puedes manejar los datos de la respuesta si es necesario
-    //     this.toast.showToastPmNgInfo('Eliminación exitosa')
-    //   }),
-    //   finalize(() => {
-    //     // Acción a realizar al finalizar la operación, independientemente del éxito o error
-    //     this.getUsers(); // Actualizar la lista de usuarios
-    //   })
-    // ).subscribe(
-    //   (data) => {
-    //     // Acción a realizar en caso de éxito
-    //     this.toast.showToastPmNgError('Eliminado del registro.');
-    //   },
-    //   (error) => {
-    //     // Acción a realizar en caso de error
-    //     console.error('Error al eliminar', error);
-    //   }
-    // );
+    this.idProducto = id;
+
+    $('.basic.test.modal')
+      .modal({
+        closable: false, // Evita cerrar haciendo clic fuera del modal
+        onApprove: () => {
+          // this.us.eliminarUsuario(id)
+          this.confirmarEliminar(); // Ejecuta la confirmación cuando se aprueba
+        },
+      })
+      .modal('show');
   }
 
+  confirmarEliminar() {
+    // this.usuarioId = id;
+    this.productoS.eliminarProducto(this.idProducto).subscribe((response) => {
+      this.getProductos();
+      Swal.fire(
+        'Eliminado',
+        'El producto se ha eliminado correctamente.',
+        'success'
+      );
+    });
+    // console.log(`Usuario con ID ${this.usuarioId} eliminado.`);
+    //
+    // Aquí puedes llamar a tu servicio para eliminar el usuario
+  }
 
   editProduct(id: any) {
     // this.visible = true;
@@ -124,7 +137,7 @@ export class ListadoProductosComponent implements OnInit {
   }
 
   updatePaginatedUser() {
-    console.log()
+    console.log();
     this.paginatedUser = this.allProducts.slice(
       this.first,
       this.first + this.rows
