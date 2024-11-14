@@ -1,5 +1,6 @@
 export interface ISingInRequest
 {
   email:string,
-  password:string
+  password:string,
+  captchaToken :string
 }

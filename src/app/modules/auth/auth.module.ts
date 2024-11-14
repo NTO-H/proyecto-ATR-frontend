@@ -16,7 +16,6 @@ import {
   withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { SignUpService } from './commons/services/sign-up.service';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { RecuperarPasswordView } from './view/recuperar-password/recuperar-password.view';
@@ -36,8 +35,19 @@ import { InputTextModule } from 'primeng/inputtext';
 import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.view';
 
 import { InputOtpModule } from 'primeng/inputotp';
-import { PublicModule } from "../public/public.module";
+import { PublicModule } from '../public/public.module';
 import { InputGroupModule } from 'primeng/inputgroup';
+
+//lo del capchat
+import { NgClass } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import {
+  NgxEasyCaptchaService,
+  CAPTCHA_PROVIDER,
+  CAPTCHA_SITE_KEY,
+  STRING_INITIALIZER,
+} from '../../../../projects/angx/ngx-easy-captcha/src/public-api';
+import { CaptchaProvider } from '../../../../projects/angx/ngx-easy-captcha/src/public-api';
 
 @NgModule({
   declarations: [
@@ -65,6 +75,10 @@ import { InputGroupModule } from 'primeng/inputgroup';
     InputGroupModule,
     PublicModule,
     ToastrModule.forRoot(),
+
+    //para lo del capchat xd
+    NgClass,
+    RouterModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
@@ -74,14 +88,19 @@ import { InputGroupModule } from 'primeng/inputgroup';
     //   useValue: '6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype',
     // },
     SignInService,
-    // ReCaptchaV3Service,
-    // RecaptchaLoaderService,
     mensageservice,
     UsuarioService,
     ToastrService,
     MessageService,
     ConfirmationService,
-    provideHttpClient(withFetch(),withInterceptorsFromDi()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    
+
+    //lo del capchat
+    NgxEasyCaptchaService,
+    { provide: CAPTCHA_PROVIDER, useValue: CaptchaProvider.CloudFlare },
+    { provide: CAPTCHA_SITE_KEY, useValue: '0x4AAAAAAAz_bKFwjxufmfKM' }, // Replace with your site key
+    { provide: STRING_INITIALIZER, useValue: "cloudflare-captcha" },
   ],
 })
 export class AuthModule {}

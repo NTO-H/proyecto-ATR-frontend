@@ -16,8 +16,7 @@ import { IToken } from '../../../../shared/interfaces/token.interface';
     constructor(private http: HttpClient) {}
 
     signIn(request: ISingInRequest): Observable<IToken> {
-      // debugger
-      console.log('hola mundo');
+      
       return this.http.post<IToken>(
         `${environment.api}/autentificacion/signIn`,
         request

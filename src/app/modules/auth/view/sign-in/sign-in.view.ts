@@ -6,11 +6,18 @@ import { SignInService } from '../../commons/services/sign-in.service';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { SessionService } from '../../../../shared/services/session.service';
 import { MessageService } from 'primeng/api';
-import { Subscription, interval } from 'rxjs';
+import { interval } from 'rxjs';
 import { ERol } from '../../../../shared/constants/rol.enum';
 import { mensageservice } from '../../../../shared/services/mensage.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
+
+//lo del capchat
+import { OnDestroy } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { NgClass } from '@angular/common';
+import { NgxEasyCaptchaService } from '../../../../../../projects/angx/ngx-easy-captcha/src/public-api';
 
 @Component({
   selector: 'app-sign-in',
@@ -32,33 +39,47 @@ export class SignInView implements OnInit {
   userROL!: string;
   loading: boolean = false;
 
-  //
   public robot!: boolean;
   public presionado!: boolean;
 
-  executeRecaptchaVisible(token: any) {
-    console.log('token visible', token);
-    // this.robot = false;
-    // this.presionado = true;
-    // this.executeVisibleCatcha(token); // Ejecutar la acción que requiera el token visible
-  }
+  //lo del capchat
+  captchaSubscription!: Subscription;
+  captchaToken!: string;
+
   constructor(
     private msgs: mensageservice,
     private signInService: SignInService,
     private storageService: StorageService,
     private sessionService: SessionService,
     private fb: FormBuilder,
-    private router: Router,
     private messageService: MessageService,
+
+    //para lo del capchat
+    private router: Router,
+    private route: ActivatedRoute,
+    private captchaService: NgxEasyCaptchaService,
+
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
+    this.captchaSubscription = this.captchaService.$.subscribe(
+      (token: string) => {
+        this.captchaToken = token;
+        console.log(token);
+      }
+    );
   }
-
-  captchaText: string = '';
+  onSignupSubmit() {
+    if (this.captchaToken) {
+      console.log(this.captchaToken);
+    }
+  }
+  ngOnDestroy(): void {
+    this.captchaSubscription?.unsubscribe();
+  }
 
   ngOnInit(): void {
     // this.generateCaptcha();
@@ -140,11 +161,21 @@ export class SignInView implements OnInit {
       });
       return;
     }
+    const captchaToken = this.captchaToken;
 
+    if (!captchaToken) {
+      Swal.fire({
+        title: 'Captcha no verificado',
+        text: 'Por favor, verifica que no eres un robot.',
+        icon: 'error',
+        confirmButtonText: 'Ok',
+      });
+      return;
+    }
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 
-    this.signInService.signIn({ email, password }).subscribe(
+    this.signInService.signIn({ email, password,captchaToken  }).subscribe(
       (response) => {
         if (response) {
           this.storageService.setToken(response.token);

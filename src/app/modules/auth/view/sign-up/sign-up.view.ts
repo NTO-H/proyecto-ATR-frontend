@@ -25,9 +25,17 @@ import { Router } from '@angular/router';
 import { mensageservice } from '../../../../shared/services/mensage.service';
 import { ToastrModule, Toast, ToastrService } from 'ngx-toastr';
 import { isPlatformBrowser } from '@angular/common';
-@Component({
 
-  
+//lo del capchat
+import { OnDestroy } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { NgClass } from '@angular/common';
+import {
+  NgxEasyCaptchaService,
+} from '../../../../../../projects/angx/ngx-easy-captcha/src/public-api';
+
+@Component({
   selector: 'app-sign-up-view',
   templateUrl: 'sign-up.view.html',
   styleUrls: ['./sign-up.view.scss', './listacard.scss'],
@@ -66,14 +74,22 @@ export class SignUpView implements OnInit, AfterViewInit {
     confirmPassword: '',
   };
 
+  //lo del capchat
+  captchaSubscription!: Subscription;
+  captchaToken!: string;
+
   constructor(
     private elementRef: ElementRef,
     @Inject(PLATFORM_ID) private platformId: Object,
     private msgs: mensageservice,
-    private router: Router,
+
     private fb: FormBuilder,
     private uservice: UsuarioService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    //para lo del capchat
+    private router: Router,
+    private route: ActivatedRoute,
+    private captchaService: NgxEasyCaptchaService
   ) {
     // Inicializar el formulario de datos básicos
     this.datosBasicosForm = this.fb.group({
@@ -97,6 +113,12 @@ export class SignUpView implements OnInit, AfterViewInit {
     this.frmActivateAcount = this.fb.group({
       otpCode: ['', [Validators.required, Validators.minLength(4)]],
     });
+    this.captchaSubscription = this.captchaService.$.subscribe(
+      (token: string) => {
+        this.captchaToken = token;
+        console.log(token);
+      }
+    );
   }
 
   ngOnInit() {
@@ -122,6 +144,14 @@ export class SignUpView implements OnInit, AfterViewInit {
         this.errorMessages.telefono = 'Número telefónico inválido.';
       }
     });
+  }
+  onSignupSubmit() {
+    if (this.captchaToken) {
+      //verify using backend call
+    }
+  }
+  ngOnDestroy(): void {
+    this.captchaSubscription?.unsubscribe();
   }
 
   ngAfterViewInit() {
