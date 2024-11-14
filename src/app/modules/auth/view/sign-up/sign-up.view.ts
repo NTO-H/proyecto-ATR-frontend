@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
 import { mensageservice } from '../../../../shared/services/mensage.service';
 import { ToastrModule, Toast, ToastrService } from 'ngx-toastr';
 import { isPlatformBrowser } from '@angular/common';
+import { interval, map, take } from 'rxjs';
 
 //lo del capchat
 import { OnDestroy } from '@angular/core';
@@ -37,7 +38,7 @@ import {
 
 @Component({
   selector: 'app-sign-up-view',
-  templateUrl: 'sign-up.view.html',
+  templateUrl: 'sign-up.view2.html',
   styleUrls: ['./sign-up.view.scss', './listacard.scss'],
 })
 export class SignUpView implements OnInit, AfterViewInit {
@@ -123,6 +124,7 @@ export class SignUpView implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // AOS.init();
+    this.startCountdown(15 * 60);
     // Validar coincidencia de contraseñas
     this.datosConfidencialesForm
       .get('confirmPassword')
@@ -145,6 +147,9 @@ export class SignUpView implements OnInit, AfterViewInit {
       }
     });
   }
+
+
+ 
   onSignupSubmit() {
     if (this.captchaToken) {
       //verify using backend call
@@ -164,6 +169,34 @@ export class SignUpView implements OnInit, AfterViewInit {
   }
   togglePasswordVisibility() {
     this.mostrarPassword = !this.mostrarPassword; // Cambia el estado de la visibilidad
+  }
+
+  remainingTime: string = '';
+  countdownSubscription: Subscription | undefined;
+
+
+  startCountdown(duration: number) {
+    this.countdownSubscription = interval(1000)
+      .pipe(
+        take(duration + 1),
+        map(secondsPassed => duration - secondsPassed)
+      )
+      .subscribe(
+        secondsLeft => {
+          this.remainingTime = this.formatTime(secondsLeft);
+        },
+        null,
+        () => {
+          this.remainingTime = 'El código ha expirado.';
+        }
+      );
+  }
+
+
+  formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}m ${secs}s`;
   }
 
   // Verificar la fortaleza de la contraseña
@@ -218,7 +251,6 @@ export class SignUpView implements OnInit, AfterViewInit {
     this.codeValid = false;
     // this.ViewActivateAcount = true;
   }
-
   registroDatosBasicos(): void {
     if (this.datosBasicosForm.valid) {
       const email = this.datosBasicosForm.get('email')?.value;
@@ -227,11 +259,11 @@ export class SignUpView implements OnInit, AfterViewInit {
           this.valid = true;
           this.toastr.info(response.message, 'Éxito');
 
-          this.codigoVerificacion = Math.floor(1000 + Math.random() * 9000); // Código de 4 dígitos
+          // this.codigoVerificacion = Math.floor(1000 + Math.random() * 9000); // Código de 4 dígitos
           // console.log(this.codigoVerificacion);
 
           // console.log(this.codigoVerificacion);
-          this.msgs.enviarCorreo(email, this.codigoVerificacion).subscribe({
+          this.msgs.enviarTokenCorreo(email).subscribe({
             next: (res) => {
               console.log('Código de verificación enviado con éxito:', res);
 
@@ -287,7 +319,16 @@ export class SignUpView implements OnInit, AfterViewInit {
 
   // // Registrar cliente
   registroCliente(): void {
-    if (this.datosBasicosForm.valid && this.datosConfidencialesForm.valid) {
+
+
+    if(this.politicasForm.invalid){
+      Swal.fire(
+        'Registro Invalido',
+        'acepte los terminos y condiciones.',
+        'error'
+      )
+    }
+    if (this.datosBasicosForm.valid && this.datosConfidencialesForm.valid  && this.politicasForm.valid) {
       const username = this.datosBasicosForm.get('username')?.value;
       const email = this.datosBasicosForm.get('email')?.value;
       const telefono = this.datosBasicosForm.get('telefono')?.value;

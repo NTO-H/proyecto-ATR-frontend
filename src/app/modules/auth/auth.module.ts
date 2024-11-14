@@ -32,9 +32,14 @@ import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 
+import { DialogModule } from 'primeng/dialog';
+
 import { VerificarCodigoView } from './view/verificar-codigo/verificar-codigo.view';
 
 import { InputOtpModule } from 'primeng/inputotp';
+// import { RegistroComponent } from './view/registro/registro.component';
+import { RegistroView } from './view/registro/registro.view';
+import { SessionService } from '../../shared/services/session.service';
 import { PublicModule } from '../public/public.module';
 import { InputGroupModule } from 'primeng/inputgroup';
 
@@ -56,11 +61,13 @@ import { CaptchaProvider } from '../../../../projects/angx/ngx-easy-captcha/src/
     RecuperarPasswordView,
     SignInView,
     VerificarCodigoView,
+    RegistroView,
   ],
   imports: [
     InputOtpModule,
     ButtonModule,
     CommonModule,
+    DialogModule,
     RouterModule,
     FormsModule,
     DividerModule,
@@ -88,19 +95,19 @@ import { CaptchaProvider } from '../../../../projects/angx/ngx-easy-captcha/src/
     //   useValue: '6LereGcqAAAAAOYonCxeWIj-b9XAv8Y3hng--ype',
     // },
     SignInService,
+    SessionService,
     mensageservice,
     UsuarioService,
     ToastrService,
     MessageService,
     ConfirmationService,
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
-    
 
     //lo del capchat
     NgxEasyCaptchaService,
     { provide: CAPTCHA_PROVIDER, useValue: CaptchaProvider.CloudFlare },
     { provide: CAPTCHA_SITE_KEY, useValue: '0x4AAAAAAAz_bKFwjxufmfKM' }, // Replace with your site key
-    { provide: STRING_INITIALIZER, useValue: "cloudflare-captcha" },
+    { provide: STRING_INITIALIZER, useValue: 'cloudflare-captcha' },
   ],
 })
 export class AuthModule {}

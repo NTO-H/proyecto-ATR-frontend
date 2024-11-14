@@ -1,148 +1,137 @@
-<div
-  class="container-form"
-  [style.backgroundImage]="'url(https://example.com/your-image.jpg)'"
-  [style.backgroundSize]="'cover'"
-  [style.backgroundPosition]="'center'"
-  [style.backgroundRepeat]="'no-repeat'"
->
-  >
-  <!-- <button routerLink="/public/home" class="go-back">
+<!-- <button routerLink="/public/home" class="go-back">
     <i class="btn-atras fas fa-chevron-left"></i> Ir atrás
   </button> -->
 
-  <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
-    <div class="item">
-      <div class="nombre-empresa">
-        <h1>Atelier</h1>
-      </div>
+<form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
+  <div class="item">
+    <div class="nombre-empresa">
+      <h1>Atelier</h1>
+    </div>
 
-      <div class="logo">
-        <img
-          src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png"
-          alt=""
+    <div class="logo">
+      <img
+        src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png"
+        alt=""
+      />
+    </div>
+    <div class="text-item">
+      <h2>Bienvenido <br /><span>A la a nuestra a Atelier</span></h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
+        suscipit amet recusandae beatae cumque consectetur magnam aperiam
+        maiores ratione,
+      </p>
+      <div class="social-icon">
+        <a href="#"><i class="pi pi-facebook">facebook</i></a>
+        <a href="#"><i class="pi pi-twitter">twitter</i></a>
+        <a href="#"><i class="pi pi-instagram">instagram</i></a>
+        <a href="#"><i class="pi pi-whatsapp">whatsapp</i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-section">
+    <div class="form-box-titulo">
+      <h1>Login</h1>
+    </div>
+
+    <div class="form-box">
+      <label for="email">Correo electronico</label>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-envelope"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          type="text"
+          placeholder="Introduce tu correo electrónico"
+          formControlName="email"
+          id="email"
+          class="input-login"
+          required
+          [disabled]="isLocked"
         />
-      </div>
-      <div class="text-item">
-        <h2>Bienvenido <br /><span>A la a nuestra a Atelier</span></h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
-          suscipit amet recusandae beatae cumque consectetur magnam aperiam
-          maiores ratione,
-        </p>
-        <div class="social-icon">
-          <a href="#"><i class="pi pi-facebook">facebook</i></a>
-          <a href="#"><i class="pi pi-twitter">twitter</i></a>
-          <a href="#"><i class="pi pi-instagram">instagram</i></a>
-          <a href="#"><i class="pi pi-whatsapp">whatsapp</i></a>
-        </div>
-      </div>
+      </p-inputGroup>
+    </div>
+    <div
+      *ngIf="errorMessage && errorMessage.includes('correo')"
+      class="errorMenssage"
+    >
+      {{ errorMessage }}
     </div>
 
-    <div class="login-section">
-      <div class="form-box-titulo">
-        <h1>Login</h1>
-      </div>
-
-      <div class="form-box">
-        <label for="email">Correo electronico</label>
-        <p-inputGroup>
-          <p-inputGroupAddon>
-            <i class="pi pi-envelope"></i>
-          </p-inputGroupAddon>
-          <input
-            pInputText
-            type="text"
-            placeholder="Introduce tu correo electrónico"
-            formControlName="email"
-            id="email"
-            class="input-login"
-            required
-            [disabled]="isLocked"
-          />
-        </p-inputGroup>
-      </div>
-      <div
-        *ngIf="errorMessage && errorMessage.includes('correo')"
-        class="errorMenssage"
-      >
-        {{ errorMessage }}
-      </div>
-
-      <div class="form-box">
-        <label for="pass" class="">Contraseña</label>
-        <p-inputGroup class="input-group">
-          <p-inputGroupAddon>
-            <i class="pi pi-lock"></i>
-            <!-- Ícono de candado para contraseña -->
-          </p-inputGroupAddon>
-          <p-password
-            formControlName="password"
-            [toggleMask]="true"
-            promptLabel="Ingresa tu contras"
-            weakLabel="Muy simple"
-            strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-            mediumRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$"
-            inputStyleClass="input-login"
-            mediumLabel="Mediana mente segura"
-            strongLabel="Contraseña segura"
-            placeholder="Contraseña segura"
-          >
-            <ng-template pTemplate="header">
-              <h6>Escoge una contraseña</h6>
-            </ng-template>
-            <ng-template pTemplate="footer">
-              <p-divider></p-divider>
-              <p>Sugerencias</p>
-              <ul>
-                <li [ngClass]="{'hidden': hasLowercase}">
-                  Al menos una letra minúscula
-                </li>
-                <li [ngClass]="{'hidden': hasUppercase}">
-                  Al menos una letra mayúscula
-                </li>
-                <li [ngClass]="{'hidden': hasNumber}">Al menos un número</li>
-                <li [ngClass]="{'hidden': hasSpecialChar}">
-                  Al menos un carácter especial
-                </li>
-                <li [ngClass]="{'hidden': hasMinLength}">
-                  Mínimo 8 caracteres
-                </li>
-              </ul>
-            </ng-template>
-          </p-password>
-        </p-inputGroup>
-      </div>
-      <div class="mt-3" id="cloudflare-captcha-signin"></div>
-      <div
-        *ngIf="errorMessage && errorMessage.includes('Contraseña')"
-        class="errorMenssage"
-      >
-        {{ errorMessage }}
-      </div>
-
-      <!-- Botón para iniciar sesión -->
-      <div class="form-box-button">
-        <p-button iconPos="right" label="Iniciar Sesión" type="submit">
-        </p-button>
-      </div>
-
-      <!-- Opciones adicionales -->
-      <div class="options" [class.disabled]="isLocked">
-        <a (click)="redirectTo('forgot-password')" class="forgot-password"
-          >Olvidé mi contraseña</a
+    <div class="form-box">
+      <label for="pass" class="">Contraseña</label>
+      <p-inputGroup class="input-group">
+        <p-inputGroupAddon>
+          <i class="pi pi-lock"></i>
+          <!-- Ícono de candado para contraseña -->
+        </p-inputGroupAddon>
+        <p-password
+          formControlName="password"
+          [toggleMask]="true"
+          promptLabel="Ingresa tu contras"
+          weakLabel="Muy simple"
+          strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+          mediumRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$"
+          inputStyleClass="input-login"
+          mediumLabel="Mediana mente segura"
+          strongLabel="Contraseña segura"
+          placeholder="Contraseña segura"
         >
-        <a routerLink="/auth/Sign-up" class="create-account"
-          >Crear una cuenta nueva</a
-        >
-      </div>
+          <ng-template pTemplate="header">
+            <h6>Escoge una contraseña</h6>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <p-divider></p-divider>
+            <p>Sugerencias</p>
+            <ul>
+              <li [ngClass]="{'hidden': hasLowercase}">
+                Al menos una letra minúscula
+              </li>
+              <li [ngClass]="{'hidden': hasUppercase}">
+                Al menos una letra mayúscula
+              </li>
+              <li [ngClass]="{'hidden': hasNumber}">Al menos un número</li>
+              <li [ngClass]="{'hidden': hasSpecialChar}">
+                Al menos un carácter especial
+              </li>
+              <li [ngClass]="{'hidden': hasMinLength}">Mínimo 8 caracteres</li>
+            </ul>
+          </ng-template>
+        </p-password>
+      </p-inputGroup>
+    </div>
+    <div class="mt-3" id="cloudflare-captcha-signin"></div>
+    <div
+      *ngIf="errorMessage && errorMessage.includes('Contraseña')"
+      class="errorMenssage"
+    >
+      {{ errorMessage }}
+    </div>
 
-      <div class="lock-message">
-        <!-- Mostrar mensaje de bloqueo si está bloqueado -->
-        <div *ngIf="isLocked" ngclass="lock-message">
-          Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo
-          en {{ remainingTime }} segundos.
-        </div>
+    <!-- Botón para iniciar sesión -->
+    <div class="form-box-button">
+      <p-button iconPos="right" label="Iniciar Sesión" type="submit">
+      </p-button>
+    </div>
+
+    <!-- Opciones adicionales -->
+    <div class="options" [class.disabled]="isLocked">
+      <a (click)="redirectTo('forgot-password')" class="forgot-password"
+        >Olvidé mi contraseña</a
+      >
+      <a routerLink="/auth/Sign-up" class="create-account"
+        >Crear una cuenta nueva</a
+      >
+    </div>
+
+    <div class="lock-message">
+      <!-- Mostrar mensaje de bloqueo si está bloqueado -->
+      <div *ngIf="isLocked" ngclass="lock-message">
+        Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en
+        {{ remainingTime }} segundos.
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>

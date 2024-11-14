@@ -1,4 +1,12 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+  Renderer2,
+  ElementRef,
+} from '@angular/core';
 import { UsuarioService } from '../../../../shared/services/usuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientesService } from '../../../../shared/services/clientes.service';
@@ -7,14 +15,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 // import { SessionService } from '../../../../shared/services/session.service';
 import { Cliente } from '../../../../shared/interfaces/client.interface';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { isPlatformBrowser } from '@angular/common';
+import { response } from 'express';
+import Swal from 'sweetalert2';
+import { SessionService } from '../../../../shared/services/session.service';
+declare const $: any;
 
 @Component({
   selector: 'app-listado-clientes',
   templateUrl: './listado-clientes.component.html',
-  styleUrls: ["../../../../shared/styles/tablePrime.scss", "../../../../shared/styles/form.scss"],
-
+  styleUrls: [
+    '../../../../shared/styles/tablePrime.scss',
+    '../../../../shared/styles/form.scss',
+  ],
 })
-export class ListadoClientesComponent implements OnInit {
+export class ListadoClientesComponent implements OnInit{
   data!: any;
   visible: boolean = false;
   totalRecords: number = 0;
@@ -28,34 +43,41 @@ export class ListadoClientesComponent implements OnInit {
   allClients: Cliente[] = [];
   selectedClient!: Cliente;
   paginatedUser: Cliente[] = [];
+  usuarioId: any; // Para almacenar temporalmente el ID del usuario a eliminar
 
   isVisible = false;
 
-  ngOnInit(){
+  ngOnInit() {
     this.getUsuario();
     this.updatePaginatedUser();
-
   }
 
-  constructor(private us: UsuarioService,
+  
+
+  constructor(
+    private us: UsuarioService,
     // private render2: Renderer2,
     // private mapService: MapaClientDetailUbacionService,
     private fb: FormBuilder,
+    @Inject(PLATFORM_ID) private platformId: Object,
     // private mapaService}: MapaService,
     private UserS: ClientesService,
+    private elementRef: ElementRef,
     private router: ActivatedRoute,
     private rou: Router,
-    // private toast: Toast,
-    // private ngxUiLoaderService: NgxUiLoaderService,
-    // private sessionService: SessionService
-  ) {
+    public sessionService: SessionService
+  ) // private toast: Toast,
+  // private ngxUiLoaderService: NgxUiLoaderService,
+
+  {
     this.clienteForm = this.fb.group({
-      nombre: ["", Validators.required],
-      email: ["", Validators.required],
-      estatus: ["", Validators.required],
-      telefono: ["", Validators.required],
+      nombre: ['', Validators.required],
+      email: ['', Validators.required],
+      // estatus: ['', Validators.required],
+      telefono: ['', Validators.required],
+      password: ['', Validators.required],
     });
-    this.id = this.router.snapshot.paramMap.get("id");
+    this.id = this.router.snapshot.paramMap.get('id');
   }
 
   getUsuario() {
@@ -77,7 +99,7 @@ export class ListadoClientesComponent implements OnInit {
         // this.ngxUiLoaderService.stop(); // Stop the loader when done
       },
       (error) => {
-        console.log("ocurrió un error al obtener la información", error);
+        console.log('ocurrió un error al obtener la información', error);
         // this.ngxUiLoaderService.stop(); // Stop the loader in case of error
       }
     );
@@ -90,28 +112,33 @@ export class ListadoClientesComponent implements OnInit {
   //   });
   // }
 
-
-  filterText: string = "";
+  filterText: string = '';
   eliminarUsuario(id: any) {
-    // this.UserS.eliminarCliente(id).pipe(
-    //   tap((data) => {
-    //     // Aquí puedes manejar los datos de la respuesta si es necesario
-    //     this.toast.showToastPmNgInfo('Eliminación exitosa')
-    //   }),
-    //   finalize(() => {
-    //     // Acción a realizar al finalizar la operación, independientemente del éxito o error
-    //     this.getUsers(); // Actualizar la lista de usuarios
-    //   })
-    // ).subscribe(
-    //   (data) => {
-    //     // Acción a realizar en caso de éxito
-    //     this.toast.showToastPmNgError('Eliminado del registro.');
-    //   },
-    //   (error) => {
-    //     // Acción a realizar en caso de error
-    //     console.error('Error al eliminar', error);
-    //   }
-    // );
+    this.usuarioId = id; // Almacena el ID del usuario que se quiere eliminar
+    $('.basic.test.modal')
+      .modal({
+        closable: false, // Evita cerrar haciendo clic fuera del modal
+        onApprove: () => {
+          // this.us.eliminarUsuario(id)
+          this.confirmarEliminar(); // Ejecuta la confirmación cuando se aprueba
+        }
+      })
+      .modal('show'); // Muestra el modal
+  }
+
+  confirmarEliminar() {
+    // this.usuarioId = id; 
+    this.us.eliminarUsuario(this.usuarioId).subscribe(response=>{
+      this.getUsuario(); // Actualiza la lista de usuarios después de eliminar uno
+      Swal.fire(
+        'Eliminado',
+        'El usuario se ha eliminado correctamente.',
+       'success'
+      );
+      this.usuarioId = null; // Resetea el ID del usuario que se quiere eliminar para evitar problemas con el siguiente clic en el botón de eliminar
+    })
+    console.log(`Usuario con ID ${this.usuarioId} eliminado.`);
+    // Aquí puedes llamar a tu servicio para eliminar el usuario
   }
 
   onGlobalFilter(event: Event) {
@@ -146,40 +173,34 @@ export class ListadoClientesComponent implements OnInit {
 
   redirectToAdmin(route: string): void {
     console.log(route);
-    if (route === "login") {
-      this.rou.navigate(["/auth/login"]); // Navegación hacia la página de inicio de sesión
+    if (route === 'login') {
+      this.rou.navigate(['/auth/login']); // Navegación hacia la página de inicio de sesión
     } else {
-      this.rou.navigate(["/purificadoraAdm", route]); // Navegación hacia otras páginas públicas
+      this.rou.navigate(['/purificadoraAdm', route]); // Navegación hacia otras páginas públicas
     }
   }
 
-
-
-
-
-
-
-
-
   redirecTo(route: string): void {
-    this.rou.navigate(["/purificadoraAdm/cliente/", route]);
+    this.rou.navigate(['/purificadoraAdm/cliente/', route]);
   }
 
   editar(id: any) {
     this.visible = true;
-    this.idCliente = this.router.snapshot.params["id"];
+    this.idCliente = this.router.snapshot.params['id'];
     if (id !== null) {
-      console.log("actualizar....");
+      
+      // Decodifica la contraseña
+      
+      console.log('actualizar....');
       this.UserS.detalleClienteById(id).subscribe((data) => {
         this.listUsuario = data;
+        const decodedPassword = this.sessionService.descifrarTexto(data.password);
         this.clienteForm.setValue({
           nombre: data.nombre,
           email: data.email,
-          estatus: data.estatus,
-          numCasa: data.numCasa,
+          // // estatus: data.estatus,
           telefono: data.telefono,
-          latitud: data.latitud,
-          longitud: data.longitud,
+          password: decodedPassword,
         });
       });
     }
@@ -190,11 +211,9 @@ export class ListadoClientesComponent implements OnInit {
       return text; // Si no hay texto a filtrar, regresa el texto original.
     }
 
-    const regex = new RegExp(`(${this.filterText})`, "gi"); // Crea una expresión regular para encontrar el texto de búsqueda.
-    return text.replace(regex, "<strong>$1</strong>"); // Reemplaza las coincidencias con el texto en negritas.
+    const regex = new RegExp(`(${this.filterText})`, 'gi'); // Crea una expresión regular para encontrar el texto de búsqueda.
+    return text.replace(regex, '<strong>$1</strong>'); // Reemplaza las coincidencias con el texto en negritas.
   }
-
-
 
   actualizarCliente(id: any) {
     if (this.clienteForm.valid) {
@@ -205,18 +224,14 @@ export class ListadoClientesComponent implements OnInit {
 
           // this.Toast.showToastPmNgInfo("Usuario actualizado");
 
-
-          console.log("Usuario actualizado:", response);
+          console.log('Usuario actualizado:', response);
         },
         (error) => {
-          console.error("Error al actualizar el usuario:", error);
+          console.error('Error al actualizar el usuario:', error);
         }
       );
     }
   }
-
-
-
 
   onPageChange(event: any) {
     this.first = event.first;
@@ -225,7 +240,7 @@ export class ListadoClientesComponent implements OnInit {
   }
 
   updatePaginatedUser() {
-    console.log()
+    console.log();
     this.paginatedUser = this.allClients.slice(
       this.first,
       this.first + this.rows

@@ -3,9 +3,20 @@ import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.s
 import Swal from 'sweetalert2';
 import { error } from 'node:console';
 
+interface SocialLink {
+  icon: string;
+  url: string;
+}
+
+interface IconOption {
+  value: string;
+  label: string;
+  icon: string;
+}
+
 @Component({
   selector: 'app-ajustes-generales',
-  templateUrl: './ajustes-generales.component.html',
+  templateUrl: './ajustes-generales.component copy.html',
   styleUrls: ['./ajustes-generales.component.scss'],
 })
 export class AjustesGeneralesComponent {
@@ -72,11 +83,11 @@ export class AjustesGeneralesComponent {
 
     this.datosEmpresaService.consultarConfigurarEmpresa().subscribe(
       (respuesta) => {
-        this.tiempoDeBloqueo=respuesta.configuracion.tiempoDeBloqueo;
-        this.numIntentos=respuesta.configuracion.intentosPermitidos
+        this.tiempoDeBloqueo = respuesta.configuracion.tiempoDeBloqueo;
+        this.numIntentos = respuesta.configuracion.intentosPermitidos;
       },
       (error) => {
-        console.log("Error al consultar la configuración de empresa:", error);
+        console.log('Error al consultar la configuración de empresa:', error);
       }
     );
   }
@@ -207,7 +218,45 @@ export class AjustesGeneralesComponent {
     this.redesSociales.push({ plataforma: '', enlace: '' });
   }
 
-  removeRed(index: number) {
-    this.redesSociales.splice(index, 1);
+  // removeRed(index: number) {
+  //   this.redesSociales.splice(index, 1);
+  // }
+
+  socialLinks: SocialLink[] = [];
+  currentIcon: IconOption | null = null;
+  currentUrl: string = '';
+  links: { icon: string; label: string; url: string }[] = [];
+
+  iconOptions: IconOption[] = [
+    { value: 'facebook', label: 'Facebook', icon: 'pi pi-facebook' },
+    { value: 'twitter', label: 'Twitter', icon: 'pi pi-twitter' },
+    { value: 'instagram', label: 'Instagram', icon: 'pi pi-instagram' },
+    { value: 'linkedin', label: 'LinkedIn', icon: 'pi pi-linkedin' },
+    { value: 'github', label: 'GitHub', icon: 'pi pi-github' },
+    { value: 'youtube', label: 'YouTube', icon: 'pi pi-youtube' },
+  ];
+
+  handleAddLink() {
+    if (this.currentIcon && this.currentUrl) {
+      this.links.push({
+        icon: this.currentIcon.icon,
+        label: this.currentIcon.label,
+        url: this.currentUrl,
+      });
+      this.currentIcon = null;
+      this.currentUrl = '';
+    }
+  }
+
+  handleRemoveLink(index: number) {
+    this.socialLinks.splice(index, 1);
+  }
+
+  // removeRed(index: number) {
+  //   this.redesSociales.splice(index, 1);
+  // }
+
+  currentPreview() {
+    return this.redesSociales.some((red) => red.plataforma && red.enlace);
   }
 }

@@ -54,13 +54,18 @@ import { MessageService } from 'primeng/api';
 import { Toast } from '../../shared/services/toast.service';
 import { ToastModule } from 'primeng/toast';
 import { ProductoService } from '../../shared/services/producto.service';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
 
+// import { DropdownModule } from 'primeng/dropdown';
 // import { AvatarModule } from 'primeng/avatar';
 // import { AvatarGroupModule } from 'primeng/avatargroup';
 
 const VIEWS = [HomeView, FooterComponent];
 
-const MATERIALS = [CalendarModule, InputNumberModule, ToastrModule,TabViewModule,
+const MATERIALS = [ ButtonModule, DropdownModule, InputTextModule, CardModule,CalendarModule, InputNumberModule, ToastrModule,TabViewModule,
   AvatarModule, PaginatorModule,AvatarGroupModule, DialogModule,TableModule,IconFieldModule,InputIconModule
 ]
 @NgModule({

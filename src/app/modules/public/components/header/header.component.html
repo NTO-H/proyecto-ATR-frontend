@@ -24,29 +24,32 @@
         <div class="instagram">
           <i class="fab fa-instagram"></i>
         </div>
-        <div class="theme">
-          <i class="pi pi-sun"></i>
+        <div class="theme" (click)="toggleTheme()">
+          <i
+            [ngClass]="
+              themeService.getTheme() === 'light' ? 'pi pi-sun' : 'pi pi-moon'
+            "
+          ></i>
         </div>
       </div>
     </nav>
   </nav>
   <nav class="navbar-second flex" [ngClass]="{ sticky: isSticky }">
     <div class="logo">
-      <!-- <div
+      <!--  <div
         class="logo1"
         [style.backgroundImage]="
           'url(' + (isSticky ? imageUrl : defaultImageUrl) + ')'
         "
       ></div> -->
       <img *ngIf="isSticky" [src]="imageUrl" alt="logo" class="logo1" />
-      <span *ngIf="!isSticky" class="titulo">
-        {{ nombreDeLaPagina }}</span
-      >
+      <span *ngIf="!isSticky" class="titulo"> {{ nombreDeLaPagina }}</span>
     </div>
     <ul *ngIf="!isMobile" class="nav-menu flex">
       <li><a (click)="redirectTo('home')">Home</a></li>
       <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
     </ul>
+    
 
     <ul class="nav-accion">
       <li>
@@ -137,6 +140,7 @@
       </li>
     </ul>
   </div>
+  
   <!-- Mango para redimensionar -->
 </p-sidebar>
 

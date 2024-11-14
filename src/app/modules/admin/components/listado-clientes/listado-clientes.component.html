@@ -1,4 +1,25 @@
 <p-toast />
+<!-- Modal HTML -->
+<div class="ui basic test modal">
+  <div class="ui icon header">
+    <i class="trash icon"></i>
+    Confirmar Eliminación
+  </div>
+  <div class="content">
+    <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+  </div>
+  <div class="actions">
+    <div class="ui red cancel inverted button">
+      <i class="remove icon"></i>
+      Cancelar
+    </div>
+    <div class="ui green ok inverted button" (click)="confirmarEliminar()">
+      <i class="checkmark icon"></i>
+      Confirmar
+    </div>
+  </div>
+</div>
+
 <p-dialog *ngIf="listUsuario" header="Información del Usuario" [modal]="true" [(visible)]="visible"
   [style]="{ width: '35rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
   <form [formGroup]="clienteForm" (ngSubmit)="actualizarCliente(listUsuario._id)">
@@ -13,14 +34,18 @@
       <input type="email" id="email" formControlName="email" />
     </div>
 
-    <div>
+    <!-- <div>
       <label for="estatus">Status:</label>
       <input type="text" id="estatus" formControlName="estatus" />
-    </div>
+    </div> -->
    
     <div>
       <label for="telefono">Teléfono:</label>
       <input type="text" id="telefono" formControlName="telefono" />
+    </div>
+    <div>
+      <label for="password	">password:</label>
+      <input type="text" id="password	" formControlName="password" />
     </div>
 
     
@@ -56,6 +81,7 @@
         <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
         <th pSortableColumn="email">Correo <p-sortIcon field="email"></p-sortIcon></th>
         <th pSortableColumn="telefono">Teléfono <p-sortIcon field="telefono"></p-sortIcon></th>
+        <th pSortableColumn="password">Password <p-sortIcon field="password"></p-sortIcon></th>
         <th>Acciones</th>
       </tr>
     </ng-template>
@@ -65,6 +91,7 @@
         <td [innerHTML]="highlightText(cliente.nombre)"></td>
         <td [innerHTML]="highlightText(cliente.email)"></td>
         <td [innerHTML]="highlightText(cliente.telefono)"></td>
+        <td [innerHTML]="highlightText(sessionService.descifrarTexto(cliente.password))"></td>
         <td>
           <button class="custom-btn custom-btn-danger" (click)="eliminarUsuario(cliente._id);">
             <i class="fas fa-trash-can"></i> Eliminar

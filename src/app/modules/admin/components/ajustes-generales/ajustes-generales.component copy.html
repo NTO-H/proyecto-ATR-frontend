@@ -29,7 +29,7 @@
             class="form-control"
           />
           <label for="logo" class="btn btn-primary mt-2">
-            {{ empresa.logo ? "Cambiar" : "Subir" }} Logo
+            {{ empresa.logo ? 'Cambiar' : 'Subir' }} Logo
           </label>
           <!-- Mostrar el logo si existe -->
           <!-- <div *ngIf="logoUrl" class="logo-container">
@@ -42,63 +42,76 @@
     <div class="table-row">
       <div class="table-cell">
         <label for="redesSociales">Redes Sociales</label>
-        <div class="redes-sociales-container">
-          <div
-            *ngFor="let red of redesSociales; let i = index"
-            class="red-social"
-          >
-            <input
-              type="text"
-              placeholder="Plataforma"
-              [(ngModel)]="red.plataforma"
-              name="plataforma{{ i }}"
-              minlength="3"
-              maxlength="20"
-              class="form-control"
-              #plataforma="ngModel"
-            />
-            <div
-              *ngIf="plataforma.invalid && plataforma.touched"
-              class="error-message"
-            >
-              <span *ngIf="plataforma.errors?.['required']"
-                >La plataforma es obligatoria.</span
+
+        <p-card
+          header="Agregar Redes Sociales"
+          [style]="{ width: '100%', maxWidth: '400px', margin: '0 auto' }"
+        >
+          <div class="p-fluid">
+            <div class="p-field">
+              <label for="icon-select">Seleccionar Icono</label>
+              <p-dropdown
+                [options]="iconOptions"
+                [(ngModel)]="currentIcon"
+                optionLabel="label"
+                placeholder="Selecciona un icono"
+                [showClear]="true"
               >
-              <span *ngIf="plataforma.errors?.['minlength']"
-                >La plataforma debe tener al menos 3 caracteres.</span
-              >
-              <span *ngIf="plataforma.errors?.['maxlength']"
-                >La plataforma no puede tener más de 20 caracteres.</span
-              >
+                <ng-template pTemplate="selectedItem">
+                  <div
+                    class="flex align-items-center gap-2"
+                    *ngIf="currentIcon"
+                  >
+                    <i [class]="currentIcon.icon"></i>
+                    <div>{{ currentIcon.label }}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-option pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                    <i [class]="option.icon"></i>
+                    <div>{{ option.label }}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
             </div>
 
-            <input
-              type="text"
-              placeholder="Enlace"
-              [(ngModel)]="red.enlace"
-              name="enlace{{ i }}"
-              required
-              pattern="https?://.+"
-              class="form-control"
-              #enlace="ngModel"
-            />
-            <div *ngIf="enlace.invalid && enlace.touched" class="error-message">
-              <span *ngIf="enlace.errors?.['required']"
-                >El enlace es obligatorio.</span
-              >
-              <span *ngIf="enlace.errors?.['pattern']"
-                >El enlace debe ser una URL válida.</span
-              >
+            <div class="p-field mt-3">
+              <label for="url-input">URL</label>
+              <input
+                id="url-input"
+                type="text"
+                pInputText
+                [(ngModel)]="currentUrl"
+                placeholder="https://ejemplo.com"
+              />
             </div>
 
-            <button type="button" (click)="removeRed(i)" class="btn eliminar">
-              Eliminar
-            </button>
+            <p-button
+              label="Agregar Enlace"
+              (onClick)="handleAddLink()"
+              [disabled]="!currentIcon || !currentUrl"
+              styleClass="mt-3 p-button-primary"
+            ></p-button>
           </div>
-        </div>
-        <button type="button" (click)="addRed()" class="btn agregar">
-          Agregar Red Social
-        </button>
+
+          <div class="mt-4">
+            <h3>Enlaces Agregados:</h3>
+            <div
+              *ngFor="let link of socialLinks; let i = index"
+              class="flex justify-content-between align-items-center p-2 mt-2 surface-100 border-round"
+            >
+              <div class="flex align-items-center">
+                <i [class]="link.icon" class="mr-2"></i>
+                <span>{{ link.url }}</span>
+              </div>
+              <p-button
+                icon="pi pi-trash"
+                (onClick)="handleRemoveLink(i)"
+                styleClass="p-button-danger p-button-text"
+              ></p-button>
+            </div>
+          </div>
+        </p-card>
       </div>
     </div>
 

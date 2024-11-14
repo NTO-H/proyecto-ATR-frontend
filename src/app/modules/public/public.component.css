@@ -8,7 +8,10 @@ main {
   padding-left: 80px;
   padding-right: 80px;
   padding-bottom: 80px;
-  background-color: #f3f5fb;
+  /* background-color: #f3f5fb; */
+
+  
+  background-color:var(--color-by);
 }
 .menu-button {
   background-color: #007bff; /* Color de fondo azul */

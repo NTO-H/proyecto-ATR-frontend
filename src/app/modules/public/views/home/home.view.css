@@ -22,14 +22,15 @@ body {
   background: #ffffff;
 }
 .box {
-  box-shadow: 0px 0px 10px 10px rgb(255, 248, 240);
+  /* box-shadow: 0px 0px 10px 10px rgb(255, 248, 240); */
+  box-shadow: var(--box-sw);
 }
 .container-productos {
   padding: 20px;
 }
 
 .hero-img {
-  background-color: #ffffff;
+  background-color:var(--blur-bg);
   animation: blur-in 2s ease-in-out;
   animation-name: show-hero;
   display: flex;
@@ -44,11 +45,11 @@ body {
   position: sticky;
   background-position: right;
   width: 100%;
-  height: 310px;
+  height: 410px;
 }
 
 .imagen-logo {
-  max-width: 25%;
+  max-width: 35%;
 }
 .text-anuncio {
   margin-right: 10px;
@@ -69,25 +70,18 @@ body {
 
 .text-info {
   font-size: 28px;
-  color: #4b535b;
+      color:var(--text-color);
+
 }
 p {
-  color: #7b838a;
+  color:var(--text-color);
+
   /* color: #4b535b; chido */
 }
 
 .hide-hero-img {
   background-image: none;
 }
-.hero-img1 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 500px;
-  background-color: #fff8ee;
-  margin: 0;
-}
-
 /* !hacer responsive */
 .text {
   margin-left: 50px;
@@ -110,7 +104,7 @@ p {
   box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
   max-width: 200px;
   margin-bottom: 20px;
-  background: #ffffff;
+  background: var(--bg-color-card);
   transition: transform 0.3s, box-shadow 0.3s;
   &:hover {
     transform: scale(1.02); /* Zoom al 105% */

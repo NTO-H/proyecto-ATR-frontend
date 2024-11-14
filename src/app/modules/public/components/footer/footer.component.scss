@@ -78,7 +78,6 @@
 //     justify-content: flex-end;
 //     /* z-index: 1; */
 
-
 i.fa-facebook {
   color: #3b5998; /* Color específico de Facebook */
 }
@@ -106,8 +105,8 @@ i.fa-tiktok {
 
   // background-color: #333b43;
   // color: white;
-  color: #333b43;
-  background-color: #f0ebe5;
+  color: var(--color-text);
+  background-color: var(--style-footer);
   padding: 20px;
   text-align: center;
 
@@ -125,7 +124,7 @@ i.fa-tiktok {
         font-size: 1.2rem;
         font-weight: 400px;
         text-transform: uppercase;
-        color: #333b43;
+        color: var(--color-text);
       }
 
       ul {
@@ -136,7 +135,8 @@ i.fa-tiktok {
           margin: 10px 0;
 
           a {
-        color: #41464e;
+            color: var(--color-text);
+
             text-decoration: none;
             transition: color 0.3s ease;
 
@@ -162,7 +162,6 @@ i.fa-tiktok {
       transition: color 0.3s ease;
 
       &:hover {
-      
         color: #ddd;
       }
     }

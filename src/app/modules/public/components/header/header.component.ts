@@ -9,6 +9,7 @@ import {
   ElementRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MenuItemCommandEvent } from 'primeng/api';
@@ -17,12 +18,16 @@ import { isPlatformBrowser } from '@angular/common';
 import { SessionService } from '../../../../shared/services/session.service';
 import { ERol } from '../../../../shared/constants/rol.enum';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
+import { ThemeServiceService } from '../../../../shared/services/theme-service.service';
 declare const $: any;
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: [
+    './header.component.scss',
+    // '../../../../shared/styles/dark-theme.scss',
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
@@ -35,13 +40,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isSticky = false;
   isLoading = false;
   searchQuery = ''; // Bind search input
-  datosEmpresa: any={};
+  datosEmpresa: any = {};
   nombreDeLaPagina: string = '';
+
+  empresaData: any;
 
   imageUrl!: string;
   defaultImageUrl: string =
     'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png';
+  isDarkThemeOn = signal(false);
 
+  darkMode = false;
   constructor(
     private router: Router,
     private elementRef: ElementRef,
@@ -49,11 +58,70 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private cdr: ChangeDetectorRef,
     private datosEmpresaService: DatosEmpresaService,
+    public themeService: ThemeServiceService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+  // constructor() {}
+  // toggleDarkTheme(): void {
+  //   document.body.classList.toggle('dark-theme');
+  // }
+
+  toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    this.isDarkThemeOn.update((isDarkThemeOn) => !isDarkThemeOn);
+    this.darkMode = !this.darkMode;
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute(
+        'data-theme',
+        this.darkMode ? 'dark' : 'light'
+      );
+    }
+    //
+    const newTheme =
+      this.themeService.getTheme() === 'light' ? 'dark' : 'light';
+
+    // Guardar el tema en localStorage
+    localStorage.setItem('theme', newTheme);
+    this.themeService.setTheme(newTheme);
+  }
+
   ngOnInit() {
-    this.getDatosEmpresa(); // Cargar los datos de la empresa al iniciar
+    // Verificar si el entorno tiene acceso a localStorage (es decir, que no está en SSR)
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      // Recuperar el tema guardado en localStorage (si existe)
+      const savedTheme = localStorage.getItem('theme');
+
+      // Comprobar si el valor es válido
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        if (typeof document !== 'undefined') {
+          this.darkMode = savedTheme === 'dark';
+          document.body.classList.toggle('dark-theme', this.darkMode);
+          document.documentElement.setAttribute(
+            'data-theme',
+            this.darkMode ? 'dark' : 'light'
+          );
+          this.themeService.setTheme(savedTheme);
+        }
+      } else {
+        if (typeof document !== 'undefined') {
+          // Si no hay tema guardado o es inválido, usar el valor por defecto (por ejemplo, 'light')
+          this.darkMode = false;
+          document.body.classList.remove('dark-theme');
+          document.documentElement.setAttribute('data-theme', 'light');
+          this.themeService.setTheme('light');
+        }
+      }
+    } else {
+      if (typeof document !== 'undefined') {
+        // En un entorno donde localStorage no está disponible, establecer un tema predeterminado
+        this.darkMode = false;
+        document.body.classList.remove('dark-theme');
+        document.documentElement.setAttribute('data-theme', 'light');
+        this.themeService.setTheme('light');
+      }
+    }
+    this.loadCompanyData(); // Cargar los datos de la empresa al iniciar
 
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenSize();
@@ -63,12 +131,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getDatosEmpresa() {
+  loadCompanyData() {
     this.datosEmpresaService.traerDatosEmpresa().subscribe(
       (data) => {
-        this.datosEmpresa = data[0]; // Guardar los datos en la variable
-        this.nombreDeLaPagina = this.datosEmpresa.tituloPagina;
-        this.imageUrl = this.datosEmpresa?.logo;
+        this.empresaData = data[0]; // Guardar los datos en la variable
+        this.nombreDeLaPagina = this.empresaData?.tituloPagina;
+        this.imageUrl = this.empresaData?.logo;
       },
       (error) => {
         console.error('Error al cargar los datos de la empresa:', error);
