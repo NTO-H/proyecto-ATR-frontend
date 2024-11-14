@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
 import Swal from 'sweetalert2';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-ajustes-generales',
@@ -18,6 +19,8 @@ export class AjustesGeneralesComponent {
     correoElectronico: '',
     telefono: '',
   };
+  numIntentos: number = 5;
+  tiempoDeBloqueo: number = 20; //segundos
 
   profileImg: string | null = null; // Imagen por defecto es null
 
@@ -37,7 +40,7 @@ export class AjustesGeneralesComponent {
     this.datosEmpresaService.traerDatosEmpresa().subscribe(
       (data) => {
         if (Array.isArray(data) && data.length > 0) {
-          const empresaData = data[0]; // Suponiendo que `data` es un arreglo y tomamos el primer elemento
+          const empresaData = data[0];
           this.profileImg = empresaData.logo;
           this.empresa = {
             logo: empresaData.logo,
@@ -47,8 +50,8 @@ export class AjustesGeneralesComponent {
             correoElectronico: empresaData.correoElectronico,
             telefono: empresaData.telefono,
           };
-          this.redesSociales = empresaData.redesSociales || []; // Asegúrate de que redesSociales exista
-          this.selectedFile = null; // Restablece el archivo seleccionado
+          this.redesSociales = empresaData.redesSociales || [];
+          this.selectedFile = null;
         } else {
           Swal.fire({
             icon: 'error',
@@ -66,6 +69,40 @@ export class AjustesGeneralesComponent {
         console.error('Error al cargar datos de la empresa', error);
       }
     );
+
+    this.datosEmpresaService.consultarConfigurarEmpresa().subscribe(
+      (respuesta) => {
+        this.tiempoDeBloqueo=respuesta.configuracion.tiempoDeBloqueo;
+        this.numIntentos=respuesta.configuracion.intentosPermitidos
+      },
+      (error) => {
+        console.log("Error al consultar la configuración de empresa:", error);
+      }
+    );
+  }
+  onSubmitSystemSettings() {
+    //convertinos todo a un json
+    const payload = {
+      numIntentos: this.numIntentos,
+      tiempoDeBloqueo: this.tiempoDeBloqueo,
+    };
+
+    this.datosEmpresaService.configurarEmpresa(payload).subscribe(
+      (respuesta) => {
+        if (respuesta) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Configuraciones guardadas',
+            text: 'Las configuraciones se guardaron con exito',
+          });
+        }
+      },
+
+      (error) => {
+        console.error('Error al configurar la empresa', error);
+      }
+    );
+    console.log(this.numIntentos);
   }
 
   onSubmit() {
@@ -75,9 +112,9 @@ export class AjustesGeneralesComponent {
     formData.append('direccion', this.empresa.direccion);
     formData.append('correoElectronico', this.empresa.correoElectronico);
     formData.append('telefono', this.empresa.telefono);
-    
+
     formData.append('redesSociales', JSON.stringify(this.redesSociales));
-    
+
     if (this.selectedFile) {
       const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
       if (this.selectedFile.size > maxSizeInBytes) {
@@ -91,8 +128,7 @@ export class AjustesGeneralesComponent {
       formData.append('file', this.selectedFile);
     }
 
-
-    this.datosEmpresaService.updateUsuario(formData).subscribe(
+    this.datosEmpresaService.editarPerfilEmpresa(formData).subscribe(
       (response) => {
         Swal.fire({
           icon: 'success',
@@ -100,9 +136,6 @@ export class AjustesGeneralesComponent {
           text: 'Usuario actualizado correctamente.',
         });
         console.log('Usuario actualizado', response);
-
-        // Limpiar el input de archivo y la selección
-        // this.resetForm();
       },
       (error) => {
         Swal.fire({

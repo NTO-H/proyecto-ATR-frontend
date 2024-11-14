@@ -9,8 +9,12 @@ import { Observable } from 'rxjs';
 export class DatosEmpresaService {
   constructor(private http: HttpClient) {}
 
-  updateUsuario(data: any): Observable<any> {
+  editarPerfilEmpresa(data: any): Observable<any> {
     const url = `${environment.api}/Empresa/editarPerfilEmpresa/`;
+    return this.http.put(url, data);
+  }
+  configurarEmpresa(data: any): Observable<any> {
+    const url = `${environment.api}/Empresa/configurarEmpresa/`;
     return this.http.put(url, data);
   }
   eliminarRedSocial(id: any): Observable<any> {
@@ -19,6 +23,10 @@ export class DatosEmpresaService {
   }
   traerDatosEmpresa(): Observable<any> {
     const url = `${environment.api}/Empresa/obtenerPerfilesEmpresa/`;
+    return this.http.get(url);
+  }
+  consultarConfigurarEmpresa(): Observable<any> {
+    const url = `${environment.api}/Empresa/consultarConfigurarEmpresa/`;
     return this.http.get(url);
   }
 }

@@ -1,52 +1,69 @@
-.ajustes-generales-form {
-  width: 100%;
-  // max-width: 600px;
+.form-container {
+  display: flex;
+  gap: 20px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background: white;
+}
+
+
+.ajustes-generales-form,
+.ajustes-form {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.ajustes-generales-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   .form-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 20px;
-    // text-align: center;
     color: #333;
+    text-align: center;
   }
 
   .table {
-    display: table;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 
     .table-row {
-      display: table-row;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+      }
 
       .table-cell {
-        display: table-cell;
-        padding: 10px;
-        vertical-align: top;
-        .btn-primary {
-          background-color: #effcff;
-        border: dashed rgb(95, 135, 160);
-          border-radius: 4px;
-          cursor: pointer;
-          width: 10%;
-          padding: 5px 10px;
-        }
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
         label {
-          font-size: 0.9em;
-          color: #333;
-          margin-bottom: 5px;
-          display: block;
+          font-size: 0.9rem;
+          color: #555;
+          font-weight: 500;
         }
 
         .form-control {
-          width: 100%;
           padding: 10px;
-          font-size: 0.9rem;
-          border: 1px solid #ccc;
+          font-size: 1rem;
+          border: 1px solid #ddd;
           border-radius: 4px;
-          transition: border-color 0.3s ease;
+          transition: border-color 0.2s;
 
           &:focus {
             border-color: #007bff;
@@ -54,15 +71,15 @@
           }
         }
 
-        .logo-container {
-          margin-top: 10px;
-
-          .logo-preview {
-            max-width: 100px;
-            max-height: 100px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-          }
+        .btn-primary {
+          background-color: #007bff;
+          border: none;
+          color: #fff;
+          border-radius: 4px;
+          padding: 8px 12px;
+          font-size: 0.9rem;
+          cursor: pointer;
+          margin-top: 5px;
         }
 
         .redes-sociales-container {
@@ -72,21 +89,17 @@
 
           .red-social {
             display: flex;
-            align-items: center;
             gap: 10px;
+            align-items: center;
 
-            .form-control {
-              flex: 1;
-            }
-          
             .btn.eliminar {
-              padding: 5px 10px;
               background-color: #dc3545;
               color: #fff;
+              padding: 5px 8px;
+              font-size: 0.85rem;
               border-radius: 4px;
               border: none;
               cursor: pointer;
-              font-size: 0.8rem;
 
               &:hover {
                 background-color: #c82333;
@@ -96,13 +109,9 @@
         }
 
         .error-message {
-          margin-top: 5px;
-          font-size: 0.8rem;
+          margin-top: 3px;
+          font-size: 0.85rem;
           color: #dc3545;
-
-          span {
-            display: block;
-          }
         }
       }
     }
@@ -132,7 +141,7 @@
     }
 
     .btn.agregar {
-      padding: 5px 15px;
+      padding: 8px 15px;
       font-size: 0.9rem;
       background-color: #007bff;
       color: #fff;
@@ -148,8 +157,124 @@
   }
 }
 
-.form-group-container {
+.form-container {
   display: flex;
   gap: 20px;
-  flex-direction: row;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.ajustes-form {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Adjust form control styling as needed */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+
+.form-group-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn.guardar {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #218838;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.ajustes-form {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.titulo {
+  text-align: center;
+  margin-bottom: 20px;
+
+  .form-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+  }
+}
+
+.container-ajustes-sistema {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-box {
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #555;
+    font-weight: 500;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
 }
