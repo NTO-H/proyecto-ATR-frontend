@@ -18,7 +18,7 @@ body.collapsed-padding {
 .sidenav {
   width: 250px;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--style-footer-adm);
 
   color: #495464;
 
@@ -115,8 +115,6 @@ body.collapsed-padding {
     &::-webkit-scrollbar-thumb {
       background-color: darkgrey;
     }
-
-   
 
     // scrollbar-width: thin;
     li {

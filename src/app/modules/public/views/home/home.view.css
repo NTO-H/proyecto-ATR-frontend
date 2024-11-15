@@ -13,13 +13,18 @@ body {
 body {
   font-family: "Passion One", display;
 }
+
+.titulo {
+  text-align: center;
+  color: --color-text;
+}
 .contiene-all {
   display: flex;
   flex-direction: row;
 
   border: 0.5px solid #e6e6e6;
   border-bottom: 4px solid #ebe3db;
-  background: #ffffff;
+  background: var(--blur-bg);
 }
 .box {
   /* box-shadow: 0px 0px 10px 10px rgb(255, 248, 240); */
@@ -29,8 +34,9 @@ body {
   padding: 20px;
 }
 
+
 .hero-img {
-  background-color:var(--blur-bg);
+  background-color: var(--blur-bg);
   animation: blur-in 2s ease-in-out;
   animation-name: show-hero;
   display: flex;
@@ -56,7 +62,7 @@ body {
   p.nombre {
     font-size: 60px;
     /* font-family: "Passion One", display; */
-    color: rgb(56, 58, 46);
+    color: var(--text-color);
   }
   p.info {
     font-size: 50px;
@@ -70,11 +76,10 @@ body {
 
 .text-info {
   font-size: 28px;
-      color:var(--text-color);
-
+  color: var(--color-text);
 }
 p {
-  color:var(--text-color);
+  color: var(--color-text);
 
   /* color: #4b535b; chido */
 }
@@ -104,11 +109,11 @@ p {
   box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
   max-width: 200px;
   margin-bottom: 20px;
-  background: var(--bg-color-card);
+  background: var(--blur-bg);
   transition: transform 0.3s, box-shadow 0.3s;
   &:hover {
     transform: scale(1.02); /* Zoom al 105% */
-    background-color: #ffffff;
+    background-color: var(--color-bg);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 }
@@ -155,7 +160,7 @@ p {
     backdrop-filter: blur(1px);
     border-radius: 8px;
     border: 1px solid rgb(228, 223, 233);
-    background: #ffffff;
+    background: var(--blur-bg);
 
     padding: 0.5rem 1rem;
     /* border: dashed; */
@@ -178,11 +183,11 @@ p {
   /* padding-inline: 5vw; */
 
   .card {
-    color: #6b7280;
-    background: #ffffff;
+    color: var(--color-text);
+    background: var(--blur-bg);
     border: #e4e4e4 solid 1px;
     h2 {
-      color: #374151;
+      color: var(--color-text);
     }
     img {
       align-items: center;
@@ -205,7 +210,7 @@ p {
   top: 10px;
   left: 10px;
   /* background-color: #FFAA80; */
-  background-color: #fff;
+  background-color: var(--style-secction-ofertas);
   /* color: #EE66A6; */
   color: #ff0000;
   padding: 5px;
@@ -235,7 +240,7 @@ p {
   .container-productos {
     padding: 0;
     margin: 0;
-    background: #ffffff;
+    background: var(--blur-bg);
     border: #e4e4e4 solid 1px;
     box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
     border-radius: 5px;
@@ -250,10 +255,10 @@ p {
     justify-content: space-between;
 
     margin-bottom: 20px;
-    background: #ffffff;
+    background: var(--blur-bg);
 
     &:hover {
-      background-color: #ffffff;
+      background-color: var(--color-bg);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     .product-image {
@@ -347,3 +352,4 @@ p {
     filter: blur(0);
   }
 }
+

@@ -5,17 +5,17 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
   <div class="item">
     <div class="nombre-empresa">
-      <h1>Atelier</h1>
+      <h1>{{nombreEmpresa}}</h1>
     </div>
 
     <div class="logo">
       <img
-        src="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png"
-        alt=""
+        src={{logo}}
+        alt="Logo de la empresa"
       />
     </div>
     <div class="text-item">
-      <h2>Bienvenido <br /><span>A la a nuestra a Atelier</span></h2>
+      <h2>Bienvenido <br /><span>A la a nuestra a {{nombreEmpresa}}</span></h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
         suscipit amet recusandae beatae cumque consectetur magnam aperiam

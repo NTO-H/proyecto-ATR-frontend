@@ -61,7 +61,7 @@
     </div>
 
     <div class="container-productos">
-      <h1 style="text-align: center; color: #333b43">Encuentra tu estilo</h1>
+      <h1 class="titulo">Encuentra tu estilo</h1>
       <!--
     <div data-aos="zoom-out-up" class="productos-container"> -->
       <div class="productos-container">
@@ -86,7 +86,8 @@
         [rows]="rows"
         [totalRecords]="productos.length"
         [rowsPerPageOptions]="[5, 10, 20]"
-        styleClass="mt-3"
+        styleClass="mt-3 custom-paginator"
+        [style]="{ 'background-color': 'var(--blur-bg)', 'border-radius': '8px' ,'border':'2px var(--bg-color-card)', 'padding': '8px' }"
         currentPageReportTemplate="Producto {first} a {last} de {totalRecords}"
       >
       </p-paginator>

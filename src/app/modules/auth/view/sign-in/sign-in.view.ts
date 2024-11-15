@@ -11,6 +11,7 @@ import { ERol } from '../../../../shared/constants/rol.enum';
 import { mensageservice } from '../../../../shared/services/mensage.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
+import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
 
 //lo del capchat
 import { OnDestroy } from '@angular/core';
@@ -39,6 +40,12 @@ export class SignInView implements OnInit {
   userROL!: string;
   loading: boolean = false;
 
+  //datos de la empresa
+  logo: string =
+    'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png';
+
+  nombreEmpresa: string = 'Atelier';
+
   public robot!: boolean;
   public presionado!: boolean;
 
@@ -53,6 +60,7 @@ export class SignInView implements OnInit {
     private sessionService: SessionService,
     private fb: FormBuilder,
     private messageService: MessageService,
+    private datosEmpresaService: DatosEmpresaService,
 
     //para lo del capchat
     private router: Router,
@@ -68,26 +76,45 @@ export class SignInView implements OnInit {
     this.captchaSubscription = this.captchaService.$.subscribe(
       (token: string) => {
         this.captchaToken = token;
-        console.log(token);
       }
     );
-  }
-  onSignupSubmit() {
-    if (this.captchaToken) {
-      console.log(this.captchaToken);
-    }
   }
   ngOnDestroy(): void {
     this.captchaSubscription?.unsubscribe();
   }
 
   ngOnInit(): void {
-    // this.generateCaptcha();
     this.robot = true;
     this.presionado = false;
-    this.checkLockState(); // Verificar si la cuenta está bloqueada al cargar
+    this.checkLockState();
+    this.traerDatos();
   }
 
+  traerDatos() {
+    this.datosEmpresaService.traerDatosEmpresa().subscribe(
+      (data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const empresaData = data[0];
+          this.logo = empresaData.logo;
+          this.nombreEmpresa = empresaData.tituloPagina;
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se encontraron datos de la empresa.',
+          });
+        }
+      },
+      (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al cargar los datos de la empresa.',
+        });
+        console.error('Error al cargar datos de la empresa', error);
+      }
+    );
+  }
   // Verifica el estado de bloqueo en localStorage o sessionStorage
   checkLockState() {
     if (isPlatformBrowser(this.platformId)) {
@@ -161,6 +188,8 @@ export class SignInView implements OnInit {
       });
       return;
     }
+
+    console.log(this.captchaToken);
     const captchaToken = this.captchaToken;
 
     if (!captchaToken) {
@@ -175,7 +204,7 @@ export class SignInView implements OnInit {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 
-    this.signInService.signIn({ email, password,captchaToken  }).subscribe(
+    this.signInService.signIn({ email, password, captchaToken }).subscribe(
       (response) => {
         if (response) {
           this.storageService.setToken(response.token);
@@ -193,19 +222,13 @@ export class SignInView implements OnInit {
             this.router.navigate([navigateTo]).then(() => {
               if (navigateTo === '/public/home') {
                 window.location.reload();
-              } else {
-                Swal.fire({
-                  title: 'Acceso exitoso',
-                  text: 'Has iniciado sesión correctamente.',
-                  icon: 'success',
-                  confirmButtonText: 'Continuar',
-                });
               }
             });
           }
         }
       },
       (err) => {
+        console.error('Error en el inicio de sesión:', err);
         if (err) {
           if (err.error && err.error.message) {
             this.errorMessage = err.error.message;

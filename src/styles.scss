@@ -48,35 +48,43 @@ body {
   --blur-bg: rgb(255, 255, 255); // Fondo oscuro con transparencia
   --style-navbar-second: rgb(255, 255, 255); // Fondo oscuro con transparencia
   --color-bg: #ee66a6;
+  --opciones: #ee66a6;
   --color-by: #f4f4f4;
   --color-text: #333b43;
   --box-sw: 0 4px 6px rgba(0, 0, 0, 0.1);
   --text-style-color: rgb(51, 66, 86);
   --style-footer: #f0ebe5;
+  --style-footer-adm: #e7d7c3;
   ----back-secction: #ffffff;
+  --style-secction-ofertas: rgba(237, 231, 231, 0.694);
 
   --card-bg-dark: linear-gradient(135deg, #1e1e2f, #3c3c5c);
 }
 
 [data-theme="dark"] {
-  --blur-bg: rgb(255, 255, 255); // Fondo oscuro con transparencia
-  
-  // --card-bg-dark: linear-gradient(135deg, #1e1e2f, #3c3c5c);
+  --blur-bg: rgba(66, 47, 47, 0.694); // Fondo oscuro con transparencia
+  --style-navbar-second: #584c50;
   --text-style-color: white;
-  // --color-bg: #cebfc0;
+  --style-secction-ofertas: rgba(255, 255, 255, 0.694);
 
-  --style-navbar-second: #191919;
-  --style-footer: #191919;
-  // -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
-  // backdrop-filter: blur(8px); // Desenfoque del fondo
-  // color: #fff;
+  --color-card: #ffffff;
+  ----back-secction: #1e182d66;
+  --color-bg: #6c5f59;
+  --color-by: #584c50;
+  --color-text: white;
+  --box-sw: 0 4px 6px rgba(126, 109, 109, 0.9);
+  --style-footer-adm: #b5a299;
+  --opciones: #ffffff;
+
+  --style-footer: #584c50;
+
   --bg-color-card: #ffffff;
   --color-card: #ffffff;
   --color-header: #ffffff;
 
   body {
     color: #fff;
-    background-color: var(--blur-bg);
+    background-color: var(--color-bg);
     backdrop-filter: blur(8px); // Desenfoque del fondo
     -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
   }
@@ -95,11 +103,4 @@ body {
     // background-color: var(--blur-bg);
     // color: white;
   }
-
-  --color-card: #ffffff;
-  ----back-secction: #1e182d66;
-  --color-bg: #2d3441;
-  --color-by: #282b34;
-  --color-text: white;
-  --box-sw: 0 4px 6px rgba(255, 255, 255, 0.9);
 }
