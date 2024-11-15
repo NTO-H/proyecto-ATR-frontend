@@ -184,7 +184,7 @@ p-sidebar {
 }
 
 .sticky {
-  background-color: #ffffff9e;
+  background-color: var(--style-footer);
   backdrop-filter: blur(2px);
   border: solid 1px #f6f2ef;
   .logo > .logo1 {
@@ -260,7 +260,7 @@ p-sidebar {
   top: 0;
   width: 100%;
   z-index: 10;
-  background: #ffffff;
+  background: var(--style-footer);
   box-shadow: 0 2px 5px #ebe3db7a;
   transition: background-color 0.5s ease;
 }
