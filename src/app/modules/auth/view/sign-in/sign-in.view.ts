@@ -39,7 +39,7 @@ export class SignInView implements OnInit {
   errorMessage: string = '';
   userROL!: string;
   loading: boolean = false;
-
+  captchagenerado: boolean = false;
   //datos de la empresa
   logo: string =
     'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png';
@@ -73,14 +73,18 @@ export class SignInView implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
+
     this.captchaSubscription = this.captchaService.$.subscribe(
       (token: string) => {
         this.captchaToken = token;
+        this.captchagenerado = !!token;
       }
     );
   }
+
   ngOnDestroy(): void {
     this.captchaSubscription?.unsubscribe();
+    this.timerSubscription?.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -158,6 +162,10 @@ export class SignInView implements OnInit {
     }
   }
 
+  recargarPagina() {
+    window.location.reload();
+  }
+
   login(): void {
     if (this.isLocked) {
       Swal.fire({
@@ -230,6 +238,15 @@ export class SignInView implements OnInit {
       (err) => {
         console.error('Error en el inicio de sesión:', err);
         if (err) {
+          if (err.error.message === 'Captcha inválido') {
+            Swal.fire({
+              title: 'Captcha Inválido',
+              text: 'El CAPTCHA ingresado es incorrecto. Por favor,recargue la pagina e inténtalo de nuevo.',
+              icon: 'error',
+              confirmButtonText: 'Ok',
+            }).then(() => this.recargarPagina());
+            return;
+          }
           if (err.error && err.error.message) {
             this.errorMessage = err.error.message;
           }
