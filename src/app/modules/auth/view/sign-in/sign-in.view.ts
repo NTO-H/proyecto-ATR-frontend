@@ -12,13 +12,7 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
-
-//lo del capchat
-import { OnDestroy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NgClass } from '@angular/common';
-import { NgxEasyCaptchaService } from '../../../../../../projects/angx/ngx-easy-captcha/src/public-api';
 
 @Component({
   selector: 'app-sign-in',
@@ -49,10 +43,6 @@ export class SignInView implements OnInit {
   public robot!: boolean;
   public presionado!: boolean;
 
-  //lo del capchat
-  captchaSubscription!: Subscription;
-  captchaToken!: string;
-
   constructor(
     private msgs: mensageservice,
     private signInService: SignInService,
@@ -64,26 +54,15 @@ export class SignInView implements OnInit {
 
     //para lo del capchat
     private router: Router,
-    private route: ActivatedRoute,
-    private captchaService: NgxEasyCaptchaService,
-
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-
-    this.captchaSubscription = this.captchaService.$.subscribe(
-      (token: string) => {
-        this.captchaToken = token;
-        this.captchagenerado = !!token;
-      }
-    );
   }
 
   ngOnDestroy(): void {
-    this.captchaSubscription?.unsubscribe();
     this.timerSubscription?.unsubscribe();
   }
 
@@ -92,6 +71,47 @@ export class SignInView implements OnInit {
     this.presionado = false;
     this.checkLockState();
     this.traerDatos();
+    this.loadCaptchaScript();
+    this.getCaptchaToken();
+  }
+  getCaptchaToken(): string {
+    if (typeof grecaptcha !== 'undefined') {
+      const token = grecaptcha.getResponse();
+      if (!token) {
+        console.warn('Token no generado todavía.');
+      }
+      console.log(token);
+      return token;
+    } else {
+      console.error('reCAPTCHA no ha sido cargado.');
+      return '';
+    }
+  }
+  resetCaptcha(): void {
+    grecaptcha.reset();
+  }
+  loadCaptchaScript() {
+    if (typeof document === 'undefined') {
+      console.warn(
+        'No se puede cargar el script porque document no está definido.'
+      );
+      return;
+    }
+
+    const scriptId = 'recaptcha-script';
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script');
+      script.id = scriptId;
+      script.src = 'https://www.google.com/recaptcha/api.js';
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        console.log('reCAPTCHA script loaded');
+      };
+      document.body.appendChild(script);
+    } else {
+      console.log('El script de reCAPTCHA ya está cargado.');
+    }
   }
 
   traerDatos() {
@@ -166,7 +186,24 @@ export class SignInView implements OnInit {
     window.location.reload();
   }
 
+  validateCaptcha() {
+    const token = grecaptcha.getResponse();
+
+    console.log('El token del capchat: ' + token);
+    return token ? token : null;
+  }
+
   login(): void {
+    const captchaToken = this.validateCaptcha();
+    if (!captchaToken) {
+      Swal.fire({
+        title: 'Complete el capchat primero',
+        text: `Resuelva el captcha para continuar con el proceso de inicio de sesión`,
+        icon: 'info',
+        confirmButtonText: 'Entendido',
+      });
+      return;
+    }
     if (this.isLocked) {
       Swal.fire({
         title: 'Cuenta bloqueada',
@@ -197,18 +234,6 @@ export class SignInView implements OnInit {
       return;
     }
 
-    console.log(this.captchaToken);
-    const captchaToken = this.captchaToken;
-
-    if (!captchaToken) {
-      Swal.fire({
-        title: 'Captcha no verificado',
-        text: 'Por favor, verifica que no eres un robot.',
-        icon: 'error',
-        confirmButtonText: 'Ok',
-      });
-      return;
-    }
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 

@@ -26,15 +26,7 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
 import { ToastrModule, Toast, ToastrService } from 'ngx-toastr';
 import { isPlatformBrowser } from '@angular/common';
 import { interval, map, take } from 'rxjs';
-
-//lo del capchat
-import { OnDestroy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NgClass } from '@angular/common';
-import {
-  NgxEasyCaptchaService,
-} from '../../../../../../projects/angx/ngx-easy-captcha/src/public-api';
 
 @Component({
   selector: 'app-sign-up-view',
@@ -88,9 +80,7 @@ export class SignUpView implements OnInit, AfterViewInit {
     private uservice: UsuarioService,
     private toastr: ToastrService,
     //para lo del capchat
-    private router: Router,
-    private route: ActivatedRoute,
-    private captchaService: NgxEasyCaptchaService
+    private router: Router
   ) {
     // Inicializar el formulario de datos básicos
     this.datosBasicosForm = this.fb.group({
@@ -114,12 +104,6 @@ export class SignUpView implements OnInit, AfterViewInit {
     this.frmActivateAcount = this.fb.group({
       otpCode: ['', [Validators.required, Validators.minLength(4)]],
     });
-    this.captchaSubscription = this.captchaService.$.subscribe(
-      (token: string) => {
-        this.captchaToken = token;
-        console.log(token);
-      }
-    );
   }
 
   ngOnInit() {
@@ -148,8 +132,6 @@ export class SignUpView implements OnInit, AfterViewInit {
     });
   }
 
-
- 
   onSignupSubmit() {
     if (this.captchaToken) {
       //verify using backend call
@@ -174,15 +156,14 @@ export class SignUpView implements OnInit, AfterViewInit {
   remainingTime: string = '';
   countdownSubscription: Subscription | undefined;
 
-
   startCountdown(duration: number) {
     this.countdownSubscription = interval(1000)
       .pipe(
         take(duration + 1),
-        map(secondsPassed => duration - secondsPassed)
+        map((secondsPassed) => duration - secondsPassed)
       )
       .subscribe(
-        secondsLeft => {
+        (secondsLeft) => {
           this.remainingTime = this.formatTime(secondsLeft);
         },
         null,
@@ -191,7 +172,6 @@ export class SignUpView implements OnInit, AfterViewInit {
         }
       );
   }
-
 
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);
@@ -319,16 +299,18 @@ export class SignUpView implements OnInit, AfterViewInit {
 
   // // Registrar cliente
   registroCliente(): void {
-
-
-    if(this.politicasForm.invalid){
+    if (this.politicasForm.invalid) {
       Swal.fire(
         'Registro Invalido',
         'acepte los terminos y condiciones.',
         'error'
-      )
+      );
     }
-    if (this.datosBasicosForm.valid && this.datosConfidencialesForm.valid  && this.politicasForm.valid) {
+    if (
+      this.datosBasicosForm.valid &&
+      this.datosConfidencialesForm.valid &&
+      this.politicasForm.valid
+    ) {
       const username = this.datosBasicosForm.get('username')?.value;
       const email = this.datosBasicosForm.get('email')?.value;
       const telefono = this.datosBasicosForm.get('telefono')?.value;

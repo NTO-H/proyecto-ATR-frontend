@@ -10,6 +10,7 @@
   margin: 0;
 }
 
+
 .card {
   display: flex;
   flex-direction: row;
@@ -22,7 +23,7 @@ label::after {
 
 .illustration {
   flex: 1;
-  background: #f3f4f6;
+  background: var(--blur-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,7 +83,7 @@ input[type="password"] {
 
 .register {
   background-color: #6f4dfd;
-  color: #fff;
+  color: var(--color-text);
 }
 
 .register:hover {
@@ -97,7 +98,7 @@ input[type="password"] {
 
 .signin:hover {
   background-color: #6f4dfd;
-  color: #fff;
+  color: var(--color-text);
 }
 
 .terms {
@@ -137,7 +138,7 @@ input[type="password"] {
 
 .dialog-content {
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: var(--blur-bg);
   // border-radius: 20px; // Fondo redondeado del contenido
 }
 

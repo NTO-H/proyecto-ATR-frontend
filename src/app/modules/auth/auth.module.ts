@@ -42,17 +42,8 @@ import { RegistroView } from './view/registro/registro.view';
 import { SessionService } from '../../shared/services/session.service';
 import { PublicModule } from '../public/public.module';
 import { InputGroupModule } from 'primeng/inputgroup';
-
-//lo del capchat
 import { NgClass } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {
-  NgxEasyCaptchaService,
-  CAPTCHA_PROVIDER,
-  CAPTCHA_SITE_KEY,
-  STRING_INITIALIZER,
-} from '../../../../projects/angx/ngx-easy-captcha/src/public-api';
-import { CaptchaProvider } from '../../../../projects/angx/ngx-easy-captcha/src/public-api';
 
 @NgModule({
   declarations: [
@@ -102,12 +93,6 @@ import { CaptchaProvider } from '../../../../projects/angx/ngx-easy-captcha/src/
     MessageService,
     ConfirmationService,
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
-
-    //lo del capchat
-    NgxEasyCaptchaService,
-    { provide: CAPTCHA_PROVIDER, useValue: CaptchaProvider.CloudFlare },
-    { provide: CAPTCHA_SITE_KEY, useValue: '0x4AAAAAAAz_bKFwjxufmfKM' }, // Replace with your site key
-    { provide: STRING_INITIALIZER, useValue: 'cloudflare-captcha' },
   ],
 })
 export class AuthModule {}
