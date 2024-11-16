@@ -5,13 +5,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 # Proyecto Angular con Lazy Loading
 
-Este proyecto utiliza la técnica de Lazy Loading para mejorar la eficiencia de carga en aplicaciones Angular. A continuación, se describen las principales características y estructura del proyecto.
-
-## Características principales
-
-- **Lazy Loading:** Carga diferida de módulos para mejorar el rendimiento.
-- **Modularidad:** Separación lógica del código en módulos específicos.
-- **Rutas protegidas:** Gestión de rutas seguras con `AuthGuards`.
 
 ## Estructura del proyecto
 
@@ -24,3 +17,12 @@ src/
 │   └── app-routing.module.ts  # Definición de rutas principales
 ├── assets/                 # Recursos estáticos (imágenes, estilos, etc.)
 └── index.html              # Archivo HTML principal
+```
+Este proyecto utiliza la técnica de Lazy Loading para mejorar la eficiencia de carga en aplicaciones Angular. A continuación, se describen las principales características y estructura del proyecto.
+
+## Características principales
+
+- **Lazy Loading:** Carga diferida de módulos para mejorar el rendimiento.
+- **Modularidad:** Separación lógica del código en módulos específicos.
+- **Rutas protegidas:** Gestión de rutas seguras con `AuthGuards`.
+
