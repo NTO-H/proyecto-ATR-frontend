@@ -81,7 +81,7 @@
         <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
         <th pSortableColumn="email">Correo <p-sortIcon field="email"></p-sortIcon></th>
         <th pSortableColumn="telefono">Teléfono <p-sortIcon field="telefono"></p-sortIcon></th>
-        <th pSortableColumn="password">Password <p-sortIcon field="password"></p-sortIcon></th>
+        <!-- <th pSortableColumn="password">Password <p-sortIcon field="password"></p-sortIcon></th> -->
         <th>Acciones</th>
       </tr>
     </ng-template>
@@ -91,7 +91,7 @@
         <td [innerHTML]="highlightText(cliente.nombre)"></td>
         <td [innerHTML]="highlightText(cliente.email)"></td>
         <td [innerHTML]="highlightText(cliente.telefono)"></td>
-        <td [innerHTML]="highlightText(sessionService.descifrarTexto(cliente.password))"></td>
+        <!-- <td [innerHTML]="highlightText(sessionService.descifrarTexto(cliente.password))"></td> -->
         <td>
           <button class="custom-btn custom-btn-danger" (click)="eliminarUsuario(cliente._id);">
             <i class="fas fa-trash-can"></i> Eliminar

@@ -94,7 +94,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "./node_modules/smart-webcomponents-angular/source/styles/smart.default.css",
+              "src/styles.scss"
+            ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/semantic-ui-css/semantic.min.js"

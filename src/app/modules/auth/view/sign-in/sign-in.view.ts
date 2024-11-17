@@ -12,6 +12,7 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 //lo del capchat
 import { OnDestroy } from '@angular/core';
@@ -61,7 +62,7 @@ export class SignInView implements OnInit {
     private fb: FormBuilder,
     private messageService: MessageService,
     private datosEmpresaService: DatosEmpresaService,
-
+    private ngxService: NgxUiLoaderService,
     //para lo del capchat
     private router: Router,
     private route: ActivatedRoute,
@@ -211,7 +212,7 @@ export class SignInView implements OnInit {
     }
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-
+    this.ngxService.start();
     this.signInService.signIn({ email, password, captchaToken }).subscribe(
       (response) => {
         if (response) {
@@ -244,7 +245,10 @@ export class SignInView implements OnInit {
               text: 'El CAPTCHA ingresado es incorrecto. Por favor,recargue la pagina e inténtalo de nuevo.',
               icon: 'error',
               confirmButtonText: 'Ok',
-            }).then(() => this.recargarPagina());
+            }).then(() => 
+              
+              this.recargarPagina()
+            );
             return;
           }
           if (err.error && err.error.message) {

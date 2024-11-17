@@ -1,3 +1,31 @@
 
 
 <router-outlet />
+
+<ngx-ui-loader
+  [bgsOpacity]="0.5"
+  [bgsColor]="'#41464e'"
+  [bgsPosition]="'bottom-right'"
+  [bgsSize]="20"
+  [bgsType]="'wandering-cubes'"
+ 
+  [fgsColor]="'#323343'"
+  [fgsPosition]="'center-center'"
+  [fgsSize]="70"
+  [fgsType]="'wandering-cubes'"
+  [gap]="25"
+  [logoPosition]="'center-center'"
+  [logoSize]="100"
+  logoUrl="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png"
+  masterLoaderId="'master'"
+  [overlayBorderRadius]="'0'"
+  [overlayColor]="'#fbfaf8'"
+  [pbColor]="'#5F6467FF'"
+  [pbDirection]="'ltr'"
+  [pbThickness]="3"
+  [hasProgressBar]="true"
+  [text]="'Espere un momento...'"
+  [textColor]="'#333b43'"
+  [textPosition]="'center-center'"
+  
+></ngx-ui-loader>

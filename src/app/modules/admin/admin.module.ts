@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -58,6 +58,10 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { HeaderPrincipalComponent } from './components/header-principal/header-principal.component';
+// import {  SmartChartModule } from 'smart-webcomponents-angular/chart';
+// import { SmartChartModule
+// import { ChartModule } from 'smart-webcomponents-angular/chart'
 
 // import { DropdownModule } from 'primeng/dropdown';
 // import { AvatarModule } from 'primeng/avatar';
@@ -96,7 +100,8 @@ const MATERIALS = [ ButtonModule, DropdownModule, InputTextModule, CardModule,Ca
     ListadoClientesComponent,
     PerfilAdministradorComponent,
     AjustesGeneralesComponent,
-    NotificacionesComponent
+    NotificacionesComponent,
+    HeaderPrincipalComponent
   ],
   imports: [MATERIALS,ReactiveFormsModule,ToastModule ,FormsModule,CommonModule, FormsModule, AdminRoutingModule, FormsModule,HttpClientModule,],
   providers: [
@@ -107,5 +112,6 @@ const MATERIALS = [ ButtonModule, DropdownModule, InputTextModule, CardModule,Ca
     SessionService,ProductoService,
     DatosEmpresaService,Toast, MessageService, provideClientHydration(), [provideHttpClient(withFetch())],
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminModule {}

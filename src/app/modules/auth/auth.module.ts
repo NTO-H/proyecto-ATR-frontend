@@ -17,7 +17,7 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { SignUpService } from './commons/services/sign-up.service';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { NgxUiLoaderModule, NgxUiLoaderService } from 'ngx-ui-loader';
 import { RecuperarPasswordView } from './view/recuperar-password/recuperar-password.view';
 import { mensageservice } from '../../shared/services/mensage.service';
 import { UsuarioService } from '../../shared/services/usuario.service';
@@ -104,7 +104,7 @@ import { CaptchaProvider } from '../../../../projects/angx/ngx-easy-captcha/src/
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
 
     //lo del capchat
-    NgxEasyCaptchaService,
+    NgxEasyCaptchaService,NgxUiLoaderService ,
     { provide: CAPTCHA_PROVIDER, useValue: CaptchaProvider.CloudFlare },
     { provide: CAPTCHA_SITE_KEY, useValue: '0x4AAAAAAAz_bKFwjxufmfKM' }, // Replace with your site key
     { provide: STRING_INITIALIZER, useValue: 'cloudflare-captcha' },
