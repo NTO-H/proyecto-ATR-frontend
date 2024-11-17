@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
-
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 body {
@@ -56,58 +55,89 @@ body {
   --color-text: #333b43;
   --box-sw: 0 4px 6px rgba(0, 0, 0, 0.1);
   --text-style-color: rgb(51, 66, 86);
+  --color-brd: #e6e6e6;
   --style-footer: #f0ebe5;
   --style-footer-adm: #e7d7c3;
   ----back-secction: #ffffff;
   --style-secction-ofertas: rgba(237, 231, 231, 0.694);
-
   --card-bg-dark: linear-gradient(135deg, #1e1e2f, #3c3c5c);
 }
-
 [data-theme="dark"] {
-  --blur-bg: rgba(66, 47, 47, 0.694); // Fondo oscuro con transparencia
-  --style-navbar-second: #584c50;
+  --blur-bg: rgba(0, 0, 0, 0.8); // Fondo negro translúcido
+  --style-navbar-second: #1a1a1a;
   --text-style-color: white;
 
-  --titulo-color: #584c50;
+  --titulo-color: #1a1a1a;
   --color-text: white;
-  --style-secction-ofertas: rgba(255, 255, 255, 0.694);
-  --color-card: #ffffff;
+  --style-secction-ofertas: rgba(34, 34, 34, 0.8); // Fondo gris oscuro translúcido
+  --color-card: #1a1a1a;
 
-  ----back-secction: #1e182d66;
-  --color-bg: #6c5f59;
-  --color-by: #584c50;
+  --back-secction: #0f0f0f; 
+  --color-bg: #0d0d0d; 
+  --color-by: #1a1a1a;
 
-  --box-sw: 0 4px 6px rgba(126, 109, 109, 0.9);
-  --style-footer-adm: #b5a299;
-  --opciones: #ffffff;
-  --mensaje-errrores: #ffffffff;
+  --box-sw: 0 4px 6px rgba(0, 0, 0, 0.9);
+  --style-footer-adm: #1a1a1a;
+  --opciones: white;
+  --mensaje-errrores: #ff4d4d;
 
-  --style-footer: #584c50;
+  --style-footer: #1a1a1a;
 
-  --bg-color-card: #ffffff;
-  --color-card: #ffffff;
-  --color-header: #ffffff;
+  --bg-color-card: #1a1a1a;
+  --color-card: #1a1a1a;
+  --color-header: white;
+  --color-brd: rgb(45, 48, 59);
 
   body {
-    color: #fff;
+    color: var(--color-text);
     background-color: var(--color-bg);
-    backdrop-filter: blur(8px); // Desenfoque del fondo
-    -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .sticky {
-    // position: fixed;
-    // top: 0;
-    // width: 100%;
     z-index: 10;
-    -webkit-backdrop-filter: blur(5px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); // Sombra para más profundidad
-
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: var(--box-sw); 
   }
+
   nav {
-    // background-color: var(--blur-bg);
-    // color: white;
+    background-color: var(--blur-bg);
+    color: var(--text-style-color);
+    border-bottom: 1px solid #e6e6e6; // Borde claro
+  }
+
+  .card {
+    background-color: var(--bg-color-card);
+    color: var(--text-style-color);
+    box-shadow: var(--box-sw);
+    border-left: 1px solid #e6e6e6; // Borde claro izquierda
+    border-right: 1px solid #e6e6e6; // Borde claro derecha
+    border-bottom: 1px solid #ebe3db; // Borde claro inferior
+  }
+
+  footer {
+    background-color: var(--style-footer);
+    color: var(--opciones);
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .error-message {
+    color: var(--mensaje-errrores);
+  }
+
+  .ofertas {
+    background-color: var(--style-secction-ofertas);
+    color: var(--color-text);
+    border-left: 1px solid #e6e6e6; // Bordes claros
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #ebe3db;
+  }
+
+  button, input, textarea {
+    border: 1px solid #e6e6e6; // Bordes claros para elementos interactivos
+    background-color: var(--bg-color-card);
+    color: var(--color-text);
   }
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+// import { CollapsedStateService } from '../../../../shared/services/collapsed-state.service';
+
 
 @Component({
   selector: 'app-configuracion',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './configuracion.view.scss'
 })
 export class ConfiguracionView {
+  
+  
 
 }

@@ -3,7 +3,7 @@
   padding: 20px;
   color: --color-text;
 
-  border-right: #e6e6e6 solid 1px;
+  border-right: var(--color-brd) solid 1px;
   font-family: Arial, sans-serif;
   position: sticky;
 }

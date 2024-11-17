@@ -17,14 +17,20 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { SignUpService } from './commons/services/sign-up.service';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { NgxUiLoaderModule, NgxUiLoaderService } from 'ngx-ui-loader';
 import { RecuperarPasswordView } from './view/recuperar-password/recuperar-password.view';
 import { mensageservice } from '../../shared/services/mensage.service';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {
+  NgxEasyCaptchaService,
+  CAPTCHA_PROVIDER,
+  CAPTCHA_SITE_KEY,
+  STRING_INITIALIZER,
+  CaptchaProvider,
+} from '../../../../projects/angx/ngx-easy-captcha/src/public-api';
 import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
@@ -91,8 +97,14 @@ import { RouterModule } from '@angular/router';
     UsuarioService,
     ToastrService,
     MessageService,
-    ConfirmationService,
+    ConfirmationService, 
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
+
+    //lo del capchat
+    NgxEasyCaptchaService,NgxUiLoaderService ,
+    { provide: CAPTCHA_PROVIDER, useValue: CaptchaProvider.CloudFlare },
+    { provide: CAPTCHA_SITE_KEY, useValue: '0x4AAAAAAAz_bKFwjxufmfKM' }, // Replace with your site key
+    { provide: STRING_INITIALIZER, useValue: 'cloudflare-captcha' },
   ],
 })
 export class AuthModule {}

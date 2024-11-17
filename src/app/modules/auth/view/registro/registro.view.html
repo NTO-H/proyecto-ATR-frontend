@@ -1,3 +1,17 @@
+<!-- muestra de carga -->
+<!-- <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader> -->
+
+<div class="ui active dimmer fullscreen" *ngIf="isLoading">
+  <div class="ui massive text loader">Loading</div>
+</div>
+
+<!-- <div class="ui basic modal">
+  <div class="spinner"></div>
+</div> -->
+
+
+
+
 <!-- Modal Principal -->
 <p-dialog
   [(visible)]="displayModal"
@@ -62,8 +76,13 @@
       </div>
     </form>
 
-    <p class="resend-text">¿No has recibido el código?</p>
-    <a href="#" class="resend-link" (click)="resendCode()"
+    <p class="resend-text">
+      ¿No has recibido el código?<!-- Primer enlace: Reenviar código -->
+      <a class="resend-link" (click)="resendCodeGmail()"> Reenviar</a>
+    </p>
+
+    <!-- Segundo enlace: Probar método diferente -->
+    <a class="resend-link" (click)="resendCodeByOtherMethod()"
       >Probar de otra manera</a
     >
   </div>
@@ -73,7 +92,6 @@
 <p-dialog
   [(visible)]="displayWhatsappModal"
   [modal]="true"
-  ñ
   [closable]="true"
   [style]="{'background-color': 'var(--blur-bg)'}"
   header="Verificación por WhatsApp"
@@ -101,8 +119,13 @@
       </div>
     </form>
 
-    <p class="resend-text">¿No has recibido el código?</p>
-    <a href="#" class="resend-link" (click)="resendCodeWhatsapp()"
+    <p class="resend-text">
+      ¿No has recibido el código?<!-- Primer enlace: Reenviar código -->
+      <a class="resend-link" (click)="resendCodeWhatsapp()"> Reenviar</a>
+    </p>
+
+    <!-- Segundo enlace: Probar método diferente -->
+    <a class="resend-link" (click)="resendCodeByOtherMethod()"
       >Probar de otra manera</a
     >
   </div>
@@ -127,10 +150,10 @@
 
         <!-- Campo de Nombre -->
         <div class="form-group">
-          <label for="username">Nombre</label>
+          <label for="username">Nombre de usuario</label>
           <input
             type="text"
-            placeholder="Nombre Completo"
+            placeholder="Nombre usuario"
             id="username"
             formControlName="username"
             maxlength="15"
@@ -195,7 +218,15 @@
           </small>
         </div>
 
-        <button class="btn register" type="submit">Siguiente</button>
+        <button
+          class="ui basic button"
+          [ngClass]="{'loading': isLoading}"
+          type="submit"
+        >
+          {{ isLoading ? 'Cargando...' : 'Siguiente' }}
+        </button>
+
+        <!-- <button class="btn register" type="submit">Siguiente</button> -->
       </form>
 
       <!-- Segundo formulario -->
@@ -212,6 +243,10 @@
             formControlName="password"
             (input)="verificarPassword()"
             placeholder="Introduce tu contraseña"
+            promptLabel="Elige una contraseña"
+            [weakLabel]="passwordStrength === 'weak' ? 'Demasiado simple' : ''"
+            [mediumLabel]="passwordStrength === 'medium' ? 'Complejidad media' : ''"
+            [strongLabel]="passwordStrength === 'strong' ? 'Contraseña segura y compleja' : ''"
             [toggleMask]="true"
           >
             <ng-template pTemplate="footer">
@@ -221,25 +256,43 @@
                   [ngClass]="{'text-success': validacionesPassword.tieneMinuscula}"
                 >
                   <span *ngIf="validacionesPassword.tieneMinuscula">✅</span>
+                  <span *ngIf="!validacionesPassword.tieneMinuscula">❌</span>
                   Al menos una letra minúscula
                 </li>
                 <li
                   [ngClass]="{'text-success': validacionesPassword.tieneMayuscula}"
                 >
                   <span *ngIf="validacionesPassword.tieneMayuscula">✅</span>
+                  <span *ngIf="!validacionesPassword.tieneMayuscula">❌</span>
                   Al menos una letra mayúscula
                 </li>
                 <li
                   [ngClass]="{'text-success': validacionesPassword.tieneNumero}"
                 >
                   <span *ngIf="validacionesPassword.tieneNumero">✅</span>
+                  <span *ngIf="!validacionesPassword.tieneNumero">❌</span>
                   Al menos un número
+                </li>
+                <li
+                  [ngClass]="{'text-success': validacionesPassword.tieneSimbolo}"
+                >
+                  <span *ngIf="validacionesPassword.tieneSimbolo">✅</span>
+                  <span *ngIf="!validacionesPassword.tieneSimbolo">❌</span>
+                  Al menos un símbolo (!#$%^&*)
                 </li>
                 <li
                   [ngClass]="{'text-success': validacionesPassword.longitudMinima}"
                 >
                   <span *ngIf="validacionesPassword.longitudMinima">✅</span>
-                  Mínimo 8 caracteres
+                  <span *ngIf="!validacionesPassword.longitudMinima">❌</span>
+                  Mínimo 12 caracteres
+                </li>
+                <li
+                  [ngClass]="{'text-success': validacionesPassword.longitudMayor5}"
+                >
+                  <span *ngIf="validacionesPassword.longitudMayor5">✅</span>
+                  <span *ngIf="!validacionesPassword.longitudMayor5">❌</span>
+                  Más de 5 caracteres
                 </li>
               </ul>
             </ng-template>
@@ -250,6 +303,7 @@
             formControlName="confirmPassword"
             placeholder="Confirma tu contraseña"
             [toggleMask]="true"
+            [feedback]="false"
             (input)="verificarCoincidencia()"
           ></p-password>
           <span

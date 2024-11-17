@@ -1,0 +1,15 @@
+<div class="floating-header">
+    <div class="admin-info">
+      <!-- <span class="date">{{fechaTexto}}</span> -->
+    </div>
+    <div class="profile-menu" *ngIf="isLoggedIn">
+      <div class="avatar" (click)="toggleMenu()">
+        <img src="https://dummyimage.com/40x40/ccc/aaa&text=2x2" alt="Placeholder">
+      </div>
+      <div class="menu" *ngIf="menuOpen">
+        <a href="/mi-perfil">Mi Perfil</a>
+        <a href="#" (click)="logout()">Cerrar Sesión</a>
+      </div>
+    </div>
+  </div>
+  

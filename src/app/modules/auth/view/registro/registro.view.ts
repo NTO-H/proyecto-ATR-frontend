@@ -12,6 +12,8 @@ import { SessionService } from '../../../../shared/services/session.service';
 import { UsuarioService } from '../../../../shared/services/usuario.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+declare const $: any;
 
 @Component({
   selector: 'app-registro',
@@ -23,19 +25,36 @@ export class RegistroView {
   verificationCode: string = '';
   remainingChars: number = 15;
   emailError: string | null = null;
-
+  passwordStrength: string = ''; // variable para almacenar la fuerza de la contraseña
   personalDataForm: FormGroup;
   credentialsForm: FormGroup;
   otpForm: FormGroup; // Para Gmail
   otpWhatsappForm: FormGroup; // Nuevo para WhatsApp
 
   displayModal: boolean = false;
+  isLoadingBasic: boolean = false;
   displayCode: boolean = false;
   displayGmailModal: boolean = false;
+  displaySmsModal: boolean = false;
   displayWhatsappModal: boolean = false;
   // .t: string | null = null; // Puede ser null si no hay token aún
   tokenRespuesta: string | null = null; // Puede ser null si no hay token aún
+  isLoading = false; // Controla la visibilidad del spinner
 
+  showSpinner() {
+    this.isLoading = true;
+    $('.ui.segment').modal('show'); // Muestra el modal con jQuery o Semantic UI
+
+    // Simula una carga y oculta el spinner después de 3 segundos
+    setTimeout(() => {
+      this.hideSpinner();
+    }, 3000);
+  }
+
+  hideSpinner() {
+    this.isLoading = false;
+    $('.ui.segment').modal('hide'); // Oculta el modal
+  }
   constructor(
     private router: Router,
     private msgs: mensageservice,
@@ -43,7 +62,8 @@ export class RegistroView {
     private uservice: UsuarioService,
     private sessionService_: SessionService,
     private mensageservice_: mensageservice,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private ngxService: NgxUiLoaderService
   ) {
     this.personalDataForm = this.fb.group({
       username: ['', [Validators.required, Validators.maxLength(15)]],
@@ -97,49 +117,25 @@ export class RegistroView {
   }
   // Generar código de verificación
   generateCode(option: string) {
-    this.verificationCode = Math.floor(
-      100000 + Math.random() * 900000
-    ).toString(); // Código de 6 dígitos
-
     this.displayModal = false; // Cierra el modal principal
+    // this.showSpinner();
     if (option === 'gmail') {
-      const email = this.personalDataForm.get('email')?.value;
-
-      this.mensageservice_.enviarTokenCorreo(email).subscribe((response) => {
-        this.tokenRespuesta = response.token;
-        console.log(this.tokenRespuesta);
-
-        // Decodificar el token
-        // const decodedData = this.sessionService_.getUserTokenDecode(tokenRespuesta);
-        // console.log('Datos decodificados:', decodedData);
-
-        Swal.fire(
-          'Verificación',
-          'El código de verificación ha sido enviado',
-          'info'
-        );
-        this.displayGmailModal = true; // Muestra el modal de Gmail
-      });
+      this.resendCodeGmail();
     } else if (option === 'whatsapp') {
-      const number_to_send = this.personalDataForm.get('telefono')?.value;
-      this.mensageservice_
-        .enviarTokenWasthapp(number_to_send)
-        .subscribe((response) => {
-          this.tokenRespuesta = response.token;
-          console.log(this.tokenRespuesta);
-          Swal.fire(
-            'Verificación',
-            'El código de verificación ha sido enviado',
-            'info'
-          );
-
-          this.displayWhatsappModal = true; // Muestra el modal de WhatsApp
-        });
+      this.resendCodeWhatsapp();
     }
   }
 
   // Avanzar al siguiente paso del formulario
   goToNextStep() {
+    this.personalDataForm.get('otpCode')?.reset();
+    // this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
+    // Stop the foreground loading after 5s
+    // this.isLoadingBasic = !this.isLoadingBasic;
+    setTimeout(() => {
+      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
+    }, 5000);
+
     if (this.personalDataForm.invalid) {
       // Recolecta los mensajes de error
       let errorMessages = '';
@@ -174,8 +170,29 @@ export class RegistroView {
         confirmButtonText: 'Ok',
       });
       this.personalDataForm.markAllAsTouched(); // Marca todos los campos como tocados
+
+      // Desactiva el estado de carga
+      this.isLoadingBasic = false;
     } else {
-      this.displayModal = true; // Procede si el formulario es válido
+      this.showSpinner();
+      // isLoadingBasic
+      const email = this.personalDataForm.get('email')?.value;
+      this.uservice.checkEmailExists(email).subscribe({
+        next: () => {
+          this.isLoadingBasic = false;
+          // Si no hay errores, mostrar el modal
+          this.displayModal = true;
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El email ya está registrado', // Mensaje simple de error
+            confirmButtonText: 'Ok',
+          });
+          this.hideSpinner();
+        },
+      });
     }
   }
 
@@ -226,18 +243,12 @@ export class RegistroView {
       });
     }
   }
-
-  // Reenviar código de verificación
-  resendCode() {
-    console.log('Código reenviado:', this.verificationCode);
-  }
-
-  // Método para enviar el código OTP por Gmail
-  submitOtp() {
-    if (this.otpForm.valid) {
-      const otpCode = this.otpForm.value.otpCode;
-      // console.log('Código OTP (Gmail) enviado:', otpCode);
-
+  
+  //! Método para veirificar el código OTP por WhatsApp
+  submitOtpWhatsapp() {
+    this.showSpinner();
+    if (this.otpWhatsappForm.valid) {
+      const otpCode = this.otpWhatsappForm.value.otpCode;
       // Obtener el token almacenado previamente
       const tokenRespuesta = this.tokenRespuesta; // Este token debería haberse obtenido al enviar el código
 
@@ -250,6 +261,7 @@ export class RegistroView {
         );
 
         if (decodedData) {
+          this.hideSpinner();
           console.log('Código OTP verificado correctamente.');
           Swal.fire(
             'Éxito',
@@ -259,7 +271,9 @@ export class RegistroView {
           this.currentStep = 2;
           this.displayGmailModal = false;
         } else {
-          console.warn('El código OTP proporcionado no es correcto.');
+          this.hideSpinner();
+
+          // console.warn('El código OTP proporcionado no es correcto.');
           Swal.fire(
             'Error',
             'El código de verificación es incorrecto.',
@@ -267,7 +281,9 @@ export class RegistroView {
           );
         }
       } else {
-        console.error('No se encontró un token para validar.');
+        this.hideSpinner();
+
+        // console.error('No se encontró un token para validar.');
         Swal.fire(
           'Error',
           'No se pudo validar el código de verificación.',
@@ -275,60 +291,116 @@ export class RegistroView {
         );
       }
     } else {
+      this.hideSpinner();
+
       console.log('Código OTP (Gmail) inválido.');
       Swal.fire('Error', 'Por favor ingrese un código válido.', 'error');
     }
   }
 
-  // validateFormFields() {
-  //   if (this.personalDataForm.get('username')?.invalid) {
-  //     this.errorMessages.username = 'El nombre de usuario es requerido.';
-  //   }
-  //   if (this.personalDataForm.get('email')?.invalid) {
-  //     this.errorMessages.email = 'El correo electrónico debe ser válido.';
-  //   }
-  //   if (this.datosBasicosForm.get('telefono')?.invalid) {
-  //     this.errorMessages.telefono =
-  //       'El número telefónico es requerido y debe ser válido.';
-  //   }
-  //   if (this.datosConfidencialesForm.get('password')?.invalid) {
-  //     this.errorMessages.password = 'La contraseña es requerida.';
-  //   }
-  //   if (this.datosConfidencialesForm.get('confirmPassword')?.invalid) {
-  //     this.errorMessages.confirmPassword = 'Por favor confirma tu contraseña.';
-  //   }
-  // }
 
-  // Restablecer mensajes de error
-  // resetErrorMessages() {
-  //   this.errorMessages = {
-  //     username: '',
-  //     email: '',
-  //     telefono: '',
-  //     password: '',
-  //     confirmPassword: '',
-  //   };
-  // }// Validador personalizado para validar la fortaleza de la contraseña
-  
+  //! Método para veirificar el código OTP por Gmail
+  submitOtp() {
+    this.showSpinner();
+    if (this.otpForm.valid) {
+      const otpCode = this.otpForm.value.otpCode;
+      // Obtener el token almacenado previamente
+      const tokenRespuesta = this.tokenRespuesta; // Este token debería haberse obtenido al enviar el código
+
+      console.log('tokenRespuesta:', tokenRespuesta);
+      if (tokenRespuesta) {
+        // Decodificar y validar el token
+        const decodedData = this.sessionService_.getUserTokenDecode(
+          tokenRespuesta,
+          otpCode
+        );
+
+        if (decodedData) {
+          this.hideSpinner();
+          console.log('Código OTP verificado correctamente.');
+          Swal.fire(
+            'Éxito',
+            'El código de verificación es correcto.',
+            'success'
+          );
+          this.currentStep = 2;
+          this.displayGmailModal = false;
+        } else {
+          this.hideSpinner();
+
+          // console.warn('El código OTP proporcionado no es correcto.');
+          Swal.fire(
+            'Error',
+            'El código de verificación es incorrecto.',
+            'error'
+          );
+        }
+      } else {
+        this.hideSpinner();
+
+        // console.error('No se encontró un token para validar.');
+        Swal.fire(
+          'Error',
+          'No se pudo validar el código de verificación.',
+          'error'
+        );
+      }
+    } else {
+      this.hideSpinner();
+
+      console.log('Código OTP (Gmail) inválido.');
+      Swal.fire('Error', 'Por favor ingrese un código válido.', 'error');
+    }
+  }
+
   validacionesPassword = {
     tieneMinuscula: false,
     tieneMayuscula: false,
     tieneNumero: false,
+    tieneSimbolo: false,
     longitudMinima: false,
+    longitudMayor5: false,
   };
   coincidenPasswords = false;
-  
+
   verificarPassword() {
     const password = this.credentialsForm.get('password')?.value || '';
+
+    // Validaciones
     this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password);
     this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password);
     this.validacionesPassword.tieneNumero = /\d/.test(password);
-    this.validacionesPassword.longitudMinima = password.length >= 8;
+    this.validacionesPassword.tieneSimbolo =
+      /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
+    this.validacionesPassword.longitudMinima = password.length >= 12;
+    this.validacionesPassword.longitudMayor5 = password.length > 5;
+
+    // Verificar nivel de seguridad basado en TODAS las condiciones
+    const allValidations = [
+      this.validacionesPassword.tieneMinuscula,
+      this.validacionesPassword.tieneMayuscula,
+      this.validacionesPassword.tieneNumero,
+      this.validacionesPassword.tieneSimbolo,
+      this.validacionesPassword.longitudMinima,
+      this.validacionesPassword.longitudMayor5,
+    ];
+
+    // Calcular el número de validaciones cumplidas
+    const strength = allValidations.filter((v) => v).length;
+
+    // Asignar el nivel de seguridad basado en la cantidad de validaciones cumplidas
+    if (strength === allValidations.length) {
+      this.passwordStrength = 'strong'; // Contraseña fuerte si cumple con todo
+    } else if (strength >= 4) {
+      this.passwordStrength = 'medium'; // Contraseña media si cumple al menos 4
+    } else {
+      this.passwordStrength = 'weak'; // Contraseña débil si cumple menos de 4
+    }
 
     this.verificarCoincidencia();
   }
-  verificarCoincidencia() {
 
+  verificarCoincidencia() {
     const password = this.credentialsForm.get('password')?.value;
     const confirmPassword = this.credentialsForm.get('confirmPassword')?.value;
     this.coincidenPasswords = password == confirmPassword;
@@ -348,7 +420,6 @@ export class RegistroView {
   }
 
   registroCliente(): void {
-   
     if (this.personalDataForm.valid && this.credentialsForm.valid) {
       const username = this.personalDataForm.get('username')?.value;
       const email = this.personalDataForm.get('email')?.value;
@@ -363,6 +434,7 @@ export class RegistroView {
         password: password,
       };
 
+      this.showSpinner();
       // Llama al servicio de registro, asumiendo que tienes un servicio de usuario
       this.uservice.register(USUARIO).subscribe(
         (response) => {
@@ -370,7 +442,7 @@ export class RegistroView {
           this.personalDataForm.reset(); // Resetea el formulario de datos básicos
           // this.datosConfidencialesForm.reset(); // Resetea el formulario de datos confidenciales
           // this.politicasForm.reset(); // Resetea el formulario de políticas
-
+          this.hideSpinner();
           Swal.fire(
             'Bienvenido a la tienda en linea de ATELIER',
             'Se ha activado tu cuenta, ya puedes continuar.',
@@ -390,35 +462,123 @@ export class RegistroView {
 
           // Display the backend error message using Toastr
           this.toastr.error(errorMessage, 'Error');
-          // Maneja errores específicos
-          // if (error.status === 400) {
-
-          // } else {
-          //   this.errorMessages.username =
-          //     'Ocurrió un error, por favor intenta nuevamente.';
-          // }
+          
         }
       );
-    } else {
-      // Llama a una función para validar los campos de los formularios
-      // this.validateFormFields();
-    }
-  }
-
-  // Método para enviar el código OTP por WhatsApp
-  submitOtpWhatsapp() {
-    if (this.otpWhatsappForm.valid) {
-      console.log(
-        'Código OTP (WhatsApp) enviado:',
-        this.otpWhatsappForm.value.otpCode
-      );
-    } else {
-      console.log('Código OTP (WhatsApp) inválido.');
     }
   }
 
   // Método para reenviar el código por WhatsApp
+
   resendCodeWhatsapp() {
-    console.log('Código reenviado por WhatsApp:', this.verificationCode);
+    this.showSpinner();
+    const number_to_send = this.personalDataForm.get('telefono')?.value;
+    this.mensageservice_.enviarTokenWasthapp(number_to_send).subscribe({
+      next: (response) => {
+        this.tokenRespuesta = response.token;
+        this.hideSpinner();
+        console.log('Token recibido:', this.tokenRespuesta);
+
+        this.personalDataForm.get('otpCode')?.reset();
+
+        this.displayWhatsappModal = true; // Muestra el modal de WhatsApp
+      },
+      error: () => {
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo enviar el código. Por favor, intente nuevamente.',
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+      },
+    });
   }
+  resendCodeGmail() {
+    this.showSpinner();
+
+    const email = this.personalDataForm.get('email')?.value;
+
+    this.mensageservice_.enviarTokenCorreo(email).subscribe({
+      next: (response) => {
+        this.tokenRespuesta = response.token;
+        console.log('Token recibido:', this.tokenRespuesta);
+
+        this.hideSpinner();
+
+        this.displayGmailModal = true; // Muestra el modal de WhatsApp
+      },
+      error: () => {
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo enviar el código. Por favor, intente nuevamente.',
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+      },
+    });
+  }
+
+  resendCodeByOtherMethod() {
+    if (this.displayGmailModal) {
+      this.displayGmailModal = false;
+      Swal.fire({
+        title: 'Seleccione un método',
+        text: '¿Cómo desea recibir el código de verificación?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'WhatsApp',
+        // cancelButtonText: 'SMS',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.resendCodeWhatsapp(); // Llama al método de envío por WhatsApp
+        }
+        // else {
+        //   this.resendCodeSMS(); // Llama al método para SMS
+        // }
+      });
+    } else if (this.displayWhatsappModal) {
+      this.displayWhatsappModal = false;
+      Swal.fire({
+        title: 'Seleccione un método',
+        text: '¿Cómo desea recibir el código de verificación?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Gmail',
+        // cancelButtonText: 'SMS',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.resendCodeGmail(); // Llama al método de envío por Gmail
+        }
+        //  else {
+        //   this.resendCodeSMS(); // Llama al método para SMS
+        // }
+      });
+    }
+  }
+
+  // Método ficticio para SMS como ejemplo
+  // resendCodeSMS() {
+  //   const number_to_send = this.personalDataForm.get('telefono')?.value;
+
+  //   this.mensageservice_.enviarTokenSMS(number_to_send).subscribe({
+  //     next: (response) => {
+  //       Swal.fire({
+  //         title: 'Verificación',
+  //         text: 'El código de verificación ha sido enviado por SMS.',
+  //         icon: 'info',
+  //         confirmButtonText: 'Ok',
+  //       });
+
+  //       this.displaySmsModal = true; // Muestra otro modal si se usa SMS
+  //     },
+  //     error: () => {
+  //       Swal.fire({
+  //         title: 'Error',
+  //         text: 'No se pudo enviar el código por SMS. Por favor, intente nuevamente.',
+  //         icon: 'error',
+  //         confirmButtonText: 'Ok',
+  //       });
+  //     },
+  //   });
+  // }
 }

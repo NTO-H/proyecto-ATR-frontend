@@ -1,11 +1,10 @@
-import { Component, HostListener, OnInit, Renderer2, ViewEncapsulation } from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild, ViewEncapsulation } from "@angular/core";
 import { Router } from "@angular/router";
 // import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SessionService } from "../../../../shared/services/session.service";
 import { ClientesService } from "../../../../shared/services/clientes.service";
 import { MenuItem } from "primeng/api";
 import { StorageService } from "../../../../shared/services/storage.service";
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -24,6 +23,8 @@ export class HeaderComponent implements OnInit {
   data: any = {};
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+
+  @ViewChild('seccionVista') seccionVista!: ElementRef;
 
   constructor(
     private storageService: StorageService,
@@ -47,6 +48,17 @@ export class HeaderComponent implements OnInit {
   sidebarWidth = 250; // Ancho inicial del menú en píxeles
   resizing = false; // Bandera para indicar si está en proceso de redimensionamiento
 
+  ngOnInit() {
+    // this.getData();
+    this.items = [
+      { label: 'Electronics' },
+      { label: 'Computer' },
+      { label: 'Accessories' },
+      { label: 'Keyboard' },
+      { label: 'Wireless' }
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+  }
   toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
     if (this.isCollapsed) {
@@ -70,21 +82,12 @@ export class HeaderComponent implements OnInit {
       this.sidebarWidth = event.clientX; // Ajusta el ancho del menú según la posición del ratón
     }
   }
-
-  // Detecta el movimiento del ratón mientras redimensiona
-  // Termina el redimensionamiento cuando el usuario suelta el botón
   @HostListener('document:mouseup')
   stopResizing() {
     this.resizing = false;
   }
 
 
-// startResizing(event: MouseEvent) {
-//   this.isResizing = true;
-//   event.preventDefault();
-//   document.addEventListener('mousemove', this.resizeSidebar.bind(this));
-//   document.addEventListener('mouseup', this.stopResizing.bind(this));
-// }
 
 resizeSidebar(event: MouseEvent) {
   if (this.isResizing) {
@@ -102,11 +105,6 @@ resizeSidebar(event: MouseEvent) {
   }
 }
 
-// stopResizing() {
-//   this.isResizing = false;
-//   document.removeEventListener('mousemove', this.resizeSidebar.bind(this));
-//   document.removeEventListener('mouseup', this.stopResizing.bind(this));
-// }
 
 
 
@@ -129,17 +127,7 @@ resizeSidebar(event: MouseEvent) {
     this.mostrarCalendario = !this.mostrarCalendario;
   }
 
-  ngOnInit() {
-    // this.getData();
-    this.items = [
-      { label: 'Electronics' },
-      { label: 'Computer' },
-      { label: 'Accessories' },
-      { label: 'Keyboard' },
-      { label: 'Wireless' }
-    ];
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
-  }
+ 
 
   setActiveLink(event: Event): void {
     const target = event.currentTarget as HTMLElement;
@@ -154,21 +142,7 @@ resizeSidebar(event: MouseEvent) {
     this.openSubmenu = this.openSubmenu === submenuId ? null : submenuId;
   }
 
-  // getData(): void {
-  //   const userData = this.sessionService.getId();
-  //   if (userData) {
-  //     this.id = userData;
-  //     if (this.id) {
-  //       this.clientesService.purificadora(this.id).subscribe((data) => {
-  //         this.data = data;
-  //       });
-  //     }
-  //   }
-  // }
 
-  // redirectToAdminBoutique(route: string): void {
-  //   this.router.navigate(`/admin/${route}`);
-  // }
 
   logout() {
     this.storageService.removeItem('token');
@@ -222,4 +196,15 @@ resizeSidebar(event: MouseEvent) {
     const año = fecha.getFullYear();
     return `${diaSemana} / ${mes} / ${año}`;
   }
+
+
+
+
+  isLoggedIn = !!localStorage.getItem('token'); // Verificar si el token existe
+menuOpen = false;
+
+toggleMenu() {
+  this.menuOpen = !this.menuOpen;
+}
+
 }

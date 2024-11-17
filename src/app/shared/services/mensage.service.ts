@@ -19,6 +19,10 @@ export class mensageservice {
     return this._http.post<any>(`${environment.api}/enviar-correo`, { email});
     // return this._http.post<any>(this.url, { correo });
   }
+  enviarTokenSMS(number_to_send: string): Observable<any> {
+    return this._http.post<any>(`${environment.api}/enviar-number`, { number_to_send});
+    // return this._http.post<any>(this.url, { correo });
+  }
   enviarTokenWasthapp(number_to_send: string): Observable<any> {
     return this._http.post<any>(`${environment.api}/msj/enviar-mensaje`, { number_to_send });
     // return this._http.post<any>(this.url, { correo });
