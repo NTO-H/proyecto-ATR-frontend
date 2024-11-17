@@ -8,10 +8,8 @@
 
     <div class="table">
       <div class="table">
-        <!-- Sección para el logo -->
         <div class="table-row">
           <div class="table-cell">
-            <!-- [src]="empresa.logo" -->
             <label for="logo">Logo</label>
             <p-avatar
               *ngIf="profileImg"
@@ -35,184 +33,70 @@
           </div>
         </div>
       </div>
-
-    <div class="table-row">
-      <div class="table-cell">
-        <label for="redesSociales">Redes Sociales</label>
-
-
-
-        
-        <div class="redes-sociales-container">
-          <div *ngFor="let red of redesSociales; let i = index" class="red-social">
-            <p-dropdown
-              [options]="iconOptions"
-              [(ngModel)]="red.plataforma"
-              name="plataforma{{ i }}"
-              placeholder="Selecciona una plataforma"
-              [showClear]="true"
-              optionLabel="label"
-              [style]="{ width: '100%' }"
-              #plataforma="ngModel"
-              required
-            >
-              <ng-template pTemplate="selectedItem" let-selectedOption>
-                <div class="flex align-items-center gap-2" *ngIf="selectedOption">
-                  <i [class]="selectedOption.icon"></i>
-                  <span>{{ selectedOption.label }}</span>
-                </div>
-              </ng-template>
-              <ng-template let-option pTemplate="item">
-                <div class="flex align-items-center gap-2">
-                  <i [class]="option.icon"></i>
-                  <span>{{ option.label }}</span>
-                </div>
-              </ng-template>
-            </p-dropdown>
-            <div *ngIf="plataforma.invalid && plataforma.touched" class="error-message">
-              <span>La plataforma es obligatoria.</span>
-            </div>
-        
-            <input
-              type="text"
-              placeholder="Enlace"
-              [(ngModel)]="red.enlace"
-              name="enlace{{ i }}"
-              required
-              pattern="https?://.+"
-              class="form-control"
-              #enlace="ngModel"
-            />
-            <div *ngIf="enlace.invalid && enlace.touched" class="error-message">
-              <span *ngIf="enlace.errors?.['required']">El enlace es obligatorio.</span>
-              <span *ngIf="enlace.errors?.['pattern']">El enlace debe ser una URL válida.</span>
-            </div>
-        
-            <button type="button" (click)="removeRed(i)" class="btn eliminar">
-              Eliminar
-            </button>
-          </div>
-        
-          <!-- Vista Previa -->
-          <div *ngIf="currentPreview()" class="preview-container">
-            <h4>Vista Previa</h4>
-            <div class="preview-item" *ngFor="let red of redesSociales">
-              <i [class]="red.plataforma?.icon" class="icon-preview"></i>
-              <span>{{ red.plataforma?.label }}</span>
-              <a [href]="red.enlace" target="_blank">{{ red.enlace }}</a>
-            </div>
-          </div>
-        </div>
-        
-        <button type="button" (click)="addRed()" class="btn agregar">
-          Agregar Red Social
-        </button>
-      </div>
-    </div>
-
-    <div class="table-row">
-      <div class="table-cell">
-        <label for="slogan">Slogan</label>
-        <input
-          type="text"
-          id="slogan"
-          [(ngModel)]="empresa.slogan"
-          name="slogan"
-          required
-          minlength="5"
-          class="form-control"
-          #slogan="ngModel"
-        />
-        <div *ngIf="slogan.invalid && slogan.touched" class="error-message">
-          <span *ngIf="slogan.errors?.['required']"
-            >El slogan es obligatorio.</span
-          >
-          <span *ngIf="slogan.errors?.['minlength']"
-            >El slogan debe tener al menos 5 caracteres.</span
-          >
-        </div>
-      </div>
-    </div>
-
-    <div class="table-row">
-      <div class="table-cell">
-        <label for="tituloPagina">Título de Página</label>
-        <input
-          type="text"
-          id="tituloPagina"
-          [(ngModel)]="empresa.tituloPagina"
-          name="tituloPagina"
-          required
-          minlength="5"
-          class="form-control"
-          #tituloPagina="ngModel"
-        />
-        <div
-          *ngIf="tituloPagina.invalid && tituloPagina.touched"
-          class="error-message"
-        >
-          <span *ngIf="tituloPagina.errors?.['required']"
-            >El título de la página es obligatorio.</span
-          >
-          <span *ngIf="tituloPagina.errors?.['minlength']"
-            >El título debe tener al menos 5 caracteres.</span
-          >
-        </div>
-      </div>
-    </div>
-
-    <div class="table-row">
-      <div class="table-cell">
-        <label for="direccion">Dirección</label>
-        <input
-          type="text"
-          id="direccion"
-          [(ngModel)]="empresa.direccion"
-          name="direccion"
-          required
-          class="form-control"
-          #direccion="ngModel"
-        />
-        <div
-          *ngIf="direccion.invalid && direccion.touched"
-          class="error-message"
-        >
-          <span *ngIf="direccion.errors?.['required']"
-            >La dirección es obligatoria.</span
-          >
-        </div>
-      </div>
-    </div>
-    <div class="form-group-container">
       <div class="table-row">
         <div class="table-cell">
-          <label for="correoElectronico">Correo Electrónico</label>
-          <input
-            type="email"
-            id="correoElectronico"
-            [(ngModel)]="empresa.correoElectronico"
-            name="correoElectronico"
-            required
-            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-            class="form-control"
-            #correoElectronico="ngModel"
-          />
-          <div
-            *ngIf="correoElectronico.invalid && correoElectronico.touched"
-            class="error-message"
+          <label for="redesSociales" class="section-title"
+            >Redes Sociales</label
           >
-            <span *ngIf="correoElectronico.errors?.['required']"
-              >El correo electrónico es obligatorio.</span
+
+          <div class="redes-sociales-container">
+            <div
+              *ngFor="let red of redesSociales; let i = index"
+              class="social-row"
             >
-            <span *ngIf="correoElectronico.errors?.['email']"
-              >El correo electrónico no es válido.</span
-            >
-            <span *ngIf="correoElectronico.errors?.['pattern']"
-              >Formato de correo electrónico no válido.</span
-            >
+              <div class="form-group">
+                <label for="plataforma{{ i }}"
+                  >Plataforma: {{ red.plataforma }}</label
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="enlace{{ i }}" class="sr-only">Enlace:</label>
+                <div class="input-container">
+                  <div class="icon-container">
+                    <i *ngIf="red.icon" [class]="red.icon"></i>
+                  </div>
+                  <input
+                    type="text"
+                    id="enlace{{ i }}"
+                    placeholder="Ejemplo: https://facebook.com/miusuario"
+                    [(ngModel)]="red.enlace"
+                    name="enlace{{ i }}"
+                    required
+                    pattern="https?://.+"
+                    class="form-control"
+                    #enlace="ngModel"
+                    (input)="onUrlChange(i)"
+                  />
+                  <div class="button-group">
+                    <button
+                      type="button"
+                      (click)="removeRed(red._id,i)"
+                      class="btn eliminar"
+                    >
+                      <i class="pi pi-trash"></i>
+                    </button>
+                    <button
+                      type="button"
+                      (click)="saveRed(i)"
+                      class="btn guardar"
+                    >
+                      <i class="pi pi-save"></i> 
+                    </button>
+                  </div>
+                </div>
+                <div
+                  *ngIf="enlace.invalid && enlace.touched"
+                  class="error-message"
+                >
+                  La URL es obligatoria y debe ser válida.
+                </div>
+              </div>
+            </div>
           </div>
+
           <button type="button" (click)="addRed()" class="btn agregar">
-            Agregar Red Social
+            <i class="pi pi-plus"></i> Agregar Red Social
           </button>
         </div>
       </div>
@@ -318,40 +202,149 @@
                 >Formato de correo electrónico no válido.</span
               >
             </div>
+            <button type="button" (click)="addRed()" class="btn agregar">
+              Agregar Red Social
+            </button>
           </div>
         </div>
 
         <div class="table-row">
           <div class="table-cell">
-            <label for="telefono">Teléfono</label>
+            <label for="slogan">Slogan</label>
             <input
               type="text"
-              id="telefono"
-              [(ngModel)]="empresa.telefono"
-              name="telefono"
-              class="form-control"
-              #telefono="ngModel"
-              pattern="^[0-9]{10,15}$"
+              id="slogan"
+              [(ngModel)]="empresa.slogan"
+              name="slogan"
               required
+              minlength="5"
+              class="form-control"
+              #slogan="ngModel"
             />
-            <div
-              *ngIf="telefono.invalid && telefono.touched"
-              class="error-message"
-            >
-              <span *ngIf="telefono.errors?.['required']"
-                >El teléfono es obligatorio.</span
+            <div *ngIf="slogan.invalid && slogan.touched" class="error-message">
+              <span *ngIf="slogan.errors?.['required']"
+                >El slogan es obligatorio.</span
               >
-              <span *ngIf="telefono.errors?.['pattern']"
-                >El teléfono debe ser un número válido de 10 a 15 dígitos.</span
+              <span *ngIf="slogan.errors?.['minlength']"
+                >El slogan debe tener al menos 5 caracteres.</span
               >
             </div>
           </div>
         </div>
+
+        <div class="table-row">
+          <div class="table-cell">
+            <label for="tituloPagina">Título de Página</label>
+            <input
+              type="text"
+              id="tituloPagina"
+              [(ngModel)]="empresa.tituloPagina"
+              name="tituloPagina"
+              required
+              minlength="5"
+              class="form-control"
+              #tituloPagina="ngModel"
+            />
+            <div
+              *ngIf="tituloPagina.invalid && tituloPagina.touched"
+              class="error-message"
+            >
+              <span *ngIf="tituloPagina.errors?.['required']"
+                >El título de la página es obligatorio.</span
+              >
+              <span *ngIf="tituloPagina.errors?.['minlength']"
+                >El título debe tener al menos 5 caracteres.</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="table-row">
+          <div class="table-cell">
+            <label for="direccion">Dirección</label>
+            <input
+              type="text"
+              id="direccion"
+              [(ngModel)]="empresa.direccion"
+              name="direccion"
+              required
+              class="form-control"
+              #direccion="ngModel"
+            />
+            <div
+              *ngIf="direccion.invalid && direccion.touched"
+              class="error-message"
+            >
+              <span *ngIf="direccion.errors?.['required']"
+                >La dirección es obligatoria.</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="form-group-container">
+          <div class="table-row">
+            <div class="table-cell">
+              <label for="correoElectronico">Correo Electrónico</label>
+              <input
+                type="email"
+                id="correoElectronico"
+                [(ngModel)]="empresa.correoElectronico"
+                name="correoElectronico"
+                required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                class="form-control"
+                #correoElectronico="ngModel"
+              />
+              <div
+                *ngIf="correoElectronico.invalid && correoElectronico.touched"
+                class="error-message"
+              >
+                <span *ngIf="correoElectronico.errors?.['required']"
+                  >El correo electrónico es obligatorio.</span
+                >
+                <span *ngIf="correoElectronico.errors?.['email']"
+                  >El correo electrónico no es válido.</span
+                >
+                <span *ngIf="correoElectronico.errors?.['pattern']"
+                  >Formato de correo electrónico no válido.</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-cell">
+              <label for="telefono">Teléfono</label>
+              <input
+                type="text"
+                id="telefono"
+                [(ngModel)]="empresa.telefono"
+                name="telefono"
+                class="form-control"
+                #telefono="ngModel"
+                pattern="^[0-9]{10,15}$"
+                required
+              />
+              <div
+                *ngIf="telefono.invalid && telefono.touched"
+                class="error-message"
+              >
+                <span *ngIf="telefono.errors?.['required']"
+                  >El teléfono es obligatorio.</span
+                >
+                <span *ngIf="telefono.errors?.['pattern']"
+                  >El teléfono debe ser un número válido de 10 a 15
+                  dígitos.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="form-actions">
-      <button type="submit" class="btn guardar">Guardar</button>
-      <!-- [disabled]="!empresaForm.form.valid" -->
+      <div class="form-actions">
+        <button type="submit" class="btn guardar">Guardar</button>
+        <!-- [disabled]="!empresaForm.form.valid" -->
+      </div>
     </div>
   </form>
   <form

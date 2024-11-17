@@ -2,21 +2,22 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
 import Swal from 'sweetalert2';
 import { error } from 'node:console';
+import { RedSocial } from '../../../../shared/interfaces/redSocial.interface';
 
-interface SocialLink {
-  icon: string;
-  url: string;
-}
+// interface SocialLink {
+//   icon: string;
+//   url: string;
+// }
 
 interface IconOption {
-  value: string;
   label: string;
+  plataforma: string;
   icon: string;
 }
 
 @Component({
   selector: 'app-ajustes-generales',
-  templateUrl: './ajustes-generales.component copy.html',
+  templateUrl: './ajustes-generales.component.html',
   styleUrls: ['./ajustes-generales.component.scss'],
 })
 export class AjustesGeneralesComponent {
@@ -35,16 +36,87 @@ export class AjustesGeneralesComponent {
 
   profileImg: string | null = null; // Imagen por defecto es null
 
-  redesSociales: { plataforma: string; enlace: string }[] = [
-    { plataforma: '', enlace: '' },
-  ];
+  redesSociales: RedSocial[] = [];
 
   selectedFile: File | null = null;
+
+  iconOptions: IconOption[] = [
+    { plataforma: 'Facebook', label: 'Facebook', icon: 'pi pi-facebook' },
+    { plataforma: 'Twitter', label: 'Twitter', icon: 'pi pi-twitter' },
+    { plataforma: 'Instagram', label: 'Instagram', icon: 'pi pi-instagram' },
+    { plataforma: 'LinkedIn', label: 'LinkedIn', icon: 'pi pi-linkedin' },
+    { plataforma: 'GitHub', label: 'GitHub', icon: 'pi pi-github' },
+    { plataforma: 'YouTube', label: 'YouTube', icon: 'pi pi-youtube' },
+    { plataforma: 'Ninguno', label: 'Ninguno', icon: '' },
+  ];
+
+  platformIconMap: { [key: string]: string } = {
+    'facebook.com': 'pi pi-facebook',
+    'twitter.com': 'pi pi-twitter',
+    'instagram.com': 'pi pi-instagram',
+    'linkedin.com': 'pi pi-linkedin',
+    'github.com': 'pi pi-github',
+    'youtube.com': 'pi pi-youtube',
+  };
 
   constructor(private datosEmpresaService: DatosEmpresaService) {}
 
   ngOnInit() {
     this.traerDatos();
+  }
+  removeRed(_id: any, id: number) {
+    this.datosEmpresaService.eliminarRedSocial(_id).subscribe((respuesta) => {
+      console.log(respuesta);
+    });
+
+    this.redesSociales.splice(id, 1);
+  }
+  saveRed(id: number) {
+    const red: RedSocial = this.redesSociales[id];
+    console.log('Guardando o actualizando la red social:', red);
+    this.datosEmpresaService
+      .guardarRedSocial(id, red)
+      .subscribe((respuesta) => {
+        console.log(respuesta);
+      });
+  }
+
+  addRed() {
+    const redSocial: RedSocial = {
+      _id: '',
+      plataforma: '',
+      icon: '',
+      enlace: '',
+    };
+
+    this.redesSociales.push(redSocial);
+  }
+  onUrlChange(index: number) {
+    const enlace = this.redesSociales[index].enlace.toLowerCase();
+
+    // Detectar la plataforma por la URL y asignar el ícono correspondiente
+    let platform = 'Ninguno'; // Valor por defecto
+    let icon = '';
+
+    // Buscar la plataforma correspondiente en el mapeo de plataformas
+    for (const key in this.platformIconMap) {
+      if (enlace.includes(key)) {
+        platform = key.split('.')[0]; // Solo el nombre de la plataforma
+        icon = this.platformIconMap[key]; // Asignar el ícono de esa plataforma
+        break;
+      }
+    }
+
+    // Actualizar los valores de plataforma y ícono
+    this.redesSociales[index].plataforma =
+      platform.charAt(0).toUpperCase() + platform.slice(1); // Capitalizar
+    this.redesSociales[index].icon = icon;
+
+    // Si no se encontró ninguna plataforma conocida, poner "Ninguno" y sin ícono
+    if (!icon) {
+      this.redesSociales[index].plataforma = 'Ninguno';
+      this.redesSociales[index].icon = '';
+    }
   }
 
   traerDatos() {
@@ -61,8 +133,23 @@ export class AjustesGeneralesComponent {
             correoElectronico: empresaData.correoElectronico,
             telefono: empresaData.telefono,
           };
-          this.redesSociales = empresaData.redesSociales || [];
+
           this.selectedFile = null;
+          this.redesSociales = empresaData.redesSociales.map(
+            (redSocial: any) => {
+              // Encuentra el ícono correspondiente
+              const selectedIcon = this.iconOptions.find(
+                (option) =>
+                  option.plataforma.toLowerCase().trim() ===
+                  redSocial.plataforma.toLowerCase().trim()
+              );
+
+              return {
+                ...redSocial,
+                icon: selectedIcon ? selectedIcon.icon : '', // Asignar ícono correspondiente
+              };
+            }
+          );
         } else {
           Swal.fire({
             icon: 'error',
@@ -80,16 +167,7 @@ export class AjustesGeneralesComponent {
         console.error('Error al cargar datos de la empresa', error);
       }
     );
-
-    this.datosEmpresaService.consultarConfigurarEmpresa().subscribe(
-      (respuesta) => {
-        this.tiempoDeBloqueo = respuesta.configuracion.tiempoDeBloqueo;
-        this.numIntentos = respuesta.configuracion.intentosPermitidos;
-      },
-      (error) => {
-        console.log('Error al consultar la configuración de empresa:', error);
-      }
-    );
+    console.log(this.redesSociales);
   }
   onSubmitSystemSettings() {
     //convertinos todo a un json
@@ -189,8 +267,6 @@ export class AjustesGeneralesComponent {
         this.profileImg = e.target.result;
       };
       reader.readAsDataURL(file);
-
-      console.log('Archivo seleccionado:', file);
       this.selectedFile = file;
     }
   }
@@ -210,37 +286,25 @@ export class AjustesGeneralesComponent {
       correoElectronico: '',
       telefono: '',
     };
-    this.redesSociales = [{ plataforma: '', enlace: '' }];
-    this.resetFileInput();
-  }
+    this.redesSociales = [{ _id: '', plataforma: '', icon: '', enlace: '' }];
 
-  addRed() {
-    this.redesSociales.push({ plataforma: '', enlace: '' });
+    this.resetFileInput();
   }
 
   // removeRed(index: number) {
   //   this.redesSociales.splice(index, 1);
   // }
 
-  socialLinks: SocialLink[] = [];
+  // socialLinks: SocialLink[] = [];
   currentIcon: IconOption | null = null;
   currentUrl: string = '';
   links: { icon: string; label: string; url: string }[] = [];
-
-  iconOptions: IconOption[] = [
-    { value: 'facebook', label: 'Facebook', icon: 'pi pi-facebook' },
-    { value: 'twitter', label: 'Twitter', icon: 'pi pi-twitter' },
-    { value: 'instagram', label: 'Instagram', icon: 'pi pi-instagram' },
-    { value: 'linkedin', label: 'LinkedIn', icon: 'pi pi-linkedin' },
-    { value: 'github', label: 'GitHub', icon: 'pi pi-github' },
-    { value: 'youtube', label: 'YouTube', icon: 'pi pi-youtube' },
-  ];
 
   handleAddLink() {
     if (this.currentIcon && this.currentUrl) {
       this.links.push({
         icon: this.currentIcon.icon,
-        label: this.currentIcon.label,
+        label: this.currentIcon.plataforma,
         url: this.currentUrl,
       });
       this.currentIcon = null;
@@ -248,9 +312,9 @@ export class AjustesGeneralesComponent {
     }
   }
 
-  handleRemoveLink(index: number) {
-    this.socialLinks.splice(index, 1);
-  }
+  // handleRemoveLink(index: number) {
+  //   this.socialLinks.splice(index, 1);
+  // }
 
   // removeRed(index: number) {
   //   this.redesSociales.splice(index, 1);

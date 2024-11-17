@@ -12,6 +12,11 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+
+//lo del capchat
+import { OnDestroy } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -51,6 +56,7 @@ export class SignInView implements OnInit {
     private fb: FormBuilder,
     private messageService: MessageService,
     private datosEmpresaService: DatosEmpresaService,
+    private ngxService: NgxUiLoaderService,
     //para lo del capchat
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -235,7 +241,7 @@ export class SignInView implements OnInit {
 
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-
+    this.ngxService.start();
     this.signInService.signIn({ email, password, captchaToken }).subscribe(
       (response) => {
         if (response) {

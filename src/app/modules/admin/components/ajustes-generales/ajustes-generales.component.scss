@@ -1,14 +1,276 @@
-body{
-    
+body {
 }
 .form-container {
   display: flex;
+  justify-content: center;
+  text-align: center;
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
+.redes-sociales-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.red-social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected-icon {
+  font-size: 1.5rem;
+  margin-left: 10px;
+  vertical-align: middle;
+  color: #333;
+}
+
+/* Título de la sección */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Contenedor de las redes sociales */
+.redes-sociales-container {
+  margin-bottom: 20px;
+}
+
+/* Estilo para cada fila de red social */
+.social-row {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Estilo para los inputs */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Estilo para el contenedor de icono y enlace */
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el icono y el input */
+}
+
+.icon-container i {
+  font-size: 24px;
+  color: #007bff;
+}
+
+/* Estilo de los inputs */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Mensajes de error */
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+/* Título de la sección */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Contenedor de redes sociales */
+.redes-sociales-container {
+  margin-bottom: 20px;
+}
+
+/* Fila de red social */
+.social-row {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Estilos para los inputs */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Contenedor del input y botones */
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.icon-container i {
+  font-size: 24px;
+  color: #007bff;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Botones alineados a la derecha del input */
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn i {
+  margin-right: 8px;
+}
+
+/* Estilos específicos para los botones */
+.btn.eliminar {
+  background-color: #dc3545;
+}
+
+.btn.eliminar:hover {
+  background-color: #c82333;
+}
+
+.btn.guardar {
+  background-color: #28a745;
+}
+
+.btn.guardar:hover {
+  background-color: #218838;
+}
+
+/* Mensajes de error */
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Botón para agregar red social */
+.btn.agregar {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.agregar:hover {
+  background-color: #0056b3;
+}
+
+.btn.agregar i {
+  margin-right: 8px;
+}
+
+/* Botón para agregar red social */
+.btn.agregar {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.agregar:hover {
+  background-color: #0056b3;
+}
+
+.btn.agregar i {
+  margin-right: 8px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+  .table-row {
+    flex-direction: column;
+  }
+
+  .table-cell {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+.dropdown select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
 
 .ajustes-generales-form,
 .ajustes-form {
@@ -18,7 +280,6 @@ body{
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 
 .ajustes-generales-form {
   max-width: 800px;
@@ -38,7 +299,8 @@ body{
   .table {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    table-layout: auto;
 
     .table-row {
       display: flex;
@@ -119,6 +381,45 @@ body{
       }
     }
   }
+  .dropdown {
+    position: relative;
+  }
+
+  .btn-dropdown {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  .dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .dropdown-option {
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  .dropdown-option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .dropdown-option i {
+    margin-right: 8px;
+  }
 
   .form-actions {
     margin-top: 20px;
@@ -191,7 +492,6 @@ body{
   border: 1px solid #ddd;
   border-radius: 4px;
 }
-
 
 .form-group-container {
   display: flex;

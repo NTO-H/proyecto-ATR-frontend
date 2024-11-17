@@ -17,7 +17,7 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { SignUpService } from './commons/services/sign-up.service';
-import { NgxUiLoaderModule, NgxUiLoaderService } from 'ngx-ui-loader';
+// import { NgxUiLoaderModule, NgxUiLoaderService } from 'ngx-ui-loader';
 import { RecuperarPasswordView } from './view/recuperar-password/recuperar-password.view';
 import { mensageservice } from '../../shared/services/mensage.service';
 import { UsuarioService } from '../../shared/services/usuario.service';

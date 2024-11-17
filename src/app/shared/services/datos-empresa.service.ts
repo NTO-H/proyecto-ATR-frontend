@@ -17,16 +17,30 @@ export class DatosEmpresaService {
     const url = `${environment.api}/Empresa/configurarEmpresa/`;
     return this.http.put(url, data);
   }
-  eliminarRedSocial(id: any): Observable<any> {
-    const url = `${environment.api}/Empresa/eliminarRedSocial/`+id;
-    return this.http.delete(url);
-  }
+ 
   traerDatosEmpresa(): Observable<any> {
-    const url = `${environment.api}/Empresa/obtenerPerfilesEmpresa/`;
+    const url = `${environment.api}/Empresa/obtenerPerfilesEmpresa`;
     return this.http.get(url);
   }
-  consultarConfigurarEmpresa(): Observable<any> {
-    const url = `${environment.api}/Empresa/consultarConfigurarEmpresa/`;
+  // consultarConfigurarEmpresa(): Observable<any> {
+  //   const url = `${environment.api}/Empresa/consultarConfigurarEmpresa`;
+  //   return this.http.get(url);
+  // }
+
+
+  //redes sociales
+  guardarRedSocial(id: any, redSocial: any): Observable<any> {
+    const url = `${environment.api}/Empresa/guardarRedSocial/` + id;
+    return this.http.post(url, redSocial);
+  }
+  //redes sociales
+  obtenerRedesSociales(): Observable<any> {
+    const url = `${environment.api}/Empresa/obtenerRedesSociales` ;
     return this.http.get(url);
+  }
+
+  eliminarRedSocial(id: any): Observable<any> {
+    const url = `${environment.api}/Empresa/eliminarRedSocial/` + id;
+    return this.http.delete(url);
   }
 }

@@ -29,7 +29,7 @@ declare const $: any;
     '../../../../shared/styles/form.scss',
   ],
 })
-export class ListadoClientesComponent implements OnInit{
+export class ListadoClientesComponent implements OnInit {
   data!: any;
   visible: boolean = false;
   totalRecords: number = 0;
@@ -52,8 +52,6 @@ export class ListadoClientesComponent implements OnInit{
     this.updatePaginatedUser();
   }
 
-  
-
   constructor(
     private us: UsuarioService,
     // private render2: Renderer2,
@@ -65,9 +63,8 @@ export class ListadoClientesComponent implements OnInit{
     private elementRef: ElementRef,
     private router: ActivatedRoute,
     private rou: Router,
-    public sessionService: SessionService
-  ) // private toast: Toast,
-  // private ngxUiLoaderService: NgxUiLoaderService,
+    public sessionService: SessionService // private toast: Toast,
+  ) // private ngxUiLoaderService: NgxUiLoaderService,
 
   {
     this.clienteForm = this.fb.group({
@@ -121,22 +118,22 @@ export class ListadoClientesComponent implements OnInit{
         onApprove: () => {
           // this.us.eliminarUsuario(id)
           this.confirmarEliminar(); // Ejecuta la confirmación cuando se aprueba
-        }
+        },
       })
       .modal('show'); // Muestra el modal
   }
 
   confirmarEliminar() {
-    // this.usuarioId = id; 
-    this.us.eliminarUsuario(this.usuarioId).subscribe(response=>{
+    // this.usuarioId = id;
+    this.us.eliminarUsuario(this.usuarioId).subscribe((response) => {
       this.getUsuario(); // Actualiza la lista de usuarios después de eliminar uno
       Swal.fire(
         'Eliminado',
         'El usuario se ha eliminado correctamente.',
-       'success'
+        'success'
       );
       this.usuarioId = null; // Resetea el ID del usuario que se quiere eliminar para evitar problemas con el siguiente clic en el botón de eliminar
-    })
+    });
     console.log(`Usuario con ID ${this.usuarioId} eliminado.`);
     // Aquí puedes llamar a tu servicio para eliminar el usuario
   }
@@ -188,21 +185,23 @@ export class ListadoClientesComponent implements OnInit{
     this.visible = true;
     this.idCliente = this.router.snapshot.params['id'];
     if (id !== null) {
-      
       // Decodifica la contraseña
-      
+
       console.log('actualizar....');
-      this.UserS.detalleClienteById(id).subscribe((data) => {
-        this.listUsuario = data;
-        const decodedPassword = this.sessionService.descifrarTexto(data.password);
-        this.clienteForm.setValue({
-          nombre: data.nombre,
-          email: data.email,
-          // // estatus: data.estatus,
-          telefono: data.telefono,
-          password: decodedPassword,
-        });
-      });
+      // this.UserS.detalleClienteById(id).subscribe((data) => {
+      //   this.listUsuario = data;
+      //   const decodedPassword = this.sessionService.descifrarTexto(
+      //     data.password
+      //   );
+      //   console.log(decodedPassword);
+      //   this.clienteForm.setValue({
+      //     nombre: data.nombre,
+      //     email: data.email,
+      //     // // estatus: data.estatus,
+      //     telefono: data.telefono,
+      //     password: decodedPassword,
+      //   });
+      // });
     }
   }
   // resaltado de texto letra o palabra entonctrada
