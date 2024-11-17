@@ -222,4 +222,15 @@ resizeSidebar(event: MouseEvent) {
     const año = fecha.getFullYear();
     return `${diaSemana} / ${mes} / ${año}`;
   }
+
+
+
+
+  isLoggedIn = !!localStorage.getItem('token'); // Verificar si el token existe
+menuOpen = false;
+
+toggleMenu() {
+  this.menuOpen = !this.menuOpen;
+}
+
 }

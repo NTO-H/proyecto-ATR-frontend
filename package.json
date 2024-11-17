@@ -35,7 +35,7 @@
     "my-pwa": "file:",
     "ngx-cookie-service": "^18.0.0",
     "ngx-toastr": "^19.0.0",
-    "ngx-ui-loader": "^1.1.5",
+    "ngx-ui-loader": "^13.0.0",
     "pouchdb-browser": "^9.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.11",

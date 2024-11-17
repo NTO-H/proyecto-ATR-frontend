@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
-
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 body {
@@ -47,8 +46,7 @@ body {
 :root {
   --blur-bg: rgb(255, 255, 255); // Fondo oscuro con transparencia
   --style-navbar-second: rgb(255, 255, 255); // Fondo oscuro con transparencia
-  --color-bg: #ee66a6;
-  --titulo-color: #584c50;
+  --color-bg: #f3f3f3;
   --opciones: #ee66a6;
 
   --mensaje-errrores: #e91e63;
@@ -60,54 +58,74 @@ body {
   --style-footer-adm: #e7d7c3;
   ----back-secction: #ffffff;
   --style-secction-ofertas: rgba(237, 231, 231, 0.694);
-
   --card-bg-dark: linear-gradient(135deg, #1e1e2f, #3c3c5c);
 }
 
 [data-theme="dark"] {
-  --blur-bg: rgba(66, 47, 47, 0.694); // Fondo oscuro con transparencia
-  --style-navbar-second: #584c50;
-  --text-style-color: white;
-
-  --titulo-color: #584c50;
-  --color-text: white;
-  --style-secction-ofertas: rgba(255, 255, 255, 0.694);
-  --color-card: #ffffff;
-
-  ----back-secction: #1e182d66;
-  --color-bg: #6c5f59;
-  --color-by: #584c50;
-
-  --box-sw: 0 4px 6px rgba(126, 109, 109, 0.9);
-  --style-footer-adm: #b5a299;
-  --opciones: #ffffff;
-  --mensaje-errrores: #ffffffff;
-
-  --style-footer: #584c50;
-
-  --bg-color-card: #ffffff;
-  --color-card: #ffffff;
-  --color-header: #ffffff;
+  --blur-bg: rgba(0, 0, 0, 0.7); // Fondo negro translúcido
+  --style-navbar-second: #1a1a1a; // Color de navbar secundario
+  --text-style-color: #ffffff; // Color de texto blanco
+  --style-secction-ofertas: rgba(30, 30, 30, 0.9); // Fondo de sección de ofertas
+  --color-card: #121212; // Fondo de las tarjetas en negro
+  --back-secction: #0d0d0d; // Fondo de sección
+  --color-bg: #000000; // Fondo general completamente negro
+  --color-by: #1a1a1a; // Otro tono de negro para separación
+  --color-text: #ffffff; // Color de texto general
+  --box-sw: 0 4px 6px rgba(0, 0, 0, 0.9); // Sombra para elementos oscuros
+  --style-footer-adm: #1a1a1a; // Color del footer administrativo
+  --opciones: #ffffff; // Opciones destacadas en blanco
+  --mensaje-errrores: #ff4d4d; // Mensajes de error en rojo claro
+  --style-footer: #0f0f0f; // Color de fondo del footer
+  --bg-color-card: #121212; // Fondo de tarjetas en negro
+  --color-header: #1a1a1a; // Fondo de encabezado en negro
+  --border-color: #3a3a3a; // Borde gris oscuro
 
   body {
-    color: #fff;
+    color: var(--color-text);
     background-color: var(--color-bg);
-    backdrop-filter: blur(8px); // Desenfoque del fondo
+    backdrop-filter: blur(8px); // Desenfoque para el fondo
     -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
   }
 
   .sticky {
-    // position: fixed;
-    // top: 0;
-    // width: 100%;
     z-index: 10;
-    -webkit-backdrop-filter: blur(5px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); // Sombra para más profundidad
-
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: var(--box-sw); // Sombra para profundidad
   }
+
   nav {
-    // background-color: var(--blur-bg);
-    // color: white;
+    background-color: var(--blur-bg); // Fondo de navbar negro translúcido
+    color: var(--text-style-color);
+    border-bottom: 1px solid var(--border-color); // Borde inferior gris
+  }
+
+  .card {
+    background-color: var(--bg-color-card);
+    color: var(--text-style-color);
+    box-shadow: var(--box-sw);
+    border: 1px solid var(--border-color); // Borde gris oscuro
+  }
+
+  footer {
+    background-color: var(--style-footer);
+    color: var(--opciones);
+    border-top: 1px solid var(--border-color); // Borde superior gris
+  }
+
+  .error-message {
+    color: var(--mensaje-errrores);
+  }
+
+  .ofertas {
+    background-color: var(--style-secction-ofertas);
+    color: var(--color-text);
+    border: 1px solid var(--border-color); // Borde gris oscuro
+  }
+
+  button, input, textarea {
+    border: 1px solid var(--border-color); // Bordes grises para elementos interactivos
+    background-color: var(--bg-color-card);
+    color: var(--color-text);
   }
 }

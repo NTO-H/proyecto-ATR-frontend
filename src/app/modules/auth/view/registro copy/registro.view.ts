@@ -12,7 +12,6 @@ import { SessionService } from '../../../../shared/services/session.service';
 import { UsuarioService } from '../../../../shared/services/usuario.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { NgxUiLoaderService } from "ngx-ui-loader"; // Import NgxUiLoaderService
 
 @Component({
   selector: 'app-registro',
@@ -24,7 +23,7 @@ export class RegistroView {
   verificationCode: string = '';
   remainingChars: number = 15;
   emailError: string | null = null;
-  passwordStrength: string = ''; // variable para almacenar la fuerza de la contraseña
+
   personalDataForm: FormGroup;
   credentialsForm: FormGroup;
   otpForm: FormGroup; // Para Gmail
@@ -45,8 +44,7 @@ export class RegistroView {
     private uservice: UsuarioService,
     private sessionService_: SessionService,
     private mensageservice_: mensageservice,
-    private toastr: ToastrService,
-    private ngxService: NgxUiLoaderService
+    private toastr: ToastrService
   ) {
     this.personalDataForm = this.fb.group({
       username: ['', [Validators.required, Validators.maxLength(15)]],
@@ -100,12 +98,6 @@ export class RegistroView {
   }
   // Generar código de verificación
   generateCode(option: string) {
-    this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
-    // Stop the foreground loading after 5s
-    setTimeout(() => {
-      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
-    }, 5000);
-    
     this.displayModal = false; // Cierra el modal principal
     if (option === 'gmail') {
       const email = this.personalDataForm.get('email')?.value;
@@ -146,12 +138,6 @@ export class RegistroView {
   // Avanzar al siguiente paso del formulario
   goToNextStep() {
     this.personalDataForm.get('otpCode')?.reset();
-    this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
-    // Stop the foreground loading after 5s
-    setTimeout(() => {
-      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
-    }, 5000);
-
     if (this.personalDataForm.invalid) {
       // Recolecta los mensajes de error
       let errorMessages = '';
@@ -370,50 +356,19 @@ export class RegistroView {
     tieneMinuscula: false,
     tieneMayuscula: false,
     tieneNumero: false,
-    tieneSimbolo: false,
     longitudMinima: false,
-    longitudMayor5: false,
   };
   coincidenPasswords = false;
 
   verificarPassword() {
     const password = this.credentialsForm.get('password')?.value || '';
-  
-    // Validaciones
     this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password);
     this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password);
     this.validacionesPassword.tieneNumero = /\d/.test(password);
-    this.validacionesPassword.tieneSimbolo = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
-    this.validacionesPassword.longitudMinima = password.length >= 12;
-    this.validacionesPassword.longitudMayor5 = password.length > 5;
-  
-    // Verificar nivel de seguridad basado en TODAS las condiciones
-    const allValidations = [
-      this.validacionesPassword.tieneMinuscula,
-      this.validacionesPassword.tieneMayuscula,
-      this.validacionesPassword.tieneNumero,
-      this.validacionesPassword.tieneSimbolo,
-      this.validacionesPassword.longitudMinima,
-      this.validacionesPassword.longitudMayor5
-    ];
-  
-    // Calcular el número de validaciones cumplidas
-    const strength = allValidations.filter(v => v).length;
-  
-    // Asignar el nivel de seguridad basado en la cantidad de validaciones cumplidas
-    if (strength === allValidations.length) {
-      this.passwordStrength = 'strong'; // Contraseña fuerte si cumple con todo
-    } else if (strength >= 4) {
-      this.passwordStrength = 'medium'; // Contraseña media si cumple al menos 4
-    } else {
-      this.passwordStrength = 'weak';   // Contraseña débil si cumple menos de 4
-    }
-  
+    this.validacionesPassword.longitudMinima = password.length >= 8;
+
     this.verificarCoincidencia();
   }
-  
-  
-  
   verificarCoincidencia() {
     const password = this.credentialsForm.get('password')?.value;
     const confirmPassword = this.credentialsForm.get('confirmPassword')?.value;
@@ -568,7 +523,7 @@ export class RegistroView {
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'WhatsApp',
-        // cancelButtonText: 'SMS',
+        cancelButtonText: 'SMS',
       }).then((result) => {
         if (result.isConfirmed) {
           this.resendCodeWhatsapp(); // Llama al método de envío por WhatsApp
@@ -584,7 +539,7 @@ export class RegistroView {
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Gmail',
-        // cancelButtonText: 'SMS',
+        cancelButtonText: 'SMS',
       }).then((result) => {
         if (result.isConfirmed) {
           this.resendCodeGmail(); // Llama al método de envío por Gmail

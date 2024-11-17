@@ -51,7 +51,6 @@ export class SignInView implements OnInit {
     private fb: FormBuilder,
     private messageService: MessageService,
     private datosEmpresaService: DatosEmpresaService,
-
     //para lo del capchat
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -269,7 +268,10 @@ export class SignInView implements OnInit {
               text: 'El CAPTCHA ingresado es incorrecto. Por favor,recargue la pagina e inténtalo de nuevo.',
               icon: 'error',
               confirmButtonText: 'Ok',
-            }).then(() => this.recargarPagina());
+            }).then(() => 
+              
+              this.recargarPagina()
+            );
             return;
           }
           if (err.error && err.error.message) {
