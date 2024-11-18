@@ -37,7 +37,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { SignUpService } from '../auth/commons/services/sign-up.service';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { TagComponent } from './components/tag/tag.component';
-
+// import { NgChatbotAngularModule } from "ng-chatbot-angular";
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { PaginatorModule } from 'primeng/paginator';

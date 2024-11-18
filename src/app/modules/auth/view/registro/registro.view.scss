@@ -181,3 +181,19 @@ h3 {
   font-size: 1.25rem;
   margin: auto;
 }
+
+
+
+
+//
+// .ui.basic.modal {
+//   height: 100%; /* Asegura que el modal use toda la altura disponible */
+// }
+.ui.dimmer.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050; /* Asegura que esté por encima del contenido */
+}

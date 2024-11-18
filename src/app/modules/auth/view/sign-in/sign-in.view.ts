@@ -12,12 +12,12 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 //lo del capchat
 import { OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-sign-in',
@@ -198,6 +198,26 @@ export class SignInView implements OnInit {
     return token ? token : null;
   }
 
+inicia(){
+  this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
+  // Stop the foreground loading after 5s
+  setTimeout(() => {
+    this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
+  }, 5000);
+
+  // OR
+  this.ngxService.startBackground("do-background-things");
+  // Do something here...
+  this.ngxService.stopBackground("do-background-things");
+
+  this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
+  // Stop the foreground loading after 5s
+  setTimeout(() => {
+    this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+  }, 5000);
+}
+
+
   login(): void {
     const captchaToken = this.validateCaptcha();
     if (!captchaToken) {
@@ -241,7 +261,7 @@ export class SignInView implements OnInit {
 
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    this.ngxService.start();
+    this.inicia();
     this.signInService.signIn({ email, password, captchaToken }).subscribe(
       (response) => {
         if (response) {
@@ -274,10 +294,7 @@ export class SignInView implements OnInit {
               text: 'El CAPTCHA ingresado es incorrecto. Por favor,recargue la pagina e inténtalo de nuevo.',
               icon: 'error',
               confirmButtonText: 'Ok',
-            }).then(() => 
-              
-              this.recargarPagina()
-            );
+            })
             return;
           }
           if (err.error && err.error.message) {

@@ -1,13 +1,19 @@
-main {
+/* Estilo básico para el main */
+section.seccion-vista {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  // padding-left: 6%;
-  // background-color: #c6d7e26b;
+  border: dashed red;
 }
 
-main.collapsed-padding {
-  // padding-left: 10%; /* Cambia el valor según lo que necesites */
+/* Cuando el cuerpo está en estado colapsado, modificamos el padding */
+body.collapsed-padding main {
+  margin-left: 7%;  /* Cambia este valor según tus necesidades */
+}
+
+/* Si quieres una animación suave */
+body.collapsed-padding main {
+  transition: padding-left 0.3s ease;
 }
 
 .sidenav {

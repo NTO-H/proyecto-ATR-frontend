@@ -46,7 +46,8 @@ body {
 :root {
   --blur-bg: rgb(255, 255, 255); // Fondo oscuro con transparencia
   --style-navbar-second: rgb(255, 255, 255); // Fondo oscuro con transparencia
-  --color-bg: #f3f3f3;
+  --color-bg: #ee66a6;
+  --titulo-color: #584c50;
   --opciones: #ee66a6;
 
   --mensaje-errrores: #e91e63;
@@ -54,63 +55,72 @@ body {
   --color-text: #333b43;
   --box-sw: 0 4px 6px rgba(0, 0, 0, 0.1);
   --text-style-color: rgb(51, 66, 86);
+  --color-brd: #e6e6e6;
   --style-footer: #f0ebe5;
   --style-footer-adm: #e7d7c3;
   ----back-secction: #ffffff;
   --style-secction-ofertas: rgba(237, 231, 231, 0.694);
   --card-bg-dark: linear-gradient(135deg, #1e1e2f, #3c3c5c);
 }
-
 [data-theme="dark"] {
-  --blur-bg: rgba(0, 0, 0, 0.7); // Fondo negro translúcido
-  --style-navbar-second: #1a1a1a; // Color de navbar secundario
-  --text-style-color: #ffffff; // Color de texto blanco
-  --style-secction-ofertas: rgba(30, 30, 30, 0.9); // Fondo de sección de ofertas
-  --color-card: #121212; // Fondo de las tarjetas en negro
-  --back-secction: #0d0d0d; // Fondo de sección
-  --color-bg: #000000; // Fondo general completamente negro
-  --color-by: #1a1a1a; // Otro tono de negro para separación
-  --color-text: #ffffff; // Color de texto general
-  --box-sw: 0 4px 6px rgba(0, 0, 0, 0.9); // Sombra para elementos oscuros
-  --style-footer-adm: #1a1a1a; // Color del footer administrativo
-  --opciones: #ffffff; // Opciones destacadas en blanco
-  --mensaje-errrores: #ff4d4d; // Mensajes de error en rojo claro
-  --style-footer: #0f0f0f; // Color de fondo del footer
-  --bg-color-card: #121212; // Fondo de tarjetas en negro
-  --color-header: #1a1a1a; // Fondo de encabezado en negro
-  --border-color: #3a3a3a; // Borde gris oscuro
+  --blur-bg: rgba(0, 0, 0, 0.8); // Fondo negro translúcido
+  --style-navbar-second: #1a1a1a;
+  --text-style-color: white;
+
+  --titulo-color: #1a1a1a;
+  --color-text: white;
+  --style-secction-ofertas: rgba(34, 34, 34, 0.8); // Fondo gris oscuro translúcido
+  --color-card: #1a1a1a;
+
+  --back-secction: #0f0f0f; 
+  --color-bg: #0d0d0d; 
+  --color-by: #1a1a1a;
+
+  --box-sw: 0 4px 6px rgba(0, 0, 0, 0.9);
+  --style-footer-adm: #1a1a1a;
+  --opciones: white;
+  --mensaje-errrores: #ff4d4d;
+
+  --style-footer: #1a1a1a;
+
+  --bg-color-card: #1a1a1a;
+  --color-card: #1a1a1a;
+  --color-header: white;
+  --color-brd: rgb(45, 48, 59);
 
   body {
     color: var(--color-text);
     background-color: var(--color-bg);
-    backdrop-filter: blur(8px); // Desenfoque para el fondo
-    -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .sticky {
     z-index: 10;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    box-shadow: var(--box-sw); // Sombra para profundidad
+    box-shadow: var(--box-sw); 
   }
 
   nav {
-    background-color: var(--blur-bg); // Fondo de navbar negro translúcido
+    background-color: var(--blur-bg);
     color: var(--text-style-color);
-    border-bottom: 1px solid var(--border-color); // Borde inferior gris
+    border-bottom: 1px solid #e6e6e6; // Borde claro
   }
 
   .card {
     background-color: var(--bg-color-card);
     color: var(--text-style-color);
     box-shadow: var(--box-sw);
-    border: 1px solid var(--border-color); // Borde gris oscuro
+    border-left: 1px solid #e6e6e6; // Borde claro izquierda
+    border-right: 1px solid #e6e6e6; // Borde claro derecha
+    border-bottom: 1px solid #ebe3db; // Borde claro inferior
   }
 
   footer {
     background-color: var(--style-footer);
     color: var(--opciones);
-    border-top: 1px solid var(--border-color); // Borde superior gris
+    border-top: 1px solid #e6e6e6;
   }
 
   .error-message {
@@ -120,11 +130,13 @@ body {
   .ofertas {
     background-color: var(--style-secction-ofertas);
     color: var(--color-text);
-    border: 1px solid var(--border-color); // Borde gris oscuro
+    border-left: 1px solid #e6e6e6; // Bordes claros
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #ebe3db;
   }
 
   button, input, textarea {
-    border: 1px solid var(--border-color); // Bordes grises para elementos interactivos
+    border: 1px solid #e6e6e6; // Bordes claros para elementos interactivos
     background-color: var(--bg-color-card);
     color: var(--color-text);
   }

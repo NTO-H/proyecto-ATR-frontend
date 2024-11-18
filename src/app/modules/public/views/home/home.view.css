@@ -22,7 +22,7 @@ body {
   display: flex;
   flex-direction: row;
 
-  border: 0.5px solid #e6e6e6;
+  border: 0.5px solid var(--color-brd);
   border-bottom: 4px solid #ebe3db;
   background: var(--blur-bg);
 }
@@ -41,11 +41,12 @@ body {
   animation-name: show-hero;
   display: flex;
   align-items: center;
-  border-left: 1px solid #e6e6e6;
-  border-right: 1px solid #e6e6e6;
-  border-bottom: 1px solid #ebe3db;
+  border-left: 1px solid var(--color-brd);
+  border-right: 1px solid var(--color-brd);
+  border-bottom: 1px solid var(--color-brd);
   justify-content: center;
-  background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg");
+  background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1731865107/images-AR/qcidvwmeaqto6yle0xiw.png");
+  /* background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730134285/images-AR/ztq3dpdi1uptc9xxwnjo.jpg"); */
   background-size: contain;
   background-repeat: no-repeat;
   position: sticky;
@@ -103,7 +104,7 @@ p {
 
 .producto-card {
   backdrop-filter: blur(1px);
-  border: 1px solid #e4e4e4;
+  border: 1px solid var(--color-brd);
   padding-bottom: 16px;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
@@ -139,7 +140,7 @@ p {
   height: 300px;
   /* border: dashed red; */
   margin-bottom: 16px;
-  border-bottom: #e4e4e4 solid 1px;
+  border-bottom: var(--color-brd) solid 1px;
 }
 
 .cards {
@@ -159,7 +160,7 @@ p {
 
     backdrop-filter: blur(1px);
     border-radius: 8px;
-    border: 1px solid rgb(228, 223, 233);
+    border: 1px solid var(--color-brd);
     background: var(--blur-bg);
 
     padding: 0.5rem 1rem;
@@ -185,7 +186,7 @@ p {
   .card {
     color: var(--color-text);
     background: var(--blur-bg);
-    border: #e4e4e4 solid 1px;
+    border: var(--color-brd) solid 1px;
     h2 {
       color: var(--color-text);
     }
@@ -241,7 +242,7 @@ p {
     padding: 0;
     margin: 0;
     background: var(--blur-bg);
-    border: #e4e4e4 solid 1px;
+    border: var(--color-brd) solid 1px;
     box-shadow: 0 2px 8px rgba(136, 136, 136, 0.1);
     border-radius: 5px;
   }

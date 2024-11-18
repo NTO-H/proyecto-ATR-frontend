@@ -8,7 +8,7 @@ import { SwPush } from "@angular/service-worker";
   styleUrl: './public.component.css',
 })
 export class PublicComponent implements OnInit {
-  title = 'frontend';
+  // title = 'frontend';
   isScrolled = false;
 
   visible: boolean = false;
@@ -93,5 +93,32 @@ export class PublicComponent implements OnInit {
   //     document.body.scrollTop ||
   //     0;
   //   this.isScrolled = scrollPosition > 10;
+  // }
+
+  
+  // title = 'chat';
+  // responses = [
+  //   'Hi! You can contact us via contactchatbot@chat.com',
+  //   'Sure! Our customer service team is available 24/7.',
+  //   'Thank you for contacting us. We will get back to you shortly.'
+  // ];
+  // responseIndex = -1;
+  // loading = false; 
+  // config = {
+  //   title: 'Chat Bot',
+  //   subTitle: 'Welcome!',
+  // };
+  
+  // setData(message: string) {
+  //   this.loading = true;
+  //   setTimeout(() => {
+
+  //     this.responseIndex = (this.responseIndex + 1) % this.responses.length;
+  //     this.loading = false; 
+  //   }, 1000); 
+  // }
+  
+  // onMessageInput(message: string) {
+  //   this.setData(message);
   // }
 }

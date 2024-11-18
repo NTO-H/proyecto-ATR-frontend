@@ -24,7 +24,13 @@ import { UsuarioService } from '../../shared/services/usuario.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {
+  NgxEasyCaptchaService,
+  CAPTCHA_PROVIDER,
+  CAPTCHA_SITE_KEY,
+  STRING_INITIALIZER,
+  CaptchaProvider,
+} from '../../../../projects/angx/ngx-easy-captcha/src/public-api';
 import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
@@ -91,7 +97,7 @@ import { RouterModule } from '@angular/router';
     UsuarioService,
     ToastrService,
     MessageService,
-    ConfirmationService,
+    ConfirmationService, 
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
   ],
 })
