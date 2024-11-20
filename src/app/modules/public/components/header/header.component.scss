@@ -16,7 +16,7 @@ nav {
 }
 
 .titulo {
-  font-size: 26px;
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -92,14 +92,14 @@ nav {
 }
 
 header.app-header {
-  box-shadow: 0px 0px 10px 10px rgb(255, 244, 230);
+  // box-shadow: 0px 0px 10px 10px rgb(255, 244, 230);
 
   // border-radius: 5px;
   background-color: white;
   // background-color: #f8f5f2;
   // background-color: #f8f5f2;
   // border: 1px solid #ebe3db;
-  // box-shadow: 0 4px 8px #fff9f39a;
+  box-shadow: 0 4px 8px #fff9f39a;
   width: 100%;
 }
 
@@ -116,14 +116,16 @@ header.app-header {
   transition: all 0.5s;
 }
 span {
-  margin-left: 5px;
+  margin-left: 35px;
 }
 /* Hacemos que la segunda barra sea sticky */
 .navbar-second {
   display: flex;
   justify-content: left;
   // border: dashed red;
-  border-bottom: 1px solid #ebe3db;
+  border-bottom: 1px solid #faf7f7;
+  // border: solid 1px #faf7f7;
+
 
   background-color: var(--style-navbar-second);
 
@@ -137,7 +139,7 @@ span {
   display: flex;
 }
 .logo {
-  text-transform: uppercase;
+  // text-transform: uppercase;
   font-size: 24px;
 }
 li {
@@ -184,9 +186,9 @@ p-sidebar {
 }
 
 .sticky {
-  background-color: var(--style-footer);
-  backdrop-filter: blur(2px);
-  border: solid 1px #f6f2ef;
+  background-color: #ffffff9b;
+  backdrop-filter: blur(3px);
+  border: solid 1px #faf7f7;
   .logo > .logo1 {
     // background-image: url("https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png");
     background-size: contain;
@@ -221,9 +223,9 @@ p-sidebar {
   margin-right: 50px;
   a {
     text-decoration: none;
-    font-size: 15px;
+    font-size: 13px;
     letter-spacing: 1.5px;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     padding: 10px 20px;
     border-radius: 50px;
     transition: background-color 0.3s ease;
@@ -260,8 +262,8 @@ p-sidebar {
   top: 0;
   width: 100%;
   z-index: 10;
-  background: var(--style-footer);
-  box-shadow: 0 2px 5px #ebe3db7a;
+  // background: var(--style-footer);
+  // box-shadow: 0 2px 5px #ebe3db7a;
   transition: background-color 0.5s ease;
 }
 .nav-icon {
