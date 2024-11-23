@@ -7,6 +7,7 @@ body {
   margin: 0;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
+  font-family: Arial, Helvetica, sans-serif;
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
@@ -52,7 +53,7 @@ body {
 
   --mensaje-errrores: #e91e63;
   --color-by: #f4f4f4;
-  --color-text: #333b43;
+  --color-text: #56616a;
   --box-sw: 0 4px 6px rgba(0, 0, 0, 0.1);
   --text-style-color: rgb(51, 66, 86);
   --color-brd: #e6e6e6;

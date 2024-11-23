@@ -28,10 +28,10 @@ nav {
   // background: #EE66A6;
   // background: #aba59f;
   // background: #ccc4bc;
-  // background: #FF5580;
+  background: #ff5580;
   text-align: center;
   position: relative;
-  background-color: var(--color-bg);
+  // background-color: var(--color-bg);
 }
 
 .marquee {
@@ -68,6 +68,7 @@ nav {
 }
 
 .nav-one {
+  display: none;
   // background:var(--style-navbar-second);
   background: var(--style-navbar-second);
 }
@@ -126,7 +127,6 @@ span {
   border-bottom: 1px solid #faf7f7;
   // border: solid 1px #faf7f7;
 
-
   background-color: var(--style-navbar-second);
 
   height: 70px;
@@ -174,7 +174,7 @@ p-sidebar {
           color: var(--text-style-color);
           display: flex;
           align-items: center;
-
+          
           i {
             // -webkit-text-stroke: 1px rgb(255, 173, 115);
             margin-right: 10px;
@@ -225,11 +225,11 @@ p-sidebar {
     text-decoration: none;
     font-size: 13px;
     letter-spacing: 1.5px;
-    // text-transform: uppercase;
+    text-transform: uppercase;
     padding: 10px 20px;
     border-radius: 50px;
     transition: background-color 0.3s ease;
-    color: var(--text-style-color) !important;
+    color: --text-style-color;
     cursor: pointer;
     &:hover {
       // color: fuchsia;
@@ -313,7 +313,7 @@ p-sidebar {
   color: var(--opciones);
   font-weight: bold;
   background-color: var(--color-by);
- border-radius: 4px;
+  border-radius: 4px;
   i {
     color: none;
     transform: none;

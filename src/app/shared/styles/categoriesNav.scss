@@ -1,16 +1,19 @@
 .sidebar {
   width: 250px;
-  padding: 20px;
-  color: --color-text;
+  padding: 15px;
+  color: var(--color-text);
 
   border-right: var(--color-brd) solid 1px;
   font-family: Arial, sans-serif;
   position: sticky;
 }
-
+.anuncio-content{
+  img{
+    margin-top: 100%;
+  }
+}
 .filter-section {
   margin-bottom: 20px;
-  
 }
 
 h3 {
@@ -49,6 +52,10 @@ h3 {
   height: 20px;
   border-radius: 50%;
   display: inline-block;
+  cursor: pointer;
+  &:hover {
+    border: solid;
+  }
 }
 
 .black {

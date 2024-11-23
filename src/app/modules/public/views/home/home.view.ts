@@ -13,6 +13,7 @@ import { ERol } from '../../../../shared/constants/rol.enum';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
 import { response } from 'express';
 import { error } from 'console';
+import { ProductoService } from '../../../../shared/services/producto.service';
 
 @Component({
   selector: 'app-home',
@@ -31,86 +32,87 @@ export class HomeView implements OnInit {
   position: any = 'bottom-left';
   productosPaginados: any = [];
   rows = 7; // Número de elementos por página
-  datosEmpresa: any={};
+  datosEmpresa: any = {};
 
-  productos = [
-    {
-      id: 1,
-      nombre: 'Producto 1',
-      descripcion: 'Descripción del producto 1',
-      precio: 100,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
-    },
-    {
-      id: 2,
-      nombre: 'Producto 2',
-      descripcion: 'Descripción del producto 2',
-      precio: 200,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
-    },
-    {
-      id: 3,
-      nombre: 'Producto 3',
-      descripcion: 'Descripción del producto 3',
-      precio: 150,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
-    },
-    {
-      id: 3,
-      nombre: 'Producto 3',
-      descripcion: 'Descripción del producto 3',
-      precio: 150,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
-    },
-    {
-      id: 3,
-      nombre: 'Producto 3',
-      descripcion: 'Descripción del producto 3',
-      precio: 150,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
-    },
-    {
-      id: 3,
-      nombre: 'Producto 3',
-      descripcion: 'Descripción del producto 3',
-      precio: 150,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
-    },
-    {
-      id: 3,
-      nombre: 'Producto 3',
-      descripcion: 'Descripción del producto 3',
-      precio: 150,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
-    },
-    {
-      id: 3,
-      nombre: 'Producto 3',
-      descripcion: 'Descripción del producto 3',
-      precio: 150,
-      imagen:
-        'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
-    },
-    // {
-    //   id: 4,
-    //   nombre: 'Producto 4',
-    //   descripcion: 'Descripción del producto 4',
-    //   precio: 250,
-    //   imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
-    // },
-  ];
+  productos :any;
+  //   {
+  //     id: 1,
+  //     nombre: 'Producto 1',
+  //     descripcion: 'Descripción del producto 1',
+  //     precio: 100,
+  //     imagen:
+  //       'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+  //   },
+  //   {
+  //     id: 2,
+  //     nombre: 'Producto 2',
+  //     descripcion: 'Descripción del producto 2',
+  //     precio: 200,
+  //     imagen:
+  //       'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: 'Producto 3',
+  //     descripcion: 'Descripción del producto 3',
+  //     precio: 150,
+  //     imagen:
+  //       'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: 'Producto 3',
+  //     descripcion: 'Descripción del producto 3',
+  //     precio: 150,
+  //     imagen:
+  //       'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: 'Producto 3',
+  //     descripcion: 'Descripción del producto 3',
+  //     precio: 150,
+  //     imagen:
+  //       'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: 'Producto 3',
+  //     descripcion: 'Descripción del producto 3',
+  //     precio: 150,
+  //     imagen:
+  //       'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: 'Producto 3',
+  //     descripcion: 'Descripción del producto 3',
+  //     precio: 150,
+  //     imagen:
+  //       'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: 'Producto 3',
+  //     descripcion: 'Descripción del producto 3',
+  //     precio: 150,
+  //     imagen:
+  //       'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726509885/images-AR/mpcff7aljvb00pndcor5.jpg',
+  //   },
+  //   // {
+  //   //   id: 4,
+  //   //   nombre: 'Producto 4',
+  //   //   descripcion: 'Descripción del producto 4',
+  //   //   precio: 250,
+  //   //   imagen: 'https://res.cloudinary.com/dvvhnrvav/image/upload/v1726505353/images-AR/oaefwpo5njza8ytxfpzz.png',
+  //   // },
+  // ];
 
   constructor(
     private router: Router,
     private sessionService: SessionService,
     private datosEmpresaService: DatosEmpresaService,
+    private PRODUCTOSERVICE_: ProductoService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -139,7 +141,6 @@ export class HomeView implements OnInit {
     }
   }
   @HostListener('window:resize', ['$event'])
-  
   onResize() {
     this.detectDevice();
   }
@@ -148,7 +149,7 @@ export class HomeView implements OnInit {
     //
     this.getDatosEmpresa();
     // ngOnInit() {
-    this.productosPaginados = this.productos.slice(0, this.rows);
+    // this.productosPaginados = this.productos.slice(0, this.rows);
     // }
 
     this.visible = true;
@@ -204,6 +205,10 @@ export class HomeView implements OnInit {
   }
 
   getDatosEmpresa() {
+    this.PRODUCTOSERVICE_.obtenerProductos().subscribe((response) => {
+      this.productos = response;
+    });
+
     this.datosEmpresaService.traerDatosEmpresa().subscribe(
       (respuesta) => {
         this.datosEmpresa = respuesta[0];
