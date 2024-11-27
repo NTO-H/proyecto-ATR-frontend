@@ -3,7 +3,7 @@
   padding: 15px;
   color: var(--color-text);
 
-  border-right: var(--color-brd) solid 1px;
+  // border-right: var(--color-brd) solid 1px;
   font-family: Arial, sans-serif;
   position: sticky;
 }
@@ -13,7 +13,9 @@
   }
 }
 .filter-section {
-  margin-bottom: 20px;
+  border-bottom: var(--color-brd) solid 1px;
+  padding-bottom: 20px;
+  margin-top: 20px;
 }
 
 h3 {

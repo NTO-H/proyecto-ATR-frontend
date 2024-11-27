@@ -180,6 +180,7 @@ export class SignInView implements OnInit {
   }
 
   redirectTo(route: string): void {
+    
     if (route === 'login') {
       this.router.navigate(['/auth/login']);
     } else {

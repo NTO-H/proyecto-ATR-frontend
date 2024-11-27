@@ -1,16 +1,16 @@
 main {
-  
+
   margin-top: 0%;
   margin-bottom: 0%;
   background-color: white;
 }
-.content-all {  
-  padding-left: 80px;
-  padding-right: 80px;
+.content-all {
+  /* padding: 20px; */
+  /* padding-right: 80px; */
   padding-bottom: 80px;
   /* background-color: #f3f5fb; */
 
-  
+
   background-color:var(--color-by);
 }
 .menu-button {
@@ -58,7 +58,7 @@ main {
 /* Para pantallas pequeñas, como móviles */
 @media only screen and (max-width: 768px) {
   /* @import url(https://fonts.googleapis.com/css2?family=PT+Serif:wght@100;200;300;400;500;600;700&display=swap); */
-  
+
   .content-all {
     padding: 10px;
   padding-bottom: 80px;
@@ -72,7 +72,7 @@ main {
     /* backdrop-filter: blur(1px); */
     box-shadow: none;
   }
- 
+
 
   /* Estilos para pantallas más pequeñas van aquí */
 }

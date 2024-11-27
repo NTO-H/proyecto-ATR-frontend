@@ -3,15 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeView } from './views/home/home.view';
 import path from 'path';
 import { PublicComponent } from './public.component';
-// import { SignInView } from './views/sign-in/sign-in.view';
-// import { SignUpView } from './views/sign-up/sign-up.view';
 import { AcercaDeView } from './views/acerca-de/acerca-de.view';
 import { SignInView } from '../auth/view/sign-in/sign-in.view';
 import { SignUpView } from '../auth/view/sign-up/sign-up.view';
 import { ConfigView } from './views/config/config.view';
 import { DetailsProductView } from './views/details-product/details-product.view';
 import { PerfilView } from './views/perfil/perfil.view';
-// import { RecuperarPasswordView } from './views/recuperar-password/recuperar-password.view';
 
 const routes: Routes = [
   {

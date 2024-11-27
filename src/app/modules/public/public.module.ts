@@ -29,8 +29,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 // import { VerificarCodigoView } from './views/verificar-codigo/verificar-codigo.view';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Toast } from 'ngx-toastr';
-import { MessageService } from 'primeng/api';
+import { Toast, ToastrService } from 'ngx-toastr';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
@@ -43,18 +43,37 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { PaginatorModule } from 'primeng/paginator';
 import { ThemeServiceService } from '../../shared/services/theme-service.service';
 import { ProductoService } from '../../shared/services/producto.service';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { SessionService } from '../../shared/services/session.service';
+import { mensageservice } from '../../shared/services/mensage.service';
+import { SignInService } from '../auth/commons/services/sign-in.service';
+import { PasswordModule } from 'primeng/password';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { PoliticasComponent } from './views/politicas/politicas.component';
+import { TerminosComponent } from './views/terminos/terminos.component';
 
-const MATERIALS =[AvatarModule,AvatarGroupModule,PaginatorModule,OverlayPanelModule,TieredMenuModule,SkeletonModule,CardModule,TabMenuModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
+// import { DialogModule } from 'primeng/dialog';
+    
+const MATERIALS =[PasswordModule,
+  InputMaskModule,
+  InputTextModule,FormsModule,InputGroupModule,AvatarModule,AvatarGroupModule,PaginatorModule,OverlayPanelModule,TieredMenuModule,SkeletonModule,CardModule,TabMenuModule,ButtonModule,DialogModule,SidebarModule,CheckboxModule,MenuModule]
 const COMPONENTS =[FooterComponent,HeaderComponent]
 const VIEWS=[HomeView,PublicComponent,PerfilView, AcercaDeView,DetailsProductView]
 @NgModule({
-  declarations: [VIEWS,COMPONENTS, CarritoView, TagComponent],
+  declarations: [VIEWS,COMPONENTS, CarritoView, TagComponent, PoliticasComponent, TerminosComponent],
   exports:[COMPONENTS],
   imports: [GalleriaModule,
     CommonModule,ReactiveFormsModule,FormsModule,
     PublicRoutingModule,HttpClientModule, ...MATERIALS,
   ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Toast,MessageService,provideClientHydration(), [provideHttpClient(withFetch())],
+  SessionService,
+  mensageservice,
+  UsuarioService,
+  ToastrService,
+  MessageService,
+  ConfirmationService,SignInService,
   SignUpService,ProductoService,UsuarioService,DatosEmpresaService,ControlAdministrativaService,ThemeServiceService],
 })
 export class PublicModule {

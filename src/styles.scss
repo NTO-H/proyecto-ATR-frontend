@@ -56,7 +56,7 @@ body {
   --color-text: #56616a;
   --box-sw: 0 4px 6px rgba(0, 0, 0, 0.1);
   --text-style-color: rgb(51, 66, 86);
-  --color-brd: #e6e6e6;
+  --color-brd: #c4c4c4;
   --style-footer: #f0ebe5;
   // --style-bg-footer: radial-gradient(circle at top, #ffc466 0%, #050703 60%);
   --style-footer-adm: #e7d7c3;
@@ -150,3 +150,19 @@ body {
     color: var(--color-text);
   }
 }
+
+
+.p-inputgroup ,.input-login,.p-inputtext, .p-fluid .p-inputgroup .p-inputtext, .p-inputgroup .p-inputwrapper, .p-inputgroup .p-inputwrapper > .p-component {
+  flex: 1 1 auto;
+  width: 100%;
+
+}
+
+
+
+// p-inputgroupaddon {
+//   // background-color: #584c50; /* Ajusta al color de fondo preferido */
+//   color: #fff; /* Color del icono */
+//   padding: 0.5rem; /* Espaciado alrededor del icono */
+//   border-radius: 4px 0 0 4px; /* Bordes redondeados para el lado izquierdo */
+// }

@@ -22,7 +22,6 @@ export class RegistoProductoComponent implements OnInit {
       nombre: ['', [Validators.required]],
       imagenPrincipal: [''], // Aquí sigue siendo un string
       otrasImagenes: this.fb.array([]), // Inicializa el FormArray
-
       categoria: ['Ropa', [Validators.required]],
       color: ['', [Validators.required]],
       textura: [''],
@@ -60,7 +59,7 @@ export class RegistoProductoComponent implements OnInit {
 
 
 
-  
+
 
   onFileSelected(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -114,41 +113,14 @@ export class RegistoProductoComponent implements OnInit {
       );
     }
   }
-
-  // // Maneja la selección de imágenes adicionales
-  // otrasImagenesChange(event: Event, index: number): void {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   if (inputElement.files && inputElement.files.length > 0) {
-  //     const file = inputElement.files[0];
-
-  //     // Agregar el archivo al array de imágenes adicionales
-  //     this.imagenesAdicionales[index] = file; // Almacena el archivo en el índice correspondiente del array
-
-  //     console.log(
-  //       `Archivo seleccionado para imagen adicional ${index + 1}:`,
-  //       file
-  //     );
-
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       // Convertir a string y asignar al FormArray
-  //       this.otrasImagenes.at(index).setValue(reader.result as string); // Almacena la URL en el FormArray
-
-  //       // Mostrar el contenido completo del FormArray
-  //       console.log('Contenido actual de otrasImagenes:');
-  //       this.otrasImagenes.controls.forEach((control, idx) => {
-  //         console.log(`Imagen adicional ${idx + 1}:`, control.value);
-  //       });
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
   // } // Método para agregar el producto
   onAgregarProducto() {
     const productoNombre = this.productoForm.get('nombre')?.value;
     const productoCategoria = this.productoForm.get('categoria')?.value;
     const productoPrecio = this.productoForm.get('precio')?.value;
+    const productoTallasDisponibles	 = this.productoForm.get('talla')?.value;
     const productoDescripcion = this.productoForm.get('descripcion')?.value;
-  
+
     // Verificar si se ha seleccionado una imagen principal
     if (!this.imagenPrincipal) {
       console.error('No se ha seleccionado ningún archivo para la imagen principal.');
@@ -156,24 +128,25 @@ export class RegistoProductoComponent implements OnInit {
     } else {
       console.log('Imagen principal seleccionada:', this.imagenPrincipal);
     }
-  
+
     // Crear un objeto FormData y agregar los campos necesarios
     const formData = new FormData();
     formData.append('nombre', productoNombre);
     formData.append('categoria', productoCategoria);
     formData.append('precio', productoPrecio);
+    formData.append('tallasDisponibles	', productoTallasDisponibles);
     formData.append('descripcion', productoDescripcion);
-  
+
     // Agregar la imagen principal al FormData
     formData.append('imagenPrincipal', this.imagenPrincipal); // El nombre debe coincidir con el esperado en el backend
-  
+
     // Verificar y agregar las imágenes adicionales al FormData
     if (this.imagenesAdicionales && this.imagenesAdicionales.length > 0) {
       this.imagenesAdicionales.forEach((imagen, index) => {
         formData.append(`otrasImagenes`, imagen); // Ajusta el nombre según lo que el backend espera
       });
     }
-  
+
     // Mostrar el contenido de FormData (solo para depuración; los archivos no se imprimen directamente)
     console.log('Contenido del FormData:');
     formData.forEach((value, key) => {
@@ -183,7 +156,7 @@ export class RegistoProductoComponent implements OnInit {
         console.log(`${key}:`, value);
       }
     });
-  
+
     // Enviar el FormData al servicio del backend
     this.productoService.crearProducto(formData).subscribe(
       (response) => {
@@ -195,5 +168,5 @@ export class RegistoProductoComponent implements OnInit {
       }
     );
   }
-  
-}  
+
+}
