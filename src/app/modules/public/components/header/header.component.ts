@@ -310,6 +310,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.router.navigate(
       route.includes('Sign-in') ||
         route.includes('Sign-up') ||
+        route.includes('forgot-password') ||
         route.includes('Activar-cuenta')
         ? ['/auth', route]
         : ['/public', route]

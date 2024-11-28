@@ -9,6 +9,8 @@ import { SignUpView } from '../auth/view/sign-up/sign-up.view';
 import { ConfigView } from './views/config/config.view';
 import { DetailsProductView } from './views/details-product/details-product.view';
 import { PerfilView } from './views/perfil/perfil.view';
+import { TerminosComponent } from './views/terminos/terminos.component';
+import { PoliticasComponent } from './views/politicas/politicas.component';
 
 const routes: Routes = [
   {
@@ -51,6 +53,32 @@ const routes: Routes = [
             {
               label: 'AcercaDe',
               path: '/public/AcercaDe',
+            },
+          ],
+        },
+      },
+      {
+        path: 'terminos',
+        component: TerminosComponent,
+        data: {
+          title: 'terminos',
+          breadcrumb: [
+            {
+              label: 'terminos',
+              path: '/public/terminos',
+            },
+          ],
+        },
+      },
+      {
+        path: 'politicas',
+        component: PoliticasComponent,
+        data: {
+          title: 'politicas',
+          breadcrumb: [
+            {
+              label: 'politicas',
+              path: '/public/politicas',
             },
           ],
         },

@@ -1,1 +1,16 @@
-<p>politicas works!</p>
+<ng-container *ngIf="politicas; else elseTemplate">
+    <div class="article-container">
+      <div class="card">
+        <h1 class="title">{{ politicas.titulo }}</h1>
+        <p class="subtitle">{{ politicas.contenido }}</p>
+        <div class="meta-info">
+          <p>Versión: <span class="version">{{ politicas.version }}</span></p>
+          <p>Estado: <span class="status">{{ politicas.estado }}</span></p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <p class="fallback-message">Consulte con el administrador para más información.</p>
+  </ng-template>
+  

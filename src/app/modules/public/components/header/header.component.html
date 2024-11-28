@@ -43,7 +43,7 @@ header="Header"
     <img src="{{logo}}" alt="Logo de la empresa" class="logo-atelier" />
 
     <h2>Iniciar sesión</h2>
-    <p class="register-text">¿No tienes cuenta? <a redirectTo="/Sign-up">Regístrate</a></p>
+    <p class="register-text">¿No tienes cuenta? <a (click)="redirectTo('Sign-up')">Regístrate</a></p>
     <form  class="form-box" [formGroup]="loginForm" (ngSubmit)="login()" method="post">
       <div class="input-group">
         <label for="email">Email</label>
@@ -102,7 +102,12 @@ header="Header"
           </p-password>
         </p-inputGroup>
       </div>
-      <p class="forgot-password"><a redirectTo="/forgot-password">¿Olvidaste tu contraseña?</a></p>
+      <p class="forgot-password">
+        <a (click)="redirectTo('forgot-password')"> 
+          ¿Olvidaste tu contraseña?
+
+        </a>
+      </p>
       <div
       id="captcha-container"
       class="g-recaptcha"
@@ -123,9 +128,10 @@ header="Header"
       </div> -->
     </form>
     <div class="footer-links">
-      <a href="#">Términos y Condiciones</a> |
-      <a href="#">Política de Privacidad</a> |
-      <a href="#">Preguntas Frecuentes</a>
+      <!-- <a redirecto("terminos")>Términos y Condiciones</a> |//- -->
+      <a (click)="redirectTo('terminos')">Términos y Condiciones</a> |//+
+      <a (click)="redirectTo('politicas')">Política de Privacidad</a> |
+      <!-- <a href="#">Preguntas Frecuentes</a> -->
     </div>
   </div>
 </div>

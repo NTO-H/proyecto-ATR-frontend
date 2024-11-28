@@ -1,1 +1,11 @@
-<p>terminos works!</p>
+<div *ngIf="terminos && terminos.length > 0; else noData">
+    <ul>
+      <li *ngFor="let termino of terminos">
+        {{ termino.titulo }} - {{ termino.contenido }}
+      </li>
+    </ul>
+  </div>
+  <ng-template #noData>
+    <p>No se encontraron términos disponibles.</p>
+  </ng-template>
+  
