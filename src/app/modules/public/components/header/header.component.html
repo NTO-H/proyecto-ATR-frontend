@@ -22,10 +22,7 @@
   [text]="'Espere un momento...'"
   [textColor]="'#333b43'"
   [textPosition]="'center-center'"
-  
 ></ngx-ui-loader>
-
-
 
 <!-- <p-dialog 
 header="Header" 
@@ -34,110 +31,131 @@ header="Header"
 [style]="{ width: '50rem' }" 
 [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
 [maximizable]="true"> -->
-<p-dialog 
-[modal]="true" 
-[(visible)]="visible" 
-[style]="{ width: '30rem' }" >
-<div class="login-container">
-  <div class="login-card">
-    <img src="{{logo}}" alt="Logo de la empresa" class="logo-atelier" />
+<p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }">
+  <div class="login-container">
+    <div class="login-card">
+      <img src="{{ logo }}" alt="Logo de la empresa" class="logo-atelier" />
 
-    <h2>Iniciar sesión</h2>
-    <p class="register-text">¿No tienes cuenta? <a (click)="redirectTo('Sign-up')">Regístrate</a></p>
-    <form  class="form-box" [formGroup]="loginForm" (ngSubmit)="login()" method="post">
-      <div class="input-group">
-        <label for="email">Email</label>
-      <p-inputGroup>
-<!--         
+      <h2>Iniciar sesión</h2>
+      <p class="register-text">
+        ¿No tienes cuenta? <a (click)="redirectTo('Sign-up')">Regístrate</a>
+      </p>
+      <form
+        class="form-box"
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        method="post"
+      >
+        <div class="input-group">
+          <label for="email">Email</label>
+          <p-inputGroup>
+            <!--         
         <p-inputGroupAddon>
           <i class="pi pi-envelope"></i>
         </p-inputGroupAddon> -->
-        <input
-          pInputText
-          type="text"
-          placeholder="Introduce tu correo electrónico"
-          formControlName="email"
-          id="email"
-          class="input-login"
-          required
-          [disabled]="isLocked"
-        />
-      </p-inputGroup>
-      </div>
-      <div class="input-group">
-        <label for="password">Contraseña</label>
-        <p-inputGroup class="input-group">
-          <p-password
+            <input
+              pInputText
+              type="text"
+              placeholder="Introduce tu correo electrónico"
+              formControlName="email"
+              id="email"
+              class="input-login"
+              required
+              [pattern]="'^[a-zA-Z0-9][\\w.-]*@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'"
+              [disabled]="isLocked"
+            />
+            <!-- Mensaje de error -->
+          </p-inputGroup>
+          <div *ngIf="email?.invalid && email?.touched" class="error">
+            <small *ngIf="email?.errors?.['required']"
+              >El correo es obligatorio.</small
+            >
+            <small *ngIf="email?.errors?.['pattern']"
+              >Introduce un correo válido.</small
+            >
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <p-inputGroup class="input-group">
+            <p-password
             formControlName="password"
             [toggleMask]="true"
-            promptLabel="Ingresa tu contraseña"
-            weakLabel="Muy simple"
-            strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-            mediumRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$"
-            inputStyleClass="input-login"
-            mediumLabel="Mediana mente segura"
-            strongLabel="Contraseña segura"
-            placeholder="Contraseña segura"
-          >
-            <ng-template pTemplate="header">
-              <h6>Escoge una contraseña</h6>
-            </ng-template>
-            <ng-template pTemplate="footer">
-              <p-divider></p-divider>
-              <p>Sugerencias</p>
-              <ul>
-                <li [ngClass]="{'hidden': hasLowercase}">
-                  Al menos una letra minúscula
-                </li>
-                <li [ngClass]="{'hidden': hasUppercase}">
-                  Al menos una letra mayúscula
-                </li>
-                <li [ngClass]="{'hidden': hasNumber}">Al menos un número</li>
-                <li [ngClass]="{'hidden': hasSpecialChar}">
-                  Al menos un carácter especial
-                </li>
-                <li [ngClass]="{'hidden': hasMinLength}">Mínimo 8 caracteres</li>
-              </ul>
-            </ng-template>
-          </p-password>
-        </p-inputGroup>
-      </div>
-      <p class="forgot-password">
-        <a (click)="redirectTo('forgot-password')"> 
-          ¿Olvidaste tu contraseña?
+              promptLabel="Ingresa tu contraseña"
+              weakLabel="Muy simple"
+              strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+              mediumRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$"
+              inputStyleClass="input-login"
+              mediumLabel="Mediana mente segura"
+              strongLabel="Contraseña segura"
+              placeholder="Contraseña segura"
+              [disabled]="!loginForm.get('email')">
+              <ng-template pTemplate="header">
+                <h6>Escoge una contraseña</h6>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <p-divider></p-divider>
+                <p>Sugerencias</p>
+                <ul>
+                  <li [ngClass]="{ hidden: hasLowercase }">
+                    Al menos una letra minúscula
+                  </li>
+                  <li [ngClass]="{ hidden: hasUppercase }">
+                    Al menos una letra mayúscula
+                  </li>
+                  <li [ngClass]="{ hidden: hasNumber }">Al menos un número</li>
+                  <li [ngClass]="{ hidden: hasSpecialChar }">
+                    Al menos un carácter especial
+                  </li>
+                  <li [ngClass]="{ hidden: hasMinLength }">
+                    Mínimo 8 caracteres
+                  </li>
+                </ul>
+              </ng-template>
+            </p-password>
+          </p-inputGroup>
+        </div>
+        <p class="forgot-password">
+          <a (click)="redirectTo('forgot-password')">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </p>
+        <div
+          id="captcha-container"
+          class="g-recaptcha"
+          data-sitekey="6Ld8joAqAAAAABuc_VUhgDt7bzSOYAr7whD6WeNI"
+          data-theme="light"
+        ></div>
+        <div *ngIf="!captchaToken" class="error">
+          <small>Resuelva el captcha para continuar con el proceso de inicio de sesión.</small>
+        </div>
+        
+<!-- <div *ngIf="validateCaptcha()" class="error">
 
-        </a>
-      </p>
-      <div
-      id="captcha-container"
-      class="g-recaptcha"
-      data-sitekey="6Ld8joAqAAAAABuc_VUhgDt7bzSOYAr7whD6WeNI"
-      data-theme="light"
-    ></div>
-    <!-- <div class="mt-3" id="cloudflare-captcha-signin"></div> -->
-    <div
-      *ngIf="errorMessage && errorMessage.includes('Contraseña')"
-      class="errorMenssage"
-    >
-    {{ errorMessage }}
-  </div>
-  <button type="submit" class="btn login-btn">Iniciar sesión</button>
-      <!-- <div class="social-login">
+  <small>Resuelva el captcha para continuar con el proceso de inicio de sesión.</small>
+</div> -->
+        <!-- <div class="mt-3" id="cloudflare-captcha-signin"></div> -->
+        <span
+          *ngIf="errorMessage && errorMessage.includes('Contraseña')"
+          class="error"
+        >
+          {{ errorMessage }}
+        </span>
+        <button type="submit" class="btn login-btn">Iniciar sesión</button>
+        <!-- <div class="social-login">
         <button class="btn google-btn">Ingresar con Google</button>
         <button class="btn facebook-btn">Ingresar con Facebook</button>
       </div> -->
-    </form>
-    <div class="footer-links">
-      <!-- <a redirecto("terminos")>Términos y Condiciones</a> |//- -->
-      <a (click)="redirectTo('terminos')">Términos y Condiciones</a> |//+
-      <a (click)="redirectTo('politicas')">Política de Privacidad</a> |
-      <!-- <a href="#">Preguntas Frecuentes</a> -->
+      </form>
+      <div class="footer-links">
+        <!-- <a redirecto("terminos")>Términos y Condiciones</a> |//- -->
+        <a (click)="redirectTo('terminos')">Términos y Condiciones</a> |//+
+        <a (click)="redirectTo('politicas')">Política de Privacidad</a> |
+        <!-- <a href="#">Preguntas Frecuentes</a> -->
+      </div>
     </div>
   </div>
-</div>
 </p-dialog>
-
-
 
 <!-- <body> -->
 <header class="app-header" [ngClass]="{ scrolled: isScrolled }">
@@ -191,7 +209,6 @@ header="Header"
       <li><a (click)="redirectTo('AcercaDe')"> Acerca de nosotros </a></li>
       <li><a (click)="redirectTo('AcercaDe')"> Historial </a></li>
     </ul>
-    
 
     <ul class="nav-accion">
       <li>
@@ -213,7 +230,7 @@ header="Header"
       </li>
       <li class="IsMobile" *ngIf="!isMobile">
         <a tabindex="0" class="nav-icon" (click)="openModal()">
-        <!-- <a tabindex="0" class="nav-icon" (click)="togglePopup()"> -->
+          <!-- <a tabindex="0" class="nav-icon" (click)="togglePopup()"> -->
           <i class="fa-regular fa-user"></i>
           <ul class="muestra-opciones-user" *ngIf="popupVisible">
             <li
@@ -283,7 +300,7 @@ header="Header"
       </li>
     </ul>
   </div>
-  
+
   <!-- Mango para redimensionar -->
 </p-sidebar>
 

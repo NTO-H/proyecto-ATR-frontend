@@ -33,15 +33,6 @@ const routes: Routes = [
               path: '/public/home',
             },
           ],
-
-          // data: {
-          //   title: 'Home',
-          //   breadcrumb: [
-          //     {
-          //       label: 'Home',
-          //       path: '/public/home',
-          //     },
-          //   ],
         },
       },
       {

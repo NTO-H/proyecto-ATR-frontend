@@ -75,7 +75,7 @@ export class SignInView implements OnInit {
     this.robot = true;
     this.presionado = false;
     this.checkLockState();
-    this.traerDatos();
+    // this.traerDatos();
     this.loadCaptchaScript();
     this.getCaptchaToken();
   }

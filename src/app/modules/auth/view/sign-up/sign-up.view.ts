@@ -85,7 +85,10 @@ export class SignUpView implements OnInit, AfterViewInit {
     // Inicializar el formulario de datos básicos
     this.datosBasicosForm = this.fb.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', Validators.required,Validators.pattern(
+        // Expresión regular para formato de correo
+        /^[a-zA-Z][\w.-]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/
+      )],
       telefono: ['', Validators.required],
     });
 
@@ -296,7 +299,9 @@ export class SignUpView implements OnInit, AfterViewInit {
       console.log('Datos confidenciales inválidos');
     }
   }
-
+  get email() {
+    return this.datosBasicosForm.get('email');
+  }
   // // Registrar cliente
   registroCliente(): void {
     if (this.politicasForm.invalid) {
@@ -335,11 +340,11 @@ export class SignUpView implements OnInit, AfterViewInit {
 
           Swal.fire(
             'Bienvenido a la tienda en linea de ATELIER',
-            'Se ha activado tu cuenta, ya puedes continuar.',
+            'Se ha registrado tu cuenta, ya puedes continuar.',
             'info'
           ).then(() => {
             // Redirigir al login después de cerrar el modal de SweetAlert
-            this.router.navigate(['/auth/Sign-in']);
+            this.router.navigate(['/public/home']);
           });
         },
         (error) => {

@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private renderer: Renderer2, 
     private sessionService: SessionService,
-    // private ngxService: NgxUiLoaderService,
   ) {
     this.fechaSeleccionada = new Date();
     this.fecha = this.obtenerFechaYYYYMMDD();

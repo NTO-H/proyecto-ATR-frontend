@@ -78,9 +78,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', Validators.required,Validators.pattern(
+        // Expresión regular para formato de correo
+        /^[a-zA-Z][\w.-]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/
+      )],
       password: ['', Validators.required],
     });
+  }
+  
+  // Método para acceder al control del email
+  get email() {
+    return this.loginForm.get('email');
   }
   // constructor(
     // private router:  Router,
@@ -320,7 +328,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
 
 
-
+  captchaToken: string | null = null;
   // 
 
 
@@ -493,16 +501,8 @@ inicia(){
 
 
   login(): void {
-    const captchaToken = this.validateCaptcha();
-    if (!captchaToken) {
-      Swal.fire({
-        title: 'Complete el capchat primero',
-        text: `Resuelva el captcha para continuar con el proceso de inicio de sesión`,
-        icon: 'info',
-        confirmButtonText: 'Entendido',
-      });
-      return;
-    }
+     this.captchaToken = this.validateCaptcha();
+    
     if (this.isLocked) {
       Swal.fire({
         title: 'Cuenta bloqueada',
@@ -535,8 +535,11 @@ inicia(){
 
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
+    // const captchaT = this.captchaToken;
+
+
     this.inicia();
-    this.signInService.signIn({ email, password, captchaToken }).subscribe(
+    this.signInService.signIn({ email, password,captchaToken: this.captchaToken}).subscribe(
       (response) => {
         if (response) {
           this.storageService.setToken(response.token);

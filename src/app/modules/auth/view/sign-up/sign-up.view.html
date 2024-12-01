@@ -61,17 +61,20 @@
 
             <label for="email">Correo Electrónico</label>
             <input
-              type="email"
               formControlName="email"
               placeholder="Introduce tu correo electrónico"
               required
+              [pattern]="'^[a-zA-Z0-9][\\w.-]*@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'"
+
             />
-            <span
-              *ngIf="datosBasicosForm.get('email')?.invalid && datosBasicosForm.get('email')?.touched"
-              class="text-danger"
-            >
-              El correo electrónico debe ser válido.
-            </span>
+            <div *ngIf="email?.invalid && email?.touched" class="error">
+              <small *ngIf="email?.errors?.['required']"
+                >El correo es obligatorio.</small
+              >
+              <small *ngIf="email?.errors?.['pattern']"
+                >Introduce un correo válido.</small
+              >
+            </div>
 
             <label for="tel">Número telefónico</label>
             <p-inputMask

@@ -50,7 +50,9 @@ export class RegistroView {
       this.hideSpinner();
     }, 3000);
   }
-
+  get email() {
+    return this.personalDataForm.get('email');
+  }
   hideSpinner() {
     this.isLoading = false;
     $('.ui.segment').modal('hide'); // Oculta el modal
@@ -71,9 +73,8 @@ export class RegistroView {
         '',
         [
           Validators.required,
-          Validators.pattern(
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // Regex para validar correos sin espacios y con formato válido
-          ),
+          Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+
         ],
       ],
       telefono: ['', [Validators.required]],
@@ -103,18 +104,18 @@ export class RegistroView {
     const usernameValue = this.personalDataForm.get('username')?.value || '';
     this.remainingChars = 15 - usernameValue.length;
   }
-  validateEmail() {
-    const emailControl = this.personalDataForm.get('email');
-    const emailValue = emailControl?.value || '';
+  // validateEmail() {
+  //   const emailControl = this.personalDataForm.get('email');
+  //   const emailValue = emailControl?.value || '';
 
-    if (/\s/.test(emailValue)) {
-      this.emailError = 'El correo no debe contener espacios.';
-    } else if (!emailControl?.valid && emailControl?.touched) {
-      this.emailError = 'El correo tiene un formato inválido.';
-    } else {
-      this.emailError = null;
-    }
-  }
+  //   if (/\s/.test(emailValue)) {
+  //     this.emailError = 'El correo no debe contener espacios.';
+  //   } else if (!emailControl?.valid && emailControl?.touched) {
+  //     this.emailError = 'El correo tiene un formato inválido.';
+  //   } else {
+  //     this.emailError = null;
+  //   }
+  // }
   // Generar código de verificación
   generateCode(option: string) {
     this.displayModal = false; // Cierra el modal principal

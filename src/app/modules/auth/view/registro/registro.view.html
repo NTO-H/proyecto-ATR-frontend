@@ -9,9 +9,6 @@
   <div class="spinner"></div>
 </div> -->
 
-
-
-
 <!-- Modal Principal -->
 <p-dialog
   [(visible)]="displayModal"
@@ -179,24 +176,19 @@
         <div class="form-group">
           <label for="email">Correo Electrónico</label>
           <input
-            type="email"
             placeholder="Correo Electrónico"
             id="email"
+            [pattern]="'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'"
             formControlName="email"
-            (input)="validateEmail()"
           />
-          <small
-            *ngIf="personalDataForm.get('email')?.hasError('required') && personalDataForm.get('email')?.touched"
-            class="error-text"
-          >
-            El correo es obligatorio.
-          </small>
-          <small
-            *ngIf="personalDataForm.get('email')?.hasError('pattern') && personalDataForm.get('email')?.touched"
-            class="error-text"
-          >
-            El formato del correo no es válido.
-          </small>
+          <div *ngIf="email?.invalid && email?.touched" class="error">
+            <small *ngIf="email?.errors?.['required']"
+              >El correo es obligatorio.</small
+            >
+            <small *ngIf="email?.errors?.['pattern']"
+              >Introduce un correo válido.</small
+            >
+          </div>
         </div>
 
         <!-- Campo de Teléfono -->
