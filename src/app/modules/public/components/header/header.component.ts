@@ -57,7 +57,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   defaultImageUrl: string =
     'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png';
   isDarkThemeOn = signal(false);
-
+  passwordStrengthClass: string = ''; // Clase CSS que se aplica dinámicamente
+  passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
+  
   darkMode = false;
   constructor(
     private msgs: mensageservice,
@@ -103,10 +105,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.visible = true;
     this.robot = true;
     this.presionado = false;
-    this.checkLockState();
-    this.traerDatos();
     this.loadCaptchaScript();
     this.getCaptchaToken();
+    this.checkLockState();
+    this.traerDatos();
+  }
+  closeModal() {
+    this.visible = false; // Cierra el modal
+    this.loginForm.reset(); // Limpia los campos del formulario
+    this.robot = false;
+    this.presionado = false;
+    this.captchaToken = null; // Limpia el token del captcha
   }
   // toggleDarkTheme(): void {
   //   document.body.classList.toggle('dark-theme');
@@ -132,7 +141,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-   
+   this.closeModal();
   
     // Verificar si el entorno tiene acceso a localStorage (es decir, que no está en SSR)
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
@@ -499,6 +508,63 @@ inicia(){
   }, 3000);
 }
 
+validacionesPassword = {
+  tieneMinuscula: false,
+  tieneMayuscula: false,
+  tieneNumero: false,
+  tieneSimbolo: false,
+  longitudMinima: false,
+  longitudMayor5: false,
+  tiene5CaracteresDiferentes: false,
+};
+passwordStrength: string = ''; // variable para almacenar la fuerza de la contraseña
+
+  verificarPassword() {
+    const password = this.loginForm.get('password')?.value || '';
+  
+    // Validaciones obligatorias
+    this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password); // Al menos una letra minúscula
+    this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password); // Al menos una letra mayúscula
+    this.validacionesPassword.tieneNumero = /\d/.test(password); // Al menos un número
+    this.validacionesPassword.tieneSimbolo = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password); // Al menos un símbolo
+    this.validacionesPassword.longitudMinima = password.length >= 15; // Longitud mínima requerida
+    this.validacionesPassword.longitudMayor5 = password.length > 5; // Más de 5 caracteres
+  
+    // Al menos 5 caracteres diferentes
+    const caracteresUnicos = new Set(password.split(''));
+    this.validacionesPassword.tiene5CaracteresDiferentes = caracteresUnicos.size >= 5;
+  
+    // Verificar que la contraseña cumpla con todos los criterios
+    const allValidations = [
+      this.validacionesPassword.tieneMinuscula,
+      this.validacionesPassword.tieneMayuscula,
+      this.validacionesPassword.tieneNumero,
+      this.validacionesPassword.tieneSimbolo,
+      this.validacionesPassword.longitudMinima,
+      this.validacionesPassword.longitudMayor5,
+      this.validacionesPassword.tiene5CaracteresDiferentes,
+    ];
+  
+    // Calcular cuántas validaciones se cumplen
+    const validacionesCumplidas = allValidations.filter((v) => v).length;
+  
+    // Asignar nivel de seguridad y mensaje
+    if (validacionesCumplidas === allValidations.length) {
+      this.passwordStrength = 'strong'; // Contraseña fuerte
+      this.passwordStrengthMessage = 'Contraseña segura y compleja';
+      this.passwordStrengthClass = 'strong';
+    } else if (validacionesCumplidas >= 5) {
+      this.passwordStrength = 'medium'; // Contraseña media
+      this.passwordStrengthMessage = 'Complejidad media';
+      this.passwordStrengthClass = 'medium';
+    } else {
+      this.passwordStrength = 'weak'; // Contraseña débil
+      this.passwordStrengthMessage = 'Demasiado simple';
+      this.passwordStrengthClass = 'weak';
+    }
+  
+    // this.verificarCoincidencia(); // Para verificar si la confirmación coincide con la contraseña
+  }
 
   login(): void {
      this.captchaToken = this.validateCaptcha();
@@ -536,20 +602,21 @@ inicia(){
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
     // const captchaT = this.captchaToken;
-
-
-    this.inicia();
+    
+    
     this.signInService.signIn({ email, password,captchaToken: this.captchaToken}).subscribe(
       (response) => {
         if (response) {
           this.storageService.setToken(response.token);
           const userData = this.sessionService.getUserData();
+          // window.location.reload();
           if (userData) {
             this.userROL = userData.rol;
             let navigateTo = '';
 
             if (this.userROL === ERol.ADMIN) {
               navigateTo = '/admin/home';
+              
             } else if (this.userROL === ERol.CLIENTE) {
               navigateTo = '/public/home';
             }
@@ -558,6 +625,10 @@ inicia(){
               if (navigateTo === '/public/home') {
                 window.location.reload();
               }
+             
+    this.inicia();
+    
+              window.location.reload();
             });
           }
         }

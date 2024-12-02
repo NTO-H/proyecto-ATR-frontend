@@ -11,6 +11,23 @@
 }
 
 
+
+.strong {
+  color: green;
+  font-weight: bold;
+}
+
+.medium {
+  color: orange;
+  font-weight: bold;
+}
+
+.weak {
+  color: red;
+  font-weight: bold;
+}
+
+
 .card {
   display: flex;
   flex-direction: row;
@@ -19,6 +36,12 @@
 label::after {
   content: "*";
   color: red;
+}
+
+
+.text-danger,.error-text,.error{
+  color: red;
+
 }
 
 .illustration {

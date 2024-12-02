@@ -232,63 +232,59 @@
         <div class="form-group">
           <label for="password">Contraseña</label>
           <p-password
+          [feedback]="false" 
             formControlName="password"
             (input)="verificarPassword()"
             placeholder="Introduce tu contraseña"
-            promptLabel="Elige una contraseña"
-            [weakLabel]="passwordStrength === 'weak' ? 'Demasiado simple' : ''"
-            [mediumLabel]="passwordStrength === 'medium' ? 'Complejidad media' : ''"
-            [strongLabel]="passwordStrength === 'strong' ? 'Contraseña segura y compleja' : ''"
             [toggleMask]="true"
-          >
-            <ng-template pTemplate="footer">
-              <p class="mt-2">Requisitos</p>
-              <ul class="passwordStrength" style="line-height: 1.5">
-                <li
-                  [ngClass]="{'text-success': validacionesPassword.tieneMinuscula}"
-                >
-                  <span *ngIf="validacionesPassword.tieneMinuscula">✅</span>
-                  <span *ngIf="!validacionesPassword.tieneMinuscula">❌</span>
-                  Al menos una letra minúscula
-                </li>
-                <li
-                  [ngClass]="{'text-success': validacionesPassword.tieneMayuscula}"
-                >
-                  <span *ngIf="validacionesPassword.tieneMayuscula">✅</span>
-                  <span *ngIf="!validacionesPassword.tieneMayuscula">❌</span>
-                  Al menos una letra mayúscula
-                </li>
-                <li
-                  [ngClass]="{'text-success': validacionesPassword.tieneNumero}"
-                >
-                  <span *ngIf="validacionesPassword.tieneNumero">✅</span>
-                  <span *ngIf="!validacionesPassword.tieneNumero">❌</span>
-                  Al menos un número
-                </li>
-                <li
-                  [ngClass]="{'text-success': validacionesPassword.tieneSimbolo}"
-                >
-                  <span *ngIf="validacionesPassword.tieneSimbolo">✅</span>
-                  <span *ngIf="!validacionesPassword.tieneSimbolo">❌</span>
-                  Al menos un símbolo (!#$%^&*)
-                </li>
-                <li
-                  [ngClass]="{'text-success': validacionesPassword.longitudMinima}"
-                >
-                  <span *ngIf="validacionesPassword.longitudMinima">✅</span>
-                  <span *ngIf="!validacionesPassword.longitudMinima">❌</span>
-                  Mínimo 12 caracteres
-                </li>
-                <li
-                  [ngClass]="{'text-success': validacionesPassword.longitudMayor5}"
-                >
-                  <span *ngIf="validacionesPassword.longitudMayor5">✅</span>
-                  <span *ngIf="!validacionesPassword.longitudMayor5">❌</span>
-                  Más de 5 caracteres
-                </li>
-              </ul>
-            </ng-template>
-          </p-password>
+            >
+            <!-- promptLabel="Elige una contraseña" -->
+            <!-- [weakLabel]="'Demasiado simple'"
+            [mediumLabel]="'Complejidad media'"
+            [strongLabel]="'Contraseña segura y compleja'" -->
+          <!-- <ng-template pTemplate="footer">
+            <p class="mt-2">Requisitos</p>
+            <ul class="passwordStrength" style="line-height: 1.5">
+              <li [ngClass]="{'text-success': validacionesPassword.tieneMinuscula}">
+                <span *ngIf="validacionesPassword.tieneMinuscula">✅</span>
+                <span *ngIf="!validacionesPassword.tieneMinuscula">❌</span>
+                Al menos una letra minúscula
+              </li>
+              <li [ngClass]="{'text-success': validacionesPassword.tieneMayuscula}">
+                <span *ngIf="validacionesPassword.tieneMayuscula">✅</span>
+                <span *ngIf="!validacionesPassword.tieneMayuscula">❌</span>
+                Al menos una letra mayúscula
+              </li>
+              <li [ngClass]="{'text-success': validacionesPassword.tieneNumero}">
+                <span *ngIf="validacionesPassword.tieneNumero">✅</span>
+                <span *ngIf="!validacionesPassword.tieneNumero">❌</span>
+                Al menos un número
+              </li>
+              <li [ngClass]="{'text-success': validacionesPassword.tieneSimbolo}">
+                <span *ngIf="validacionesPassword.tieneSimbolo">✅</span>
+                <span *ngIf="!validacionesPassword.tieneSimbolo">❌</span>
+                Al menos un símbolo (!#$%^&*)
+              </li>
+              <li [ngClass]="{'text-success': validacionesPassword.longitudMinima}">
+                <span *ngIf="validacionesPassword.longitudMinima">✅</span>
+                <span *ngIf="!validacionesPassword.longitudMinima">❌</span>
+                Mínimo 15 caracteres
+              </li>
+              <li [ngClass]="{'text-success': validacionesPassword.longitudMayor5}">
+                <span *ngIf="validacionesPassword.longitudMayor5">✅</span>
+                <span *ngIf="!validacionesPassword.longitudMayor5">❌</span>
+                Más de 5 caracteres
+              </li>
+              <li [ngClass]="{'text-success': validacionesPassword.tiene5CaracteresDiferentes}">
+                <span *ngIf="validacionesPassword.tiene5CaracteresDiferentes">✅</span>
+                <span *ngIf="!validacionesPassword.tiene5CaracteresDiferentes">❌</span>
+                Al menos 5 caracteres diferentes
+              </li>
+            </ul>
+          </ng-template> -->
+          
+        </p-password>
+        <span [ngClass]="passwordStrengthClass">{{ passwordStrengthMessage }}</span>
 
           <label for="confirmPassword">Confirma tu contraseña</label>
           <p-password

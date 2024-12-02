@@ -22,6 +22,9 @@ declare const $: any;
 })
 export class RegistroView {
   currentStep = 1;
+  passwordStrengthClass: string = ''; // Clase CSS que se aplica dinámicamente
+passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
+
   verificationCode: string = '';
   remainingChars: number = 15;
   emailError: string | null = null;
@@ -104,7 +107,7 @@ export class RegistroView {
     const usernameValue = this.personalDataForm.get('username')?.value || '';
     this.remainingChars = 15 - usernameValue.length;
   }
-  // validateEmail() {
+
   //   const emailControl = this.personalDataForm.get('email');
   //   const emailValue = emailControl?.value || '';
 
@@ -361,22 +364,25 @@ export class RegistroView {
     tieneSimbolo: false,
     longitudMinima: false,
     longitudMayor5: false,
+    tiene5CaracteresDiferentes: false,
   };
   coincidenPasswords = false;
-
   verificarPassword() {
     const password = this.credentialsForm.get('password')?.value || '';
-
-    // Validaciones
-    this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password);
-    this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password);
-    this.validacionesPassword.tieneNumero = /\d/.test(password);
-    this.validacionesPassword.tieneSimbolo =
-      /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
-    this.validacionesPassword.longitudMinima = password.length >= 12;
-    this.validacionesPassword.longitudMayor5 = password.length > 5;
-
-    // Verificar nivel de seguridad basado en TODAS las condiciones
+  
+    // Validaciones obligatorias
+    this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password); // Al menos una letra minúscula
+    this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password); // Al menos una letra mayúscula
+    this.validacionesPassword.tieneNumero = /\d/.test(password); // Al menos un número
+    this.validacionesPassword.tieneSimbolo = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password); // Al menos un símbolo
+    this.validacionesPassword.longitudMinima = password.length >= 15; // Longitud mínima requerida
+    this.validacionesPassword.longitudMayor5 = password.length > 5; // Más de 5 caracteres
+  
+    // Al menos 5 caracteres diferentes
+    const caracteresUnicos = new Set(password.split(''));
+    this.validacionesPassword.tiene5CaracteresDiferentes = caracteresUnicos.size >= 5;
+  
+    // Verificar que la contraseña cumpla con todos los criterios
     const allValidations = [
       this.validacionesPassword.tieneMinuscula,
       this.validacionesPassword.tieneMayuscula,
@@ -384,22 +390,31 @@ export class RegistroView {
       this.validacionesPassword.tieneSimbolo,
       this.validacionesPassword.longitudMinima,
       this.validacionesPassword.longitudMayor5,
+      this.validacionesPassword.tiene5CaracteresDiferentes,
     ];
-
-    // Calcular el número de validaciones cumplidas
-    const strength = allValidations.filter((v) => v).length;
-
-    // Asignar el nivel de seguridad basado en la cantidad de validaciones cumplidas
-    if (strength === allValidations.length) {
-      this.passwordStrength = 'strong'; // Contraseña fuerte si cumple con todo
-    } else if (strength >= 4) {
-      this.passwordStrength = 'medium'; // Contraseña media si cumple al menos 4
+  
+    // Calcular cuántas validaciones se cumplen
+    const validacionesCumplidas = allValidations.filter((v) => v).length;
+  
+    // Asignar nivel de seguridad y mensaje
+    if (validacionesCumplidas === allValidations.length) {
+      this.passwordStrength = 'strong'; // Contraseña fuerte
+      this.passwordStrengthMessage = 'Contraseña segura y compleja';
+      this.passwordStrengthClass = 'strong';
+    } else if (validacionesCumplidas >= 5) {
+      this.passwordStrength = 'medium'; // Contraseña media
+      this.passwordStrengthMessage = 'Complejidad media';
+      this.passwordStrengthClass = 'medium';
     } else {
-      this.passwordStrength = 'weak'; // Contraseña débil si cumple menos de 4
+      this.passwordStrength = 'weak'; // Contraseña débil
+      this.passwordStrengthMessage = 'Demasiado simple';
+      this.passwordStrengthClass = 'weak';
     }
-
-    this.verificarCoincidencia();
+  
+    this.verificarCoincidencia(); // Para verificar si la confirmación coincide con la contraseña
   }
+  
+  
 
   verificarCoincidencia() {
     const password = this.credentialsForm.get('password')?.value;
@@ -450,7 +465,7 @@ export class RegistroView {
             'info'
           ).then(() => {
             // Redirigir al login después de cerrar el modal de SweetAlert
-            this.router.navigate(['/auth/Sign-in']);
+            this.router.navigate(['/public/home']);
           });
         },
         (error) => {
@@ -557,29 +572,5 @@ export class RegistroView {
     }
   }
 
-  // Método ficticio para SMS como ejemplo
-  // resendCodeSMS() {
-  //   const number_to_send = this.personalDataForm.get('telefono')?.value;
-
-  //   this.mensageservice_.enviarTokenSMS(number_to_send).subscribe({
-  //     next: (response) => {
-  //       Swal.fire({
-  //         title: 'Verificación',
-  //         text: 'El código de verificación ha sido enviado por SMS.',
-  //         icon: 'info',
-  //         confirmButtonText: 'Ok',
-  //       });
-
-  //       this.displaySmsModal = true; // Muestra otro modal si se usa SMS
-  //     },
-  //     error: () => {
-  //       Swal.fire({
-  //         title: 'Error',
-  //         text: 'No se pudo enviar el código por SMS. Por favor, intente nuevamente.',
-  //         icon: 'error',
-  //         confirmButtonText: 'Ok',
-  //       });
-  //     },
-  //   });
-  // }
+ 
 }
