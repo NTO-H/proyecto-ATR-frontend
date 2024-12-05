@@ -11,29 +11,28 @@ import { StorageService } from '../../../../shared/services/storage.service';
 })
 export class PerfilAdministradorComponent {
   data: any = {};
-
   id!: string;
   editMode: boolean = false;
   profileImg: string | null = null; // Imagen por defecto es null
 
-
-  ngOnInit() {
-    this.getData();
-  }
   constructor(
-    // private ngxService: NgxUiLoaderService,
     private uss: UsuarioService,
     private storageService: StorageService,
     private sessionService: SessionService,
     private router: Router
   ) {}
+
+  ngOnInit() {
+    this.getData();
+  }
+
   toggleEditMode(): void {
     this.editMode = !this.editMode;
-    // Puedes agregar lógica para guardar datos aquí
     if (!this.editMode) {
-      console.log('Datos guardados:', this.data);
+      console.log('Saliendo del modo edición, datos guardados:', this.data);
     }
   }
+
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
@@ -44,12 +43,13 @@ export class PerfilAdministradorComponent {
       reader.readAsDataURL(input.files[0]);
     }
   }
+
   getInitials(name: string | null | undefined): string {
     if (!name) {
       return 'NA'; // Valor por defecto si no hay nombre
     }
     return name
-      .split('')
+      .split(' ')
       .map((word) => word.charAt(0))
       .join('')
       .substring(0, 2)
@@ -57,7 +57,6 @@ export class PerfilAdministradorComponent {
   }
 
   getData(): void {
-    // this.ngxService.start();
     const userData = this.sessionService.getId();
     console.log('userData=>', userData);
     if (userData) {
@@ -66,14 +65,34 @@ export class PerfilAdministradorComponent {
       if (this.id) {
         this.uss.detalleUsuarioById(this.id).subscribe((data) => {
           this.data = data;
+          this.profileImg = data.profileImg || null; // Carga la imagen si existe
         });
       }
     }
-    
-  }
-  logout() {
-    this.storageService.removeItem('token');
-    this.router.navigate(["/auth/login"]);
   }
 
+  saveChanges(): void {
+    const updatedProfile = {
+      ...this.data,
+      profileImg: this.profileImg, // Agrega la imagen al perfil
+    };
+
+    // Llama al servicio para guardar los cambios
+    this.uss.actualizarUsuario(this.id, updatedProfile).subscribe(
+      (response) => {
+        console.log('Perfil actualizado:', response);
+        alert('Perfil actualizado correctamente.');
+        this.toggleEditMode(); // Salir del modo de edición
+      },
+      (error) => {
+        console.error('Error al actualizar el perfil:', error);
+        alert('Hubo un problema al actualizar el perfil.');
+      }
+    );
+  }
+
+  logout(): void {
+    this.storageService.removeItem('token');
+    this.router.navigate(['/auth/login']);
+  }
 }

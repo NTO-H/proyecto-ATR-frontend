@@ -127,44 +127,44 @@ export class RecuperarPasswordView {
     );
   }
 
-  enviarRespuesta() {
-    this.esFrmPregunta = false;
-    this.esFrmResetPassword = true;
+  // enviarRespuesta() {
+  //   this.esFrmPregunta = false;
+  //   this.esFrmResetPassword = true;
 
-    const pregunta = this.frmPregunta.get('pregunta')?.value;
-    const respuesta = this.frmPregunta.value.respuesta;
+  //   const pregunta = this.frmPregunta.get('pregunta')?.value;
+  //   const respuesta = this.frmPregunta.value.respuesta;
 
-    console.log('respuesta=>', respuesta);
-    console.log('pregunta=>', pregunta);
+  //   console.log('respuesta=>', respuesta);
+  //   console.log('pregunta=>', pregunta);
 
-    if (pregunta == '' || respuesta == '') {
-      Swal.fire('Error', 'Por favor selecciona una pregunta', 'error');
+  //   if (pregunta == '' || respuesta == '') {
+  //     Swal.fire('Error', 'Por favor selecciona una pregunta', 'error');
 
-      this.esFrmPregunta = true;
-      // this.esFrmResetPassword = false;
-      return; // No permitir enviar el formulario si no se ha seleccionado una pregunta
-    }
+  //     this.esFrmPregunta = true;
+  //     // this.esFrmResetPassword = false;
+  //     return; // No permitir enviar el formulario si no se ha seleccionado una pregunta
+  //   }
 
-    this.usuarioService.enviarDatos(pregunta, respuesta).subscribe(
-      (response) => {
-        console.log(response);
-        if (response) {
-          this.esFrmPregunta = false;
-          this.toastr.success('ya puedes actualizar tu password');
+  //   this.usuarioService.enviarDatos(pregunta, respuesta).subscribe(
+  //     (response) => {
+  //       console.log(response);
+  //       if (response) {
+  //         this.esFrmPregunta = false;
+  //         this.toastr.success('ya puedes actualizar tu password');
 
-          this.esFrmResetPassword = true;
-        } else {
-          this.esFrmCorreo = false;
-          this.toastr.error('El correo no fue encontrado', 'Error');
-          this.esfrmVerficacion = true;
-        }
-      },
-      (error) => {
-        console.error('No se encontró el correo:', error);
-        this.toastr.error('No se encontró el correo', 'Error');
-      }
-    );
-  }
+  //         this.esFrmResetPassword = true;
+  //       } else {
+  //         this.esFrmCorreo = false;
+  //         this.toastr.error('El correo no fue encontrado', 'Error');
+  //         this.esfrmVerficacion = true;
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('No se encontró el correo:', error);
+  //       this.toastr.error('No se encontró el correo', 'Error');
+  //     }
+  //   );
+  // }
 
   // comparacion de token en el usuario
   verficarCodigo() {

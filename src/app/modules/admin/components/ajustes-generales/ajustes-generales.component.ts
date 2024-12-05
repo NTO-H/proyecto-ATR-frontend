@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
 import Swal from 'sweetalert2';
 import { error } from 'node:console';
@@ -20,7 +20,7 @@ interface IconOption {
   templateUrl: './ajustes-generales.component.html',
   styleUrls: ['./ajustes-generales.component.scss'],
 })
-export class AjustesGeneralesComponent {
+export class AjustesGeneralesComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef; // Referencia al input de archivo
   logoUrl: string | ArrayBuffer | null = null;
   empresa = {
@@ -67,16 +67,29 @@ export class AjustesGeneralesComponent {
   removeRed(_id: any, id: number) {
     this.datosEmpresaService.eliminarRedSocial(_id).subscribe((respuesta) => {
       console.log(respuesta);
+      this.traerDatos();
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Configuraciones actualizadas',
+        text: 'Red social eliminado con exito',
+      });
     });
 
     this.redesSociales.splice(id, 1);
   }
   saveRed(id: number) {
-    const red: RedSocial = this.redesSociales[id];
+    const red = this.redesSociales[id];
     console.log('Guardando o actualizando la red social:', red);
     this.datosEmpresaService
       .guardarRedSocial(id, red)
       .subscribe((respuesta) => {
+        this.traerDatos();
+        Swal.fire({
+          icon: 'success',
+          title: 'Configuraciones guardadas',
+          text: 'Red social agregado con exito',
+        });
         console.log(respuesta);
       });
   }

@@ -17,7 +17,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class UsuarioService {
-  url = 'https://servidortropicalworld-1.onrender.com/usuarios/';
+  // url = 'https://servidortropicalworld-1.onrender.com/usuarios/';
 
   constructor(private http: HttpClient) {}
 
@@ -72,14 +72,27 @@ export class UsuarioService {
     );
   }
 
-  enviarDatos(pregunta: string, respuesta: string): Observable<any> {
-    return this.http.post<boolean>(this.url + 'respuesta', {
-      pregunta,
-      respuesta,
-    });
-  }
+  // enviarDatos(pregunta: string, respuesta: string): Observable<any> {
+  //   return this.http.post<boolean>(this.url + 'respuesta', {
+  //     pregunta,
+  //     respuesta,
+  //   });
+  // }
 
   actualizaPasswordxCorreo(
+    email: string,
+    nueva: string
+  ): Observable<any> {
+    return this.http.put<boolean>(
+      environment.api + '/Empresa/editarPerfilAdministrador',
+      {
+        email,
+        nueva,
+      }
+    );
+  }
+
+  actualizarUsuario(
     email: string,
     nueva: string
   ): Observable<any> {
@@ -92,20 +105,20 @@ export class UsuarioService {
     );
   }
 
-  actualizaPasswordxPregunta(
-    pregunta: string,
-    respuesta: string,
-    nueva: string
-  ): Observable<any> {
-    return this.http.put<boolean>(this.url + 'actualizaxPregunta', {
-      pregunta,
-      respuesta,
-      nueva,
-    });
-  }
-  actualizarRol(id: string, rol: string): Observable<any> {
-    return this.http.put<any>(`${this.url}/actualizaRol/${id}/`, { rol });
-  }
+  // actualizaPasswordxPregunta(
+  //   pregunta: string,
+  //   respuesta: string,
+  //   nueva: string
+  // ): Observable<any> {
+  //   return this.http.put<boolean>(this.url + 'actualizaxPregunta', {
+  //     pregunta,
+  //     respuesta,
+  //     nueva,
+  //   });
+  // }
+  // actualizarRol(id: string, rol: string): Observable<any> {
+  //   return this.http.put<any>(`${this.url}/actualizaRol/${id}/`, { rol });
+  // }
 
   eliminarUsuario(id: string): Observable<any> {
     return this.http.delete(environment.api+'/usuarios/' + id);
@@ -125,17 +138,17 @@ export class UsuarioService {
 
   // }
 
-  getPreguntas(): Observable<any> {
-    return this.http.get<any>(`${this.url}getPreguntasSecretas`);
-  }
+  // getPreguntas(): Observable<any> {
+  //   return this.http.get<any>(`${this.url}getPreguntasSecretas`);
+  // }
 
   detalleUsuarioById(id: string): Observable<any> {
     //return this.http.get(`${this.apiUrl}/${id}`);
     return this.http.get(`${environment.api}/usuarios/` + id);
   }
 
-  buscaUsuarioByCorreo(correo: string): Observable<any> {
-    return this.http.get(`${this.url}buscaUsuarioByCorreo/${correo}`);
-    // http://localhost:4000/usuarios/buscaUsuarioByCorreo/gabo@gmail.com
-  }
+  // buscaUsuarioByCorreo(correo: string): Observable<any> {
+  //   return this.http.get(`${this.url}buscaUsuarioByCorreo/${correo}`);
+  //   // http://localhost:4000/usuarios/buscaUsuarioByCorreo/gabo@gmail.com
+  // }
 }

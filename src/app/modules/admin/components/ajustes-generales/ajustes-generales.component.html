@@ -4,13 +4,13 @@
     #empresaForm="ngForm"
     class="ajustes-generales-form"
   >
-    <h2 class="form-title">Ajustes Generales</h2>
+    <!-- <h2 class="form-title">Ajustes Generales</h2> -->
 
     <div class="table">
       <div class="table">
         <div class="table-row">
           <div class="table-cell">
-            <label for="logo">Logo</label>
+            <label for="logo">Logo adicional de la empresa</label>
             <p-avatar
               *ngIf="profileImg"
               [image]="profileImg"
@@ -103,7 +103,7 @@
 
       <div class="table-row">
         <div class="table-cell">
-          <label for="slogan">Slogan</label>
+          <label for="slogan">Slogan de la empresa</label>
           <input
             type="text"
             id="slogan"
@@ -202,9 +202,9 @@
                 >Formato de correo electrónico no válido.</span
               >
             </div>
-            <button type="button" (click)="addRed()" class="btn agregar">
+            <!-- <button type="button" (click)="addRed()" class="btn agregar">
               Agregar Red Social
-            </button>
+            </button> -->
           </div>
         </div>
 
