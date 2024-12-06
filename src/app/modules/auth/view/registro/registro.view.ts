@@ -71,7 +71,7 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
     private ngxService: NgxUiLoaderService
   ) {
     this.personalDataForm = this.fb.group({
-      username: ['', [Validators.required, Validators.maxLength(15)]],
+      username: ['', [Validators.required, Validators.minLength(8),  Validators.maxLength(20)]],
       email: [
         '',
         [

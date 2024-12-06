@@ -1,58 +1,39 @@
-<!-- <button routerLink="/public/home" class="go-back">
-    <i class="btn-atras fas fa-chevron-left"></i> Ir atrás
-  </button> -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  <ngx-ui-loader
-  [bgsOpacity]="0.5"
-  [bgsColor]="'#41464e'"
-  [bgsPosition]="'bottom-right'"
-  [bgsSize]="20"
-  [bgsType]="'wandering-cubes'"
- 
-  [fgsColor]="'#323343'"
-  [fgsPosition]="'center-center'"
-  [fgsSize]="70"
-  [fgsType]="'wandering-cubes'"
-  [gap]="25"
-  [logoPosition]="'center-center'"
-  [logoSize]="100"
-  logoUrl="https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png"
-  masterLoaderId="'master'"
-  [overlayBorderRadius]="'0'"
-  [overlayColor]="'#fbfaf8'"
-  [pbColor]="'#5F6467FF'"
-  [pbDirection]="'ltr'"
-  [pbThickness]="3"
-  [hasProgressBar]="true"
-  [text]="'Espere un momento...'"
-  [textColor]="'#333b43'"
-  [textPosition]="'center-center'"
-  
-></ngx-ui-loader>
-<form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="space-y-6">
-  <div class="text-center">
-    <div class="text-xl font-semibold">{{ nombreEmpresa }}</div>
+<form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
+  <div class="item">
+    <div class="nombre-empresa">
+      <h1>{{nombreEmpresa}}</h1>
+    </div>
 
-    <div class="text-center mb-6">
-      <p class="text-gray-500 mt-2">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat suscipit amet recusandae beatae cumque consectetur magnam aperiam maiores ratione.
+    <div class="logo">
+      <img src="{{logo}}" alt="Logo de la empresa" />
+    </div>
+    <div class="text-item">
+      <h2>Bienvenido <br /><span>A la a nuestra a {{nombreEmpresa}}</span></h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
+        suscipit amet recusandae beatae cumque consectetur magnam aperiam
+        maiores ratione,
       </p>
-      <div class="mt-4 flex justify-center space-x-4">
-        <a href="#" class="text-blue-500"><i class="pi pi-facebook">facebook</i></a>
-        <a href="#" class="text-blue-300"><i class="pi pi-twitter">twitter</i></a>
-        <a href="#" class="text-pink-500"><i class="pi pi-instagram">instagram</i></a>
-        <a href="#" class="text-green-500"><i class="pi pi-whatsapp">whatsapp</i></a>
+      <div class="social-icon">
+        <a href="#"><i class="pi pi-facebook">facebook</i></a>
+        <a href="#"><i class="pi pi-twitter">twitter</i></a>
+        <a href="#"><i class="pi pi-instagram">instagram</i></a>
+        <a href="#"><i class="pi pi-whatsapp">whatsapp</i></a>
       </div>
     </div>
   </div>
 
   <div class="login-section">
-    <div class="form-box-titulo text-center mb-4">
-      <h1 class="text-3xl font-bold">Login</h1>
+    <div class="form-box-titulo">
+      <h1>Login</h1>
     </div>
 
     <div class="form-box mb-4">
-      <label for="email" class="block text-sm font-medium text-gray-700">Correo electronico</label>
+      <label for="email" class="block text-sm font-medium text-gray-700"
+        >Correo electronico</label
+      >
       <div class="relative">
         <input
           type="email"
@@ -65,40 +46,103 @@
         />
       </div>
     </div>
-    <div *ngIf="errorMessage && errorMessage.includes('correo')" class="text-red-500 text-sm mb-4">
+
+    <div
+      *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+      class="errorMenssage"
+    >
+      <small *ngIf="loginForm.get('email')?.hasError('required')"
+        >El correo es obligatorio.</small
+      >
+      <small *ngIf="loginForm.get('email')?.hasError('invalidEmail')"
+        >Formato de correo inválido.</small
+      >
+    </div>
+    <div
+      *ngIf="errorMessage && errorMessage.includes('correo')"
+      class="errorMenssage"
+    >
       {{ errorMessage }}
     </div>
 
-    <div class="form-box mb-4">
-      <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-      <div class="relative">
-        <input
-          type="password"
+    <div class="form-box">
+      <label for="pass" class="">Contraseña</label>
+      <p-inputGroup class="input-group">
+        <p-inputGroupAddon>
+          <i class="pi pi-lock"></i>
+          <!-- Ícono de candado para contraseña -->
+        </p-inputGroupAddon>
+        <p-password
           formControlName="password"
+          [toggleMask]="true"
+          promptLabel="Ingresa tu contraseña"
+          weakLabel="Muy simple"
+          strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+          mediumRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$"
+          inputStyleClass="input-login"
+          mediumLabel="Mediana mente segura"
+          strongLabel="Contraseña segura"
           placeholder="Contraseña segura"
-          class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        >
+          <ng-template pTemplate="header">
+            <h6>Escoge una contraseña</h6>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <p-divider></p-divider>
+            <p>Sugerencias</p>
+            <ul>
+              <li [ngClass]="{'hidden': hasLowercase}">
+                Al menos una letra minúscula
+              </li>
+              <li [ngClass]="{'hidden': hasUppercase}">
+                Al menos una letra mayúscula
+              </li>
+              <li [ngClass]="{'hidden': hasNumber}">Al menos un número</li>
+              <li [ngClass]="{'hidden': hasSpecialChar}">
+                Al menos un carácter especial
+              </li>
+              <li [ngClass]="{'hidden': hasMinLength}">Mínimo 8 caracteres</li>
+            </ul>
+          </ng-template>
+        </p-password>
+      </p-inputGroup>
+    </div>
+
+    <div
+      id="captcha-container"
+      class="g-recaptcha"
+      data-sitekey="6Ld8joAqAAAAABuc_VUhgDt7bzSOYAr7whD6WeNI"
+      data-theme="dark"
+    ></div>
+    <div
+      *ngIf="errorMessage && errorMessage.includes('Contraseña')"
+      class="errorMenssage"
+    >
+      {{ errorMessage }}
+    </div>
+    <div class="lock-message">
+      <!-- Mostrar mensaje de bloqueo si está bloqueado -->
+      <div *ngIf="isLocked" ngclass="lock-message">
+        Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en
+        {{ remainingTime }} segundos.
       </div>
     </div>
-    <div *ngIf="errorMessage && errorMessage.includes('Contraseña')" class="text-red-500 text-sm mb-4">
-      {{ errorMessage }}
-    </div>
-
-    <div class="mb-6" id="captcha-container" class="g-recaptcha" data-sitekey="6Ld8joAqAAAAABuc_VUhgDt7bzSOYAr7whD6WeNI" data-theme="dark"></div>
+    <!-- <div class="mt-3" id="cloudflare-captcha-signin"></div> -->
 
     <!-- Botón para iniciar sesión -->
-    <div class="form-box-button mb-6">
-      <button type="submit" class="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Iniciar Sesión</button>
+    <div class="form-box-button">
+      <p-button iconPos="right" label="Iniciar Sesión" type="submit">
+      </p-button>
     </div>
 
-    <div class="options text-center">
-      <a (click)="redirectTo('forgot-password')" class="text-blue-500 hover:underline">Olvidé mi contraseña</a>
-      <span class="mx-2">|</span>
-      <a routerLink="/auth/Sign-up" class="text-blue-500 hover:underline">Crear una cuenta nueva</a>
-    </div>
-
-    <div *ngIf="isLocked" class="mt-4 text-center text-red-500">
-      Cuenta bloqueada por múltiples intentos fallidos. Inténtalo de nuevo en {{ remainingTime }} segundos.
+    <!-- Opciones adicionales -->
+    <div class="options" [class.disabled]="isLocked">
+      <a (click)="redirectTo('forgot-password')" class="forgot-password"
+        >Olvidé mi contraseña</a
+      >
+      <a routerLink="/auth/Sign-up" class="create-account"
+        >Crear una cuenta nueva</a
+      >
     </div>
   </div>
 </form>

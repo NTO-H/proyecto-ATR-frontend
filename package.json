@@ -57,6 +57,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/jquery": "^3.5.32",
     "@types/node": "^18.18.0",
+    "@types/zxcvbn": "^4.4.5",
     "autoprefixer": "^10.4.20",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",

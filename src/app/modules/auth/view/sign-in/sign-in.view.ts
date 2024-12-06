@@ -1,5 +1,17 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  AfterViewInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SignInService } from '../../commons/services/sign-in.service';
@@ -12,10 +24,6 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
-
-//lo del capchat
-import { OnDestroy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
@@ -45,6 +53,8 @@ export class SignInView implements OnInit {
 
   nombreEmpresa: string = 'Atelier';
 
+  notifications: any; // Para mostrar notificaciones en la vista
+
   public robot!: boolean;
   public presionado!: boolean;
 
@@ -57,65 +67,50 @@ export class SignInView implements OnInit {
     private messageService: MessageService,
     private datosEmpresaService: DatosEmpresaService,
     private ngxService: NgxUiLoaderService,
-    //para lo del capchat
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, this.emailValidator()]],
       password: ['', Validators.required],
     });
   }
 
   ngOnDestroy(): void {
     this.timerSubscription?.unsubscribe();
+    if (typeof grecaptcha !== 'undefined') {
+      grecaptcha.reset(); // Resetea el CAPTCHA al destruir el componente
+    }
   }
 
   ngOnInit(): void {
     this.robot = true;
     this.presionado = false;
     this.checkLockState();
-    // this.traerDatos();
-    this.loadCaptchaScript();
-    this.getCaptchaToken();
+    this.traerDatos();
   }
-  getCaptchaToken(): string {
-    if (typeof grecaptcha !== 'undefined') {
-      const token = grecaptcha.getResponse();
-      if (!token) {
-        console.warn('Token no generado todavía.');
-      }
-      console.log(token);
-      return token;
-    } else {
-      console.error('reCAPTCHA no ha sido cargado.');
-      return '';
-    }
-  }
-  resetCaptcha(): void {
-    grecaptcha.reset();
-  }
-  loadCaptchaScript() {
-    if (typeof document === 'undefined') {
-      console.warn(
-        'No se puede cargar el script porque document no está definido.'
-      );
-      return;
-    }
 
-    const scriptId = 'recaptcha-script';
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script');
-      script.id = scriptId;
-      script.src = 'https://www.google.com/recaptcha/api.js';
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        console.log('reCAPTCHA script loaded');
-      };
-      document.body.appendChild(script);
+  emailValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+       const emailRegex =
+  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov|io|info|biz|mx|us|uk|es|fr|de|ca|au|jp|xyz|me|tech|co|tv|cloud|ai)$/;
+
+      const valid = emailRegex.test(control.value);
+      return valid ? null : { invalidEmail: true };
+    };
+  }
+
+  ngAfterViewInit() {
+    this.cargarWidgetRecaptcha();
+  }
+
+  cargarWidgetRecaptcha() {
+    if (typeof grecaptcha !== 'undefined') {
+      grecaptcha.render('captcha-container', {
+        sitekey: '6Ld8joAqAAAAABuc_VUhgDt7bzSOYAr7whD6WeNI',
+      });
     } else {
-      console.log('El script de reCAPTCHA ya está cargado.');
+      console.error('El cliente de reCAPTCHA no está disponible.');
     }
   }
 
@@ -180,7 +175,6 @@ export class SignInView implements OnInit {
   }
 
   redirectTo(route: string): void {
-    
     if (route === 'login') {
       this.router.navigate(['/auth/login']);
     } else {
@@ -188,39 +182,14 @@ export class SignInView implements OnInit {
     }
   }
 
-  recargarPagina() {
-    window.location.reload();
-  }
-
-  validateCaptcha() {
+  generaToken() {
     const token = grecaptcha.getResponse();
-
-    console.log('El token del capchat: ' + token);
+    console.log('Token generado: ' + token);
     return token ? token : null;
   }
-
-inicia(){
-  this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
-  // Stop the foreground loading after 5s
-  setTimeout(() => {
-    this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
-  }, 5000);
-
-  // OR
-  this.ngxService.startBackground("do-background-things");
-  // Do something here...
-  this.ngxService.stopBackground("do-background-things");
-
-  this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
-  // Stop the foreground loading after 5s
-  setTimeout(() => {
-    this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
-  }, 5000);
-}
-
-
   login(): void {
-    const captchaToken = this.validateCaptcha();
+    const captchaToken = this.generaToken();
+
     if (!captchaToken) {
       Swal.fire({
         title: 'Complete el capchat primero',
@@ -262,7 +231,7 @@ inicia(){
 
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    this.inicia();
+    // this.inicia();
     this.signInService.signIn({ email, password, captchaToken }).subscribe(
       (response) => {
         if (response) {
@@ -295,7 +264,7 @@ inicia(){
               text: 'El CAPTCHA ingresado es incorrecto. Por favor,recargue la pagina e inténtalo de nuevo.',
               icon: 'error',
               confirmButtonText: 'Ok',
-            })
+            });
             return;
           }
           if (err.error && err.error.message) {

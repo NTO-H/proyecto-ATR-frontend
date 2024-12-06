@@ -31,7 +31,12 @@ header="Header"
 [style]="{ width: '50rem' }" 
 [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
 [maximizable]="true"> -->
-<p-dialog    (onHide)="closeModal()" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }">
+<p-dialog
+  (onHide)="closeModal()"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '30rem' }"
+>
   <div class="login-container">
     <div class="login-card">
       <img src="{{ logo }}" alt="Logo de la empresa" class="logo-atelier" />
@@ -86,15 +91,14 @@ header="Header"
             mediumLabel="Mediana mente segura"
             inputStyleClass="input-login" -->
             <p-password
-            formControlName="password"
-            [toggleMask]="true"
-            [feedback]="false"
-            (input)="verificarPassword()"
-
-            inputStyleClass="input-login" 
+              formControlName="password"
+              [toggleMask]="true"
+              [feedback]="false"
+              (input)="verificarPassword()"
+              inputStyleClass="input-login"
               promptLabel="Ingresa tu contraseña"
-              [disabled]="!loginForm.get('email')">
-              
+              [disabled]="!loginForm.get('email')"
+            >
               <!-- <ng-template pTemplate="header">
                 <h6>Escoge una contraseña</h6>
               </ng-template>
@@ -118,9 +122,10 @@ header="Header"
                 </ul>
               </ng-template> -->
             </p-password>
-            
           </p-inputGroup>
-          <span [ngClass]="passwordStrengthClass">{{ passwordStrengthMessage }}</span>
+          <span [ngClass]="passwordStrengthClass">{{
+            passwordStrengthMessage
+          }}</span>
         </div>
         <p class="forgot-password">
           <a (click)="redirectTo('forgot-password')">
@@ -134,10 +139,13 @@ header="Header"
           data-theme="light"
         ></div>
         <div *ngIf="!captchaToken" class="error">
-          <small>Resuelva el captcha para continuar con el proceso de inicio de sesión.</small>
+          <small
+            >Resuelva el captcha para continuar con el proceso de inicio de
+            sesión.</small
+          >
         </div>
-        
-<!-- <div *ngIf="validateCaptcha()" class="error">
+
+        <!-- <div *ngIf="validateCaptcha()" class="error">
 
   <small>Resuelva el captcha para continuar con el proceso de inicio de sesión.</small>
 </div> -->
@@ -236,8 +244,8 @@ header="Header"
         <i class="pi pi-shopping-cart"></i>
       </li>
       <li class="IsMobile" *ngIf="!isMobile">
-         <!--<a tabindex="0" class="nav-icon" (click)="openModal()">-->
-        <a tabindex="0" class="nav-icon" (click)="togglePopup()"> 
+        <!-- <a tabindex="0" class="nav-icon" (click)="openModal()"> -->
+        <a tabindex="0" class="nav-icon" (click)="togglePopup()">
           <i class="fa-regular fa-user"></i>
           <ul class="muestra-opciones-user" *ngIf="popupVisible">
             <li
