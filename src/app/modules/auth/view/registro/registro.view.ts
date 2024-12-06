@@ -522,34 +522,34 @@ export class RegistroView {
       this.showSpinner();
       console.log('Registrarse');
       // Llama al servicio de registro, asumiendo que tienes un servicio de usuario
-      // this.uservice.register(USUARIO).subscribe(
-      //   (response) => {
-      //     // Swal.fire('Exitoso', 'El registro fue exitoso', 'success');
-      //     this.personalDataForm.reset(); // Resetea el formulario de datos básicos
-      //     // this.datosConfidencialesForm.reset(); // Resetea el formulario de datos confidenciales
-      //     // this.politicasForm.reset(); // Resetea el formulario de políticas
-      //     this.hideSpinner();
-      //     Swal.fire(
-      //       'Bienvenido a la tienda en linea de ATELIER',
-      //       'Se ha activado tu cuenta, ya puedes continuar.',
-      //       'info'
-      //     ).then(() => {
-      //       // Redirigir al login después de cerrar el modal de SweetAlert
-      //       this.router.navigate(['/public/home']);
-      //     });
-      //   },
-      //   (error) => {
-      //     console.error(error);
-      //     // this.resetErrorMessages(); // Limpia mensajes de error antes de asignar nuevos
+      this.uservice.register(USUARIO).subscribe(
+        (response) => {
+          // Swal.fire('Exitoso', 'El registro fue exitoso', 'success');
+          this.personalDataForm.reset(); // Resetea el formulario de datos básicos
+          // this.datosConfidencialesForm.reset(); // Resetea el formulario de datos confidenciales
+          // this.politicasForm.reset(); // Resetea el formulario de políticas
+          this.hideSpinner();
+          Swal.fire(
+            'Bienvenido a la tienda en linea de ATELIER',
+            'Se ha activado tu cuenta, ya puedes continuar.',
+            'info'
+          ).then(() => {
+            // Redirigir al login después de cerrar el modal de SweetAlert
+            this.router.navigate(['/public/home']);
+          });
+        },
+        (error) => {
+          console.error(error);
+          // this.resetErrorMessages(); // Limpia mensajes de error antes de asignar nuevos
 
-      //     // Extract the error message from the response (adjust as per your backend structure)
-      //     const errorMessage =
-      //       error.error?.message || 'An unknown error occurred';
+          // Extract the error message from the response (adjust as per your backend structure)
+          const errorMessage =
+            error.error?.message || 'An unknown error occurred';
 
-      //     // Display the backend error message using Toastr
-      //     this.toastr.error(errorMessage, 'Error');
-      //   }
-      // );
+          // Display the backend error message using Toastr
+          this.toastr.error(errorMessage, 'Error');
+        }
+      );
     }
   }
 

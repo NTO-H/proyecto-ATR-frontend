@@ -1,16 +1,13 @@
 .container {
   width: 100%;
-  height: 100%;
   max-width: 900px;
   background-color: var(--style-navbar-second);
-  border: 2px var(--bg-color-card) solid;
-  border-radius: 5px  ;
+  border: 2px solid var(--bg-color-card);
+  border-radius: 10px;
   display: flex;
-  overflow: hidden;
-  margin: 0;
+  margin: 20px auto;
+  padding: 20px;
 }
-
-
 
 .strong {
   color: green;
@@ -27,21 +24,22 @@
   font-weight: bold;
 }
 
-
 .card {
   display: flex;
   flex-direction: row;
   width: 100%;
+  gap: 20px;
 }
+
 label::after {
   content: "*";
   color: red;
 }
 
-
-.text-danger,.error-text,.error{
+.text-danger,
+.error-text,
+.error {
   color: red;
-
 }
 
 .illustration {
@@ -50,28 +48,33 @@ label::after {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
 }
 
 .illustration img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .form-container {
   flex: 1;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
+
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 h1 {
-  font-size: 20px;
-  margin-bottom: 8px;
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #333;
 }
 
 h2 {
@@ -79,6 +82,7 @@ h2 {
   margin-bottom: 20px;
   color: #6a6f73;
 }
+
 form {
   display: flex;
   flex-direction: column;
@@ -90,19 +94,21 @@ input[type="email"],
 input[type="number"],
 input[type="password"] {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
+  margin-bottom: 15px;
 }
 
 .btn {
-  padding: 12px;
+  padding: 20px;
   font-size: 16px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 
 .register {
   background-color: #6f4dfd;
@@ -157,19 +163,16 @@ input[type="password"] {
   color: red;
 }
 
-//
-
 .dialog-content {
   text-align: center;
   background-color: var(--blur-bg);
-  // border-radius: 20px; // Fondo redondeado del contenido
+  padding: 20px;
 }
 
 .pi {
   font-size: 3rem;
   color: #00dd76;
   padding: 20px;
-
   border-radius: 50%;
   background-color: rgb(167, 252, 191);
 }
@@ -182,15 +185,13 @@ h3 {
 .group {
   display: flex;
   flex-direction: column;
-  gap: 5px; // Espacio entre botones
+  gap: 10px;
   margin-top: 15px;
 }
 
 :host ::ng-deep .p-dialog-header {
   text-align: center;
 }
-
-//
 
 .p-inputotp {
   display: flex;
@@ -205,18 +206,66 @@ h3 {
   margin: auto;
 }
 
-
-
-
-//
-// .ui.basic.modal {
-//   height: 100%; /* Asegura que el modal use toda la altura disponible */
-// }
 .ui.dimmer.fullscreen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1050; /* Asegura que esté por encima del contenido */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui.active.dimmer.fullscreen .ui.massive.text.loader {
+  color: #fff;
+  font-size: 2rem;
+}
+
+.ui.dimmer .ui.massive.text.loader {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.p-dialog {
+  border-radius: 10px;
+}
+
+.p-dialog-header {
+  background-color: var(--blur-bg);
+  border-radius: 10px;
+}
+
+.p-dialog-footer {
+  border-top: none;
+  padding: 20px;
+}
+
+.p-dialog-content {
+  padding: 20px;
+}
+
+.p-inputOtp input {
+  padding: 12px;
+  font-size: 1rem;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.resend-text {
+  font-size: 14px;
+  color: #6a6f73;
+  margin-top: 10px;
+}
+
+.resend-link {
+  color: #6f4dfd;
+  text-decoration: none;
+}
+
+.resend-link:hover {
+  text-decoration: underline;
 }

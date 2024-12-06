@@ -1,15 +1,7 @@
-<!-- muestra de carga -->
-<!-- <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader> -->
-
 <div class="ui active dimmer fullscreen" *ngIf="isLoading">
   <div class="ui massive text loader">Loading</div>
 </div>
 
-<!-- <div class="ui basic modal">
-  <div class="spinner"></div>
-</div> -->
-
-<!-- Modal Principal -->
 <p-dialog
   [(visible)]="displayModal"
   [modal]="true"
@@ -188,6 +180,7 @@
             id="email"
             [pattern]="'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'"
             formControlName="email"
+            class="input-email"
           />
           <div
             *ngIf="personalDataForm.get('email')?.invalid && personalDataForm.get('email')?.touched"
@@ -204,18 +197,11 @@
               >Formato de correo inválido.</small
             >
           </div>
-          <!-- <div *ngIf="email?.invalid && email?.touched" class="error">
-            <small *ngIf="email?.errors?.['required']"
-              >El correo es obligatorio.</small
-            >
-          </div> -->
         </div>
 
         <!-- Campo de Teléfono -->
         <div class="form-group">
           <label for="telefono">Número Telefónico</label>
-          <!-- pattern="^[0-9]{10}$" -->
-          <!-- maxlength="10" -->
           <p-inputMask
             id="tel"
             mask="+52 999 999 9999"
@@ -248,8 +234,6 @@
         >
           {{ isLoading ? 'Cargando...' : 'Siguiente' }}
         </button>
-
-        <!-- <button class="btn register" type="submit">Siguiente</button> -->
       </form>
 
       <!-- Segundo formulario -->
@@ -258,9 +242,6 @@
         [formGroup]="credentialsForm"
         (ngSubmit)="registroCliente()"
       >
-      <!-- app.component.html -->
-<!-- <app-notification *ngIf="showNotification"></app-notification> -->
-
         <h1>Ingresa tu contraseña</h1>
 
         <div class="form-group">
@@ -280,10 +261,12 @@
           <span *ngIf="isPasswordCompromised" class="toast error">
             <div class="column">
               <i class="fas fa-exclamation-circle"></i>
-              <span>Esta contraseña ha sido comprometida. Elija una contraseña más segura.</span>
+              <span
+                >Esta contraseña ha sido comprometida. Elija una contraseña más
+                segura.</span
+              >
             </div>
           </span>
-          
 
           <label for="confirmPassword">Confirma tu contraseña</label>
           <p-password
