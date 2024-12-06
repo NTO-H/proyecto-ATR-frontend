@@ -17,13 +17,17 @@ import {
   parsePhoneNumberFromString,
   isValidPhoneNumber,
 } from 'libphonenumber-js';
+import axios from 'axios';
 
 declare const $: any;
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.view.html',
-  styleUrls: ['./registro.view.scss'],
+  styleUrls: [
+    './registro.view.scss',
+    '../../../../shared/styles/notificaciones.scss',
+  ],
 })
 export class RegistroView {
   currentStep = 1;
@@ -49,6 +53,7 @@ export class RegistroView {
   tokenRespuesta: string | null = null; // Puede ser null si no hay token aún
   isLoading = false; // Controla la visibilidad del spinner
   detectedCountry: string | null = null;
+  isPasswordCompromised: boolean = false;
 
   showSpinner() {
     this.isLoading = true;
@@ -397,61 +402,88 @@ export class RegistroView {
     tiene5CaracteresDiferentes: false,
   };
   coincidenPasswords = false;
+
+  // Validar contraseña  // Verificar la contraseña
   verificarPassword() {
-    const password = this.credentialsForm.get('password')?.value || '';
-
-    // Validaciones obligatorias
-    this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password); // Al menos una letra minúscula
-    this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password); // Al menos una letra mayúscula
-    this.validacionesPassword.tieneNumero = /\d/.test(password); // Al menos un número
-    this.validacionesPassword.tieneSimbolo =
-      /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password); // Al menos un símbolo
-    this.validacionesPassword.longitudMinima = password.length >= 15; // Longitud mínima requerida
-    this.validacionesPassword.longitudMayor5 = password.length > 5; // Más de 5 caracteres
-
-    // Al menos 5 caracteres diferentes
-    const caracteresUnicos = new Set(password.split(''));
-    this.validacionesPassword.tiene5CaracteresDiferentes =
-      caracteresUnicos.size >= 5;
-
-    // Verificar que la contraseña cumpla con todos los criterios
-    const allValidations = [
-      this.validacionesPassword.tieneMinuscula,
-      this.validacionesPassword.tieneMayuscula,
-      this.validacionesPassword.tieneNumero,
-      this.validacionesPassword.tieneSimbolo,
-      this.validacionesPassword.longitudMinima,
-      this.validacionesPassword.longitudMayor5,
-      this.validacionesPassword.tiene5CaracteresDiferentes,
-    ];
-
-    // Calcular cuántas validaciones se cumplen
-    const validacionesCumplidas = allValidations.filter((v) => v).length;
-
-    // Asignar nivel de seguridad y mensaje
-    if (validacionesCumplidas === allValidations.length) {
-      this.passwordStrength = 'strong'; // Contraseña fuerte
-      this.passwordStrengthMessage = 'Contraseña segura y compleja';
-      this.passwordStrengthClass = 'strong';
-    } else if (validacionesCumplidas >= 5) {
-      this.passwordStrength = 'medium'; // Contraseña media
-      this.passwordStrengthMessage = 'Complejidad media';
-      this.passwordStrengthClass = 'medium';
-    } else {
-      this.passwordStrength = 'weak'; // Contraseña débil
-      this.passwordStrengthMessage = 'Demasiado simple';
-      this.passwordStrengthClass = 'weak';
-    }
-
-    this.verificarCoincidencia(); // Para verificar si la confirmación coincide con la contraseña
-  }
-
-  verificarCoincidencia() {
     const password = this.credentialsForm.get('password')?.value;
-    const confirmPassword = this.credentialsForm.get('confirmPassword')?.value;
-    this.coincidenPasswords = password == confirmPassword;
+
+    // Verificar la fortaleza de la contraseña
+    this.checkPasswordStrength(password);
+
+    // Verificar si la contraseña está comprometida
+    this.checkIfPasswordIsPwned(password);
   }
-  // Validador para comparar contraseña y confirmación
+
+  // Verificar la fortaleza de la contraseña
+  checkPasswordStrength(password: string) {
+    if (password.length < 8) {
+      this.passwordStrengthMessage =
+        'La contraseña debe tener al menos 8 caracteres.';
+      this.passwordStrengthClass = 'text-danger';
+    } else if (
+      !/[a-z]/.test(password) ||
+      !/[A-Z]/.test(password) ||
+      !/\d/.test(password)
+    ) {
+      this.passwordStrengthMessage =
+        'La contraseña debe contener letras y números.';
+      this.passwordStrengthClass = 'text-warning';
+    } else {
+      this.passwordStrengthMessage = 'Contraseña fuerte';
+      this.passwordStrengthClass = 'text-success';
+    }
+  }
+
+  // Verificar si la contraseña está comprometida
+  async checkIfPasswordIsPwned(password: string) {
+    const hash = await this.getPasswordHash(password);
+    const prefix = hash.slice(0, 5); // Primeros 5 caracteres
+    const suffix = hash.slice(5); // El resto del hash
+
+    try {
+      const response = await axios.get(
+        `https://api.pwnedpasswords.com/range/${prefix}`
+      );
+      const matches = response.data.split('\n');
+
+      this.isPasswordCompromised = false; // Resetear estado
+
+      for (let match of matches) {
+        const [matchHash, count] = match.split(':');
+        if (matchHash === suffix) {
+          this.isPasswordCompromised = true; // Contraseña comprometida
+          this.toastr.error(
+            `¡Esta contraseña ha sido comprometida! Se ha encontrado ${count} veces.`,
+            'Advertencia',
+            {
+              toastClass: 'toast error', // Aplica tus estilos personalizados
+            }
+          );
+          break;
+        }
+      }
+
+      if (!this.isPasswordCompromised) {
+        this.passwordStrengthClass = 'text-success'; // Si no está comprometida, mantener mensaje positivo
+      }
+    } catch (error) {
+      console.error('Error al verificar la contraseña', error);
+    }
+  }
+
+  // Generar hash SHA-1 usando la Web Crypto API
+  async getPasswordHash(password: string): Promise<string> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((byte) => byte.toString(16).padStart(2, '0'))
+      .join('');
+    return hashHex.toUpperCase();
+  }
+
+  // Validador de fuerza de la contraseña
   passwordStrengthValidator() {
     return () => {
       const password = this.credentialsForm.get('password')?.value || '';
@@ -463,6 +495,13 @@ export class RegistroView {
 
       return isValid ? null : { passwordStrength: true };
     };
+  }
+
+  // Verificar si las contraseñas coinciden
+  verificarCoincidencia() {
+    const password = this.credentialsForm.get('password')?.value;
+    const confirmPassword = this.credentialsForm.get('confirmPassword')?.value;
+    this.coincidenPasswords = password === confirmPassword;
   }
 
   registroCliente(): void {
@@ -481,35 +520,36 @@ export class RegistroView {
       };
 
       this.showSpinner();
+      console.log('Registrarse');
       // Llama al servicio de registro, asumiendo que tienes un servicio de usuario
-      this.uservice.register(USUARIO).subscribe(
-        (response) => {
-          // Swal.fire('Exitoso', 'El registro fue exitoso', 'success');
-          this.personalDataForm.reset(); // Resetea el formulario de datos básicos
-          // this.datosConfidencialesForm.reset(); // Resetea el formulario de datos confidenciales
-          // this.politicasForm.reset(); // Resetea el formulario de políticas
-          this.hideSpinner();
-          Swal.fire(
-            'Bienvenido a la tienda en linea de ATELIER',
-            'Se ha activado tu cuenta, ya puedes continuar.',
-            'info'
-          ).then(() => {
-            // Redirigir al login después de cerrar el modal de SweetAlert
-            this.router.navigate(['/public/home']);
-          });
-        },
-        (error) => {
-          console.error(error);
-          // this.resetErrorMessages(); // Limpia mensajes de error antes de asignar nuevos
+      // this.uservice.register(USUARIO).subscribe(
+      //   (response) => {
+      //     // Swal.fire('Exitoso', 'El registro fue exitoso', 'success');
+      //     this.personalDataForm.reset(); // Resetea el formulario de datos básicos
+      //     // this.datosConfidencialesForm.reset(); // Resetea el formulario de datos confidenciales
+      //     // this.politicasForm.reset(); // Resetea el formulario de políticas
+      //     this.hideSpinner();
+      //     Swal.fire(
+      //       'Bienvenido a la tienda en linea de ATELIER',
+      //       'Se ha activado tu cuenta, ya puedes continuar.',
+      //       'info'
+      //     ).then(() => {
+      //       // Redirigir al login después de cerrar el modal de SweetAlert
+      //       this.router.navigate(['/public/home']);
+      //     });
+      //   },
+      //   (error) => {
+      //     console.error(error);
+      //     // this.resetErrorMessages(); // Limpia mensajes de error antes de asignar nuevos
 
-          // Extract the error message from the response (adjust as per your backend structure)
-          const errorMessage =
-            error.error?.message || 'An unknown error occurred';
+      //     // Extract the error message from the response (adjust as per your backend structure)
+      //     const errorMessage =
+      //       error.error?.message || 'An unknown error occurred';
 
-          // Display the backend error message using Toastr
-          this.toastr.error(errorMessage, 'Error');
-        }
-      );
+      //     // Display the backend error message using Toastr
+      //     this.toastr.error(errorMessage, 'Error');
+      //   }
+      // );
     }
   }
 

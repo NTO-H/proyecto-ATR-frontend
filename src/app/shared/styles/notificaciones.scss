@@ -1,0 +1,120 @@
+/* Definimos las variables de color */
+:root {
+    --dark: #34495e;
+    --light: #ffffff;
+    --success: #0abf30;
+    --info: #3498db;
+    --warning: #e9bd0c;
+    --error: #e24d4c;
+  }
+  
+  .toast {
+    list-style: none;
+    width: 400px;
+    background: var(--light);
+    padding: 16px 17px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    animation: show 0.3s ease forwards;
+  }
+  
+  @keyframes show {
+    0% {
+      transform: translateX(100%);
+    }
+  
+    40% {
+      transform: translateX(-5%);
+    }
+  
+    80% {
+      transform: translateX(0%);
+    }
+  
+    100% {
+      transform: translateX(-10px);
+    }
+  }
+  
+  .toast.hide {
+    animation: hide 0.3s ease forwards;
+  }
+  
+  @keyframes hide {
+    0% {
+      transform: translateX(-10px);
+    }
+  
+    40% {
+      transform: translateX(0%);
+    }
+  
+    80% {
+      transform: translateX(-5%);
+    }
+  
+    100% {
+      transform: translateX(calc(100% + 20px));
+    }
+  }
+  
+  .toast::before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: var(--error); /* Color de la barra inferior para "error" */
+    bottom: 0;
+    left: 0;
+    animation: load 5s linear forwards;
+  }
+  
+  @keyframes load {
+    100% {
+      width: 0;
+    }
+  }
+  
+  .toast.error::before {
+    background: var(--error);
+  }
+  
+  .toast .column {
+    display: flex;
+    align-items: center;
+  }
+  
+  .toast .column i {
+    font-size: 1.75rem;
+    color: var(--error);
+  }
+  
+  .toast .column span {
+    font-size: 1.05rem;
+    margin-left: 12px;
+  }
+  
+  .toast i:last-child {
+    cursor: pointer;
+    color: #aeb0d7;
+  }
+  
+  .toast .column {
+    display: flex;
+    align-items: center;
+  }
+  
+  .toast .column i {
+    font-size: 1.75rem;
+  }
+  
+  .toast .column span {
+    font-size: 1.05rem;
+    margin-left: 12px;
+  }
+  

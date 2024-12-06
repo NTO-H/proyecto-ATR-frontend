@@ -76,13 +76,14 @@
           formControlName="password"
           [toggleMask]="true"
           promptLabel="Ingresa tu contraseña"
+          strongLabel="Nivel de contraseña aceptable"
           weakLabel="Muy simple"
+          mediumLabel="Mediana mente segura"
           strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
           mediumRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$"
           inputStyleClass="input-login"
-          mediumLabel="Mediana mente segura"
-          strongLabel="Contraseña segura"
           placeholder="Contraseña segura"
+          (onBlur)="checkIfPasswordIsPwned(loginForm.get('password')?.value)"
         >
           <ng-template pTemplate="header">
             <h6>Escoge una contraseña</h6>
@@ -107,7 +108,9 @@
         </p-password>
       </p-inputGroup>
     </div>
-
+    <div *ngIf="isPasswordCompromised" class="errorMenssage">
+      Esta contraseña ha sido comprometida. Por favor, elige otra.
+    </div>
     <div
       id="captcha-container"
       class="g-recaptcha"

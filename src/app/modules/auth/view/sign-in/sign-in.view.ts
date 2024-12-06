@@ -26,6 +26,8 @@ import { PLATFORM_ID, Inject } from '@angular/core';
 import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.service';
 import { Subscription } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
+import axios from 'axios';
 
 @Component({
   selector: 'app-sign-in',
@@ -54,6 +56,8 @@ export class SignInView implements OnInit {
   nombreEmpresa: string = 'Atelier';
 
   notifications: any; // Para mostrar notificaciones en la vista
+  isPasswordCompromised: boolean = false;
+  passwordStrengthClass: string = ''; // Clase CSS que se aplica dinámicamente
 
   public robot!: boolean;
   public presionado!: boolean;
@@ -68,12 +72,16 @@ export class SignInView implements OnInit {
     private datosEmpresaService: DatosEmpresaService,
     private ngxService: NgxUiLoaderService,
     private router: Router,
+    private toastr: ToastrService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, this.emailValidator()]],
       password: ['', Validators.required],
     });
+    console.log('Formulario:', this.loginForm);
+    console.log('Valores:', this.loginForm.value);
+    console.log('Errores:', this.loginForm.errors);
   }
 
   ngOnDestroy(): void {
@@ -88,18 +96,79 @@ export class SignInView implements OnInit {
     this.presionado = false;
     this.checkLockState();
     this.traerDatos();
+    this.loginForm.get('password')?.valueChanges.subscribe((password) => {
+      if (password?.length > 0) {
+        this.checkIfPasswordIsPwned(password);
+      }
+    });
   }
 
   emailValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-       const emailRegex =
-  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov|io|info|biz|mx|us|uk|es|fr|de|ca|au|jp|xyz|me|tech|co|tv|cloud|ai)$/;
+      const emailRegex =
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov|io|info|biz|mx|us|uk|es|fr|de|ca|au|jp|xyz|me|tech|co|tv|cloud|ai)$/;
 
       const valid = emailRegex.test(control.value);
       return valid ? null : { invalidEmail: true };
     };
   }
+  async getPasswordHash(password: string): Promise<string> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((byte) => byte.toString(16).padStart(2, '0'))
+      .join('');
+    return hashHex.toUpperCase();
+  }
 
+  async checkIfPasswordIsPwned(password: string) {
+    const hash = await this.getPasswordHash(password);
+    const prefix = hash.slice(0, 5); // Primeros 5 caracteres
+    const suffix = hash.slice(5); // El resto del hash
+
+    try {
+      const response = await axios.get(
+        `https://api.pwnedpasswords.com/range/${prefix}`
+      );
+      const matches = response.data.split('\n');
+
+      this.isPasswordCompromised = false; // Resetear estado
+      let notified = false;
+
+      for (let match of matches) {
+        const [matchHash, count] = match.split(':');
+        if (matchHash === suffix) {
+          this.isPasswordCompromised = true; // Contraseña comprometida
+          if (!notified) {
+            this.toastr.error(
+              `¡Esta contraseña ha sido comprometida! Se ha encontrado ${count} veces.`,
+              'Advertencia',
+              {
+                toastClass: 'toast error', // Aplica tus estilos personalizados
+                disableTimeOut: false,
+                closeButton: true,
+                timeOut: 1200,
+                progressBar: true,
+                progressAnimation: 'decreasing',
+              }
+            );
+            notified = true; // Marca como notificado
+          }
+          break;
+        }
+      }
+
+      if (!this.isPasswordCompromised) {
+        this.passwordStrengthClass = 'text-success'; // Si no está comprometida, mantener mensaje positivo
+      } else {
+        this.passwordStrengthClass = 'text-danger'; // Si la contraseña está comprometida, marcar como insegura
+      }
+    } catch (error) {
+      console.error('Error al verificar la contraseña', error);
+    }
+  }
   ngAfterViewInit() {
     this.cargarWidgetRecaptcha();
   }
@@ -204,6 +273,15 @@ export class SignInView implements OnInit {
         title: 'Cuenta bloqueada',
         text: `Has alcanzado el límite de intentos. Intenta de nuevo en ${this.remainingTime} segundos.`,
         icon: 'warning',
+        confirmButtonText: 'Entendido',
+      });
+      return;
+    }
+    if (this.isPasswordCompromised) {
+      Swal.fire({
+        title: 'Contraseña comprometida',
+        text: 'Por favor, cambia tu contraseña antes de iniciar sesión.',
+        icon: 'error',
         confirmButtonText: 'Entendido',
       });
       return;
