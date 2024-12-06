@@ -23,6 +23,7 @@ h2 {
 }
 
 p {
+   text-decoration: wavy;
   color: #5c4c4c;
   font-size: 16px;
 }
@@ -183,6 +184,7 @@ p {
     font-weight: bold;
     text-decoration: wavy;
     border-bottom: 1px dashed #a08e8e;
+    cursor: pointer;
 
     &:hover {
       font-weight: bold;
@@ -191,6 +193,7 @@ p {
     &.forgot-password {
       margin-right: 10px;
     }
+  
   }
 
   .lock-message {

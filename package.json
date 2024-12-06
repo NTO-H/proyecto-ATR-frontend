@@ -31,7 +31,7 @@
     "crypto-js": "^4.2.0",
     "express": "^4.18.2",
     "frontend": "file:",
-    "libphonenumber-js": "^1.11.12",
+    "libphonenumber-js": "^1.11.16",
     "my-pwa": "file:",
     "ngx-cookie-service": "^18.0.0",
     "ngx-toastr": "^19.0.0",

@@ -13,6 +13,11 @@ import { UsuarioService } from '../../../../shared/services/usuario.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import {
+  parsePhoneNumberFromString,
+  isValidPhoneNumber,
+} from 'libphonenumber-js';
+
 declare const $: any;
 
 @Component({
@@ -23,7 +28,7 @@ declare const $: any;
 export class RegistroView {
   currentStep = 1;
   passwordStrengthClass: string = ''; // Clase CSS que se aplica dinámicamente
-passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
+  passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
 
   verificationCode: string = '';
   remainingChars: number = 15;
@@ -43,6 +48,7 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
   // .t: string | null = null; // Puede ser null si no hay token aún
   tokenRespuesta: string | null = null; // Puede ser null si no hay token aún
   isLoading = false; // Controla la visibilidad del spinner
+  detectedCountry: string | null = null;
 
   showSpinner() {
     this.isLoading = true;
@@ -71,16 +77,18 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
     private ngxService: NgxUiLoaderService
   ) {
     this.personalDataForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(8),  Validators.maxLength(20)]],
+      username: ['', [Validators.required]],
       email: [
         '',
         [
           Validators.required,
-          Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
-
+          this.emailValidator(),
+          Validators.pattern(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+          ),
         ],
       ],
-      telefono: ['', [Validators.required]],
+      telefono: ['', [Validators.required, this.telefonoValidator]],
     });
 
     this.credentialsForm = this.fb.group({
@@ -103,9 +111,32 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
       ],
     });
   }
+
+  telefonoValidator(control: AbstractControl) {
+    const phoneNumber = control.value;
+    const parsedNumber = parsePhoneNumberFromString(phoneNumber);
+
+    if (parsedNumber && isValidPhoneNumber(phoneNumber)) {
+      const country = parsedNumber.country; // El país del número
+      console.log('El país es:', country);
+
+      return null; // Número válido
+    }
+    return { invalidPhone: true }; // Número inválido
+  }
+
+  emailValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const emailRegex =
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov|io|info|biz|mx|us|uk|es|fr|de|ca|au|jp|xyz|me|tech|co|tv|cloud|ai)$/;
+
+      const valid = emailRegex.test(control.value);
+      return valid ? null : { invalidEmail: true };
+    };
+  }
   updateRemainingChars() {
     const usernameValue = this.personalDataForm.get('username')?.value || '';
-    this.remainingChars = 15 - usernameValue.length;
+    this.remainingChars = 8 - usernameValue.length;
   }
 
   //   const emailControl = this.personalDataForm.get('email');
@@ -247,7 +278,7 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
       });
     }
   }
-  
+
   //! Método para veirificar el código OTP por WhatsApp
   submitOtpWhatsapp() {
     this.showSpinner();
@@ -301,7 +332,6 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
       Swal.fire('Error', 'Por favor ingrese un código válido.', 'error');
     }
   }
-
 
   //! Método para veirificar el código OTP por Gmail
   submitOtp() {
@@ -369,19 +399,21 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
   coincidenPasswords = false;
   verificarPassword() {
     const password = this.credentialsForm.get('password')?.value || '';
-  
+
     // Validaciones obligatorias
     this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password); // Al menos una letra minúscula
     this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password); // Al menos una letra mayúscula
     this.validacionesPassword.tieneNumero = /\d/.test(password); // Al menos un número
-    this.validacionesPassword.tieneSimbolo = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password); // Al menos un símbolo
+    this.validacionesPassword.tieneSimbolo =
+      /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password); // Al menos un símbolo
     this.validacionesPassword.longitudMinima = password.length >= 15; // Longitud mínima requerida
     this.validacionesPassword.longitudMayor5 = password.length > 5; // Más de 5 caracteres
-  
+
     // Al menos 5 caracteres diferentes
     const caracteresUnicos = new Set(password.split(''));
-    this.validacionesPassword.tiene5CaracteresDiferentes = caracteresUnicos.size >= 5;
-  
+    this.validacionesPassword.tiene5CaracteresDiferentes =
+      caracteresUnicos.size >= 5;
+
     // Verificar que la contraseña cumpla con todos los criterios
     const allValidations = [
       this.validacionesPassword.tieneMinuscula,
@@ -392,10 +424,10 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
       this.validacionesPassword.longitudMayor5,
       this.validacionesPassword.tiene5CaracteresDiferentes,
     ];
-  
+
     // Calcular cuántas validaciones se cumplen
     const validacionesCumplidas = allValidations.filter((v) => v).length;
-  
+
     // Asignar nivel de seguridad y mensaje
     if (validacionesCumplidas === allValidations.length) {
       this.passwordStrength = 'strong'; // Contraseña fuerte
@@ -410,11 +442,9 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
       this.passwordStrengthMessage = 'Demasiado simple';
       this.passwordStrengthClass = 'weak';
     }
-  
+
     this.verificarCoincidencia(); // Para verificar si la confirmación coincide con la contraseña
   }
-  
-  
 
   verificarCoincidencia() {
     const password = this.credentialsForm.get('password')?.value;
@@ -478,7 +508,6 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
 
           // Display the backend error message using Toastr
           this.toastr.error(errorMessage, 'Error');
-          
         }
       );
     }
@@ -571,6 +600,4 @@ passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo
       });
     }
   }
-
- 
 }
