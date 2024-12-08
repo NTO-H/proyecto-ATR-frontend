@@ -139,36 +139,56 @@
 
         <!-- Campo de Nombre -->
         <div class="form-group">
-          <label for="username">Nombre de usuario</label>
+          <label for="username">Nombre completo</label>
           <input
             type="text"
-            placeholder="Nombre usuario"
+            placeholder="Ingrese su nombre"
             id="username"
             formControlName="username"
-            pattern="[A-Za-z]+"
-            maxlength="20"
-            minlength="8"
+            pattern="^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ]+( [A-Za-zÁÉÍÓÚáéíóúÜüÑñ]+)*$"
+            maxlength="40"
+            minlength="12"
+            required
             (input)="updateRemainingChars()"
           />
-          <small *ngIf="remainingChars > 0">
+          <small *ngIf="remainingChars > 0"
+            
+            >
             Quedan {{ remainingChars }} caracteres.
           </small>
           <small
             *ngIf="personalDataForm.get('username')?.hasError('required') && personalDataForm.get('username')?.touched"
-            class="error-text"
+            class="error"
           >
             El nombre es obligatorio.
           </small>
           <small
             *ngIf="personalDataForm.get('username')?.hasError('maxlength') && personalDataForm.get('username')?.touched"
-          >
-            El nombre no puede tener más de 15 caracteres.
+            class="error"
+            >
+            El nombre no puede tener más de 40 caracteres.
           </small>
           <small
-            *ngIf="personalDataForm.get('username')?.hasError('pattern') && personalDataForm.get('username')?.touched"
-            class="error-text"
+            *ngIf="personalDataForm.get('username')?.hasError('minlength') && personalDataForm.get('username')?.touched"
+            class="error"
+            >
+            El nombre debe tener al menos 12 caracteres.
+          </small>
+
+          <!-- Error específico para el espacio al final -->
+          <small
+            *ngIf="endsWithSpace(personalDataForm.get('username')?.value)"
+            class="error"
           >
-            El nombre solo puede contener letras.
+            El nombre no debe terminar con un espacio.
+          </small>
+
+          <!-- Validación del patrón: solo letras y espacios entre palabras -->
+          <small
+            *ngIf="personalDataForm.get('username')?.hasError('pattern') && !endsWithSpace(personalDataForm.get('username')?.value) && personalDataForm.get('username')?.touched"
+            class="error"
+          >
+            El nombre solo puede contener letras y espacios entre palabras.
           </small>
         </div>
 
@@ -181,6 +201,7 @@
             [pattern]="'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'"
             formControlName="email"
             class="input-email"
+            required
           />
           <div
             *ngIf="personalDataForm.get('email')?.invalid && personalDataForm.get('email')?.touched"
@@ -207,6 +228,7 @@
             mask="+52 999 999 9999"
             formControlName="telefono"
             placeholder="Introduce tu número telefónico"
+            required
           ></p-inputMask>
           <div
             *ngIf="personalDataForm.get('telefono')?.touched || personalDataForm.get('telefono')?.dirty"

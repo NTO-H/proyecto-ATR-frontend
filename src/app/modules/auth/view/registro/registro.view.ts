@@ -35,7 +35,7 @@ export class RegistroView {
   passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
 
   verificationCode: string = '';
-  remainingChars: number = 15;
+  remainingChars: number = 12;
   emailError: string | null = null;
   passwordStrength: string = ''; // variable para almacenar la fuerza de la contraseña
   personalDataForm: FormGroup;
@@ -82,7 +82,18 @@ export class RegistroView {
     private ngxService: NgxUiLoaderService
   ) {
     this.personalDataForm = this.fb.group({
-      username: ['', [Validators.required]],
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(12),
+          Validators.maxLength(40),
+          Validators.pattern(
+            /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ]+( [A-Za-zÁÉÍÓÚáéíóúÜüÑñ]+)*$/
+          ), // Permitir letras y espacios
+        ],
+      ],
+
       email: [
         '',
         [
@@ -116,6 +127,7 @@ export class RegistroView {
       ],
     });
   }
+  
 
   telefonoValidator(control: AbstractControl) {
     const phoneNumber = control.value;
@@ -139,9 +151,16 @@ export class RegistroView {
       return valid ? null : { invalidEmail: true };
     };
   }
-  updateRemainingChars() {
-    const usernameValue = this.personalDataForm.get('username')?.value || '';
-    this.remainingChars = 8 - usernameValue.length;
+
+  endsWithSpace(value: string): boolean {
+    return /\s$/.test(value);
+  }
+  updateRemainingChars(): void {
+    if (this.personalDataForm.get('username')?.value) {
+      this.remainingChars =
+        this.remainingChars -
+        this.personalDataForm.get('username')?.value.length;
+    }
   }
 
   //   const emailControl = this.personalDataForm.get('email');
@@ -174,7 +193,7 @@ export class RegistroView {
     // this.isLoadingBasic = !this.isLoadingBasic;
     setTimeout(() => {
       this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
-    }, 5000);
+    }, 2000);
 
     if (this.personalDataForm.invalid) {
       // Recolecta los mensajes de error
@@ -184,7 +203,7 @@ export class RegistroView {
         errorMessages += '• El nombre es obligatorio.<br>';
       }
       if (this.personalDataForm.get('username')?.hasError('maxlength')) {
-        errorMessages += '• El nombre no puede tener más de 15 caracteres.<br>';
+        errorMessages += '• El nombre no puede tener más de 12 caracteres.<br>';
       }
 
       if (this.personalDataForm.get('email')?.hasError('required')) {
@@ -217,17 +236,32 @@ export class RegistroView {
       this.showSpinner();
       // isLoadingBasic
       const email = this.personalDataForm.get('email')?.value;
+      const telefono = this.personalDataForm.get('telefono')?.value;
+
       this.uservice.checkEmailExists(email).subscribe({
-        next: () => {
-          this.isLoadingBasic = false;
-          // Si no hay errores, mostrar el modal
-          this.displayModal = true;
-        },
+        next: () => {},
         error: () => {
           Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'El email ya está registrado', // Mensaje simple de error
+            confirmButtonText: 'Ok',
+          });
+          this.hideSpinner();
+        },
+      });
+
+      this.uservice.checkTelefonoExists(telefono).subscribe({
+        next: () => {
+          this.isLoadingBasic = false;
+          // Si no hay errores, mostrar el modal
+          this.displayModal = true;
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err.error.message, // Mensaje de error
             confirmButtonText: 'Ok',
           });
           this.hideSpinner();
@@ -520,7 +554,6 @@ export class RegistroView {
       };
 
       this.showSpinner();
-      console.log('Registrarse');
       // Llama al servicio de registro, asumiendo que tienes un servicio de usuario
       this.uservice.register(USUARIO).subscribe(
         (response) => {
@@ -578,6 +611,7 @@ export class RegistroView {
       },
     });
   }
+
   resendCodeGmail() {
     this.showSpinner();
 

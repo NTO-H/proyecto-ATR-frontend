@@ -528,11 +528,11 @@ passwordStrength: string = ''; // variable para almacenar la fuerza de la contra
     this.validacionesPassword.tieneNumero = /\d/.test(password); // Al menos un número
     this.validacionesPassword.tieneSimbolo = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password); // Al menos un símbolo
     this.validacionesPassword.longitudMinima = password.length >= 15; // Longitud mínima requerida
-    this.validacionesPassword.longitudMayor5 = password.length > 5; // Más de 5 caracteres
+    this.validacionesPassword.longitudMayor5 = password.length > 8; // Más de 5 caracteres
   
     // Al menos 5 caracteres diferentes
     const caracteresUnicos = new Set(password.split(''));
-    this.validacionesPassword.tiene5CaracteresDiferentes = caracteresUnicos.size >= 5;
+    this.validacionesPassword.tiene5CaracteresDiferentes = caracteresUnicos.size >= 8;
   
     // Verificar que la contraseña cumpla con todos los criterios
     const allValidations = [

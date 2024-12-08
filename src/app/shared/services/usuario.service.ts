@@ -37,6 +37,11 @@ export class UsuarioService {
       }
     );
   }
+  checkTelefonoExists(telefono: string): Observable<any> {
+    return this.http.post<any>(`${environment.api}/usuarios/check-telefono`, {
+      telefono,
+    });
+  }
   checkCode(code: number): Observable<any> {
     return this.http.post<any>(
       environment.api + '/usuarios/check-code',
@@ -79,10 +84,7 @@ export class UsuarioService {
   //   });
   // }
 
-  actualizaPasswordxCorreo(
-    email: string,
-    nueva: string
-  ): Observable<any> {
+  actualizaPasswordxCorreo(email: string, nueva: string): Observable<any> {
     return this.http.put<boolean>(
       environment.api + '/Empresa/editarPerfilAdministrador',
       {
@@ -92,10 +94,7 @@ export class UsuarioService {
     );
   }
 
-  actualizarUsuario(
-    email: string,
-    nueva: string
-  ): Observable<any> {
+  actualizarUsuario(email: string, nueva: string): Observable<any> {
     return this.http.put<boolean>(
       environment.api + '/usuarios/actualizaxCorreo',
       {
@@ -121,7 +120,7 @@ export class UsuarioService {
   // }
 
   eliminarUsuario(id: string): Observable<any> {
-    return this.http.delete(environment.api+'/usuarios/' + id);
+    return this.http.delete(environment.api + '/usuarios/' + id);
   }
   // eliminarProducto(id: string): Observable<any> {
   //     return this.http.delete(this.url + id);
