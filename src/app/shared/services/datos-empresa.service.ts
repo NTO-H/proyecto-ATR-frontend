@@ -22,6 +22,10 @@ export class DatosEmpresaService {
     const url = `${environment.api}/Empresa/obtenerPerfilesEmpresa`;
     return this.http.get(url);
   }
+  consultarConfigurarEmpresa(): Observable<any> {
+    const url = `${environment.api}/Empresa/consultarConfigurarEmpresa`;
+    return this.http.get(url);
+  }
   getPoliticas(): Observable<any> {
     const url = `${environment.api}/politicas/`;
     return this.http.get(url);

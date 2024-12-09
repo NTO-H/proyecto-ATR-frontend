@@ -3,6 +3,7 @@ import { DatosEmpresaService } from '../../../../shared/services/datos-empresa.s
 import Swal from 'sweetalert2';
 import { error } from 'node:console';
 import { RedSocial } from '../../../../shared/interfaces/redSocial.interface';
+import { data } from 'jquery';
 
 // interface SocialLink {
 //   icon: string;
@@ -180,18 +181,35 @@ export class AjustesGeneralesComponent implements OnInit {
         console.error('Error al cargar datos de la empresa', error);
       }
     );
-    console.log(this.redesSociales);
+    this.datosEmpresaService.consultarConfigurarEmpresa().subscribe(
+      (data) => {
+        this.numIntentos = data.configuracion.intentosPermitidos;
+        this.tiempoDeBloqueo = data.configuracion.tiempoDeBloqueo;
+      },
+      (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al cargar las configuraciones de la empresa.',
+        });
+        console.error(
+          'Error al cargar las configuraciones de la empresa',
+          error
+        );
+      }
+    );
   }
   onSubmitSystemSettings() {
     //convertinos todo a un json
     const payload = {
-      numIntentos: this.numIntentos,
+      intentosPermitidos: this.numIntentos,
       tiempoDeBloqueo: this.tiempoDeBloqueo,
     };
 
     this.datosEmpresaService.configurarEmpresa(payload).subscribe(
       (respuesta) => {
         if (respuesta) {
+          console.log(respuesta);
           Swal.fire({
             icon: 'success',
             title: 'Configuraciones guardadas',
