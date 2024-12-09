@@ -2,22 +2,8 @@ import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Usuario } from '../../../../shared/models/usuario.model';
-import { ActivatedRoute, Route } from '@angular/router';
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-  FormBuilder,
-} from '@angular/forms';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { response } from 'express';
-// import { Console } from 'console';
-import { MessageService } from 'primeng/api';
-import { TREESELECT_VALUE_ACCESSOR } from 'primeng/treeselect';
 import { mensageservice } from '../../../../shared/services/mensage.service';
 import { UsuarioService } from '../../../../shared/services/usuario.service';
 
@@ -33,17 +19,16 @@ export class RecuperarPasswordView {
     { label: '¿equipo de futbol?', value: 'equipo_futbol' },
   ];
 
+  isLoading: boolean = false;
+
   frmSeleccionMetodoRecuperacion: FormGroup;
   frmbuscarCorreo: FormGroup;
   frmVerificacion: FormGroup;
   frmPregunta: FormGroup;
   frmActualizaPassword: FormGroup;
-  validacionesPassword = {
-    tieneMinuscula: false,
-    tieneMayuscula: false,
-    tieneNumero: false,
-    longitudMinima: false,
-  };
+  faltantes: string[] = []; // Lista de requisitos faltantes
+  passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
+
   value: string | undefined;
   correoIngresado: string = '';
 
@@ -92,6 +77,57 @@ export class RecuperarPasswordView {
       email: ['', [Validators.required, Validators.email]],
     });
   }
+  // passwordStrength: string = ''; // variable para almacenar la fuerza de la contraseña
+
+  validacionesPassword = {
+    tieneMinuscula: false,
+    tieneMayuscula: false,
+    tieneNumero: false,
+    tieneSimbolo: false,
+    longitudMinima: false,
+    longitudMayor5: false,
+    tiene5CaracteresDiferentes: false,
+  };
+
+  verificarPassword() {
+    const password = this.frmActualizaPassword.get('nueva')?.value || '';
+    // Contadores de los caracteres presentes
+    const mayusculas = (password.match(/[A-Z]/g) || []).length;
+    const minusculas = (password.match(/[a-z]/g) || []).length;
+    const numeros = (password.match(/[0-9]/g) || []).length;
+    const especiales = (password.match(/[!@#$&*]/g) || []).length;
+
+    // Requisitos mínimos
+    const mayusculasFaltantes = Math.max(3 - mayusculas, 0);
+    const minusculasFaltantes = Math.max(4 - minusculas, 0);
+    const numerosFaltantes = Math.max(4 - numeros, 0);
+    const especialesFaltantes = Math.max(5 - especiales, 0);
+    const longitudFaltante = Math.max(16 - password.length, 0);
+
+    // Generar un mensaje sobre lo que falta
+    this.faltantes = []; // Limpiar la lista de faltantes cada vez que se valide la contraseña
+
+    if (longitudFaltante > 0)
+      this.faltantes.push(`${longitudFaltante} caracteres más`);
+    if (mayusculasFaltantes > 0)
+      this.faltantes.push(`${mayusculasFaltantes} letras mayúsculas`);
+    if (minusculasFaltantes > 0)
+      this.faltantes.push(`${minusculasFaltantes} letras minúsculas`);
+    if (numerosFaltantes > 0)
+      this.faltantes.push(`${numerosFaltantes} números`);
+    if (especialesFaltantes > 0)
+      this.faltantes.push(`${especialesFaltantes} caracteres especiales`);
+
+    // Si no faltan requisitos, la contraseña es válida
+    if (this.faltantes.length === 0) {
+      this.passwordStrengthMessage =
+        'Contraseña válida con el formato adecuado';
+    } else {
+      this.passwordStrengthMessage = `Formato incompleto. Faltan: ${this.faltantes.join(
+        ', '
+      )}`;
+    }
+  }
 
   verificarCoincidencia() {
     const nueva = this.frmActualizaPassword.get('nueva')?.value;
@@ -100,82 +136,48 @@ export class RecuperarPasswordView {
     this.coincidenPasswords = nueva === confirma;
   }
 
-
   enviarYbuscarCorreo() {
+    this.isLoading = true;
     const email = this.frmbuscarCorreo.get('email')?.value;
     console.log(email);
     this.esFrmCorreo = true;
     this.usuarioService.enviarCodido(email).subscribe(
       (response) => {
         if (response) {
+          this.isLoading = false;
+
           this.esFrmCorreo = false;
           this.toastr.info(`Revisa tu vandeja de correos.`, 'Envio');
-           this.esfrmVerficacion = true;
+          this.esfrmVerficacion = true;
           //     // Aquí puedes implementar más lógica si es necesario, como obtener un token de verificación o actualizar el estado de la aplicación
           this.msg.enviarNotificacion().subscribe({});
-        
         } else {
+          this.isLoading = false;
           this.esFrmCorreo = true;
           this.toastr.error('El correo no fue encontrado', 'Error');
           this.esfrmVerficacion = false;
         }
       },
       (error) => {
+        this.isLoading = false;
         console.error('No se encontró el correo:', error);
         this.toastr.error('No se encontró el correo', 'Error');
       }
     );
   }
 
-  // enviarRespuesta() {
-  //   this.esFrmPregunta = false;
-  //   this.esFrmResetPassword = true;
-
-  //   const pregunta = this.frmPregunta.get('pregunta')?.value;
-  //   const respuesta = this.frmPregunta.value.respuesta;
-
-  //   console.log('respuesta=>', respuesta);
-  //   console.log('pregunta=>', pregunta);
-
-  //   if (pregunta == '' || respuesta == '') {
-  //     Swal.fire('Error', 'Por favor selecciona una pregunta', 'error');
-
-  //     this.esFrmPregunta = true;
-  //     // this.esFrmResetPassword = false;
-  //     return; // No permitir enviar el formulario si no se ha seleccionado una pregunta
-  //   }
-
-  //   this.usuarioService.enviarDatos(pregunta, respuesta).subscribe(
-  //     (response) => {
-  //       console.log(response);
-  //       if (response) {
-  //         this.esFrmPregunta = false;
-  //         this.toastr.success('ya puedes actualizar tu password');
-
-  //         this.esFrmResetPassword = true;
-  //       } else {
-  //         this.esFrmCorreo = false;
-  //         this.toastr.error('El correo no fue encontrado', 'Error');
-  //         this.esfrmVerficacion = true;
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error('No se encontró el correo:', error);
-  //       this.toastr.error('No se encontró el correo', 'Error');
-  //     }
-  //   );
-  // }
-
   // comparacion de token en el usuario
   verficarCodigo() {
     this.esFrmCorreo = false;
     const email = this.frmbuscarCorreo.value.email;
     console.log('correo desde html=>', email);
-
+    this.isLoading = true;
     const token = this.frmVerificacion.get('codigo')?.value;
     console.log('token desde html=>', token);
 
     if (!token || token == null) {
+      this.isLoading = false;
+
       this.toastr.error('Ingrese el código', 'Error de entrada');
     } else {
       this.usuarioService.enviarToken(email, token).subscribe(
@@ -185,17 +187,22 @@ export class RecuperarPasswordView {
             this.esfrmVerficacion = false;
             // esFrmResetPassword
             this.toastr.success('ya puedes actualizar tu password');
+            this.isLoading = false;
 
             this.esFrmResetPassword = true;
           } else {
+            this.isLoading = false;
+
             this.esFrmCorreo = false;
-            this.toastr.error('El correo no fue encontrado', 'Error');
+            this.toastr.error('Codigo incorrecto', 'Error');
             this.esfrmVerficacion = true;
           }
         },
         (error) => {
-          console.error('No se encontró el correo:', error);
-          this.toastr.error('No se encontró el correo', 'Error');
+          this.isLoading = false;
+
+          console.error('EL codigo es incorrecto:', error);
+          this.toastr.error('EL codigo es incorrecto', 'Error');
         }
       );
     }
@@ -251,42 +258,13 @@ export class RecuperarPasswordView {
     );
   }
 
-
-  verificarPassword() {
-    const password = this.frmActualizaPassword.get('nueva')?.value;
-
-    this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password);
-    this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password);
-    this.validacionesPassword.tieneNumero = /[0-9]/.test(password);
-    this.validacionesPassword.longitudMinima = password.length >= 8;
-
-    // Determina la fuerza de la contraseña
-    const validaciones = Object.values(this.validacionesPassword).filter(
-      (v) => v
-    ).length;
-
-    if (validaciones === 0) {
-      this.passwordStrength = 'Muy débil';
-      this.strengthColor = 'text-danger';
-    } else if (validaciones < 3) {
-      this.passwordStrength = 'Débil';
-      this.strengthColor = 'text-warning';
-    } else if (validaciones === 3) {
-      this.passwordStrength = 'Fuerte';
-      this.strengthColor = 'text-info';
-    } else if (validaciones === 4) {
-      this.passwordStrength = 'Muy fuerte';
-      this.strengthColor = 'text-success';
-    }
-  }
-
   actualizarPassword() {
-   if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'whatsapp') {
-      console.log('actualizarPasswordxWhatsapp');
-      this.actualizarPasswordxCorreo();
-    } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'correo') {
-      console.log('actualizarPasswordxCorreo');
-      this.actualizarPasswordxCorreo();
-    }
+    //  if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'whatsapp') {
+    //     console.log('actualizarPasswordxWhatsapp');
+    //     this.actualizarPasswordxCorreo();
+    //   } else if (this.frmSeleccionMetodoRecuperacion.value.opcion == 'correo') {
+    //     console.log('actualizarPasswordxCorreo');
+    //     this.actualizarPasswordxCorreo();
+    //   }
   }
 }

@@ -254,9 +254,11 @@
             [toggleMask]="true"
           >
           </p-password>
-          <span [ngClass]="passwordStrengthClass"
-            >{{ passwordStrengthMessage }}</span
-          >
+          <div>
+            <ul class="pass-req" *ngIf="faltantes && faltantes.length > 0">
+              <li *ngFor="let item of faltantes">{{ item }}</li>
+            </ul>
+          </div>
 
           <span *ngIf="isPasswordCompromised" class="toast error">
             <div class="column">
@@ -283,17 +285,27 @@
             Las contraseñas no coinciden.
           </span>
         </div>
-
-        <button
-          class="btn register"
+        <p-button
+          *ngIf="!isLoading"
+          [disabled]="this.faltantes.length != 0 || !credentialsForm.valid || !coincidenPasswords || isPasswordCompromised"
+          iconPos="right"
+          label="Validar y crear cuenta"
           type="submit"
-          [disabled]="!credentialsForm.valid || !coincidenPasswords || isPasswordCompromised"
         >
-          > Validar y crear cuenta
-        </button>
-        <button class="btn signin" type="button" (click)="goToPreviousStep()">
+        </p-button>
+        <!-- [disabled]="this.faltantes.length != 0 || !credentialsForm.valid || !coincidenPasswords || isPasswordCompromised" -->
+        <!-- *ngIf="!isLoading" -->
+        <p-button
+          (click)="goToPreviousStep()"
+          label="Volver"
+          type="button"
+        >
+        </p-button>
+        <!-- class="btn register" -->
+        <!-- iconPos="right" -->
+        <!-- <button class="btn signin" type="button" (click)="goToPreviousStep()">
           Volver
-        </button>
+        </button> -->
       </form>
     </div>
   </div>

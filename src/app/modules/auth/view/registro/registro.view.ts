@@ -33,6 +33,7 @@ export class RegistroView {
   currentStep = 1;
   passwordStrengthClass: string = ''; // Clase CSS que se aplica dinámicamente
   passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
+  faltantes: string[] = []; // Lista de requisitos faltantes
 
   verificationCode: string = '';
   remainingChars: number = 15;
@@ -144,17 +145,6 @@ export class RegistroView {
     this.remainingChars = 8 - usernameValue.length;
   }
 
-  //   const emailControl = this.personalDataForm.get('email');
-  //   const emailValue = emailControl?.value || '';
-
-  //   if (/\s/.test(emailValue)) {
-  //     this.emailError = 'El correo no debe contener espacios.';
-  //   } else if (!emailControl?.valid && emailControl?.touched) {
-  //     this.emailError = 'El correo tiene un formato inválido.';
-  //   } else {
-  //     this.emailError = null;
-  //   }
-  // }
   // Generar código de verificación
   generateCode(option: string) {
     this.displayModal = false; // Cierra el modal principal
@@ -217,6 +207,7 @@ export class RegistroView {
       this.showSpinner();
       // isLoadingBasic
       const email = this.personalDataForm.get('email')?.value;
+      const telefono = this.personalDataForm.get('telefono')?.value;
       this.uservice.checkEmailExists(email).subscribe({
         next: () => {
           this.isLoadingBasic = false;
@@ -224,10 +215,31 @@ export class RegistroView {
           this.displayModal = true;
         },
         error: () => {
+          this.displayModal = false;
           Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'El email ya está registrado', // Mensaje simple de error
+            confirmButtonText: 'Ok',
+          });
+          this.hideSpinner();
+        },
+      });
+      this.uservice.checkTelefonoExists(telefono).subscribe({
+        next: () => {
+          this.isLoadingBasic = false;
+          // Si no hay errores, mostrar el modal
+          this.displayModal = true;
+        },
+        error: () => {
+          this.isLoadingBasic = false;
+          this.displayModal = false;
+
+          Swal.fire({
+
+            icon: 'error',
+            title: 'Error',
+            text: 'El telefono ya está registrado', // Mensaje simple de error
             confirmButtonText: 'Ok',
           });
           this.hideSpinner();
@@ -392,6 +404,17 @@ export class RegistroView {
     }
   }
 
+  // validacionesPassword = {
+  //   tieneMinuscula: false,
+  //   tieneMayuscula: false,
+  //   tieneNumero: false,
+  //   tieneSimbolo: false,
+  //   longitudMinima: false,
+  //   longitudMayor5: false,
+  //   tiene5CaracteresDiferentes: false,
+  // };
+  coincidenPasswords = false;
+
   validacionesPassword = {
     tieneMinuscula: false,
     tieneMayuscula: false,
@@ -401,17 +424,45 @@ export class RegistroView {
     longitudMayor5: false,
     tiene5CaracteresDiferentes: false,
   };
-  coincidenPasswords = false;
 
-  // Validar contraseña  // Verificar la contraseña
   verificarPassword() {
-    const password = this.credentialsForm.get('password')?.value;
+    const password = this.credentialsForm.get('password')?.value || '';
+    // Contadores de los caracteres presentes
+    const mayusculas = (password.match(/[A-Z]/g) || []).length;
+    const minusculas = (password.match(/[a-z]/g) || []).length;
+    const numeros = (password.match(/[0-9]/g) || []).length;
+    const especiales = (password.match(/[!@#$&*]/g) || []).length;
 
-    // Verificar la fortaleza de la contraseña
-    this.checkPasswordStrength(password);
+    // Requisitos mínimos
+    const mayusculasFaltantes = Math.max(3 - mayusculas, 0);
+    const minusculasFaltantes = Math.max(4 - minusculas, 0);
+    const numerosFaltantes = Math.max(4 - numeros, 0);
+    const especialesFaltantes = Math.max(5 - especiales, 0);
+    const longitudFaltante = Math.max(16 - password.length, 0);
 
-    // Verificar si la contraseña está comprometida
-    this.checkIfPasswordIsPwned(password);
+    // Generar un mensaje sobre lo que falta
+    this.faltantes = []; // Limpiar la lista de faltantes cada vez que se valide la contraseña
+
+    if (longitudFaltante > 0)
+      this.faltantes.push(`${longitudFaltante} caracteres más`);
+    if (mayusculasFaltantes > 0)
+      this.faltantes.push(`${mayusculasFaltantes} letras mayúsculas`);
+    if (minusculasFaltantes > 0)
+      this.faltantes.push(`${minusculasFaltantes} letras minúsculas`);
+    if (numerosFaltantes > 0)
+      this.faltantes.push(`${numerosFaltantes} números`);
+    if (especialesFaltantes > 0)
+      this.faltantes.push(`${especialesFaltantes} caracteres especiales`);
+
+    // Si no faltan requisitos, la contraseña es válida
+    if (this.faltantes.length === 0) {
+      this.passwordStrengthMessage =
+        'Contraseña válida con el formato adecuado';
+    } else {
+      this.passwordStrengthMessage = `Formato incompleto. Faltan: ${this.faltantes.join(
+        ', '
+      )}`;
+    }
   }
 
   // Verificar la fortaleza de la contraseña
@@ -520,12 +571,13 @@ export class RegistroView {
       };
 
       this.showSpinner();
-      console.log('Registrarse');
+      console.log(USUARIO);
       // Llama al servicio de registro, asumiendo que tienes un servicio de usuario
       this.uservice.register(USUARIO).subscribe(
         (response) => {
+         console.log('Response:', response);
           // Swal.fire('Exitoso', 'El registro fue exitoso', 'success');
-          this.personalDataForm.reset(); // Resetea el formulario de datos básicos
+          // this.personalDataForm.reset(); // Resetea el formulario de datos básicos
           // this.datosConfidencialesForm.reset(); // Resetea el formulario de datos confidenciales
           // this.politicasForm.reset(); // Resetea el formulario de políticas
           this.hideSpinner();
@@ -535,7 +587,7 @@ export class RegistroView {
             'info'
           ).then(() => {
             // Redirigir al login después de cerrar el modal de SweetAlert
-            this.router.navigate(['/public/home']);
+            this.router.navigate(['/auth/Sign-in']);
           });
         },
         (error) => {

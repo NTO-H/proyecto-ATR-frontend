@@ -74,8 +74,6 @@ import { RouterModule } from '@angular/router';
     PasswordModule,
     InputMaskModule,
     InputTextModule,
-    // RecaptchaModule,
-    // RecaptchaV3Module,
     InputGroupModule,
     PublicModule,
     ToastrModule.forRoot(),
@@ -97,7 +95,7 @@ import { RouterModule } from '@angular/router';
     UsuarioService,
     ToastrService,
     MessageService,
-    ConfirmationService, 
+    ConfirmationService,
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
   ],
 })

@@ -43,16 +43,15 @@ export class SignInView implements OnInit {
   lockTime: number = 30; // Tiempo de bloqueo en segundos
   remainingTime: number = 0; // Tiempo restante para volver a intentar
   timerSubscription!: Subscription;
-  faltantes: string[] = []; // Lista de requisitos faltantes
 
   loginForm: FormGroup;
   errorMessage: string = '';
   userROL!: string;
-  isLoading: boolean = false;
+  loading: boolean = false;
   captchagenerado: boolean = false;
   //datos de la empresa
-  logo!: string;
-  passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
+  logo: string =
+    'https://res.cloudinary.com/dvvhnrvav/image/upload/v1730395938/images-AR/wyicw2mh3xxocscx0diz.png';
 
   nombreEmpresa: string = 'Atelier';
 
@@ -62,6 +61,7 @@ export class SignInView implements OnInit {
 
   public robot!: boolean;
   public presionado!: boolean;
+
   constructor(
     private msgs: mensageservice,
     private signInService: SignInService,
@@ -100,57 +100,6 @@ export class SignInView implements OnInit {
         this.checkIfPasswordIsPwned(password);
       }
     });
-  }
-
-  validacionesPassword = {
-    tieneMinuscula: false,
-    tieneMayuscula: false,
-    tieneNumero: false,
-    tieneSimbolo: false,
-    longitudMinima: false,
-    longitudMayor5: false,
-    tiene5CaracteresDiferentes: false,
-  };
-  passwordStrength: string = ''; // variable para almacenar la fuerza de la contraseña
-
-  verificarPassword() {
-    const password = this.loginForm.get('password')?.value || '';
-    // Contadores de los caracteres presentes
-    const mayusculas = (password.match(/[A-Z]/g) || []).length;
-    const minusculas = (password.match(/[a-z]/g) || []).length;
-    const numeros = (password.match(/[0-9]/g) || []).length;
-    const especiales = (password.match(/[!@#$&*]/g) || []).length;
-
-    // Requisitos mínimos
-    const mayusculasFaltantes = Math.max(3 - mayusculas, 0);
-    const minusculasFaltantes = Math.max(4 - minusculas, 0);
-    const numerosFaltantes = Math.max(4 - numeros, 0);
-    const especialesFaltantes = Math.max(5 - especiales, 0);
-    const longitudFaltante = Math.max(16 - password.length, 0);
-
-    // Generar un mensaje sobre lo que falta
-    this.faltantes = []; // Limpiar la lista de faltantes cada vez que se valide la contraseña
-
-    if (longitudFaltante > 0)
-      this.faltantes.push(`${longitudFaltante} caracteres más`);
-    if (mayusculasFaltantes > 0)
-      this.faltantes.push(`${mayusculasFaltantes} letras mayúsculas`);
-    if (minusculasFaltantes > 0)
-      this.faltantes.push(`${minusculasFaltantes} letras minúsculas`);
-    if (numerosFaltantes > 0)
-      this.faltantes.push(`${numerosFaltantes} números`);
-    if (especialesFaltantes > 0)
-      this.faltantes.push(`${especialesFaltantes} caracteres especiales`);
-
-    // Si no faltan requisitos, la contraseña es válida
-    if (this.faltantes.length === 0) {
-      this.passwordStrengthMessage =
-        'Contraseña válida con el formato adecuado';
-    } else {
-      this.passwordStrengthMessage = `Formato incompleto. Faltan: ${this.faltantes.join(
-        ', '
-      )}`;
-    }
   }
 
   emailValidator(): ValidatorFn {
@@ -308,7 +257,7 @@ export class SignInView implements OnInit {
   }
   login(): void {
     const captchaToken = this.generaToken();
-    this.isLoading = true;
+
     if (!captchaToken) {
       Swal.fire({
         title: 'Complete el capchat primero',
@@ -384,8 +333,6 @@ export class SignInView implements OnInit {
         }
       },
       (err) => {
-        this.isLoading = false;
-
         console.error('Error en el inicio de sesión:', err);
         if (err) {
           if (err.error.message === 'Captcha inválido') {

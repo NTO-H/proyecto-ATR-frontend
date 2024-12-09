@@ -7,6 +7,7 @@ import { mensageservice } from '../../../../shared/services/mensage.service';
   templateUrl: './verificar-codigo.view.html',
   styleUrls: ['./verificar-codigo.view.scss'], // Asegúrate de que 'styleUrls' esté en plural
 })
+
 export class VerificarCodigoView implements OnInit {
   formulario!: FormGroup;
   formulario1!: FormGroup;
@@ -32,17 +33,17 @@ export class VerificarCodigoView implements OnInit {
   sendVerificationCode(): void {
     if (this.formulario.valid) {
       const email = this.formulario.get('email')?.value;
-  
+
       // Simular la lógica para enviar el código de verificación
       // this.msgs.enviarCorreo(email).subscribe({
       //   next: (res) => {
       //     this.isOtpSent = true;
       //     console.log('Código de verificación enviado con éxito:', res);
-          
+
       //     // Aquí puedes implementar más lógica si es necesario, como obtener un token de verificación o actualizar el estado de la aplicación
       //     this.msgs.enviarNotificacion().subscribe({
       //     });
-          
+
       //     // Cambiar el valor de isOtpSent a true para mostrar el segundo formulario
       //   },
       //   error: (err) => {
@@ -51,7 +52,7 @@ export class VerificarCodigoView implements OnInit {
       // });
     }
   }
-  
+
 
   // Verificación del código OTP
   verifyOtp(): void {

@@ -1,9 +1,35 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <form [formGroup]="loginForm" (ngSubmit)="login()" method="post" class="form">
+  <div class="item">
+    <div class="nombre-empresa">
+      <h1>{{nombreEmpresa}}</h1>
+    </div>
 
+    <div class="logo">
+      <img src="{{logo}}" alt="Logo de la empresa" />
+    </div>
+    <div class="text-item">
+      <h2>Bienvenido <br /><span>A la a nuestra a {{nombreEmpresa}}</span></h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
+        suscipit amet recusandae beatae cumque consectetur magnam aperiam
+        maiores ratione,
+      </p>
+      <div class="social-icon">
+        <a href="#"><i class="pi pi-facebook">facebook</i></a>
+        <a href="#"><i class="pi pi-twitter">twitter</i></a>
+        <a href="#"><i class="pi pi-instagram">instagram</i></a>
+        <a href="#"><i class="pi pi-whatsapp">whatsapp</i></a>
+      </div>
+    </div>
+  </div>
 
   <div class="login-section">
+    <div class="form-box-titulo">
+      <h1>Login</h1>
+    </div>
+
     <div class="form-box mb-4">
       <label for="email" class="block text-sm font-medium text-gray-700"
         >Correo electronico</label
@@ -42,25 +68,46 @@
     <div class="form-box">
       <label for="pass" class="">Contraseña</label>
       <p-inputGroup class="input-group">
+        <p-inputGroupAddon>
+          <i class="pi pi-lock"></i>
+          <!-- Ícono de candado para contraseña -->
+        </p-inputGroupAddon>
         <p-password
           formControlName="password"
           [toggleMask]="true"
-          [feedback]="false"
-          [maxLength]="16"
-          inputStyleClass="input-login"
           promptLabel="Ingresa tu contraseña"
           strongLabel="Nivel de contraseña aceptable"
-          (input)="verificarPassword()"
+          weakLabel="Muy simple"
+          mediumLabel="Mediana mente segura"
+          strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+          mediumRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$"
+          inputStyleClass="input-login"
+          placeholder="Contraseña segura"
+          (onBlur)="checkIfPasswordIsPwned(loginForm.get('password')?.value)"
         >
-
+          <ng-template pTemplate="header">
+            <h6>Escoge una contraseña</h6>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <p-divider></p-divider>
+            <p>Sugerencias</p>
+            <ul>
+              <li [ngClass]="{'hidden': hasLowercase}">
+                Al menos una letra minúscula
+              </li>
+              <li [ngClass]="{'hidden': hasUppercase}">
+                Al menos una letra mayúscula
+              </li>
+              <li [ngClass]="{'hidden': hasNumber}">Al menos un número</li>
+              <li [ngClass]="{'hidden': hasSpecialChar}">
+                Al menos un carácter especial
+              </li>
+              <li [ngClass]="{'hidden': hasMinLength}">Mínimo 8 caracteres</li>
+            </ul>
+          </ng-template>
         </p-password>
       </p-inputGroup>
     </div>
-    <div>
-      <ul class="pass-req"  *ngIf="faltantes && faltantes.length > 0">
-         <li *ngFor="let item of faltantes">{{ item }}</li>
-       </ul>
-     </div>
     <div *ngIf="isPasswordCompromised" class="errorMenssage">
       Esta contraseña ha sido comprometida. Por favor, elige otra.
     </div>
@@ -68,9 +115,8 @@
       id="captcha-container"
       class="g-recaptcha"
       data-sitekey="6Ld8joAqAAAAABuc_VUhgDt7bzSOYAr7whD6WeNI"
-      data-theme="ligth"
+      data-theme="dark"
     ></div>
-
     <div
       *ngIf="errorMessage && errorMessage.includes('Contraseña')"
       class="errorMenssage"
@@ -84,13 +130,14 @@
         {{ remainingTime }} segundos.
       </div>
     </div>
+    <!-- <div class="mt-3" id="cloudflare-captcha-signin"></div> -->
+
     <!-- Botón para iniciar sesión -->
     <div class="form-box-button">
-      <p-button *ngIf="!isLoading" [disabled]="this.faltantes.length != 0 || loginForm.invalid " iconPos="right" label="Iniciar Sesión" type="submit">
+      <p-button iconPos="right" label="Iniciar Sesión" type="submit">
       </p-button>
-
-      <button disabled *ngIf="isLoading" class="ui loading button">Loading</button>
     </div>
+
     <!-- Opciones adicionales -->
     <div class="options" [class.disabled]="isLocked">
       <a (click)="redirectTo('forgot-password')" class="forgot-password"

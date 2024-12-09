@@ -99,12 +99,12 @@ export class ListadoProductosComponent implements OnInit {
   confirmarEliminar() {
     // this.usuarioId = id;
     this.productoS.eliminarProducto(this.idProducto).subscribe((response) => {
-      this.getProductos();
       Swal.fire(
         'Eliminado',
         'El producto se ha eliminado correctamente.',
         'success'
       );
+      this.getProductos();
     });
     // console.log(`Usuario con ID ${this.usuarioId} eliminado.`);
     //

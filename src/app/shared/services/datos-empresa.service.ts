@@ -14,10 +14,10 @@ export class DatosEmpresaService {
     return this.http.put(url, data);
   }
   configurarEmpresa(data: any): Observable<any> {
-    const url = `${environment.api}/Empresa/configurarEmpresa/`;
+    const url = `${environment.api}/Empresa/editarConfigurarEmpresa/`;
     return this.http.put(url, data);
   }
- 
+
   traerDatosEmpresa(): Observable<any> {
     const url = `${environment.api}/Empresa/obtenerPerfilesEmpresa`;
     return this.http.get(url);

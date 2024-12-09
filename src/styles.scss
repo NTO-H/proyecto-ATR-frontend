@@ -2,9 +2,6 @@
 @import "primeicons/primeicons.css";
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 body {
   user-select: none; /* Evita la selección de texto */
@@ -60,7 +57,7 @@ body {
   --color-text: #56616a;
   --box-sw: 0 4px 6px rgba(0, 0, 0, 0.1);
   --text-style-color: rgb(51, 66, 86);
-  --color-brd: #c4c4c4;
+  --color-brd: #efefef;
   --style-footer: #f0ebe5;
   // --style-bg-footer: radial-gradient(circle at top, #ffc466 0%, #050703 60%);
   --style-footer-adm: #e7d7c3;

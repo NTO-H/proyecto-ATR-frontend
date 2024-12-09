@@ -37,6 +37,15 @@ export class UsuarioService {
       }
     );
   }
+  checkTelefonoExists(telefono: string): Observable<any> {
+    return this.http.post<any>(
+      environment.api + '/usuarios/check-telefono',
+      { telefono },
+      {
+        withCredentials: true,
+      }
+    );
+  }
   checkCode(code: number): Observable<any> {
     return this.http.post<any>(
       environment.api + '/usuarios/check-code',
@@ -84,7 +93,7 @@ export class UsuarioService {
     nueva: string
   ): Observable<any> {
     return this.http.put<boolean>(
-      environment.api + '/Empresa/editarPerfilAdministrador',
+      environment.api + '/usuarios/actualizaxCorreo',
       {
         email,
         nueva,
