@@ -18,6 +18,7 @@ import {
   isValidPhoneNumber,
 } from 'libphonenumber-js';
 import axios from 'axios';
+import { forkJoin } from 'rxjs';
 
 declare const $: any;
 
@@ -208,40 +209,37 @@ export class RegistroView {
       // isLoadingBasic
       const email = this.personalDataForm.get('email')?.value;
       const telefono = this.personalDataForm.get('telefono')?.value;
-      this.uservice.checkEmailExists(email).subscribe({
-        next: () => {
+      // Usamos forkJoin para combinar ambas solicitudes
+      forkJoin({
+        emailCheck: this.uservice.checkEmailExists(email),
+        telefonoCheck: this.uservice.checkTelefonoExists(telefono),
+      }).subscribe({
+        next: (results) => {
+          console.log(results);
+          // Ambas verificaciones han pasado, no hay errores
           this.isLoadingBasic = false;
-          // Si no hay errores, mostrar el modal
           this.displayModal = true;
-        },
-        error: () => {
-          this.displayModal = false;
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'El email ya está registrado', // Mensaje simple de error
-            confirmButtonText: 'Ok',
-          });
           this.hideSpinner();
         },
-      });
-      this.uservice.checkTelefonoExists(telefono).subscribe({
-        next: () => {
-          this.isLoadingBasic = false;
-          // Si no hay errores, mostrar el modal
-          this.displayModal = true;
-        },
-        error: () => {
+        error: (err) => {
+          // Si alguna verificación falla, capturamos el error
           this.isLoadingBasic = false;
           this.displayModal = false;
+          let errorMessage = '';
+
+          if (err.error && err.error.message) {
+            errorMessage = err.error.message;
+          } else {
+            errorMessage = 'Hubo un error inesperado. Inténtalo nuevamente.';
+          }
 
           Swal.fire({
-
             icon: 'error',
             title: 'Error',
-            text: 'El telefono ya está registrado', // Mensaje simple de error
+            text: errorMessage, // Mensaje del error recibido
             confirmButtonText: 'Ok',
           });
+
           this.hideSpinner();
         },
       });
@@ -575,7 +573,7 @@ export class RegistroView {
       // Llama al servicio de registro, asumiendo que tienes un servicio de usuario
       this.uservice.register(USUARIO).subscribe(
         (response) => {
-         console.log('Response:', response);
+          console.log('Response:', response);
           // Swal.fire('Exitoso', 'El registro fue exitoso', 'success');
           // this.personalDataForm.reset(); // Resetea el formulario de datos básicos
           // this.datosConfidencialesForm.reset(); // Resetea el formulario de datos confidenciales

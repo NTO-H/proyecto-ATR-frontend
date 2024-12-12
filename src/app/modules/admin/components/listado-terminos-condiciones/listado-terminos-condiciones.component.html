@@ -27,7 +27,7 @@
     </div>
     <!-- Campo para la Vigencia -->
     <div class="form-group">
-      <label for="fechaVigencia">Vigencia</label>
+      <label for="fechaVigencia">Fecha de Vencimiento</label>
 
       <input
         type="date"
@@ -40,7 +40,7 @@
         class="form-control"
       />
       <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
-        La vigencia es requerida.
+        La fecha de vencimiento es requerida.
       </div>
     </div>
 
@@ -66,7 +66,7 @@
         <th>Título</th>
         <th>Contenido</th>
         <th>Fecha de Creación</th>
-        <th>Fecha de Vigencia</th>
+        <th>Fecha de Vencimiento</th>
         <th>Estado</th>
         <th>Acciones</th>
       </tr>
@@ -76,8 +76,8 @@
         <td>{{ termino?.version }}</td>
         <td>{{ termino?.titulo }}</td>
         <td>{{ termino?.contenido }}</td>
-        <td>{{ termino?.fechaCreacion | date : "short" }}</td>
-        <td>{{ termino?.fechaVigencia | date : "short" }}</td>
+        <td>{{ termino?.fechaCreacion | date : "dd/MM/yyyy" : "+0000" }}</td>
+        <td>{{ termino?.fechaVigencia | date : "dd/MM/yyyy" : "+0000" }}</td>
         <td>{{ termino?.estado }}</td>
         <td>
           <button (click)="editarTermino(termino)" class="btn btn-edit">

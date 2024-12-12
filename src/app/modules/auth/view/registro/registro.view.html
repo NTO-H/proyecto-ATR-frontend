@@ -139,7 +139,7 @@
 
         <!-- Campo de Nombre -->
         <div class="form-group">
-          <label for="username">Nombre de usuario</label>
+          <label for="|">Nombre de usuario</label>
           <input
             type="text"
             placeholder="Nombre usuario"
@@ -177,10 +177,10 @@
           <label for="email">Correo Electrónico</label>
           <input
             placeholder="Correo Electrónico"
+            type="email"
             id="email"
             [pattern]="'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'"
             formControlName="email"
-            class="input-email"
           />
           <div
             *ngIf="personalDataForm.get('email')?.invalid && personalDataForm.get('email')?.touched"

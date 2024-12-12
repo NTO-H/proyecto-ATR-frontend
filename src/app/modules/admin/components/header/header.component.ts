@@ -1,15 +1,23 @@
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild, ViewEncapsulation } from "@angular/core";
-import { Router } from "@angular/router";
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import { Router } from '@angular/router';
 // import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { SessionService } from "../../../../shared/services/session.service";
-import { ClientesService } from "../../../../shared/services/clientes.service";
-import { MenuItem } from "primeng/api";
-import { StorageService } from "../../../../shared/services/storage.service";
+import { SessionService } from '../../../../shared/services/session.service';
+import { ClientesService } from '../../../../shared/services/clientes.service';
+import { MenuItem } from 'primeng/api';
+import { StorageService } from '../../../../shared/services/storage.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss',"menuLateral.scss"],
-  
+  styleUrls: ['./header.component.scss', 'menuLateral.scss'],
+
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
@@ -30,17 +38,15 @@ export class HeaderComponent implements OnInit {
     private storageService: StorageService,
     private clientesService: ClientesService,
     private router: Router,
-    private renderer: Renderer2, 
-    private sessionService: SessionService,
+    private renderer: Renderer2,
+    private sessionService: SessionService
   ) {
     this.fechaSeleccionada = new Date();
     this.fecha = this.obtenerFechaYYYYMMDD();
     this.fechaTexto = this.obtenerFechaTexto();
   }
 
-
   isResizing: boolean = false;
-
 
   isCollapsed = false;
 
@@ -54,7 +60,7 @@ export class HeaderComponent implements OnInit {
       { label: 'Computer' },
       { label: 'Accessories' },
       { label: 'Keyboard' },
-      { label: 'Wireless' }
+      { label: 'Wireless' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
@@ -66,7 +72,6 @@ export class HeaderComponent implements OnInit {
       this.renderer.removeClass(document.body, 'collapsed-padding');
     }
   }
-
 
   // Inicia el redimensionamiento
   startResizing(event: MouseEvent) {
@@ -86,26 +91,21 @@ export class HeaderComponent implements OnInit {
     this.resizing = false;
   }
 
+  resizeSidebar(event: MouseEvent) {
+    if (this.isResizing) {
+      const newWidth = event.clientX; // Calcula el nuevo ancho según la posición del mouse
+      const minWidth = 250; // Puedes ajustar el ancho mínimo
+      const maxWidth = 600; // Ajusta el ancho máximo
 
-
-resizeSidebar(event: MouseEvent) {
-  if (this.isResizing) {
-    const newWidth = event.clientX; // Calcula el nuevo ancho según la posición del mouse
-    const minWidth = 250; // Puedes ajustar el ancho mínimo
-    const maxWidth = 600; // Ajusta el ancho máximo
-
-    // Limita el ancho a un rango
-    const finalWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
-    this.renderer.setStyle(
-      document.querySelector('.w-30rem'),
-      'width',
-      `${finalWidth}px`
-    );
+      // Limita el ancho a un rango
+      const finalWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
+      this.renderer.setStyle(
+        document.querySelector('.w-30rem'),
+        'width',
+        `${finalWidth}px`
+      );
+    }
   }
-}
-
-
-
 
   isTextVisible: boolean = true; // Se puede ocultar o mostrar
 
@@ -114,26 +114,22 @@ resizeSidebar(event: MouseEvent) {
     this.isTextVisible = !this.isTextVisible; // Cambia la visibilidad del texto
   }
 
-  
   // isCollapsed = false;
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
   }
 
-
   toggleCalendar() {
     this.mostrarCalendario = !this.mostrarCalendario;
   }
 
- 
-
   setActiveLink(event: Event): void {
     const target = event.currentTarget as HTMLElement;
     if (this.activeLink) {
-      this.activeLink.classList.remove("m-tree__itemContent__selected");
+      this.activeLink.classList.remove('m-tree__itemContent__selected');
     }
-    target.classList.add("m-tree__itemContent__selected");
+    target.classList.add('m-tree__itemContent__selected');
     this.activeLink = target;
   }
 
@@ -141,53 +137,82 @@ resizeSidebar(event: MouseEvent) {
     this.openSubmenu = this.openSubmenu === submenuId ? null : submenuId;
   }
 
-
-
   logout() {
     this.storageService.removeItem('token');
-    this.router.navigate(["/auth/login"]);
+    this.router.navigate(['/auth/login']);
   }
 
   redirectToCotrolClientes(route: string): void {
-    this.router.navigate([route === "login" ? "/auth/login" : `/admin/control-clientes/${route}`]);
+    this.router.navigate([
+      route === 'login' ? '/auth/login' : `/admin/control-clientes/${route}`,
+    ]);
   }
 
   redirectToProductos(route: string): void {
-    this.router.navigate([route === "login" ? "/auth/login" : `/admin/control-productos/${route}`]);
+    this.router.navigate([
+      route === 'login' ? '/auth/login' : `/admin/control-productos/${route}`,
+    ]);
   }
 
   redirectToRenta(route: string): void {
-    this.router.navigate([route === "login" ? "/auth/login" : `/admin/control-renta/${route}`]);
+    this.router.navigate([
+      route === 'login' ? '/auth/login' : `/admin/control-renta/${route}`,
+    ]);
   }
 
   redirectToReportes(route: string): void {
-    this.router.navigate([route === "login" ? "/auth/login" : `/admin/reportes/${route}`]);
+    this.router.navigate([
+      route === 'login' ? '/auth/login' : `/admin/reportes/${route}`,
+    ]);
   }
   redirectToConfiguracion(route: string): void {
-    this.router.navigate([route === "login" ? "/auth/login" : `/admin/configuracion/${route}`]);
+    this.router.navigate([
+      route === 'login' ? '/auth/login' : `/admin/configuracion/${route}`,
+    ]);
   }
 
   redirectToVentas(route: string): void {
-    this.router.navigate([route === "login" ? "/auth/login" : `/admin/control-venta/${route}`]);
+    this.router.navigate([
+      route === 'login' ? '/auth/login' : `/admin/control-venta/${route}`,
+    ]);
   }
   redirectoPoliticas(route: string): void {
-    this.router.navigate([route === "login" ? "/auth/login" : `/admin/politicas/${route}`]);
+    this.router.navigate([
+      route === 'login' ? '/auth/login' : `/admin/politicas/${route}`,
+    ]);
   }
 
   obtenerFechaYYYYMMDD() {
     const fecha = new Date();
     const año = fecha.getFullYear();
-    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
-    const dia = String(fecha.getDate()).padStart(2, "0");
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dia = String(fecha.getDate()).padStart(2, '0');
     return `${dia}-${mes}-${año}`;
   }
 
   obtenerFechaTexto() {
     const diasSemana = [
-      "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
     ];
     const meses = [
-      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
     ];
     const fecha = new Date();
     const diaSemana = diasSemana[fecha.getDay()];
@@ -196,14 +221,12 @@ resizeSidebar(event: MouseEvent) {
     return `${diaSemana} / ${mes} / ${año}`;
   }
 
+  //isLoggedIn = !!localStorage.getItem('token'); // Verificar si el token existe
+  isLoggedIn = typeof window !== 'undefined' && localStorage.getItem('token') !== null;
 
+  menuOpen = false;
 
-
-  isLoggedIn = !!localStorage.getItem('token'); // Verificar si el token existe
-menuOpen = false;
-
-toggleMenu() {
-  this.menuOpen = !this.menuOpen;
-}
-
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
 }

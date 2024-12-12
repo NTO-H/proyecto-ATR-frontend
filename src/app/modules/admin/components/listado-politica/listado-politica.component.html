@@ -27,7 +27,7 @@
       ></textarea>
     </div>
     <div class="form-group">
-      <label for="fechaVigencia">Vigencia</label>
+      <label for="fechaVigencia">Fecha de Vencimiento</label>
       <input
         type="date"
         id="fechaVigencia"
@@ -38,7 +38,7 @@
         class="form-control"
       />
       <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
-        La vigencia es requerida.
+        La fecha de vencimiento es requerida.
       </div>
     </div>
 
@@ -63,7 +63,7 @@
         <th>Título</th>
         <th>Contenido</th>
         <th>Fecha de Creación</th>
-        <th>Fecha de Vigencia</th>
+        <th>Fecha de Vencimiento</th>
         <th>Estado</th>
         <th>Acciones</th>
       </tr>
@@ -73,8 +73,9 @@
         <td>{{ doc?.version }}</td>
         <td>{{ doc?.titulo }}</td>
         <td>{{ doc?.contenido }}</td>
-        <td>{{ doc?.fechaCreacion | date : "short" }}</td>
-        <td>{{ doc?.fechaVigencia | date : "short" }}</td>
+        <td>{{ doc?.fechaCreacion | date : "dd/MM/yyyy" : "+0000" }}</td>
+        <td>{{ doc?.fechaVigencia | date : "dd/MM/yyyy" : "+0000" }}</td>
+
         <td>{{ doc?.estado }}</td>
         <td>
           <button (click)="editarPolitica(doc)" class="btn btn-edit">

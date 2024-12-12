@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class ListadoPoliticaComponent implements OnInit {
   politicas: Politica[] = []; // Inicializa como un arreglo vacío
   politicaAEditar = {
-    _id:'',
+    _id: '',
     titulo: '',
     contenido: '',
     fechaVigencia: this.getCurrentDate(),
@@ -56,7 +56,7 @@ export class ListadoPoliticaComponent implements OnInit {
   cancelarEdicion() {
     this.isEditing = false; // Desactivamos la edición
     this.politicaAEditar = {
-      _id:'',
+      _id: '',
       titulo: '',
       contenido: '',
       fechaVigencia: this.getCurrentDate(),
@@ -74,7 +74,7 @@ export class ListadoPoliticaComponent implements OnInit {
           this.obtenerPoliticas(); // Recargar la lista después de actualizar
           this.isEditing = false; // Desactivamos el modo edición
           this.politicaAEditar = {
-            _id:'',
+            _id: '',
             titulo: '',
             contenido: '',
             fechaVigencia: this.getCurrentDate(),
@@ -100,6 +100,10 @@ export class ListadoPoliticaComponent implements OnInit {
 
   editarPolitica(doc: Politica) {
     this.politicaAEditar = { ...doc }; // Copiar los datos de la política seleccionada
+    const fechaFormateada = new Date(this.politicaAEditar.fechaVigencia)
+      .toISOString()
+      .split('T')[0];
+    this.politicaAEditar.fechaVigencia = fechaFormateada;
     this.isEditing = true; // Cambiar el estado a editar
   }
 
@@ -137,6 +141,8 @@ export class ListadoPoliticaComponent implements OnInit {
   }
 
   verHistorial(id: string) {
-    this.router.navigate(['/admin/politicas/historial-listado-politica/', id]);
+    this.router.navigate(['/admin/configuracion/historial-listado-politica/' + id]);
   }
+
+  
 }

@@ -40,7 +40,7 @@
 
     <!-- Campo para la Vigencia -->
     <div class="form-group">
-      <label for="fechaVigencia">Vigencia</label>
+      <label for="fechaVigencia">Fecha de Vencimiento</label>
       <input
         type="date"
         id="fechaVigencia"
@@ -51,7 +51,7 @@
         class="form-control"
       />
       <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
-        La vigencia es requerida.
+        La fecha de vencimiento es requerida.
       </div>
     </div>
 
