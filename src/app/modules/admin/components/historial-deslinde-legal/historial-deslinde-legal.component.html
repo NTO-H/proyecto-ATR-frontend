@@ -24,8 +24,8 @@
         <td>{{ deslinde.version }}</td>
         <td>{{ deslinde.titulo }}</td>
         <td>{{ deslinde.contenido }}</td>
-        <td>{{ deslinde.fechaCreacion | date : "short" }}</td>
-        <td>{{ deslinde.fechaVigencia | date : "short" }}</td>
+        <td>{{ deslinde.fechaCreacion | date : "dd/MM/yyyy" : "+0000"  }}</td>
+        <td>{{ deslinde.fechaVigencia | date : "dd/MM/yyyy" : "+0000"  }}</td>
         <td>{{ deslinde.estado }}</td>
       </tr>
     </tbody>

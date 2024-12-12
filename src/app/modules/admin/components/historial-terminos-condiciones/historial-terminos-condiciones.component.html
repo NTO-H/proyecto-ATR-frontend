@@ -15,12 +15,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let termino of historialTerminos">
+      <tr *ngFor="let termino of historialTerminos ">
         <td>{{ termino.version }}</td>
         <td>{{ termino.titulo }}</td>
         <td>{{ termino.contenido }}</td>
-        <td>{{ termino.fechaCreacion | date : "short" }}</td>
-        <td>{{ termino.fechaVigencia | date : "short" }}</td>
+        <td>{{ termino.fechaCreacion | date : "dd/MM/yyyy" : "+0000" }}</td>
+        <td>{{ termino.fechaVigencia |date : "dd/MM/yyyy" : "+0000" }}</td>
         <td>{{ termino.estado }}</td>
       </tr>
     </tbody>

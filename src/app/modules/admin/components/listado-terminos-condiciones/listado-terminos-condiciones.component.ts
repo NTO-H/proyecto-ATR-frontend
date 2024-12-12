@@ -38,7 +38,7 @@ export class ListadoTerminosCondicionesComponent {
   cargarTerminos() {
     this.controlAdministrativaService.obtenerTerminosYCondiciones().subscribe({
       next: (response: Termino[]) => {
-        this.historialTerminos = response;
+        this.historialTerminos = response.sort((a, b) => Number(b.version) - Number(a.version));
         console.log(this.historialTerminos);
       },
       error: (error) => {
@@ -49,6 +49,10 @@ export class ListadoTerminosCondicionesComponent {
 
   editarTermino(termino: Termino) {
     this.terminoAEditar = { ...termino }; // Copia el término a editar
+    const fechaFormateada = new Date(this.terminoAEditar.fechaVigencia)
+      .toISOString()
+      .split('T')[0];
+    this.terminoAEditar.fechaVigencia = fechaFormateada;
     this.id = termino._id; // Guarda el ID del término para la actualización
   }
 
@@ -79,8 +83,8 @@ export class ListadoTerminosCondicionesComponent {
 
       this.controlAdministrativaService
         .actualizarTerminosYCondiciones(this.id, this.terminoAEditar)
-        .subscribe({
-          next: (response) => {
+        .subscribe(
+          (response) => {
             this.cargarTerminos();
             this.terminoAEditar = null; // Limpia el formulario
             Swal.fire(
@@ -89,15 +93,15 @@ export class ListadoTerminosCondicionesComponent {
               'success'
             );
           },
-          error: (error) => {
+          (error) => {
             console.error('Error al actualizar término:', error);
             Swal.fire(
               'Error',
               'Hubo un problema al actualizar el término.',
               'error'
             );
-          },
-        });
+          }
+        );
     }
   }
 

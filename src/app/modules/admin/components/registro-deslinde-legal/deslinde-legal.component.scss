@@ -2,6 +2,8 @@
 body {
   font-family: "Arial", sans-serif;
   background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
 }
 
 /* Texto del encabezado */
@@ -47,12 +49,13 @@ body {
   border-radius: 6px;
   background-color: #f9f9f9;
   transition: border-color 0.3s, box-shadow 0.3s;
+  line-height: 1.5;
+}
 
-  &:focus {
-    border-color: #e91e63;
-    box-shadow: 0 0 8px rgba(233, 30, 99, 0.4);
-    outline: none;
-  }
+.form-control:focus {
+  border-color: #e91e63;
+  box-shadow: 0 0 8px rgba(233, 30, 99, 0.4);
+  outline: none;
 }
 
 /* Campo de textarea */
@@ -68,6 +71,7 @@ body {
   margin-top: 5px;
   position: absolute;
   bottom: -18px;
+  font-weight: bold;
 }
 
 /* Botón de envío */
@@ -81,16 +85,16 @@ body {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
+}
 
-  &:hover {
-    background-color: #d81b60;
-    transform: translateY(-2px);
-  }
+.btn-primary:hover {
+  background-color: #d81b60;
+  transform: translateY(-2px);
+}
 
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 /* Efectos visuales en el contenedor del formulario */

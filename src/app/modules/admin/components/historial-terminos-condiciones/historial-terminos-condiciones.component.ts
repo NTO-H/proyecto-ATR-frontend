@@ -36,8 +36,11 @@ export class HistorialTerminosCondicionesComponent {
       .obtenerHistorialTerminosYCondiciones(id)
       .subscribe(
         (response: { historial: any[] }) => {
-          // Ajustamos aquí para que el tipo de respuesta sea el correcto
-          this.historialTerminos = response.historial; // Accedemos a la propiedad 'historial'
+          this.historialTerminos = response.historial.sort(
+            (a, b) => Number(b.version) - Number(a.version)
+          ); // Accedemos a la propiedad 'historial'
+          console.log(this.historialTerminos);
+
           console.log(this.historialTerminos); // Verifica la estructura
           this.isLoading = false;
         },

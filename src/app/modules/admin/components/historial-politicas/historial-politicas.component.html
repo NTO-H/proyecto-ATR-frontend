@@ -19,9 +19,9 @@
         <td>{{ doc.version }}</td>
         <td>{{ doc.titulo }}</td>
         <td>{{ doc.contenido }}</td>
-        <td>{{ doc.fechaCreacion | date : "short" }}</td>
+        <td>{{ doc.fechaCreacion | date : "dd/MM/yyyy" : "+0000" }}</td>
         <!-- Usar un pipe de fecha para dar formato -->
-        <td>{{ doc.fechaVigencia | date : "short" }}</td>
+        <td>{{ doc.fechaVigencia | date : "dd/MM/yyyy" : "+0000"  }}</td>
         <!-- Usar un pipe de fecha para dar formato -->
         <td>{{ doc.estado }}</td>
       </tr>

@@ -40,19 +40,27 @@ export class ListadoDeslindeLegalComponent {
   }
 
   cargarTerminos() {
-    this.controlAdministrativaService.obtenerDeslindeLegal().subscribe({
-      next: (response: any[]) => {
+    this.controlAdministrativaService.obtenerDeslindeLegal().subscribe(
+      (response) => {
         console.log(response);
-        this.listaDeslindeLegal = response; // Almacena la lista en `listaDeslindeLegal`
+        this.listaDeslindeLegal = response.sort(
+          (a: { version: string }, b: { version: string }) => {
+            return Number(b.version) - Number(a.version); // Convierte 'version' a número y realiza la comparación
+          }
+        );
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al cargar historial:', error);
-      },
-    });
+      }
+    );
   }
 
   editarTermino(termino: any) {
     this.deslindeLegalAEditar = { ...termino }; // Copia el término a editar
+    const fechaFormateada = new Date(this.deslindeLegalAEditar.fechaVigencia)
+      .toISOString()
+      .split('T')[0];
+    this.deslindeLegalAEditar.fechaVigencia = fechaFormateada;
     this.id = termino._id; // Guarda el ID del término para la actualización
   }
 

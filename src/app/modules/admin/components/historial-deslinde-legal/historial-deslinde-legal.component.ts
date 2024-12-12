@@ -33,7 +33,7 @@ export class HistorialDeslindeLegalComponent {
     this.isLoading = true;
     this.controlAdministrativaService.obtenerHistorialDeslindeLegal(id).subscribe(
       (response: { historial: any[] }) => {
-        this.historialDeslindeLegal = response.historial;
+        this.historialDeslindeLegal = response.historial.sort((a, b) => Number(b.version) - Number(a.version));;
         console.log(this.historialDeslindeLegal); // Verifica la estructura
         this.isLoading = false;
       },

@@ -35,7 +35,7 @@ export class HistorialPoliticasComponent {
     this.isLoading = true;
     this.controlAdministrativaService.obtenerHistorialPoliticas(id).subscribe(
       (response: { historial: Politica[] }) => { // Ajustamos aquí para que el tipo de respuesta sea el correcto
-        this.historial = response.historial; // Accedemos a la propiedad 'historial'
+        this.historial = response.historial.sort((a, b) => Number(b.version) - Number(a.version)); // Accedemos a la propiedad 'historial'
         console.log(this.historial); // Verifica la estructura
         this.isLoading = false; 
       },

@@ -1,0 +1,50 @@
+<p class="header-text">¡Registro de Deslinde Legal!</p>
+<div class="form-container">
+  <h2 class="form-title">Registrar Nuevo Deslinde Legal</h2>
+  <form #formDeslinde="ngForm" (ngSubmit)="onSubmit(formDeslinde)">
+    <div class="form-group">
+      <label for="titulo">Título:</label>
+      <input
+        type="text"
+        id="titulo"
+        name="titulo"
+        [(ngModel)]="nuevoDeslindeLegal.titulo"
+        required
+        class="form-control"
+      />
+      <div *ngIf="formDeslinde.controls.titulo?.invalid && formDeslinde.controls.titulo?.touched" class="error">
+        El título es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contenido">Contenido:</label>
+      <textarea
+        id="contenido"
+        name="contenido"
+        [(ngModel)]="nuevoDeslindeLegal.contenido"
+        required
+        class="form-control textarea-control"
+      ></textarea>
+      <div *ngIf="formDeslinde.controls.contenido?.invalid && formDeslinde.controls.contenido?.touched" class="error">
+        El contenido es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fechaVigencia">Fecha de Vigencia:</label>
+      <input
+        type="date"
+        id="fechaVigencia"
+        name="fechaVigencia"
+        [(ngModel)]="nuevoDeslindeLegal.fechaVigencia"
+        required
+        class="form-control"
+      />
+      <div *ngIf="formDeslinde.controls.fechaVigencia?.invalid && formDeslinde.controls.fechaVigencia?.touched" class="error">
+        La fecha de vigencia es obligatoria.
+      </div>
+    </div>
+    <button type="submit" class="btn-primary" [disabled]="formDeslinde.invalid">
+      Registrar Deslinde Legal
+    </button>
+  </form>
+</div>
