@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-deslinde-legal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './deslinde-legal.component.html',
   styleUrls: ['./deslinde-legal.component.scss'], // Corregido `styleUrl` a `styleUrls`
 })
@@ -34,7 +35,11 @@ export class DeslindeLegalComponent {
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
-      Swal.fire('Error', 'Por favor completa todos los campos obligatorios.', 'error');
+      Swal.fire(
+        'Error',
+        'Por favor completa todos los campos obligatorios.',
+        'error'
+      );
       return;
     }
 
