@@ -296,12 +296,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
             command: (event: MenuItemCommandEvent) =>
               this.redirectTo('Sign-up'),
           },
-          {
-            label: 'Activar cuenta',
-            icon: 'pi pi-check-circle',
-            command: (event: MenuItemCommandEvent) =>
-              this.redirectTo('Activar-cuenta'),
-          },
+          // {
+          //   label: 'Activar cuenta',
+          //   icon: 'pi pi-check-circle',
+          //   command: (event: MenuItemCommandEvent) =>
+          //     this.redirectTo('Activar-cuenta'),
+          // },
         ];
   }
 
