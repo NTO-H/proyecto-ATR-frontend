@@ -20,6 +20,7 @@ export class ListadoPoliticaComponent implements OnInit {
   isEditing: boolean = false;
   isLoading: boolean = false; // Estado de carga
   errorMessage: string | null = null;
+  editar: boolean = false;
 
   constructor(
     private controlAdministrativaService: ControlAdministrativaService,
@@ -55,6 +56,7 @@ export class ListadoPoliticaComponent implements OnInit {
 
   cancelarEdicion() {
     this.isEditing = false; // Desactivamos la edición
+    this.editar = false; // Desactivamos la edición
     this.politicaAEditar = {
       _id: '',
       titulo: '',
@@ -72,6 +74,7 @@ export class ListadoPoliticaComponent implements OnInit {
         (response) => {
           console.log('Política actualizada:', response);
           this.obtenerPoliticas(); // Recargar la lista después de actualizar
+          this.editar = false; 
           this.isEditing = false; // Desactivamos el modo edición
           this.politicaAEditar = {
             _id: '',
@@ -99,6 +102,7 @@ export class ListadoPoliticaComponent implements OnInit {
   }
 
   editarPolitica(doc: Politica) {
+    this.editar = true;
     this.politicaAEditar = { ...doc }; // Copiar los datos de la política seleccionada
     const fechaFormateada = new Date(this.politicaAEditar.fechaVigencia)
       .toISOString()
@@ -141,8 +145,8 @@ export class ListadoPoliticaComponent implements OnInit {
   }
 
   verHistorial(id: string) {
-    this.router.navigate(['/admin/configuracion/historial-listado-politica/' + id]);
+    this.router.navigate([
+      '/admin/configuracion/historial-listado-politica/' + id,
+    ]);
   }
-
-  
 }

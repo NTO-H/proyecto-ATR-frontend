@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isDarkThemeOn = signal(false);
   passwordStrengthClass: string = ''; // Clase CSS que se aplica dinámicamente
   passwordStrengthMessage: string = ''; // Mensaje dinámico que se muestra debajo del campo
-  
+
   darkMode = false;
   constructor(
     private msgs: mensageservice,
@@ -80,27 +80,30 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required,Validators.pattern(
-        // Expresión regular para formato de correo
-        /^[a-zA-Z][\w.-]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/
-      )],
+      email: [
+        '',
+        Validators.required,
+        Validators.pattern(
+          // Expresión regular para formato de correo
+          /^[a-zA-Z][\w.-]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/
+        ),
+      ],
       password: ['', Validators.required],
     });
   }
-  
+
   // Método para acceder al control del email
   get email() {
     return this.loginForm.get('email');
   }
   // constructor(
-    // private router:  Router,
-    // private datosEmpresaService: DatosEmpresaService,
+  // private router:  Router,
+  // private datosEmpresaService: DatosEmpresaService,
 
-    // @Inject(PLATFORM_ID) private platformId: Object
+  // @Inject(PLATFORM_ID) private platformId: Object
   // ) {}
   visible: boolean = false;
 
-  
   openModal() {
     this.visible = true;
     this.robot = true;
@@ -141,8 +144,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-   this.closeModal();
-  
+    this.closeModal();
+
     // Verificar si el entorno tiene acceso a localStorage (es decir, que no está en SSR)
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       // Recuperar el tema guardado en localStorage (si existe)
@@ -323,7 +326,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   redirectTo(route: string): void {
     this.sidebarVisible = false;
-    this.visible=false;
+    this.visible = false;
     this.router.navigate(
       route.includes('Sign-in') ||
         route.includes('Sign-up') ||
@@ -334,12 +337,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     );
   }
 
-
-
-
   captchaToken: string | null = null;
-  // 
-
+  //
 
   maxAttempts: number = 5; // Se puede asignar un número o 0 más adelante
 
@@ -363,13 +362,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public robot!: boolean;
   public presionado!: boolean;
 
- 
-
   ngOnDestroy(): void {
     this.timerSubscription?.unsubscribe();
   }
 
- 
   getCaptchaToken(): string {
     if (typeof grecaptcha !== 'undefined') {
       const token = grecaptcha.getResponse();
@@ -489,51 +485,53 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     return token ? token : null;
   }
 
-inicia(){
-  this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
-  // Stop the foreground loading after 5s
-  setTimeout(() => {
-    this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
-  }, 3000);
+  inicia() {
+    this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
+    }, 3000);
 
-  // OR
-  this.ngxService.startBackground("do-background-things");
-  // Do something here...
-  this.ngxService.stopBackground("do-background-things");
+    // OR
+    this.ngxService.startBackground('do-background-things');
+    // Do something here...
+    this.ngxService.stopBackground('do-background-things');
 
-  this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
-  // Stop the foreground loading after 5s
-  setTimeout(() => {
-    this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
-  }, 3000);
-}
+    this.ngxService.startLoader('loader-01'); // start foreground spinner of the loader "loader-01" with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+    }, 3000);
+  }
 
-validacionesPassword = {
-  tieneMinuscula: false,
-  tieneMayuscula: false,
-  tieneNumero: false,
-  tieneSimbolo: false,
-  longitudMinima: false,
-  longitudMayor5: false,
-  tiene5CaracteresDiferentes: false,
-};
-passwordStrength: string = ''; // variable para almacenar la fuerza de la contraseña
+  validacionesPassword = {
+    tieneMinuscula: false,
+    tieneMayuscula: false,
+    tieneNumero: false,
+    tieneSimbolo: false,
+    longitudMinima: false,
+    longitudMayor5: false,
+    tiene5CaracteresDiferentes: false,
+  };
+  passwordStrength: string = ''; // variable para almacenar la fuerza de la contraseña
 
   verificarPassword() {
     const password = this.loginForm.get('password')?.value || '';
-  
+
     // Validaciones obligatorias
     this.validacionesPassword.tieneMinuscula = /[a-z]/.test(password); // Al menos una letra minúscula
     this.validacionesPassword.tieneMayuscula = /[A-Z]/.test(password); // Al menos una letra mayúscula
     this.validacionesPassword.tieneNumero = /\d/.test(password); // Al menos un número
-    this.validacionesPassword.tieneSimbolo = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password); // Al menos un símbolo
+    this.validacionesPassword.tieneSimbolo =
+      /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password); // Al menos un símbolo
     this.validacionesPassword.longitudMinima = password.length >= 15; // Longitud mínima requerida
     this.validacionesPassword.longitudMayor5 = password.length > 5; // Más de 5 caracteres
-  
+
     // Al menos 5 caracteres diferentes
     const caracteresUnicos = new Set(password.split(''));
-    this.validacionesPassword.tiene5CaracteresDiferentes = caracteresUnicos.size >= 5;
-  
+    this.validacionesPassword.tiene5CaracteresDiferentes =
+      caracteresUnicos.size >= 5;
+
     // Verificar que la contraseña cumpla con todos los criterios
     const allValidations = [
       this.validacionesPassword.tieneMinuscula,
@@ -544,10 +542,10 @@ passwordStrength: string = ''; // variable para almacenar la fuerza de la contra
       this.validacionesPassword.longitudMayor5,
       this.validacionesPassword.tiene5CaracteresDiferentes,
     ];
-  
+
     // Calcular cuántas validaciones se cumplen
     const validacionesCumplidas = allValidations.filter((v) => v).length;
-  
+
     // Asignar nivel de seguridad y mensaje
     if (validacionesCumplidas === allValidations.length) {
       this.passwordStrength = 'strong'; // Contraseña fuerte
@@ -562,13 +560,13 @@ passwordStrength: string = ''; // variable para almacenar la fuerza de la contra
       this.passwordStrengthMessage = 'Demasiado simple';
       this.passwordStrengthClass = 'weak';
     }
-  
+
     // this.verificarCoincidencia(); // Para verificar si la confirmación coincide con la contraseña
   }
 
   login(): void {
-     this.captchaToken = this.validateCaptcha();
-    
+    this.captchaToken = this.validateCaptcha();
+
     if (this.isLocked) {
       Swal.fire({
         title: 'Cuenta bloqueada',
@@ -602,79 +600,78 @@ passwordStrength: string = ''; // variable para almacenar la fuerza de la contra
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
     // const captchaT = this.captchaToken;
-    
-    
-    this.signInService.signIn({ email, password,captchaToken: this.captchaToken}).subscribe(
-      (response) => {
-        if (response) {
-          this.storageService.setToken(response.token);
-          const userData = this.sessionService.getUserData();
-          // window.location.reload();
-          if (userData) {
-            this.userROL = userData.rol;
-            let navigateTo = '';
 
-            if (this.userROL === ERol.ADMIN) {
-              navigateTo = '/admin/home';
-              
-            } else if (this.userROL === ERol.CLIENTE) {
-              navigateTo = '/public/home';
-            }
+    this.signInService
+      .signIn({ email, password, captchaToken: this.captchaToken })
+      .subscribe(
+        (response) => {
+          if (response) {
+            this.storageService.setToken(response.token);
+            const userData = this.sessionService.getUserData();
+            // window.location.reload();
+            if (userData) {
+              this.userROL = userData.rol;
+              let navigateTo = '';
 
-            this.router.navigate([navigateTo]).then(() => {
-              if (navigateTo === '/public/home') {
-                window.location.reload();
+              if (this.userROL === ERol.ADMIN) {
+                navigateTo = '/admin/home';
+              } else if (this.userROL === ERol.CLIENTE) {
+                navigateTo = '/public/home';
               }
-             
-    this.inicia();
-    
-              window.location.reload();
-            });
+
+              this.router.navigate([navigateTo]).then(() => {
+                if (navigateTo === '/public/home') {
+                  window.location.reload();
+                }
+
+                this.inicia();
+                window.location.reload();
+              });
+            }
           }
-        }
-      },
-      (err) => {
-        console.error('Error en el inicio de sesión:', err);
-        if (err) {
-          if (err.error.message === 'Captcha inválido') {
+        },
+        (err) => {
+          console.error('Error en el inicio de sesión:', err);
+          if (err) {
+            if (err.error.message === 'Captcha inválido') {
+              Swal.fire({
+                title: 'Captcha Inválido',
+                text: 'El CAPTCHA ingresado es incorrecto. Por favor,recargue la pagina e inténtalo de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'Ok',
+              });
+              return;
+            }
+            if (err.error && err.error.message) {
+              this.errorMessage = err.error.message;
+            }
+            if (err.error?.tiempo) {
+              const tiempoDeBloqueo = err.error.tiempo;
+              const numeroDeIntentos = err.error.numeroDeIntentos;
+              this.attempts = numeroDeIntentos;
+              this.lockTime = tiempoDeBloqueo;
+              this.isLocked = true;
+              this.remainingTime = tiempoDeBloqueo;
+              this.saveLockState();
+
+              Swal.fire({
+                title: 'Cuenta Bloqueada',
+                text: err.error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+              });
+              this.startCountdown();
+            }
+          } else {
             Swal.fire({
-              title: 'Captcha Inválido',
-              text: 'El CAPTCHA ingresado es incorrecto. Por favor,recargue la pagina e inténtalo de nuevo.',
+              title: 'Error ',
+              text: 'Ha ocurrido un error al iniciar sesión.',
               icon: 'error',
               confirmButtonText: 'Ok',
-            })
-            return;
-          }
-          if (err.error && err.error.message) {
-            this.errorMessage = err.error.message;
-          }
-          if (err.error?.tiempo) {
-            const tiempoDeBloqueo = err.error.tiempo;
-            const numeroDeIntentos = err.error.numeroDeIntentos;
-            this.attempts = numeroDeIntentos;
-            this.lockTime = tiempoDeBloqueo;
-            this.isLocked = true;
-            this.remainingTime = tiempoDeBloqueo;
-            this.saveLockState();
-
-            Swal.fire({
-              title: 'Cuenta Bloqueada',
-              text: err.error.message,
-              icon: 'warning',
-              confirmButtonText: 'Ok',
             });
-            this.startCountdown();
           }
-        } else {
-          Swal.fire({
-            title: 'Error ',
-            text: 'Ha ocurrido un error al iniciar sesión.',
-            icon: 'error',
-            confirmButtonText: 'Ok',
-          });
         }
-      }
-    );
+      );
   }
 
   // Método para bloquear la cuenta y activar el temporizador
@@ -737,5 +734,4 @@ passwordStrength: string = ''; // variable para almacenar la fuerza de la contra
   get hasMinLength(): boolean {
     return this.loginForm.get('password')?.value?.length >= 8;
   }
-
 }

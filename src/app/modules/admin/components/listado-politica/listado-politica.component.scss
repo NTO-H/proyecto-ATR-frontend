@@ -6,6 +6,11 @@
   color: #333;
 }
 
+h2 {
+  text-align: center;
+  font-size: 15;
+}
+
 .politicas-table thead {
   background-color: #e91e63;
   color: white;
@@ -70,6 +75,10 @@ button:disabled {
 
 .form-group {
   margin-bottom: 15px;
+
+  .txtContenido {
+    
+  }
 }
 
 .form-actions {

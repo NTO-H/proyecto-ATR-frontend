@@ -11,6 +11,8 @@
         name="titulo"
         [(ngModel)]="nuevaPolitica.titulo"
         required
+        maxlength="30"
+        minlength="5"
         #tituloInput="ngModel"
         placeholder="Ingresa el título de la política"
         class="form-control"
@@ -28,12 +30,17 @@
         name="contenido"
         [(ngModel)]="nuevaPolitica.contenido"
         required
+        minlength="30"
+        maxlength="300"
         #contenidoInput="ngModel"
         placeholder="Ingresa el contenido de la política"
         class="form-control textarea-control"
         rows="5"
       ></textarea>
-      <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
+      <div
+        *ngIf="contenidoInput.invalid && contenidoInput.touched"
+        class="error"
+      >
         El contenido es requerido.
       </div>
     </div>
@@ -56,7 +63,11 @@
     </div>
 
     <!-- Botón de Enviar -->
-    <button type="submit" class="btn btn-primary" [disabled]="politicaForm.invalid">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="politicaForm.invalid"
+    >
       Registrar Política
     </button>
   </form>

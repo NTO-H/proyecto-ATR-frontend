@@ -1,5 +1,5 @@
 <!-- Formulario de Edición -->
-<div class="form-container" *ngIf="politicaAEditar">
+<div class="form-container" *ngIf="politicaAEditar && editar">
   <h2 class="form-title">Editar Política</h2>
   <form (ngSubmit)="actualizarPolitica()" class="form-edit">
     <div class="form-group">
@@ -10,6 +10,8 @@
         [(ngModel)]="politicaAEditar.titulo"
         name="titulo"
         required
+        maxlength="30"
+        minlength="5"
         placeholder="Ingresa el título de la política"
         class="form-control"
       />
@@ -22,8 +24,10 @@
         [(ngModel)]="politicaAEditar.contenido"
         name="contenido"
         required
+        minlength="30"
+        maxlength="300"
         placeholder="Ingresa el contenido de la política"
-        class="form-control"
+        class="txtContenido"
       ></textarea>
     </div>
     <div class="form-group">
@@ -56,6 +60,9 @@
 </div>
 
 <div class="table-responsive">
+  <div>
+    <h2>"Nuestras politicas"</h2>
+  </div>
   <table class="politicas-table">
     <thead>
       <tr>

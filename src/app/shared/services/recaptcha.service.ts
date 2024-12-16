@@ -1,18 +1,17 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-
 import { isPlatformBrowser } from '@angular/common';
-
 import { Observable, throwError } from 'rxjs';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { catchError, map } from 'rxjs/operators';
+import { manejoDeErroresHTTP } from './manejoDeErroresHttp.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RecaptchaService {
-  constructor(private http: HttpClient) {}
+export class RecaptchaService extends manejoDeErroresHTTP {
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   /*
 
@@ -37,16 +36,6 @@ export class RecaptchaService {
         httpOptions
       )
 
-      .pipe(
-        map((response) => response),
-
-        catchError((err) => {
-          console.log('error caught in service');
-
-          console.error(err);
-
-          return throwError(err);
-        })
-      );
+      .pipe(catchError((error) => this.errorHandler(error)));
   }
 }

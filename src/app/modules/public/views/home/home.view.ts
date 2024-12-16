@@ -34,7 +34,9 @@ export class HomeView implements OnInit {
   rows = 7; // Número de elementos por página
   datosEmpresa: any = {};
 
-  productos :any;
+  MensajeDeError: string = '';
+
+  productos: any;
   //   {
   //     id: 1,
   //     nombre: 'Producto 1',
@@ -205,16 +207,21 @@ export class HomeView implements OnInit {
   }
 
   getDatosEmpresa() {
-    this.PRODUCTOSERVICE_.obtenerProductos().subscribe((response) => {
-      this.productos = response;
-    });
+    this.PRODUCTOSERVICE_.obtenerProductos().subscribe(
+      (response) => {
+        this.productos = response;
+      },
+      (error) => {
+        this.MensajeDeError = error; // trae el mensaje de error(por si queremos mostrarlo en algun lado)
+      }
+    );
 
     this.datosEmpresaService.traerDatosEmpresa().subscribe(
       (respuesta) => {
         this.datosEmpresa = respuesta[0];
       },
       (error) => {
-        console.log(error);
+        this.MensajeDeError = error; // trae el mensaje de error(por si queremos mostrarlo en algun lado)
       }
     );
   }

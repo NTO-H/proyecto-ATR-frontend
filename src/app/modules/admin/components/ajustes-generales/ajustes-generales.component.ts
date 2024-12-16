@@ -13,7 +13,7 @@ import { data } from 'jquery';
 interface IconOption {
   label: string;
   plataforma: string;
-  icon: string;
+  icon: string; // interfas establece un formato de la consulata
 }
 
 @Component({
@@ -24,7 +24,9 @@ interface IconOption {
 export class AjustesGeneralesComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef; // Referencia al input de archivo
   logoUrl: string | ArrayBuffer | null = null;
+
   empresa = {
+    // objeto que guardan los datos de  EMPRESA
     logo: '',
     slogan: '',
     tituloPagina: '',
@@ -32,14 +34,15 @@ export class AjustesGeneralesComponent implements OnInit {
     correoElectronico: '',
     telefono: '',
   };
-  numIntentos: number = 5;
-  tiempoDeBloqueo: number = 20; //segundos
 
-  profileImg: string | null = null; // Imagen por defecto es null
+  numIntentos: number = 6;
+  tiempoDeBloqueo: number = 20;
+
+  profileImg: string | null = null;
 
   redesSociales: RedSocial[] = [];
 
-  selectedFile: File | null = null;
+  selectedFile: File | null = null; // se guarda la imagen que se sube de la empresa
 
   iconOptions: IconOption[] = [
     { plataforma: 'Facebook', label: 'Facebook', icon: 'pi pi-facebook' },
@@ -50,6 +53,7 @@ export class AjustesGeneralesComponent implements OnInit {
     { plataforma: 'YouTube', label: 'YouTube', icon: 'pi pi-youtube' },
     { plataforma: 'Ninguno', label: 'Ninguno', icon: '' },
   ];
+  //iconos
 
   platformIconMap: { [key: string]: string } = {
     'facebook.com': 'pi pi-facebook',
@@ -58,14 +62,17 @@ export class AjustesGeneralesComponent implements OnInit {
     'linkedin.com': 'pi pi-linkedin',
     'github.com': 'pi pi-github',
     'youtube.com': 'pi pi-youtube',
-  };
+  }; // iconos   que se coloca en la url
 
   constructor(private datosEmpresaService: DatosEmpresaService) {}
 
   ngOnInit() {
-    this.traerDatos();
+    // hace  que se ejecute al inicio solo una ves
+    this.traerDatos(); // es la funcion  que inicialisa  la funcion
   }
+
   removeRed(_id: any, id: number) {
+    // extraer la url de la red  y reenviar al back para que se aeliminado
     this.datosEmpresaService.eliminarRedSocial(_id).subscribe((respuesta) => {
       console.log(respuesta);
       this.traerDatos();
@@ -76,14 +83,15 @@ export class AjustesGeneralesComponent implements OnInit {
         text: 'Red social eliminado con exito',
       });
     });
-
-    this.redesSociales.splice(id, 1);
+    this.redesSociales.splice(id, 1); // elimina la rede social
   }
+
   saveRed(id: number) {
-    const red = this.redesSociales[id];
+    // guarda el id y lo busca en las redes sociales
+    const red = this.redesSociales[id]; // busca la red social que se selecciono
     console.log('Guardando o actualizando la red social:', red);
-    this.datosEmpresaService
-      .guardarRedSocial(id, red)
+    this.datosEmpresaService // llama el serviicio
+      .guardarRedSocial(id, red) // evia la redsocial y el id al back
       .subscribe((respuesta) => {
         this.traerDatos();
         Swal.fire({
@@ -96,6 +104,7 @@ export class AjustesGeneralesComponent implements OnInit {
   }
 
   addRed() {
+    // agrega un espacio para añadir la red
     const redSocial: RedSocial = {
       _id: '',
       plataforma: '',
@@ -106,6 +115,7 @@ export class AjustesGeneralesComponent implements OnInit {
     this.redesSociales.push(redSocial);
   }
   onUrlChange(index: number) {
+    // extrae el enlace de la url de la consulta de la base de datos
     const enlace = this.redesSociales[index].enlace.toLowerCase();
 
     // Detectar la plataforma por la URL y asignar el ícono correspondiente
@@ -149,6 +159,7 @@ export class AjustesGeneralesComponent implements OnInit {
           };
 
           this.selectedFile = null;
+
           this.redesSociales = empresaData.redesSociales.map(
             (redSocial: any) => {
               // Encuentra el ícono correspondiente
@@ -181,8 +192,10 @@ export class AjustesGeneralesComponent implements OnInit {
         console.error('Error al cargar datos de la empresa', error);
       }
     );
+
     this.datosEmpresaService.consultarConfigurarEmpresa().subscribe(
       (data) => {
+        //datos de la empresa  tiempo y intentos
         this.numIntentos = data.configuracion.intentosPermitidos;
         this.tiempoDeBloqueo = data.configuracion.tiempoDeBloqueo;
       },
@@ -203,7 +216,7 @@ export class AjustesGeneralesComponent implements OnInit {
     //convertinos todo a un json
     const payload = {
       intentosPermitidos: this.numIntentos,
-      tiempoDeBloqueo: this.tiempoDeBloqueo,
+      tiempoDeBloqueo: this.tiempoDeBloqueo, // se guarda  lo manda ala base de datos
     };
 
     this.datosEmpresaService.configurarEmpresa(payload).subscribe(
@@ -215,17 +228,17 @@ export class AjustesGeneralesComponent implements OnInit {
             title: 'Configuraciones guardadas',
             text: 'Las configuraciones se guardaron con exito',
           });
-        }
+        } // se envia
       },
 
       (error) => {
         console.error('Error al configurar la empresa', error);
       }
     );
-    console.log(this.numIntentos);
   }
 
   onSubmit() {
+    // actualizacion de los datos de la empresa
     const formData = new FormData();
     formData.append('slogan', this.empresa.slogan);
     formData.append('tituloPagina', this.empresa.tituloPagina);
@@ -233,21 +246,22 @@ export class AjustesGeneralesComponent implements OnInit {
     formData.append('correoElectronico', this.empresa.correoElectronico);
     formData.append('telefono', this.empresa.telefono);
 
-    formData.append('redesSociales', JSON.stringify(this.redesSociales));
+    formData.append('redesSociales', JSON.stringify(this.redesSociales)); // se convierte en etrim las redes sociales
 
     if (this.selectedFile) {
+      // donde se dectetcta si esta el archivo
       const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
       if (this.selectedFile.size > maxSizeInBytes) {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'El tamaño del archivo excede el límite de 2 MB.',
+          text: 'El tamaño del archivo excede el límite de 2 MB.', // si pasa manda error
         });
         return;
       }
       formData.append('file', this.selectedFile);
     }
-
+    // envia la base de datos y actualiza
     this.datosEmpresaService.editarPerfilEmpresa(formData).subscribe(
       (response) => {
         Swal.fire({
