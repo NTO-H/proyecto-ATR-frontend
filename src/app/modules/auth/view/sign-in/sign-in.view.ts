@@ -3,6 +3,8 @@ import {
   OnInit,
   ViewEncapsulation,
   AfterViewInit,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -35,7 +37,7 @@ import axios from 'axios';
   styleUrls: ['./sign-in.view.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SignInView implements OnInit {
+export class SignInView implements OnInit,AfterViewInit  {
   maxAttempts: number = 5; // Se puede asignar un número o 0 más adelante
 
   attempts: number = 0; // Contador de intentos actuales
@@ -82,13 +84,19 @@ export class SignInView implements OnInit {
     console.log('Valores:', this.loginForm.value);
     console.log('Errores:', this.loginForm.errors);
   }
+  @ViewChild('passwordField') passwordField!: ElementRef;
 
+  ngAfterViewInit() {
+    this.cargarWidgetRecaptcha();
+    this.passwordField.nativeElement.setAttribute('autocomplete', 'current-password');
+  }
   ngOnDestroy(): void {
     this.timerSubscription?.unsubscribe();
     if (typeof grecaptcha !== 'undefined') {
       grecaptcha.reset(); // Resetea el CAPTCHA al destruir el componente
     }
   }
+
 
   ngOnInit(): void {
     this.robot = true;
@@ -219,9 +227,7 @@ export class SignInView implements OnInit {
       console.error('Error al verificar la contraseña', error);
     }
   }
-  ngAfterViewInit() {
-    this.cargarWidgetRecaptcha();
-  }
+
 
   cargarWidgetRecaptcha() {
     if (typeof grecaptcha !== 'undefined') {

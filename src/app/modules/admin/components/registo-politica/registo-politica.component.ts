@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -8,17 +9,30 @@ import { Router } from '@angular/router';
   templateUrl: './registo-politica.component.html',
   styleUrls: ['./registo-politica.component.scss'],
 })
-export class RegistoPoliticaComponent {
-  nuevaPolitica = {
-    titulo: '',
-    contenido: '',
-    fechaVigencia: this.getCurrentDate(), // Inicializa con la fecha actual
-  };
+export class RegistoPoliticaComponent implements OnInit {
+  nuevaPoliticaForm!: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private controlAdministrativaService: ControlAdministrativaService,
     private router: Router
   ) {}
+
+  ngOnInit() {
+    this.nuevaPoliticaForm = this.fb.group({
+      titulo: ['', Validators.required],
+      contenido: ['', [Validators.required, this.noSpecialCharacters]],
+      fechaVigencia: [this.getCurrentDate(), Validators.required],
+    });
+  }
+
+  noSpecialCharacters(control: any) {
+    // Permite solo letras, números y espacios. No permite <, >, =, y otros caracteres especiales
+    const regex = /^[^<>=]*$/; // No permite los caracteres <, >, =
+    const valid = regex.test(control.value);
+    return valid ? null : { invalidCharacters: true }; // Retorna un error si hay caracteres inválidos
+  }
+
 
   // Método para obtener la fecha actual en formato YYYY-MM-DD
   private getCurrentDate(): string {
@@ -30,7 +44,7 @@ export class RegistoPoliticaComponent {
   }
 
   onSubmit() {
-    const selectedDate = new Date(this.nuevaPolitica.fechaVigencia);
+    const selectedDate = new Date(this.nuevaPoliticaForm.value.fechaVigencia);
     const today = new Date();
     const minimumDate = new Date();
     minimumDate.setDate(today.getDate() + 3);
@@ -53,33 +67,27 @@ export class RegistoPoliticaComponent {
       return;
     }
 
-    if (
-      this.nuevaPolitica.titulo &&
-      this.nuevaPolitica.contenido &&
-      this.nuevaPolitica.fechaVigencia
-    ) {
+    if (this.nuevaPoliticaForm.valid) {
       this.controlAdministrativaService
-        .registerPolitica(this.nuevaPolitica)
+        .registerPolitica(this.nuevaPoliticaForm.value)
         .subscribe(
           (response) => {
-            console.log(this.nuevaPolitica);
+            console.log(this.nuevaPoliticaForm.value);
             Swal.fire(
               'Política registrada',
               'La política se ha registrado correctamente.',
               'success'
-            ); // Muestra una alerta con éxito
+            );
 
-            this.nuevaPolitica = {
-              titulo: '',
-              contenido: '',
+            this.nuevaPoliticaForm.reset({
               fechaVigencia: this.getCurrentDate(),
-            };
+            });
             this.router.navigate(['admin/configuracion/listado-politica']);
           },
           (error) => {
             Swal.fire(
               'Error',
-              'Error al registrar la política, porfavor intente otra ves',
+              'Error al registrar la política, por favor intente otra vez',
               'error'
             );
             console.error(':', error);

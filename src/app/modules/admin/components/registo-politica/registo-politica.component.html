@@ -1,21 +1,18 @@
 <p class="header-text">¡Registro de Política!</p>
 <div class="form-container">
   <h2 class="form-title">Registrar Nueva Política</h2>
-  <form (ngSubmit)="onSubmit()" #politicaForm="ngForm">
+  <form [formGroup]="nuevaPoliticaForm" (ngSubmit)="onSubmit()">
     <!-- Campo para el Título -->
     <div class="form-group">
       <label for="titulo">Título</label>
       <input
         type="text"
         id="titulo"
-        name="titulo"
-        [(ngModel)]="nuevaPolitica.titulo"
-        required
-        #tituloInput="ngModel"
+        formControlName="titulo"
         placeholder="Ingresa el título de la política"
         class="form-control"
       />
-      <div *ngIf="tituloInput.invalid && tituloInput.touched" class="error">
+      <div *ngIf="nuevaPoliticaForm.get('titulo')?.invalid && nuevaPoliticaForm.get('titulo')?.touched" class="error">
         El título es requerido.
       </div>
     </div>
@@ -24,17 +21,20 @@
     <div class="form-group">
       <label for="contenido">Contenido</label>
       <textarea
+      required
         id="contenido"
-        name="contenido"
-        [(ngModel)]="nuevaPolitica.contenido"
-        required
-        #contenidoInput="ngModel"
+        formControlName="contenido"
         placeholder="Ingresa el contenido de la política"
         class="form-control textarea-control"
         rows="5"
       ></textarea>
-      <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
+      <!-- <div *ngIf="nuevaPoliticaForm.get('contenido')?.invalid && nuevaPoliticaForm.get('contenido')?.touched" class="error">
         El contenido es requerido.
+      </div> -->
+
+      <br>
+      <div *ngIf="nuevaPoliticaForm.get('contenido')?.hasError('invalidCharacters') && nuevaPoliticaForm.get('contenido')?.touched" class="error">
+        El contenido no debe contener caracteres no permitidos.
       </div>
     </div>
 
@@ -44,19 +44,16 @@
       <input
         type="date"
         id="fechaVigencia"
-        name="fechaVigencia"
-        [(ngModel)]="nuevaPolitica.fechaVigencia"
-        required
-        #vigenciaInput="ngModel"
+        formControlName="fechaVigencia"
         class="form-control"
       />
-      <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
+      <div *ngIf="nuevaPoliticaForm.get('fechaVigencia')?.invalid && nuevaPoliticaForm.get('fechaVigencia')?.touched" class="error">
         La vigencia es requerida.
       </div>
     </div>
 
     <!-- Botón de Enviar -->
-    <button type="submit" class="btn btn-primary" [disabled]="politicaForm.invalid">
+    <button type="submit" class="btn btn-primary" [disabled]="nuevaPoliticaForm.invalid">
       Registrar Política
     </button>
   </form>

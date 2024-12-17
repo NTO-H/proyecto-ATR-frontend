@@ -1,5 +1,3 @@
-import { response } from 'express';
-import { resolve } from 'node:path';
 import { Component } from '@angular/core';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import { FormsModule } from '@angular/forms';
@@ -56,6 +54,13 @@ export class ListadoDeslindeLegalComponent {
     this.id = termino._id; // Guarda el ID del término para la actualización
   }
 
+  noSpecialCharacters(control: any) {
+    // Permite solo letras, números y espacios. No permite <, >, =, y otros caracteres especiales
+    const regex = /^[^<>=]*$/; // No permite los caracteres <, >, =
+    const valid = regex.test(control.value);
+    return valid ? null : { invalidCharacters: true }; // Retorna un error si hay caracteres inválidos
+  }
+
   actualizarDeslindeLegal() {
     if (this.deslindeLegalAEditar) {
       const selectedDate = new Date(this.deslindeLegalAEditar.fechaVigencia);
@@ -76,6 +81,16 @@ export class ListadoDeslindeLegalComponent {
         Swal.fire(
           'Error',
           'La fecha de vigencia debe ser al menos 3 días a partir de hoy.',
+          'error'
+        );
+        return;
+      }
+
+      // Validar contenido antes de enviar
+      if (this.noSpecialCharacters({ value: this.deslindeLegalAEditar.contenido })) {
+        Swal.fire(
+          'Error',
+          'El contenido no debe contener caracteres <, > o =.',
           'error'
         );
         return;

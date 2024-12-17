@@ -43,10 +43,11 @@
       <label for="pass" class="">Contraseña</label>
       <p-inputGroup class="input-group">
         <p-password
-          formControlName="password"
+        formControlName="password"
+        autocomplete="off"
           [toggleMask]="true"
           [feedback]="false"
-          [maxLength]="16"
+          [maxLength]="20"
           inputStyleClass="input-login"
           promptLabel="Ingresa tu contraseña"
           strongLabel="Nivel de contraseña aceptable"
@@ -61,9 +62,11 @@
          <li *ngFor="let item of faltantes">{{ item }}</li>
        </ul>
      </div>
+
     <div *ngIf="isPasswordCompromised" class="errorMenssage">
       Esta contraseña ha sido comprometida. Por favor, elige otra.
     </div>
+
     <div
       id="captcha-container"
       class="g-recaptcha"
@@ -86,10 +89,10 @@
     </div>
     <!-- Botón para iniciar sesión -->
     <div class="form-box-button">
-      <p-button *ngIf="!isLoading" [disabled]="this.faltantes.length != 0 || loginForm.invalid " iconPos="right" label="Iniciar Sesión" type="submit">
+      <p-button  [disabled]="this.faltantes.length != 0 || loginForm.invalid " iconPos="right" label="Iniciar Sesión" type="submit">
       </p-button>
 
-      <button disabled *ngIf="isLoading" class="ui loading button">Loading</button>
+      <!-- <button disabled *ngIf="isLoading" class="ui loading button">Loading</button> -->
     </div>
     <!-- Opciones adicionales -->
     <div class="options" [class.disabled]="isLocked">

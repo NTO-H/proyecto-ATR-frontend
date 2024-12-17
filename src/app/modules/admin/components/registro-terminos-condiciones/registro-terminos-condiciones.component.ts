@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-registro-terminos-condiciones',
   templateUrl: './registro-terminos-condiciones.component.html',
-  styleUrl: './registro-terminos-condiciones.component.scss',
+  styleUrls: ['./registro-terminos-condiciones.component.scss'],
 })
 export class RegistroTerminosCondicionesComponent {
   nuevosTerminos = {
@@ -15,14 +15,24 @@ export class RegistroTerminosCondicionesComponent {
     contenido: '',
     fechaVigencia: this.getCurrentDate(),
   };
+
   constructor(
     private controlAdministrativaService: ControlAdministrativaService,
     private router: Router // Inyecta Router para redireccionar después de registrar
   ) {}
+
   getCurrentDate(): string {
     const today = new Date();
     return today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
   }
+
+  noSpecialCharacters(control: any) {
+    // Permite solo letras, números y espacios. No permite <, >, =, y otros caracteres especiales
+    const regex = /^[^<>=]*$/; // No permite los caracteres <, >, =
+    const valid = regex.test(control.value);
+    return valid ? null : { invalidCharacters: true }; // Retorna un error si hay caracteres inválidos
+  }
+
 
   onSubmit() {
     const selectedDate = new Date(this.nuevosTerminos.fechaVigencia);
@@ -47,6 +57,17 @@ export class RegistroTerminosCondicionesComponent {
       );
       return;
     }
+
+    // Validar contenido antes de enviar
+    if (this.noSpecialCharacters({ value: this.nuevosTerminos.contenido })) {
+      Swal.fire(
+        'Error',
+        'El contenido no debe contener caracteres < o >.',
+        'error'
+      );
+      return;
+    }
+
     if (
       this.nuevosTerminos.titulo &&
       this.nuevosTerminos.contenido &&

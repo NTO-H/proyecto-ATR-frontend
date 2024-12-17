@@ -36,6 +36,9 @@
       <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
         El contenido es requerido.
       </div>
+      <div *ngIf="noSpecialCharacters({ value: nuevosTerminos.contenido })?.invalidCharacters && contenidoInput.touched" class="error">
+        El contenido no debe contener caracteres < o >.
+      </div>
     </div>
 
     <!-- Campo para la Vigencia -->
