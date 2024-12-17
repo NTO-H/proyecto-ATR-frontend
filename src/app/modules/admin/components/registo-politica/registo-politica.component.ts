@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -20,19 +25,24 @@ export class RegistoPoliticaComponent implements OnInit {
 
   ngOnInit() {
     this.nuevaPoliticaForm = this.fb.group({
-      titulo: ['', Validators.required],
+      titulo: ['', Validators.required, this.noSpecialCharacters],
       contenido: ['', [Validators.required, this.noSpecialCharacters]],
       fechaVigencia: [this.getCurrentDate(), Validators.required],
     });
   }
 
-  noSpecialCharacters(control: any) {
-    // Permite solo letras, números y espacios. No permite <, >, =, y otros caracteres especiales
-    const regex = /^[^<>=]*$/; // No permite los caracteres <, >, =
+  noSpecialCharacters(control: any): ValidationErrors | null {
+    // Expresión regular combinada
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
+
+    // Si el valor está vacío, no validamos nada (otro validador lo maneja)
+    if (!control.value) {
+      return null;
+    }
+
     const valid = regex.test(control.value);
     return valid ? null : { invalidCharacters: true }; // Retorna un error si hay caracteres inválidos
   }
-
 
   // Método para obtener la fecha actual en formato YYYY-MM-DD
   private getCurrentDate(): string {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ValidationErrors } from '@angular/forms';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -26,13 +26,24 @@ export class RegistroTerminosCondicionesComponent {
     return today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
   }
 
-  noSpecialCharacters(control: any) {
-    // Permite solo letras, números y espacios. No permite <, >, =, y otros caracteres especiales
-    const regex = /^[^<>=]*$/; // No permite los caracteres <, >, =
+  noSpecialCharacters(control: any): ValidationErrors | null {
+    // Expresión regular para validar caracteres especiales
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
+
+    // Si el valor está vacío, no validamos nada (otro validador lo maneja)
+    if (!control.value) {
+      return null;
+    }
+
     const valid = regex.test(control.value);
     return valid ? null : { invalidCharacters: true }; // Retorna un error si hay caracteres inválidos
   }
 
+  isValidTitle(title: string): boolean {
+    // Expresión regular para validar solo letras y espacios
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+    return regex.test(title) && title.length <= 30; // Verifica que no haya números y que tenga máximo 30 caracteres
+  }
 
   onSubmit() {
     const selectedDate = new Date(this.nuevosTerminos.fechaVigencia);
@@ -63,6 +74,16 @@ export class RegistroTerminosCondicionesComponent {
       Swal.fire(
         'Error',
         'El contenido no debe contener caracteres < o >.',
+        'error'
+      );
+      return;
+    }
+
+    // Validar título antes de enviar
+    if (!this.isValidTitle(this.nuevosTerminos.titulo)) {
+      Swal.fire(
+        'Error',
+        'El título solo debe contener letras y tener un máximo de 30 caracteres.',
         'error'
       );
       return;

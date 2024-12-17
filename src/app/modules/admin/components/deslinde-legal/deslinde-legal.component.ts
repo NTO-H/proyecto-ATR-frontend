@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-deslinde-legal',
@@ -12,6 +12,12 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrls: ['./deslinde-legal.component.scss'], // Corregido `styleUrl` a `styleUrls`
 })
 export class DeslindeLegalComponent {
+  nuevosTerminos = {
+    titulo: '',
+    contenido: '',
+    fechaVigencia: '',
+  };
+
   nuevoDeslindeLegal = {
     titulo: '',
     contenido: '',
@@ -90,5 +96,18 @@ export class DeslindeLegalComponent {
           console.error(':', error);
         }
       );
+  }
+
+  noSpecialCharacters(control: any): ValidationErrors | null {
+    // Expresión regular combinada
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
+
+    // Si el valor está vacío, no validamos nada (otro validador lo maneja)
+    if (!control.value) {
+      return null;
+    }
+
+    const valid = regex.test(control.value);
+    return valid ? null : { invalidCharacters: true }; // Retorna un error si hay caracteres inválidos
   }
 }
