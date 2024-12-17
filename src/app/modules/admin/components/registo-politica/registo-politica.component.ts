@@ -62,7 +62,6 @@ export class RegistoPoliticaComponent {
         .registerPolitica(this.nuevaPolitica)
         .subscribe(
           (response) => {
-            console.log(this.nuevaPolitica);
             Swal.fire(
               'Política registrada',
               'La política se ha registrado correctamente.',

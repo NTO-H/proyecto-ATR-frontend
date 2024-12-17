@@ -25,77 +25,68 @@ export class UsuarioService extends manejoDeErroresHTTP {
   }
 
   enviarCorreo(email: string): Observable<any> {
-    return this.http
-      .post<any>(`${environment.api}/enviar-correo`, { email })
-      .pipe(catchError((error) => this.errorHandler(error)));
+    return this.http.post<any>(`${environment.api}/enviar-correo`, { email });
     // return this._http.post<any>(this.url, { correo });
   }
 
   // http://localhost:4000/api/v1/usuarios/
 
   checkEmailExists(email: string): Observable<any> {
-    return this.http
-      .post<any>(
-        environment.api + '/usuarios/check-email',
-        { email },
-        {
-          withCredentials: true,
-        }
-      )
-      .pipe(catchError((error) => this.errorHandler(error)));
+    return this.http.post<any>(
+      environment.api + '/usuarios/check-email',
+      { email },
+      {
+        withCredentials: true,
+      }
+    );
   }
   checkTelefonoExists(telefono: string): Observable<any> {
-    return this.http
-      .post<any>(
-        environment.api + '/usuarios/check-telefono',
-        { telefono },
-        {
-          withCredentials: true,
-        }
-      )
-      .pipe(catchError((error) => this.errorHandler(error)));
+    return this.http.post<any>(
+      environment.api + '/usuarios/check-telefono',
+      { telefono },
+      {
+        withCredentials: true,
+      }
+    );
   }
   checkCode(code: number): Observable<any> {
-    return this.http
-      .post<any>(
-        environment.api + '/usuarios/check-code',
-        { code },
-        {
-          withCredentials: true,
-        }
-      )
-      .pipe(catchError((error) => this.errorHandler(error)));
+    return this.http.post<any>(
+      environment.api + '/usuarios/check-code',
+      { code },
+      {
+        withCredentials: true,
+      }
+    );
   }
   enviarCodido(email: number): Observable<any> {
-    return this.http
-      .post<any>(
-        environment.api + '/enviar-correo/code',
-        { email },
-        {
-          withCredentials: true,
-        }
-      )
-      .pipe(catchError((error) => this.errorHandler(error)));
+    return this.http.post<any>(
+      environment.api + '/enviar-correo/code',
+      { email },
+      {
+        withCredentials: true,
+      }
+    );
   }
   getUsuarios(): Observable<any> {
-    return this.http.get(environment.api + '/usuarios');
+    return this.http
+      .get(environment.api + '/usuarios')
+      .pipe(catchError((error) => this.errorHandler(error)));
   }
 
   register(usuario: Usuario): Observable<any> {
-    return this.http
-      .post<any>(environment.api + '/usuarios', usuario, {
-        withCredentials: true,
-      })
-      .pipe(catchError((error) => this.errorHandler(error)));
+    return this.http.post<any>(environment.api + '/usuarios', usuario, {
+      withCredentials: true,
+    });
   }
 
   enviarToken(email: string, codigoVerificacion: string): Observable<any> {
-    return this.http
-      .post<boolean>(environment.api + '/verificacion/activar-cuenta', {
+    return this.http.post<boolean>(
+      environment.api + '/verificacion/activar-cuenta',
+      {
         email,
         codigoVerificacion,
-      })
-      .pipe(catchError((error) => this.errorHandler(error)));
+      }
+    );
   }
 
   // enviarDatos(pregunta: string, respuesta: string): Observable<any> {
@@ -106,21 +97,23 @@ export class UsuarioService extends manejoDeErroresHTTP {
   // }
 
   actualizaPasswordxCorreo(email: string, nueva: string): Observable<any> {
-    return this.http
-      .put<boolean>(environment.api + '/usuarios/actualizaxCorreo', {
+    return this.http.put<boolean>(
+      environment.api + '/usuarios/actualizaxCorreo',
+      {
         email,
         nueva,
-      })
-      .pipe(catchError((error) => this.errorHandler(error)));
+      }
+    );
   }
 
   actualizarUsuario(email: string, nueva: string): Observable<any> {
-    return this.http
-      .put<boolean>(environment.api + '/usuarios/actualizaxCorreo', {
+    return this.http.put<boolean>(
+      environment.api + '/usuarios/actualizaxCorreo',
+      {
         email,
         nueva,
-      })
-      .pipe(catchError((error) => this.errorHandler(error)));
+      }
+    );
   }
 
   // actualizaPasswordxPregunta(
@@ -139,9 +132,7 @@ export class UsuarioService extends manejoDeErroresHTTP {
   // }
 
   eliminarUsuario(id: string): Observable<any> {
-    return this.http
-      .delete(environment.api + '/usuarios/' + id)
-      .pipe(catchError((error) => this.errorHandler(error)));
+    return this.http.delete(environment.api + '/usuarios/' + id);
   }
   // eliminarProducto(id: string): Observable<any> {
   //     return this.http.delete(this.url + id);

@@ -24,7 +24,6 @@
   background-color: #f5f5f5;
 }
 
-
 .btn {
   padding: 8px 12px;
   margin: 0 5px;
@@ -84,6 +83,15 @@ button:disabled {
   margin-bottom: 20px;
 }
 
+.form-area {
+  width: 100%;
+  padding: 12px;
+  height: 120px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
 .form-control {
   width: 100%;
   padding: 12px;

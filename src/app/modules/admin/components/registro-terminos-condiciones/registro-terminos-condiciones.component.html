@@ -1,4 +1,3 @@
-<p class="header-text">¡Registro de Términos y Condiciones!</p>
 <div class="form-container">
   <h2 class="form-title">Registrar Nuevos Términos y Condiciones</h2>
   <form (ngSubmit)="onSubmit()" #terminosForm="ngForm">
@@ -11,6 +10,8 @@
         name="titulo"
         [(ngModel)]="nuevosTerminos.titulo"
         required
+        maxlength="30"
+        minlength="5"
         #tituloInput="ngModel"
         placeholder="Ingresa el título de los términos"
         class="form-control"
@@ -29,11 +30,16 @@
         [(ngModel)]="nuevosTerminos.contenido"
         required
         #contenidoInput="ngModel"
+        minlength="30"
+        maxlength="300"
         placeholder="Ingresa el contenido de los términos"
         class="form-control textarea-control"
         rows="5"
       ></textarea>
-      <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
+      <div
+        *ngIf="contenidoInput.invalid && contenidoInput.touched"
+        class="error"
+      >
         El contenido es requerido.
       </div>
     </div>

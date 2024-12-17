@@ -19,6 +19,7 @@ import {
 } from 'libphonenumber-js';
 import axios from 'axios';
 import { forkJoin } from 'rxjs';
+import { error } from 'node:console';
 
 declare const $: any;
 
@@ -227,9 +228,10 @@ export class RegistroView {
           this.displayModal = false;
           let errorMessage = '';
 
-          if (err.error && err.error.message) {
+          if (err?.error && err?.error?.message) {
             errorMessage = err.error.message;
           } else {
+            console.log(err);
             errorMessage = 'Hubo un error inesperado. Inténtalo nuevamente.';
           }
 

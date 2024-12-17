@@ -70,7 +70,6 @@ export class DeslindeLegalComponent {
       .registerDeslindeLegal(this.nuevoDeslindeLegal)
       .subscribe(
         (response) => {
-          console.log(this.nuevoDeslindeLegal);
           Swal.fire(
             'Deslinde Legal registrado',
             'El Deslinde Legal se ha registrado correctamente.',

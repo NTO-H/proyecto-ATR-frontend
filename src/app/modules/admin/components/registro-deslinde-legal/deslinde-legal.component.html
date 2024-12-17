@@ -1,14 +1,14 @@
-<p class="header-text">¡Registro de Deslinde Legal!</p>
 <div class="form-container">
   <h2 class="form-title">Registrar Nuevo Deslinde Legal</h2>
   <form #formDeslinde="ngForm" (ngSubmit)="onSubmit(formDeslinde)">
-    
     <!-- Título -->
     <div class="form-group">
       <label for="titulo">Título:</label>
       <input
         class="form-control"
         type="text"
+        maxlength="30"
+        minlength="5"
         name="titulo"
         [(ngModel)]="nuevoDeslindeLegal.titulo"
         required
@@ -20,6 +20,9 @@
       <label for="contenido">Contenido:</label>
       <textarea
         class="form-control textarea-control"
+        minlength="30"
+        maxlength="300"
+        placeholder="Ingrese el contenido del deslinde legal"
         name="contenido"
         [(ngModel)]="nuevoDeslindeLegal.contenido"
         required

@@ -56,7 +56,6 @@ export class RegistroTerminosCondicionesComponent {
         .registerTerminosYCondiciones(this.nuevosTerminos)
         .subscribe(
           (response) => {
-            console.log('Términos registrados con éxito:', response);
             Swal.fire(
               'Términos registrados',
               'Los términos y condiciones se han registrado correctamente.',
