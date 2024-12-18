@@ -44,7 +44,7 @@ export class ListadoPoliticaComponent implements OnInit {
     this.controlAdministrativaService.obtenerPoliticas().subscribe(
       (data: Politica[]) => {
         this.politicas = data; // Guarda los datos en la variable
-        console.table(this.politicas); // Mostrar datos en consola
+        console.log(this.politicas); // Mostrar datos en consola
         this.isLoading = false; // Desactivar estado de carga
       },
       (error) => {
@@ -101,7 +101,19 @@ export class ListadoPoliticaComponent implements OnInit {
   }
 
   editarPolitica(doc: Politica) {
-    this.politicaAEditar = { ...doc }; // Copiar los datos de la política seleccionada
+    // Convertir fecha de ISO a YYYY-MM-DD
+    const fechaVigencia = new Date(doc.fechaVigencia);
+    const year = fechaVigencia.getFullYear();
+    const month = String(fechaVigencia.getMonth() + 1).padStart(2, '0'); // Meses en JS son 0-indexados
+    const day = String(fechaVigencia.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+
+    this.politicaAEditar = {
+      ...doc,
+      fechaVigencia: formattedDate,
+    };
+
+    console.log('Política a editar:', this.politicaAEditar); // Verifica la fecha aquí
     this.isEditing = true; // Cambiar el estado a editar
   }
 

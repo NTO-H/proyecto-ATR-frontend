@@ -10,7 +10,11 @@ import { RouterModule } from '@angular/router';
 import { ClientesService } from '../../shared/services/clientes.service';
 import { SessionService } from '../../shared/services/session.service';
 import { StorageService } from '../../shared/services/storage.service';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withFetch,
+} from '@angular/common/http';
 // import { CrudTerminosCondicionesView } from './views/crud-terminos-condiciones/crud-terminos-condiciones.view';
 import { ControlClientesView } from './views/control-clientes/control-clientes.view';
 import { ControlProductosView } from './views/control-productos/control-productos.view';
@@ -40,7 +44,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { provideClientHydration } from '@angular/platform-browser';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
-import {  ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { TabViewModule } from 'primeng/tabview';
 import { AvatarModule } from 'primeng/avatar';
 import { PaginatorModule } from 'primeng/paginator';
@@ -60,7 +64,7 @@ import { ButtonModule } from 'primeng/button';
 import { HeaderPrincipalComponent } from './components/header-principal/header-principal.component';
 import { RegistroPoliComponent } from './components/registro-poli/registro-poli.component';
 
-  // import { } from '../../shared/services/collapsed-state.service';
+// import { } from '../../shared/services/collapsed-state.service';
 // import {  SmartChartModule } from 'smart-webcomponents-angular/chart';
 // import { SmartChartModule
 // import { ChartModule } from 'smart-webcomponents-angular/chart'
@@ -71,9 +75,23 @@ import { RegistroPoliComponent } from './components/registro-poli/registro-poli.
 
 const VIEWS = [HomeView, FooterComponent];
 
-const MATERIALS = [ ButtonModule, DropdownModule, InputTextModule, CardModule,CalendarModule, InputNumberModule, ToastrModule,TabViewModule,
-  AvatarModule, PaginatorModule,AvatarGroupModule, DialogModule,TableModule,IconFieldModule,InputIconModule
-]
+const MATERIALS = [
+  ButtonModule,
+  DropdownModule,
+  InputTextModule,
+  CardModule,
+  CalendarModule,
+  InputNumberModule,
+  ToastrModule,
+  TabViewModule,
+  AvatarModule,
+  PaginatorModule,
+  AvatarGroupModule,
+  DialogModule,
+  TableModule,
+  IconFieldModule,
+  InputIconModule,
+];
 @NgModule({
   declarations: [
     VIEWS,
@@ -104,17 +122,29 @@ const MATERIALS = [ ButtonModule, DropdownModule, InputTextModule, CardModule,Ca
     NotificacionesComponent,
     HeaderPrincipalComponent,
     RegistroPoliComponent,
-
   ],
-  imports: [MATERIALS,ReactiveFormsModule,ToastModule ,FormsModule,CommonModule, FormsModule, AdminRoutingModule, FormsModule,HttpClientModule,],
+  imports: [
+    MATERIALS,
+    ReactiveFormsModule,
+    ToastModule,
+    CommonModule,
+    FormsModule,
+    AdminRoutingModule,
+    HttpClientModule,
+  ],
   providers: [
     UsuarioService,
     ControlAdministrativaService,
     ClientesService,
     StorageService,
-    SessionService,ProductoService,
-    DatosEmpresaService,Toast, MessageService, provideClientHydration(), [provideHttpClient(withFetch())],
+    SessionService,
+    ProductoService,
+    DatosEmpresaService,
+    Toast,
+    MessageService,
+    provideClientHydration(),
+    [provideHttpClient(withFetch())],
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule {}

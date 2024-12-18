@@ -14,8 +14,14 @@
         placeholder="Ingresa el título de la política"
         class="form-control"
       />
-      <div *ngIf="!isValidTitle(politicaAEditar.titulo) && politicaAEditar.titulo" class="error">
-        El título solo debe contener letras y números.
+      <div class="error">
+        <div
+          *ngIf="
+            !isValidTitle(politicaAEditar.titulo) && politicaAEditar.titulo
+          "
+        >
+          El título solo debe contener letras y números.
+        </div>
       </div>
     </div>
 
@@ -29,7 +35,13 @@
         placeholder="Ingresa el contenido de la política"
         class="form-control"
       ></textarea>
-      <div *ngIf="!isValidContent(politicaAEditar.contenido) && politicaAEditar.contenido" class="error">
+      <div
+        *ngIf="
+          !isValidContent(politicaAEditar.contenido) &&
+          politicaAEditar.contenido
+        "
+        class="error"
+      >
         El contenido solo debe contener letras y números.
       </div>
     </div>
@@ -51,7 +63,9 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">Actualizar Política</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">
+        Actualizar Política
+      </button>
       <button
         type="button"
         (click)="cancelarEdicion()"
@@ -81,8 +95,8 @@
         <td>{{ doc?.version }}</td>
         <td>{{ doc?.titulo }}</td>
         <td>{{ doc?.contenido }}</td>
-        <td>{{ doc?.fechaCreacion | date : "short" }}</td>
-        <td>{{ doc?.fechaVigencia | date : "short" }}</td>
+        <td>{{ doc?.fechaCreacion | date : "dd/MM/yyyy" : "+0000" }}</td>
+        <td>{{ doc?.fechaVigencia | date : "dd/MM/yyyy" : "+0000" }}</td>
         <td>{{ doc?.estado }}</td>
         <td>
           <button (click)="editarPolitica(doc)" class="btn btn-edit">
