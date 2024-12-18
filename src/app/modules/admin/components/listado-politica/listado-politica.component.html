@@ -1,5 +1,4 @@
 <!-- Formulario de Edición -->
-<!-- Formulario de Edición -->
 <div class="form-container" *ngIf="politicaAEditar">
   <h2 class="form-title">Editar Política</h2>
   <form (ngSubmit)="actualizarPolitica()" class="form-edit">
@@ -14,14 +13,11 @@
         placeholder="Ingresa el título de la política"
         class="form-control"
       />
-      <div class="error">
-        <div
-          *ngIf="
-            !isValidTitle(politicaAEditar.titulo) && politicaAEditar.titulo
-          "
-        >
-          El título solo debe contener letras y números.
-        </div>
+      <div
+        class="error"
+        *ngIf="!isValidTitle(politicaAEditar.titulo) && politicaAEditar.titulo"
+      >
+        El título solo debe contener letras y números.
       </div>
     </div>
 
@@ -36,11 +32,11 @@
         class="form-control"
       ></textarea>
       <div
+        class="error"
         *ngIf="
           !isValidContent(politicaAEditar.contenido) &&
           politicaAEditar.contenido
         "
-        class="error"
       >
         El contenido solo debe contener letras y números.
       </div>
@@ -63,9 +59,7 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">
-        Actualizar Política
-      </button>
+      <button type="submit" class="btn btn-primary">Actualizar Política</button>
       <button
         type="button"
         (click)="cancelarEdicion()"

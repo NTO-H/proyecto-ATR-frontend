@@ -10,7 +10,10 @@
   background-color: #e91e63;
   color: white;
 }
-
+.error {
+  color: #e91e63; /* Color de error */
+  font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+}
 .politicas-table th,
 .politicas-table td {
   padding: 12px 15px;

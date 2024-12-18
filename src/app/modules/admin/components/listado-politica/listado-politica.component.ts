@@ -68,6 +68,23 @@ export class ListadoPoliticaComponent implements OnInit {
   actualizarPolitica() {
     if (!this.politicaAEditar) return; // Verificar si hay una política a editar
 
+    const fechaVigencia = this.politicaAEditar.fechaVigencia;
+
+    const [year, month, day] = fechaVigencia.split('-').map(Number);
+    const selectedDate = new Date(year, month - 1, day);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      Swal.fire(
+        'Error',
+        'La fecha de vigencia no puede ser una fecha pasada.',
+        'error'
+      );
+      return;
+    }
+
     this.controlAdministrativaService
       .actualizarPoliticas(this.politicaAEditar._id, this.politicaAEditar)
       .subscribe(
@@ -88,6 +105,7 @@ export class ListadoPoliticaComponent implements OnInit {
           ); // Mensaje de éxito
         },
         (error) => {
+          this.isEditing = false;
           this.errorMessage =
             'Error al actualizar política. Inténtalo más tarde.'; // Mensaje de error
           console.error('Error al actualizar política:', error);
@@ -103,16 +121,17 @@ export class ListadoPoliticaComponent implements OnInit {
   editarPolitica(doc: Politica) {
     // Convertir fecha de ISO a YYYY-MM-DD
     const fechaVigencia = new Date(doc.fechaVigencia);
-    const year = fechaVigencia.getFullYear();
-    const month = String(fechaVigencia.getMonth() + 1).padStart(2, '0'); // Meses en JS son 0-indexados
-    const day = String(fechaVigencia.getDate()).padStart(2, '0');
+
+    // Asegúrate de que la fecha se ajuste a la zona horaria correcta
+    const year = fechaVigencia.getUTCFullYear();
+    const month = String(fechaVigencia.getUTCMonth() + 1).padStart(2, '0'); // Meses en JS son 0-indexados
+    const day = String(fechaVigencia.getUTCDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
 
     this.politicaAEditar = {
       ...doc,
       fechaVigencia: formattedDate,
     };
-
     console.log('Política a editar:', this.politicaAEditar); // Verifica la fecha aquí
     this.isEditing = true; // Cambiar el estado a editar
   }
