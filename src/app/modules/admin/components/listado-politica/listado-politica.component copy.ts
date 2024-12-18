@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class ListadoPoliticaComponent implements OnInit {
   politicas: Politica[] = []; // Inicializa como un arreglo vacío
   politicaAEditar = {
-    _id: '',
+    _id:'',
     titulo: '',
     contenido: '',
     fechaVigencia: this.getCurrentDate(),
@@ -20,7 +20,6 @@ export class ListadoPoliticaComponent implements OnInit {
   isEditing: boolean = false;
   isLoading: boolean = false; // Estado de carga
   errorMessage: string | null = null;
-  regexPattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para validación
 
   constructor(
     private controlAdministrativaService: ControlAdministrativaService,
@@ -34,7 +33,6 @@ export class ListadoPoliticaComponent implements OnInit {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`; // Formato YYYY-MM-DD
   }
-
   ngOnInit(): void {
     this.obtenerPoliticas(); // Cargar políticas al iniciar el componente
   }
@@ -58,7 +56,7 @@ export class ListadoPoliticaComponent implements OnInit {
   cancelarEdicion() {
     this.isEditing = false; // Desactivamos la edición
     this.politicaAEditar = {
-      _id: '',
+      _id:'',
       titulo: '',
       contenido: '',
       fechaVigencia: this.getCurrentDate(),
@@ -76,7 +74,7 @@ export class ListadoPoliticaComponent implements OnInit {
           this.obtenerPoliticas(); // Recargar la lista después de actualizar
           this.isEditing = false; // Desactivamos el modo edición
           this.politicaAEditar = {
-            _id: '',
+            _id:'',
             titulo: '',
             contenido: '',
             fechaVigencia: this.getCurrentDate(),
@@ -131,30 +129,15 @@ export class ListadoPoliticaComponent implements OnInit {
               'Error',
               'No se pudo eliminar la política. Inténtalo más tarde.',
               'error'
-            );
+            ); // Mensaje de error con SweetAlert
           }
         );
       }
     });
   }
 
-  // Métodos de validación
-  isValidTitle(title: string): boolean {
-    return this.regexPattern.test(title);
-  }
-
-  isValidContent(content: string): boolean {
-    return this.regexPattern.test(content);
-  }
-  isFormValid(): boolean {
-    return (
-      this.politicaAEditar &&
-      this.isValidTitle(this.politicaAEditar.titulo) &&
-      this.isValidContent(this.politicaAEditar.contenido) &&
-      !!this.politicaAEditar.fechaVigencia // Asegúrate de que sea un booleano
-    );
-  }
-  verHistorial(id: string) {
+  
+}
+verHistorial(id: string) {
     this.router.navigate(['/admin/politicas/historial-listado-politica/', id]);
   }
-}
