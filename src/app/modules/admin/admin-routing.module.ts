@@ -6,7 +6,6 @@ import { ReportesView } from './views/reportes/reportes.view';
 import { ConfiguracionView } from './views/configuracion/configuracion.view';
 import { PoliticasView } from './views/politicas/politicas.view';
 import { ListadoPoliticaComponent } from './components/listado-politica/listado-politica.component';
-import { RegistoPoliticaComponent } from './components/registo-politica/registo-politica.component';
 import { ControlProductosView } from './views/control-productos/control-productos.view';
 import { ListadoProductosComponent } from './components/listado-productos/listado-productos.component';
 import { RegistoProductoComponent } from './components/registo-producto/registo-producto.component';
@@ -31,6 +30,7 @@ import { HistorialTerminosCondicionesComponent } from './components/historial-te
 import { ListadoDeslindeLegalComponent } from './components/listado-deslinde-legal/listado-deslinde-legal.component';
 import { HistorialDeslindeLegalComponent } from './components/historial-deslinde-legal/historial-deslinde-legal.component';
 import { adminGuard } from '../../shared/guards/auth.guard';
+import { RegistroPoliComponent } from './components/registro-poli/registro-poli.component';
 
 const routes: Routes = [
   {
@@ -172,7 +172,7 @@ const routes: Routes = [
           },
           {
             path: 'registo-politica',
-            component: RegistoPoliticaComponent, // El componente que renderiza "Condiciones"
+            component: RegistroPoliComponent, // El componente que renderiza "Condiciones"
           },
           {
             path: 'historial-listado-politica/:id',
@@ -180,7 +180,7 @@ const routes: Routes = [
           },
           {
             path: 'registo-politica',
-            component: RegistoPoliticaComponent, // El componente que renderiza "Condiciones"
+            component: RegistroPoliComponent, // El componente que renderiza "Condiciones"
           },
           {
             path: 'historial-terminos-condiciones/:id',

@@ -41,7 +41,8 @@ export class RegistroTerminosCondicionesComponent {
 
   isValidTitle(title: string): boolean {
     // Expresión regular para validar solo letras y espacios
-    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
+
     return regex.test(title) && title.length <= 30; // Verifica que no haya números y que tenga máximo 30 caracteres
   }
 

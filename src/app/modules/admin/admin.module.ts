@@ -21,7 +21,6 @@ import { RegistroRentaComponent } from './components/registro-renta/registro-ren
 import { ListadoRentaComponent } from './components/listado-renta/listado-renta.component';
 import { RegistroVentaComponent } from './components/registro-venta/registro-venta.component';
 import { RegistoProductoComponent } from './components/registo-producto/registo-producto.component';
-import { RegistoPoliticaComponent } from './components/registo-politica/registo-politica.component';
 import { RegistroTerminosCondicionesComponent } from './components/registro-terminos-condiciones/registro-terminos-condiciones.component';
 import { ListadoPoliticaComponent } from './components/listado-politica/listado-politica.component';
 import { ListadoProductosComponent } from './components/listado-productos/listado-productos.component';
@@ -59,7 +58,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { HeaderPrincipalComponent } from './components/header-principal/header-principal.component';
-// import { } from '../../shared/services/collapsed-state.service';
+import { RegistroPoliComponent } from './components/registro-poli/registro-poli.component';
+  // import { } from '../../shared/services/collapsed-state.service';
 // import {  SmartChartModule } from 'smart-webcomponents-angular/chart';
 // import { SmartChartModule
 // import { ChartModule } from 'smart-webcomponents-angular/chart'
@@ -89,7 +89,6 @@ const MATERIALS = [ ButtonModule, DropdownModule, InputTextModule, CardModule,Ca
     FooterComponent,
     RegistroVentaComponent,
     RegistoProductoComponent,
-    RegistoPoliticaComponent,
     RegistroTerminosCondicionesComponent,
     ListadoPoliticaComponent,
     ListadoProductosComponent,
@@ -102,7 +101,9 @@ const MATERIALS = [ ButtonModule, DropdownModule, InputTextModule, CardModule,Ca
     PerfilAdministradorComponent,
     AjustesGeneralesComponent,
     NotificacionesComponent,
-    HeaderPrincipalComponent
+    HeaderPrincipalComponent,
+    RegistroPoliComponent,
+
   ],
   imports: [MATERIALS,ReactiveFormsModule,ToastModule ,FormsModule,CommonModule, FormsModule, AdminRoutingModule, FormsModule,HttpClientModule,],
   providers: [
