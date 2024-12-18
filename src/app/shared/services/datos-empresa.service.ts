@@ -17,7 +17,10 @@ export class DatosEmpresaService {
     const url = `${environment.api}/Empresa/editarConfigurarEmpresa/`;
     return this.http.put(url, data);
   }
-
+  consultarConfigurarEmpresa(): Observable<any> {
+    const url = `${environment.api}/Empresa/consultarConfigurarEmpresa`;
+    return this.http.get(url);
+  }
   traerDatosEmpresa(): Observable<any> {
     const url = `${environment.api}/Empresa/obtenerPerfilesEmpresa`;
     return this.http.get(url);
@@ -35,7 +38,6 @@ export class DatosEmpresaService {
   //   return this.http.get(url);
   // }
 
-
   //redes sociales
   guardarRedSocial(id: any, redSocial: any): Observable<any> {
     const url = `${environment.api}/Empresa/guardarRedSocial/` + id;
@@ -43,7 +45,7 @@ export class DatosEmpresaService {
   }
   //redes sociales
   obtenerRedesSociales(): Observable<any> {
-    const url = `${environment.api}/Empresa/obtenerRedesSociales` ;
+    const url = `${environment.api}/Empresa/obtenerRedesSociales`;
     return this.http.get(url);
   }
 

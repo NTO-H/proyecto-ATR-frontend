@@ -64,6 +64,7 @@ export class ListadoPoliticaComponent implements OnInit {
   }
 
   actualizarPolitica() {
+    
     if (!this.politicaAEditar) return; // Verificar si hay una política a editar
 
     this.controlAdministrativaService
