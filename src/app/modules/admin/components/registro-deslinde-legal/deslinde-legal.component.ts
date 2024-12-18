@@ -38,7 +38,7 @@ export class DeslindeLegalComponent {
   }
 
   isValidTitleCharacters(title: string): boolean {
-    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/;
     return regex.test(title); // Verifica caracteres permitidos
   }
 
@@ -47,7 +47,7 @@ export class DeslindeLegalComponent {
   }
 
   isValidContentCharacters(content: string): boolean {
-    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s.,;:()]*$/; // Permite letras, números y algunos caracteres especiales
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/; // Permite letras, números y algunos caracteres especiales
     return regex.test(content); // Verifica caracteres permitidos
   }
 

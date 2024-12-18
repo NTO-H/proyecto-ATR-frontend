@@ -66,8 +66,7 @@ export class ListadoDeslindeLegalComponent {
 
   noSpecialCharacters(control: any): ValidationErrors | null {
     // Expresión regular para validar caracteres especiales
-    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
-
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/;
     // Si el valor está vacío, no validamos nada (otro validador lo maneja)
     if (!control.value) {
       return null;
@@ -79,7 +78,7 @@ export class ListadoDeslindeLegalComponent {
 
   isValidTitle(title: string): boolean {
     // Expresión regular para validar solo letras y espacios
-    const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/;
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/;
     return regex.test(title);
   }
 

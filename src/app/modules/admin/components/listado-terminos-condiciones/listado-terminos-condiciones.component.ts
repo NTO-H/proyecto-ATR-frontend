@@ -61,7 +61,7 @@ export class ListadoTerminosCondicionesComponent {
   }
 
   noSpecialCharacters(control: any): ValidationErrors | null {
-    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s.,;:()]*$/;
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/;
     if (!control.value) {
       return null;
     }
@@ -70,7 +70,7 @@ export class ListadoTerminosCondicionesComponent {
   }
 
   isValidTitle(title: string): boolean {
-    const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/;
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/;
     return regex.test(title) && title.length >= 5 && title.length <= 100; // Longitud entre 5 y 100 caracteres
   }
 

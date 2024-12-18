@@ -20,7 +20,7 @@ export class ListadoPoliticaComponent implements OnInit {
   isEditing: boolean = false;
   isLoading: boolean = false; // Estado de carga
   errorMessage: string | null = null;
-  regexPattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para validación
+  regexPattern = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/; // Expresión regular para validación
 
   constructor(
     private controlAdministrativaService: ControlAdministrativaService,

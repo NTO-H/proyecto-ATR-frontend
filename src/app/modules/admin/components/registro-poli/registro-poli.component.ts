@@ -24,13 +24,12 @@ export class RegistroPoliComponent implements OnInit {
   ngOnInit() {}
 
   isValidTitle(title: string): boolean {
-    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/;
     return regex.test(title) && title.length <= 30;
   }
 
   noSpecialCharacters(control: any): ValidationErrors | null {
-    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
-
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\s]*$/;
     if (!control.value) {
       return null;
     }
