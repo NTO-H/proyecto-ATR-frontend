@@ -2,22 +2,17 @@ import { Component } from '@angular/core';
 import { ControlAdministrativaService } from '../../../../shared/services/control-administrativa.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-deslinde-legal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './deslinde-legal.component.html',
-  styleUrls: ['./deslinde-legal.component.scss'], // Corregido `styleUrl` a `styleUrls`
+  styleUrls: ['./deslinde-legal.component.scss'],
 })
 export class DeslindeLegalComponent {
-  nuevosTerminos = {
-    titulo: '',
-    contenido: '',
-    fechaVigencia: '',
-  };
-
   nuevoDeslindeLegal = {
     titulo: '',
     contenido: '',
@@ -33,28 +28,37 @@ export class DeslindeLegalComponent {
   private getCurrentDate(): string {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Meses en JS son 0-indexados
+    const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`; // Formato YYYY-MM-DD
+    return `${year}-${month}-${day}`;
+  }
+
+  isValidTitleLength(title: string): boolean {
+    return title.length >= 5 && title.length <= 30; // Verifica la longitud
+  }
+
+  isValidTitleCharacters(title: string): boolean {
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+    return regex.test(title); // Verifica caracteres permitidos
+  }
+
+  isValidContentLength(content: string): boolean {
+    return content.length >= 30 && content.length <= 300; // Verifica la longitud
+  }
+
+  isValidContentCharacters(content: string): boolean {
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s.,;:()]*$/; // Permite letras, números y algunos caracteres especiales
+    return regex.test(content); // Verifica caracteres permitidos
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid) {
-      Swal.fire('Error', 'Por favor completa todos los campos obligatorios.', 'error');
-      return;
-    }
-
-    const fechaVigencia = this.nuevoDeslindeLegal.fechaVigencia
+    const fechaVigencia = this.nuevoDeslindeLegal.fechaVigencia;
     const [year, month, day] = fechaVigencia.split('-').map(Number);
     const selectedDate = new Date(year, month - 1, day);
-
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    console.log('Fecha seleccionada: ' + selectedDate);
-    console.log('Fecha de hoy: ' + today);
-
-
+    // Validación de la fecha
     if (selectedDate < today) {
       Swal.fire(
         'Error',
@@ -64,12 +68,40 @@ export class DeslindeLegalComponent {
       return;
     }
 
+    // Inicializar un array para almacenar mensajes de error
+    const errorMessages: string[] = [];
 
+    // Validaciones de título
+    if (!this.isValidTitleLength(this.nuevoDeslindeLegal.titulo)) {
+      errorMessages.push('El título debe tener entre 5 y 30 caracteres.');
+    }
+
+    if (!this.isValidTitleCharacters(this.nuevoDeslindeLegal.titulo)) {
+      errorMessages.push('El título no debe contener caracteres especiales.');
+    }
+
+    // Validaciones de contenido
+    if (!this.isValidContentLength(this.nuevoDeslindeLegal.contenido)) {
+      errorMessages.push('El contenido debe tener entre 30 y 300 caracteres.');
+    }
+
+    if (!this.isValidContentCharacters(this.nuevoDeslindeLegal.contenido)) {
+      errorMessages.push(
+        'El contenido no debe contener caracteres especiales.'
+      );
+    }
+
+    // Si hay errores, mostrar todos los mensajes
+    if (errorMessages.length > 0) {
+      Swal.fire('Errores de validación', errorMessages.join('<br>'), 'error');
+      return;
+    }
+
+    // Registro del Deslinde Legal si todas las validaciones son correctas
     this.controlAdministrativaService
       .registerDeslindeLegal(this.nuevoDeslindeLegal)
       .subscribe(
         (response) => {
-          console.log(this.nuevoDeslindeLegal);
           Swal.fire(
             'Deslinde Legal registrado',
             'El Deslinde Legal se ha registrado correctamente.',
@@ -94,18 +126,5 @@ export class DeslindeLegalComponent {
           console.error(':', error);
         }
       );
-  }
-
-  noSpecialCharacters(control: any): ValidationErrors | null {
-    // Expresión regular combinada
-    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
-
-    // Si el valor está vacío, no validamos nada (otro validador lo maneja)
-    if (!control.value) {
-      return null;
-    }
-
-    const valid = regex.test(control.value);
-    return valid ? null : { invalidCharacters: true }; // Retorna un error si hay caracteres inválidos
   }
 }

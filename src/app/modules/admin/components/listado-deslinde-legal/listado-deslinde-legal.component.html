@@ -24,9 +24,13 @@
         placeholder="Ingresa el contenido del deslinde legal"
         class="form-control"
       ></textarea>
-      <div *ngIf="noSpecialCharacters({ value: deslindeLegalAEditar.contenido })?.invalidCharacters" class="error">
-        El contenido no debe contener caracteres < o >.
-      </div>
+      <div
+      *ngIf="noSpecialCharacters({ value: deslindeLegalAEditar.contenido })?.['invalidCharacters']"
+      class="error"
+    >
+      El contenido no debe contener caracteres < o >.
+    </div>
+    
     </div>
 
     <div class="form-group">
@@ -46,8 +50,54 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Actualizar Deslinde Legal</button>
-      <button type="button" (click)="cancelarEdicion()" class="btn btn-secondary">Cancelar</button>
+      <button type="submit" class="btn btn-primary">
+        Actualizar Deslinde Legal
+      </button>
+      <button
+        type="button"
+        (click)="cancelarEdicion()"
+        class="btn btn-secondary"
+      >
+        Cancelar
+      </button>
     </div>
   </form>
+</div>
+
+<div class="table-responsive">
+  <div>
+    <h2>Nuestras políticas</h2>
+  </div>
+  <table class="terminos-table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Contenido</th>
+        <th>Fecha de Creación</th>
+        <th>Fecha de Vencimiento</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let termino of listaDeslindeLegal">
+        <td>{{ termino.titulo }}</td>
+        <td>{{ termino.contenido }}</td>
+        <td>{{ termino.fechaCreacion | date : "dd/MM/yyyy" : "+0000" }}</td>
+        <td>{{ termino.fechaVigencia | date : "dd/MM/yyyy" : "+0000" }}</td>
+        <td>{{ termino.estado }}</td>
+        <td>
+          <button (click)="editarTermino(termino)" class="btn btn-edit">
+            Editar
+          </button>
+          <button (click)="eliminarTermino(termino._id)" class="btn btn-secondary">
+            Eliminar
+          </button>
+          <button (click)="verHistorial(termino._id)" class="btn btn-history">
+            Ver Historial
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

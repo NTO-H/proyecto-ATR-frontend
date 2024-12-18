@@ -1,4 +1,3 @@
-<p class="header-text">¡Registro de Términos y Condiciones!</p>
 <div class="form-container">
   <h2 class="form-title">Registrar Nuevos Términos y Condiciones</h2>
   <form (ngSubmit)="onSubmit()" #terminosForm="ngForm">
@@ -11,22 +10,36 @@
         name="titulo"
         [(ngModel)]="nuevosTerminos.titulo"
         required
+        maxlength="30"
+        minlength="5"
         #tituloInput="ngModel"
         placeholder="Ingresa el título de los términos"
         class="form-control"
         minlength="15"
         maxlength="30"
       />
+      <!--
+<span *ngIf="miFormulario.get('campo').errors?.['minlength']">
+</span> -->
       <div *ngIf="tituloInput.invalid && tituloInput.touched" class="error">
         El título es requerido.
       </div>
-      <div *ngIf="tituloInput.value.length < 15 && tituloInput.touched" class="error">
+      <div
+        *ngIf="tituloInput.value.length < 15 && tituloInput.touched"
+        class="error"
+      >
         El texto debe tener al menos 15 caracteres.
       </div>
-      <div *ngIf="tituloInput.value.length > 30 && tituloInput.touched" class="error">
+      <div
+        *ngIf="tituloInput.value.length > 30 && tituloInput.touched"
+        class="error"
+      >
         El título no puede tener más de 30 caracteres.
       </div>
-      <div *ngIf="!isValidTitle(nuevosTerminos.titulo) && tituloInput.touched" class="error">
+      <div
+        *ngIf="!isValidTitle(nuevosTerminos.titulo) && tituloInput.touched"
+        class="error"
+      >
         El título solo debe contener letras y espacios.
       </div>
     </div>
@@ -41,24 +54,35 @@
         required
         minlength="30"
         #contenidoInput="ngModel"
+        minlength="25"
+        maxlength="300"
         placeholder="Ingresa el contenido de los términos"
         class="form-control textarea-control"
         rows="5"
       ></textarea>
-      <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
+      <div
+        *ngIf="contenidoInput.invalid && contenidoInput.touched"
+        class="error"
+      >
         El contenido es requerido.
       </div>
-      <div *ngIf="contenidoInput.value.length < 25 && contenidoInput.touched" class="error">
+      <div
+        *ngIf="contenidoInput.value.length < 25 && tituloInput.touched"
+        class="error"
+      >
         El contenido debe tener al menos 25 caracteres.
       </div>
-      <div *ngIf="noSpecialCharacters({ value: nuevosTerminos.contenido })?.['invalidCharacters'] && contenidoInput.touched" class="error">
+      <div
+        *ngIf="noSpecialCharacters({ value: nuevosTerminos.contenido })?.['invalidCharacters'] && contenidoInput.touched"
+        class="error"
+      >
         El contenido no debe contener caracteres < o >.
       </div>
     </div>
 
     <!-- Campo para la Vigencia -->
     <div class="form-group">
-      <label for="fechaVigencia">Vigencia</label>
+      <label for="fechaVigencia">fecha de Vencimiento</label>
       <input
         type="date"
         id="fechaVigencia"
@@ -69,7 +93,7 @@
         class="form-control"
       />
       <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
-        La vigencia es requerida.
+        La fecha de vencimiento es requerida.
       </div>
     </div>
 
@@ -77,11 +101,7 @@
     <button
       type="submit"
       class="btn btn-primary"
-      [disabled]="terminosForm.invalid ||
-                 tituloInput.errors?.['minlength'] ||
-                 tituloInput.errors?.['maxlength'] ||
-                 !isValidTitle(nuevosTerminos.titulo) ||
-                 noSpecialCharacters({ value: nuevosTerminos.contenido })?.['invalidCharacters']"
+      [disabled]="terminosForm.invalid || !isValidTitle(nuevosTerminos.titulo) || noSpecialCharacters({ value: nuevosTerminos.contenido })?.['invalidCharacters']"
     >
       Registrar Términos y Condiciones
     </button>

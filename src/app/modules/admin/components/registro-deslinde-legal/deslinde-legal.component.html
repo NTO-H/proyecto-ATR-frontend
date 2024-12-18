@@ -1,0 +1,63 @@
+<div class="form-container">
+  <h2 class="form-title">Registrar Nuevo Deslinde Legal</h2>
+  <form #formDeslinde="ngForm" (ngSubmit)="onSubmit(formDeslinde)">
+    <!-- Título -->
+    <div class="form-group">
+      <label for="titulo">Título:</label>
+      <input
+        class="form-control"
+        type="text"
+        maxlength="30"
+        minlength="5"
+        name="titulo"
+        [(ngModel)]="nuevoDeslindeLegal.titulo"
+        required
+      />
+      <div *ngIf="!isValidTitleLength(nuevoDeslindeLegal.titulo) && nuevoDeslindeLegal.titulo.length > 0" class="error">
+        El título debe tener entre 5 y 30 caracteres.
+      </div>
+      <div *ngIf="!isValidTitleCharacters(nuevoDeslindeLegal.titulo) && nuevoDeslindeLegal.titulo.length > 0" class="error">
+        El título no debe contener caracteres especiales.
+      </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="form-group">
+      <label for="contenido">Contenido:</label>
+      <textarea
+        class="form-control textarea-control"
+        minlength="30"
+        maxlength="300"
+        placeholder="Ingrese el contenido del deslinde legal"
+        name="contenido"
+        [(ngModel)]="nuevoDeslindeLegal.contenido"
+        required
+      ></textarea>
+      <div *ngIf="!isValidContentLength(nuevoDeslindeLegal.contenido) && nuevoDeslindeLegal.contenido.length > 0" class="error">
+        El contenido debe tener entre 30 y 300 caracteres.
+      </div>
+      <div *ngIf="!isValidContentCharacters(nuevoDeslindeLegal.contenido) && nuevoDeslindeLegal.contenido.length > 0" class="error">
+        El contenido no debe contener caracteres especiales.
+      </div>
+    </div>
+
+    <!-- Fecha de Vigencia -->
+    <div class="form-group">
+      <label for="fechaVigencia">Fecha de Vigencia:</label>
+      <input
+        class="form-control"
+        type="date"
+        name="fechaVigencia"
+        [(ngModel)]="nuevoDeslindeLegal.fechaVigencia"
+        #vigenciaInput="ngModel"
+        required
+      />
+      <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
+        La fecha de vigencia es requerida.
+      </div>
+    </div>
+
+    <!-- Botón de Envío -->
+    <button type="submit" class="btn-primary">Registrar Deslinde Legal</button>
+  </form>
+</div>

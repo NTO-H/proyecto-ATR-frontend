@@ -1,4 +1,4 @@
-<p class="header-text">¡Registro de Política!</p>
+<p class="header-text">¡Registro de aPolítica!</p>
 <div class="form-container">
   <h2 class="form-title">Registrar Nueva Política</h2>
   <form (ngSubmit)="onSubmit()" #nuevaPoliticaForm="ngForm">
@@ -22,7 +22,10 @@
         <div *ngIf="tituloInput.errors?.['required']">
           El título es requerido.
         </div>
-        <div *ngIf="!isValidTitle(nuevaPolitica.titulo) && tituloInput.touched" class="error">
+        <div
+          *ngIf="!isValidTitle(nuevaPolitica.titulo) && tituloInput.touched"
+          class="error"
+        >
           El título solo debe contener letras y espacios.
         </div>
       </div>
@@ -42,14 +45,21 @@
         rows="5"
         (ngModelChange)="validateContent()"
       ></textarea>
-      <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
+      <div
+        *ngIf="contenidoInput.invalid && contenidoInput.touched"
+        class="error"
+      >
         <div *ngIf="contenidoInput.errors?.['required']">
           El contenido es requerido.
         </div>
-        <div *ngIf="noSpecialCharacters({ value: nuevaPolitica.contenido })?.['invalidCharacters'] && contenidoInput.touched">
-          El contenido no debe contener caracteres < o >.
-        </div>
+       
       </div>
+      <div
+      *ngIf="noSpecialCharacters({ value: nuevaPolitica.contenido })?.['invalidCharacters'] && contenidoInput.touched"
+      class="error"
+    >
+      El contenido no debe contener caracteres < o >.
+    </div>
     </div>
 
     <!-- Campo para la Vigencia -->

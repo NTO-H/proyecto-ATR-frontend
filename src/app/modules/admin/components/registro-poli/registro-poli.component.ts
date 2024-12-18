@@ -53,8 +53,20 @@ export class RegistroPoliComponent implements OnInit {
   }
 
   onSubmit() {
-    // Validaciones
-    // ...
+    const fechaVigencia = this.nuevaPolitica.fechaVigencia;
+    const [year, month, day] = fechaVigencia.split('-').map(Number);
+    const selectedDate = new Date(year, month - 1, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      Swal.fire(
+        'Error',
+        'La fecha de vigencia no puede ser una fecha pasada.',
+        'error'
+      );
+      return;
+    }
 
     this.controlAdministrativaService
       .registerPolitica(this.nuevaPolitica)

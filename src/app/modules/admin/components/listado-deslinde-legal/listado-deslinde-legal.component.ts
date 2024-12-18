@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-listado-deslinde-legal',
@@ -18,7 +19,7 @@ export class ListadoDeslindeLegalComponent {
     contenido: '',
     fechaVigencia: this.getCurrentDate(),
   };
-  listaDeslindeLegal: any[] = []; // Almacena la lista de términos
+  listaDeslindeLegal: any = [];
   id = '';
 
   constructor(
@@ -38,36 +39,60 @@ export class ListadoDeslindeLegalComponent {
   }
 
   cargarTerminos() {
-    this.controlAdministrativaService.obtenerDeslindeLegal().subscribe({
-      next: (response: any[]) => {
+    this.controlAdministrativaService.obtenerDeslindeLegal().subscribe(
+      (response) => {
         console.log(response);
-        this.listaDeslindeLegal = response; // Almacena la lista en `listaDeslindeLegal`
+        this.listaDeslindeLegal = response.sort(
+          (a: { version: string }, b: { version: string }) => {
+            return Number(b.version) - Number(a.version); // Convierte 'version' a número y realiza la comparación
+          }
+        );
+        console.log(this.listaDeslindeLegal);
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al cargar historial:', error);
-      },
-    });
+      }
+    );
   }
 
   editarTermino(termino: any) {
     this.deslindeLegalAEditar = { ...termino }; // Copia el término a editar
+    const fechaFormateada = new Date(this.deslindeLegalAEditar.fechaVigencia)
+      .toISOString()
+      .split('T')[0];
+    this.deslindeLegalAEditar.fechaVigencia = fechaFormateada;
     this.id = termino._id; // Guarda el ID del término para la actualización
   }
 
-  noSpecialCharacters(control: any) {
-    // Permite solo letras, números y espacios. No permite <, >, =, y otros caracteres especiales
-    const regex = /^[^<>=]*$/; // No permite los caracteres <, >, =
+  noSpecialCharacters(control: any): ValidationErrors | null {
+    // Expresión regular para validar caracteres especiales
+    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
+
+    // Si el valor está vacío, no validamos nada (otro validador lo maneja)
+    if (!control.value) {
+      return null;
+    }
+
     const valid = regex.test(control.value);
     return valid ? null : { invalidCharacters: true }; // Retorna un error si hay caracteres inválidos
   }
 
+  isValidTitle(title: string): boolean {
+    // Expresión regular para validar solo letras y espacios
+    const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(title);
+  }
+
   actualizarDeslindeLegal() {
     if (this.deslindeLegalAEditar) {
-      const selectedDate = new Date(this.deslindeLegalAEditar.fechaVigencia);
+      const fechaVigencia = this.deslindeLegalAEditar.fechaVigencia;
+      const [year, month, day] = fechaVigencia.split('-').map(Number);
+      const selectedDate = new Date(year, month - 1, day);
       const today = new Date();
-      const minimumDate = new Date();
-      minimumDate.setDate(today.getDate() + 3);
+      today.setHours(0, 0, 0, 0);
 
+      console.log(fechaVigencia);
+      console.log(today);
       if (selectedDate < today) {
         Swal.fire(
           'Error',
@@ -77,20 +102,14 @@ export class ListadoDeslindeLegalComponent {
         return;
       }
 
-      if (selectedDate < minimumDate) {
+      // Validar título y contenido antes de enviar
+      if (
+        !this.isValidTitle(this.deslindeLegalAEditar.titulo) ||
+        this.noSpecialCharacters({ value: this.deslindeLegalAEditar.contenido })
+      ) {
         Swal.fire(
           'Error',
-          'La fecha de vigencia debe ser al menos 3 días a partir de hoy.',
-          'error'
-        );
-        return;
-      }
-
-      // Validar contenido antes de enviar
-      if (this.noSpecialCharacters({ value: this.deslindeLegalAEditar.contenido })) {
-        Swal.fire(
-          'Error',
-          'El contenido no debe contener caracteres <, > o =.',
+          'El título solo debe contener letras, números y espacios. El contenido no debe contener caracteres <, > o =.',
           'error'
         );
         return;

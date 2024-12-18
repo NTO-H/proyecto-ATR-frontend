@@ -41,30 +41,22 @@ export class RegistroTerminosCondicionesComponent {
 
   isValidTitle(title: string): boolean {
     // Expresión regular para validar solo letras y espacios
-    const regex = /^(?!.*<script>)[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/;
-
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
     return regex.test(title) && title.length <= 30; // Verifica que no haya números y que tenga máximo 30 caracteres
   }
 
   onSubmit() {
-    const selectedDate = new Date(this.nuevosTerminos.fechaVigencia);
+    const fechaVigencia = this.nuevosTerminos.fechaVigencia;
+    const [year, month, day] = fechaVigencia.split('-').map(Number);
+    const selectedDate = new Date(year, month - 1, day);
+
     const today = new Date();
-    const minimumDate = new Date();
-    minimumDate.setDate(today.getDate() + 3);
+    today.setHours(0, 0, 0, 0);
 
     if (selectedDate < today) {
       Swal.fire(
         'Error',
         'La fecha de vigencia no puede ser una fecha pasada.',
-        'error'
-      );
-      return;
-    }
-
-    if (selectedDate < minimumDate) {
-      Swal.fire(
-        'Error',
-        'La fecha de vigencia debe ser al menos 3 días a partir de hoy.',
         'error'
       );
       return;
@@ -99,7 +91,6 @@ export class RegistroTerminosCondicionesComponent {
         .registerTerminosYCondiciones(this.nuevosTerminos)
         .subscribe(
           (response) => {
-            console.log('Términos registrados con éxito:', response);
             Swal.fire(
               'Términos registrados',
               'Los términos y condiciones se han registrado correctamente.',

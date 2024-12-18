@@ -1,3 +1,78 @@
+<!-- Registro de Términos y Condiciones -->
+<p class="header-text">¡Registro de Términos y Condiciones!</p>
+<div class="form-container">
+  <h2 class="form-title">Registrar Nuevos Términos y Condiciones</h2>
+  <form (ngSubmit)="onSubmit(terminosForm)" #terminosForm="ngForm">
+    <!-- Campo para el Título -->
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input
+        type="text"
+        id="titulo"
+        name="titulo"
+        [(ngModel)]="nuevosTerminos.titulo"
+        required
+        #tituloInput="ngModel"
+        placeholder="Ingresa el título de los términos"
+        class="form-control"
+      />
+      <div *ngIf="tituloInput.invalid && tituloInput.touched" class="error">
+        El título es requerido.
+      </div>
+      <div *ngIf="noSpecialCharacters({ value: nuevosTerminos.titulo })?.['invalidCharacters'] && tituloInput.touched" class="error">
+        El título no debe contener caracteres < o >.
+      </div>
+    </div>
+
+    <!-- Campo para el Contenido -->
+    <div class="form-group">
+      <label for="contenido">Contenido</label>
+      <textarea
+        id="contenido"
+        name="contenido"
+        [(ngModel)]="nuevosTerminos.contenido"
+        required
+        #contenidoInput="ngModel"
+        placeholder="Ingresa el contenido de los términos"
+        class="form-control textarea-control"
+        rows="5"
+      ></textarea>
+      <div *ngIf="contenidoInput.invalid && contenidoInput.touched" class="error">
+        El contenido es requerido.
+      </div>
+      <div *ngIf="noSpecialCharacters({ value: nuevosTerminos.contenido })?.['invalidCharacters'] && contenidoInput.touched" class="error">
+        El contenido no debe contener caracteres < o >.
+      </div>
+    </div>
+
+    <!-- Campo para la Vigencia -->
+    <div class="form-group">
+      <label for="fechaVigencia">Vigencia</label>
+      <input
+        type="date"
+        id="fechaVigencia"
+        name="fechaVigencia"
+        [(ngModel)]="nuevosTerminos.fechaVigencia"
+        required
+        #vigenciaInput="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="vigenciaInput.invalid && vigenciaInput.touched" class="error">
+        La vigencia es requerida.
+      </div>
+    </div>
+
+    <!-- Botón de Enviar -->
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="terminosForm.invalid"
+    >
+      Registrar Términos y Condiciones
+    </button>
+  </form>
+</div>
+
 <!-- Registro de Deslinde Legal -->
 <p class="header-text">¡Registro de Deslinde Legal!</p>
 <div class="form-container">

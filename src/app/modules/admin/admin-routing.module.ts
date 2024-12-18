@@ -22,7 +22,7 @@ import { AjustesGeneralesComponent } from './components/ajustes-generales/ajuste
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 import { HistorialPoliticasComponent } from './components/historial-politicas/historial-politicas.component';
 import { DocumentosLegalesComponent } from './components/documentos-legales/documentos-legales.component';
-import { DeslindeLegalComponent } from './components/deslinde-legal/deslinde-legal.component';
+import { DeslindeLegalComponent } from './components/registro-deslinde-legal/deslinde-legal.component';
 import { PerfilEmpresaComponent } from './components/perfil-empresa/perfil-empresa.component';
 import { RegistroTerminosCondicionesComponent } from './components/registro-terminos-condiciones/registro-terminos-condiciones.component';
 import { ListadoTerminosCondicionesComponent } from './components/listado-terminos-condiciones/listado-terminos-condiciones.component';

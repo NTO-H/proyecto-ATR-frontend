@@ -12,6 +12,12 @@
         placeholder="Ingresa el título del término"
         class="form-control"
       />
+      <div class="error">
+        <div *ngIf="!isValidTitle(terminoAEditar.titulo)" class="error">
+          El título debe tener entre 5 y 100 caracteres y solo debe contener
+          letras, números y espacios.
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -24,17 +30,26 @@
         placeholder="Ingresa el contenido del término"
         class="form-control"
       ></textarea>
+      <div class="error">
+        <div *ngIf="!isValidContent(terminoAEditar.contenido)" class="error">
+          El contenido debe tener entre 20 y 500 caracteres.
+        </div>
+        <div
+          *ngIf="noSpecialCharacters({ value: terminoAEditar.contenido })?.['invalidCharacters']"
+          class="error"
+        >
+          El contenido no debe contener caracteres < o >.
+        </div>
+      </div>
     </div>
-    <!-- Campo para la Vigencia -->
+
     <div class="form-group">
       <label for="fechaVigencia">Vigencia</label>
-
       <input
         type="date"
         id="fechaVigencia"
         name="fechaVigencia"
         [(ngModel)]="terminoAEditar.fechaVigencia"
-        [ngModel]="terminoAEditar.fechaVigencia || getCurrentDate()"
         required
         #vigenciaInput="ngModel"
         class="form-control"
@@ -57,28 +72,28 @@
   </form>
 </div>
 
-<!-- Tabla del Historial de Términos y Condiciones -->
 <div class="table-responsive">
+  <div>
+    <h2>Nuestras Políticas</h2>
+  </div>
   <table class="terminos-table">
     <thead>
       <tr>
-        <th>Versión</th>
         <th>Título</th>
         <th>Contenido</th>
         <th>Fecha de Creación</th>
-        <th>Fecha de Vigencia</th>
+        <th>Fecha de Vencimiento</th>
         <th>Estado</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let termino of historialTerminos">
-        <td>{{ termino?.version }}</td>
-        <td>{{ termino?.titulo }}</td>
-        <td>{{ termino?.contenido }}</td>
-        <td>{{ termino?.fechaCreacion | date : "short" }}</td>
-        <td>{{ termino?.fechaVigencia | date : "short" }}</td>
-        <td>{{ termino?.estado }}</td>
+        <td>{{ termino.titulo }}</td>
+        <td>{{ termino.contenido }}</td>
+        <td>{{ termino.fechaCreacion | date : "dd/MM/yyyy" : "+0000" }}</td>
+        <td>{{ termino.fechaVigencia | date : "dd/MM/yyyy" : "+0000" }}</td>
+        <td>{{ termino.estado }}</td>
         <td>
           <button (click)="editarTermino(termino)" class="btn btn-edit">
             Editar
@@ -89,8 +104,8 @@
           >
             Eliminar
           </button>
-          <button (click)="verHistorial(termino._id)" class="btn btn-secondary">
-            Ver Versiones
+          <button (click)="verHistorial(termino._id)" class="btn btn-history">
+            Ver Historial
           </button>
         </td>
       </tr>
